@@ -22,7 +22,7 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         maxDuration: Int,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<Item, RepositoryError>) -> Void
+        _ completion: @escaping (Result<VideoPage, RepositoryError>) -> Void
     ) {
         let target: PexelsVideoServiceTarget = .popularVideos(
             minWidth: minWidth,
@@ -35,7 +35,8 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         
         provider.load(target) { response in
             response.onComplete { data in
-                completion(.success(data))
+                let videoPage = data.toVideoPage()
+                completion(.success(videoPage))
             }
         }
     }
@@ -46,7 +47,7 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         size: ContentSize,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<Item, RepositoryError>) -> Void
+        _ completion: @escaping (Result<VideoPage, RepositoryError>) -> Void
     ) {
         let target: PexelsVideoServiceTarget = .searchVideos(
             query: query,
@@ -58,7 +59,8 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         
         provider.load(target) { response in
             response.onComplete { data in
-                completion(.success(data))
+                let videoPage = data.toVideoPage()
+                completion(.success(videoPage))
             }
         }
     }

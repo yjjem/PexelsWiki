@@ -26,6 +26,9 @@
 		DFA4914A2A3AD54A008BC5C4 /* PexelsVideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491492A3AD54A008BC5C4 /* PexelsVideoRepository.swift */; };
 		DFA4914D2A3AD8EE008BC5C4 /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4914C2A3AD8EE008BC5C4 /* RepositoryError.swift */; };
 		DFA491502A3AD910008BC5C4 /* PexelsVideoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4914F2A3AD910008BC5C4 /* PexelsVideoRepositoryInterface.swift */; };
+		DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491542A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift */; };
+		DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491562A3AF270008BC5C4 /* VideoPage.swift */; };
+		DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491592A3AF2F7008BC5C4 /* Response + model mapping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,9 @@
 		DFA491492A3AD54A008BC5C4 /* PexelsVideoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsVideoRepository.swift; sourceTree = "<group>"; };
 		DFA4914C2A3AD8EE008BC5C4 /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
 		DFA4914F2A3AD910008BC5C4 /* PexelsVideoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsVideoRepositoryInterface.swift; sourceTree = "<group>"; };
+		DFA491542A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedVideoListResponse.swift; sourceTree = "<group>"; };
+		DFA491562A3AF270008BC5C4 /* VideoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPage.swift; sourceTree = "<group>"; };
+		DFA491592A3AF2F7008BC5C4 /* Response + model mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response + model mapping.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA491372A3AB787008BC5C4 /* ContentDetails.swift */,
+				DFA491562A3AF270008BC5C4 /* VideoPage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,8 +176,9 @@
 		DFA4913A2A3AB7AB008BC5C4 /* ServiceTarget */ = {
 			isa = PBXGroup;
 			children = (
-				DFA4913B2A3AB7B7008BC5C4 /* PexelsVideoServiceTarget.swift */,
+				DFA491582A3AF2E5008BC5C4 /* Response */,
 				DFA491422A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift */,
+				DFA4913B2A3AB7B7008BC5C4 /* PexelsVideoServiceTarget.swift */,
 			);
 			path = ServiceTarget;
 			sourceTree = "<group>";
@@ -208,6 +216,15 @@
 				DFA491342A3AB73C008BC5C4 /* URLRequest + parameters.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DFA491582A3AF2E5008BC5C4 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				DFA491542A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift */,
+				DFA491592A3AF2F7008BC5C4 /* Response + model mapping.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,11 +303,14 @@
 				DFA4914A2A3AD54A008BC5C4 /* PexelsVideoRepository.swift in Sources */,
 				DFA491402A3AC8D3008BC5C4 /* Data + DecodeResult.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
+				DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */,
 				DFA491462A3AD168008BC5C4 /* Result + Better Mapping.swift in Sources */,
 				DFA491432A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* ViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */,
+				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
+				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
 				DFA4914D2A3AD8EE008BC5C4 /* RepositoryError.swift in Sources */,
 				DFA491352A3AB73C008BC5C4 /* URLRequest + parameters.swift in Sources */,
 				DFA491332A3AB6E4008BC5C4 /* Requestable.swift in Sources */,
