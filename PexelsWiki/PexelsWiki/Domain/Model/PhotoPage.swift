@@ -1,12 +1,12 @@
 //
-//  VideoPage.swift
+//  PhotoPage.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-struct VideoPage: Hashable {
+struct PhotoPage {
     let page: Int
     let hasNext: Bool
-    let videos: [VideoResource]
+    let photos: [PhotoResource]
 }
