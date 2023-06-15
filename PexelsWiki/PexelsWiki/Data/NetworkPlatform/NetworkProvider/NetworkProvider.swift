@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Item: Decodable {
-
-}
-
 protocol Networkable {
 
     func load<Target: Requestable>(

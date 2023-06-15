@@ -22,7 +22,7 @@ enum PexelsPhotoServiceTarget {
 }
 
 extension PexelsPhotoServiceTarget: Requestable {
-    typealias Response = Item
+    typealias Response = WrappedPhotoListResponse
     
     var baseURL: URL { return URL(string: "https://api.pexels.com")! }
     
