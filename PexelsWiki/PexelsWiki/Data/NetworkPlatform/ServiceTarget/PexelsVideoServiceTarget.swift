@@ -26,7 +26,7 @@ enum PexelsVideoServiceTarget {
 }
 
 extension PexelsVideoServiceTarget: Requestable {
-    typealias Response = Item
+    typealias Response = WrappedVideoListResponse
     
     var baseURL: URL { return URL(string: "https://api.pexels.com")! }
     
