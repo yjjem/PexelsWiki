@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2B62A3C681F000DD223 /* PexelsPhotoRepository.swift */; };
 		DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */; };
+		DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */; };
 		DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */; };
 		DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */; };
 		DFA491162A3A1F76008BC5C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		DF3FC2B62A3C681F000DD223 /* PexelsPhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoRepository.swift; sourceTree = "<group>"; };
 		DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoRepositoryInterface.swift; sourceTree = "<group>"; };
+		DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DFA4910E2A3A1F76008BC5C4 /* PexelsWiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsWiki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF3FC2BA2A3D6A15000DD223 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		DFA491052A3A1F76008BC5C4 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 		DFA491282A3A2077008BC5C4 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				DF3FC2BA2A3D6A15000DD223 /* Coordinator */,
 				DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */,
 				DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */,
 			);
@@ -331,6 +342,7 @@
 				DFA4913E2A3AC8B4008BC5C4 /* HTTPURLResponse + validation.swift in Sources */,
 				DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
+				DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */,
 				DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */,
 				DFA4915C2A3AF5A8008BC5C4 /* WrappedPhotoListResponse.swift in Sources */,
 			);
