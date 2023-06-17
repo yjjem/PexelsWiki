@@ -17,13 +17,12 @@ final class SceneDelegate: UIResponder {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
-        let rootViewController = ViewController()
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = rootViewController
-        window.makeKeyAndVisible()
-        
         self.window = window
+        
+        let appCoordinator = AppCoordinator(window: window)
+        appCoordinator.start()
     }
 }
 
