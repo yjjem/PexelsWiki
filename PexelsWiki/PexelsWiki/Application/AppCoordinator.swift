@@ -27,7 +27,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func showTabBarFlow() {
-        window.rootViewController = ViewController()
+        window.rootViewController = HomeViewController()
         window.makeKeyAndVisible()
     }
 }

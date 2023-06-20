@@ -13,7 +13,7 @@
 		DF3FC2BE2A3DA089000DD223 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BD2A3DA089000DD223 /* AppCoordinator.swift */; };
 		DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */; };
 		DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */; };
-		DFA491162A3A1F76008BC5C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* ViewController.swift */; };
+		DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */; };
 		DFA4911B2A3A1F77008BC5C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA4911A2A3A1F77008BC5C4 /* Assets.xcassets */; };
 		DFA4911E2A3A1F77008BC5C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA4911C2A3A1F77008BC5C4 /* LaunchScreen.storyboard */; };
 		DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4912D2A3A26DD008BC5C4 /* NetworkProvider.swift */; };
@@ -45,7 +45,7 @@
 		DFA4910E2A3A1F76008BC5C4 /* PexelsWiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsWiki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DFA491152A3A1F76008BC5C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DFA4911A2A3A1F77008BC5C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFA4911D2A3A1F77008BC5C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFA4911F2A3A1F77008BC5C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		DFA491252A3A2065008BC5C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DFA491152A3A1F76008BC5C4 /* ViewController.swift */,
+				DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 				DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */,
 				DFA491462A3AD168008BC5C4 /* Result + Better Mapping.swift in Sources */,
 				DFA491432A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift in Sources */,
-				DFA491162A3A1F76008BC5C4 /* ViewController.swift in Sources */,
+				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */,
 				DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */,
