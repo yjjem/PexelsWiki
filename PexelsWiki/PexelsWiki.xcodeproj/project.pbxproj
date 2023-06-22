@@ -38,6 +38,7 @@
 		DFD792882A41BA8200729C2F /* LabeledImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792872A41BA8200729C2F /* LabeledImageView.swift */; };
 		DFD7928E2A42010500729C2F /* HomeContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7928D2A42010500729C2F /* HomeContentCell.swift */; };
 		DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */; };
+		DFD792962A44705C00729C2F /* PexelsPhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792952A44705C00729C2F /* PexelsPhotoUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		DFD792872A41BA8200729C2F /* LabeledImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledImageView.swift; sourceTree = "<group>"; };
 		DFD7928D2A42010500729C2F /* HomeContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentCell.swift; sourceTree = "<group>"; };
 		DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentCellViewModel.swift; sourceTree = "<group>"; };
+		DFD792952A44705C00729C2F /* PexelsPhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 		DFA491262A3A206A008BC5C4 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				DFD792942A44703500729C2F /* UseCase */,
 				DFA4914E2A3AD903008BC5C4 /* RepositoryInterfaces */,
 				DFA491362A3AB76E008BC5C4 /* Model */,
 			);
@@ -262,6 +265,14 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		DFD792942A44703500729C2F /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				DFD792952A44705C00729C2F /* PexelsPhotoUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -341,6 +352,7 @@
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
 				DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */,
 				DFA491462A3AD168008BC5C4 /* Result + Better Mapping.swift in Sources */,
+				DFD792962A44705C00729C2F /* PexelsPhotoUseCase.swift in Sources */,
 				DFA491432A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
