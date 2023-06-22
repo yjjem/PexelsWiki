@@ -37,6 +37,7 @@
 		DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4915D2A3AF7AF008BC5C4 /* PhotoPage.swift */; };
 		DFD792882A41BA8200729C2F /* LabeledImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792872A41BA8200729C2F /* LabeledImageView.swift */; };
 		DFD7928E2A42010500729C2F /* HomeContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7928D2A42010500729C2F /* HomeContentCell.swift */; };
+		DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		DFA4915D2A3AF7AF008BC5C4 /* PhotoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPage.swift; sourceTree = "<group>"; };
 		DFD792872A41BA8200729C2F /* LabeledImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledImageView.swift; sourceTree = "<group>"; };
 		DFD7928D2A42010500729C2F /* HomeContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentCell.swift; sourceTree = "<group>"; };
+		DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			children = (
 				DFD792872A41BA8200729C2F /* LabeledImageView.swift */,
 				DFD7928D2A42010500729C2F /* HomeContentCell.swift */,
+				DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */,
 				DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */,
 			);
 			path = Presentation;
@@ -347,6 +350,7 @@
 				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
 				DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */,
 				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
+				DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */,
 				DFA4914D2A3AD8EE008BC5C4 /* RepositoryError.swift in Sources */,
 				DFA491352A3AB73C008BC5C4 /* URLRequest + parameters.swift in Sources */,
 				DFA491332A3AB6E4008BC5C4 /* Requestable.swift in Sources */,

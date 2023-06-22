@@ -9,7 +9,7 @@ import UIKit
 
 final class HomeContentCell: UICollectionViewCell {
     
-    private let labeledImageView: UIImageView = {
+    private let labeledImageView: LabeledImageView = {
         let imageView = LabeledImageView()
         imageView.backgroundColor = .systemRed
         return imageView
@@ -23,6 +23,13 @@ final class HomeContentCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(using viewModel: HomeContentCellViewModel) {
+        
+        // TODO: Add Image Cache
+        
+        labeledImageView.add(userName: viewModel.userName)
     }
     
     private func configureViews() {

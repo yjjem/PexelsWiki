@@ -65,7 +65,13 @@ final class HomeViewController: UIViewController {
         
         let registration = ContentCellRegistration { cell, indexPath, photoResource in
             
-            // TODO: Configure Cell
+            let viewModel = HomeContentCellViewModel(
+                userName: photoResource.photographer,
+                userProfileURL: photoResource.photographerURL,
+                imageURL: photoResource.url
+            )
+            
+            cell.configure(using: viewModel)
             
         }
         
