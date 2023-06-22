@@ -15,7 +15,7 @@ struct WrappedPhotoListResponse: Decodable {
     let nextPage: String?
 }
 
-struct PhotoResource: Decodable {
+struct PhotoResource: Hashable, Decodable {
     let id: Int
     let width: Int
     let height: Int
