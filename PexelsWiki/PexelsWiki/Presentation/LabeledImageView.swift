@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class UserInfoView: UIView {
+final class LabeledImageView: UIImageView {
     
     private let userIconView: UIImageView = {
         let defaultUserImage = UIImage(systemName: "person.fill")
@@ -35,14 +35,9 @@ final class UserInfoView: UIView {
         return stack
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    convenience init() {
+        self.init(frame: .zero)
         configureView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func add(userName: String) {
@@ -50,16 +45,16 @@ final class UserInfoView: UIView {
     }
     
     func configureView() {
-        addSubview(informationStackView)
         informationStackView.addArrangedSubview(userIconView)
         informationStackView.addArrangedSubview(userNameLabel)
+        addSubview(informationStackView)
         
         informationStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            informationStackView.topAnchor.constraint(equalTo: topAnchor),
             informationStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             informationStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            informationStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            informationStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            informationStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ])
     }
 }
