@@ -136,11 +136,8 @@
 		DFA491252A3A2065008BC5C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DFD792872A41BA8200729C2F /* UserInfoView.swift */,
-				DFD7928D2A42010500729C2F /* HomeContentCell.swift */,
-				DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */,
-				DFD7929B2A448AF400729C2F /* HomeViewModel.swift */,
-				DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */,
+				DFD792A62A45AB1F00729C2F /* Common */,
+				DFD792A52A45AB1300729C2F /* Home */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -282,6 +279,25 @@
 				DFD792952A44705C00729C2F /* PexelsPhotoUseCase.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		DFD792A52A45AB1300729C2F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DFD7929B2A448AF400729C2F /* HomeViewModel.swift */,
+				DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */,
+				DFD7928D2A42010500729C2F /* HomeContentCell.swift */,
+				DFD792922A4468FD00729C2F /* HomeContentCellViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DFD792A62A45AB1F00729C2F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DFD792872A41BA8200729C2F /* UserInfoView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
