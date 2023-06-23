@@ -27,7 +27,14 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func showTabBarFlow() {
-        window.rootViewController = HomeViewController()
+        let provider = DefaultNetworkProvider()
+        let repository = PexelsPhotoRepository(provider: provider)
+        let useCase = PexelsPhotoUseCase(repository: repository)
+        let viewModel = HomeViewModel(useCase: useCase)
+        let homeView = HomeViewController()
+        homeView.viewModel = viewModel
+        
+        window.rootViewController = homeView
         window.makeKeyAndVisible()
     }
 }

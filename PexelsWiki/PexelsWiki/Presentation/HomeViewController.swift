@@ -28,12 +28,24 @@ final class HomeViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot?
     
+    var viewModel: HomeViewModel?
+    
     override func loadView() {
         super.loadView()
         
         configureView()
         addContentCollectionView()
         configureContentCollectionView()
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        guard let viewModel else { return }
+        
+        viewModel.loadCuratedPhotosPage()
+        viewModel.loadedCuratedPhotos = { [weak self] curatedPhotos in
+            self?.applySnapShot(with: curatedPhotos)
+        }
     }
     
     private func configureView() {
@@ -65,14 +77,15 @@ final class HomeViewController: UIViewController {
         
         let registration = ContentCellRegistration { cell, indexPath, photoResource in
             
+            let imageURL = photoResource.url["portrait"]!
+            
             let viewModel = HomeContentCellViewModel(
                 userName: photoResource.photographer,
                 userProfileURL: photoResource.photographerURL,
-                imageURL: photoResource.url
+                imageURL: imageURL
             )
             
             cell.configure(using: viewModel)
-            
         }
         
         return registration
@@ -113,7 +126,7 @@ final class HomeViewController: UIViewController {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(4/3)
+            heightDimension: .fractionalWidth(5/3)
         )
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         

@@ -14,6 +14,6 @@ extension HTTPURLResponse {
     }
     
     func codeIsNot(_ code: Int) -> Bool {
-        return self.statusCode != code
+        return self.statusCode == code
     }
 }

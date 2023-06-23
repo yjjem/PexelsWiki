@@ -53,7 +53,7 @@ extension PexelsPhotoServiceTarget: Requestable {
     
     var headers: [String: String] {
         return [
-            "Authentication": "key"
+            "Authorization": MainBundle.apiKey
         ]
     }
     

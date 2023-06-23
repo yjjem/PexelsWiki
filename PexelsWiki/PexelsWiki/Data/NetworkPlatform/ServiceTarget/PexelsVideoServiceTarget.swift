@@ -61,7 +61,7 @@ extension PexelsVideoServiceTarget: Requestable {
     
     var headers: [String: String] {
         return [
-            "Authentication": "key"
+            "Authorization": MainBundle.apiKey
         ]
     }
     

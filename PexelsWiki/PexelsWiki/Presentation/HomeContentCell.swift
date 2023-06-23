@@ -11,7 +11,6 @@ final class HomeContentCell: UICollectionViewCell {
     
     private let labeledImageView: LabeledImageView = {
         let imageView = LabeledImageView()
-        imageView.backgroundColor = .systemRed
         return imageView
     }()
     
@@ -28,7 +27,8 @@ final class HomeContentCell: UICollectionViewCell {
     func configure(using viewModel: HomeContentCellViewModel) {
         
         // TODO: Add Image Cache
-        
+        guard let url = URL(string: viewModel.imageURL) else { return }
+        labeledImageView.load(url: url)
         labeledImageView.add(userName: viewModel.userName)
     }
     
@@ -43,5 +43,19 @@ final class HomeContentCell: UICollectionViewCell {
             labeledImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             labeledImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9)
         ])
+    }
+}
+extension UIImageView {
+    
+    func load(url: URL) {
+        
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: url) else { return }
+            if let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = image
+                }
+            }
+        }
     }
 }
