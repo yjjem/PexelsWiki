@@ -11,7 +11,7 @@ final class HomeViewController: UIViewController {
     
     typealias ContentCellRegistration = UICollectionView.CellRegistration<HomeContentCell, PhotoResource>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, PhotoResource>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, PhotoResource>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<PhotoResource>
     
     enum Section {
         case main
@@ -26,7 +26,7 @@ final class HomeViewController: UIViewController {
     }()
     
     private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot?
+    private var snapShot: SnapShot = SnapShot()
     
     var viewModel: HomeViewModel?
     
@@ -70,6 +70,7 @@ final class HomeViewController: UIViewController {
         let contentCollectionViewLayout = makeContentCollectionViewLayout()
         diffableDataSource = makeDataSource()
         contentCollectionView.dataSource = diffableDataSource
+        contentCollectionView.delegate = self
         contentCollectionView.setCollectionViewLayout(contentCollectionViewLayout, animated: false)
     }
     
@@ -109,11 +110,8 @@ final class HomeViewController: UIViewController {
     }
     
     private func applySnapShot(with resources: [PhotoResource]) {
-        
-        var snapShot = SnapShot()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(resources)
-        diffableDataSource?.apply(snapShot)
+        snapShot.append(resources)
+        diffableDataSource?.apply(snapShot, to: .main)
     }
     
     private func makeContentCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -139,3 +137,14 @@ final class HomeViewController: UIViewController {
     }
 }
 
+extension HomeViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let paginationPoint = scrollView.contentSize.height - scrollView.bounds.height
+        let offset = scrollView.contentOffset.y
+
+        if paginationPoint < offset {
+            viewModel?.loadNextPage()
+        }
+    }
+}

@@ -14,6 +14,7 @@ final class HomeViewModel {
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
+    private var isLoading: Bool = false
     
     private let useCase: PexelsPhotoUseCaseInterface
     
@@ -27,13 +28,17 @@ final class HomeViewModel {
                 self?.page = photoPage.page + 1
                 self?.hasNext = photoPage.hasNext
                 self?.loadedCuratedPhotos?(photoPage.photos)
+                self?.isLoading = false
             }
         }
     }
     
     func loadNextPage() {
+        guard isLoading == false else { return }
+        
         if hasNext {
             page += 1
+            isLoading = true
             loadCuratedPhotosPage()
         }
     }
