@@ -47,5 +47,6 @@ final class HomeViewModel {
         page = 1
         pageSize = .small
         hasNext = false
+        loadCuratedPhotosPage()
     }
 }

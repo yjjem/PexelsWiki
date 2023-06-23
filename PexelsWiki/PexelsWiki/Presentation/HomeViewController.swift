@@ -72,6 +72,7 @@ final class HomeViewController: UIViewController {
         contentCollectionView.dataSource = diffableDataSource
         contentCollectionView.delegate = self
         contentCollectionView.setCollectionViewLayout(contentCollectionViewLayout, animated: false)
+        contentCollectionView.refreshControl = makeCollectionViewRefreshControl()
     }
     
     private func makeContentCellRegistration() -> ContentCellRegistration {
@@ -109,6 +110,10 @@ final class HomeViewController: UIViewController {
         return diffableDataSource
     }
     
+    private func resetSnapShot() {
+        snapShot.deleteAll()
+    }
+    
     private func applySnapShot(with resources: [PhotoResource]) {
         snapShot.append(resources)
         diffableDataSource?.apply(snapShot, to: .main)
@@ -134,6 +139,21 @@ final class HomeViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
+    }
+    
+    private func makeCollectionViewRefreshControl() -> UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: .valueChanged)
+        return refreshControl
+    }
+    
+    @objc
+    private func didRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.resetSnapShot()
+            self.viewModel?.resetPage()
+            self.contentCollectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
