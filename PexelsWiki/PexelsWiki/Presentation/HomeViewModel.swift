@@ -31,6 +31,13 @@ final class HomeViewModel {
         }
     }
     
+    func loadNextPage() {
+        if hasNext {
+            page += 1
+            loadCuratedPhotosPage()
+        }
+    }
+    
     func resetPage() {
         page = 1
         pageSize = .small
