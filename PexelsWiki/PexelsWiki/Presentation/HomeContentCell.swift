@@ -9,9 +9,14 @@ import UIKit
 
 final class HomeContentCell: UICollectionViewCell {
     
-    private let labeledImageView: LabeledImageView = {
-        let imageView = LabeledImageView()
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
         return imageView
+    }()
+    
+    private let userInfoView: UserInfoView = {
+        let userInfoView = UserInfoView()
+        return userInfoView
     }()
     
     override init(frame: CGRect) {
@@ -28,25 +33,34 @@ final class HomeContentCell: UICollectionViewCell {
         
         // TODO: Add Image Cache
         guard let url = URL(string: viewModel.imageURL) else { return }
-        labeledImageView.load(url: url)
-        labeledImageView.add(userName: viewModel.userName)
+        imageView.load(url: url)
+        userInfoView.add(userName: viewModel.userName)
     }
     
     private func configureViews() {
         
-        contentView.addSubview(labeledImageView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(userInfoView)
         
-        labeledImageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            labeledImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            labeledImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            labeledImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            labeledImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95)
+        ])
+        
+        userInfoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userInfoView.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            userInfoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            userInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            userInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
+
 extension UIImageView {
-    
     func load(url: URL) {
         
         DispatchQueue.global().async {
