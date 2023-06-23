@@ -15,7 +15,7 @@ protocol AppCoordinatorProtocol: Coordinator {
 
 final class AppCoordinator: AppCoordinatorProtocol {
     
-    var childCoordiantors: [Coordinator] = []
+    var childCoordinators: [Coordinator] = []
     var window: UIWindow
     
     init(window: UIWindow) {
@@ -27,14 +27,26 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func showTabBarFlow() {
+        
+        let homeTabBarItem = UITabBarItem(title: "Home", image: .init(systemName: "house"), tag: 0)
+        
         let provider = DefaultNetworkProvider()
         let repository = PexelsPhotoRepository(provider: provider)
         let useCase = PexelsPhotoUseCase(repository: repository)
         let viewModel = HomeViewModel(useCase: useCase)
-        let homeView = HomeViewController()
-        homeView.viewModel = viewModel
         
-        window.rootViewController = homeView
+        let homeView = HomeViewController()
+        homeView.title = "Curated Photos"
+        homeView.viewModel = viewModel
+        homeView.tabBarItem = homeTabBarItem
+        
+        let homeNavigation = UINavigationController(rootViewController: homeView)
+        homeNavigation.navigationBar.prefersLargeTitles = true
+        
+        let tabBar = UITabBarController()
+        tabBar.viewControllers = [homeNavigation]
+        
+        window.rootViewController = tabBar
         window.makeKeyAndVisible()
     }
 }
