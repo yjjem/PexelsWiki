@@ -20,6 +20,8 @@ final class PexelsSearchViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    var viewModel: PexelsSearchViewModel?
+    
     private let searchController: UISearchController = {
         let search = UISearchController()
         return search
@@ -37,11 +39,12 @@ final class PexelsSearchViewController: UIViewController {
         configureNavigationItem()
         configureSearchController()
         configureCategoryCollectionView()
-        
-        let viewModel = PexelsSearchViewModel()
-        var snapshot = NSDiffableDataSourceSectionSnapshot<Category>()
-        snapshot.append(viewModel.categoryItems)
-        diffableDataSource?.apply(snapshot, to: .category)
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        guard let viewModel else { return }
+        updateSnapShot(with: viewModel.categoryItems)
     }
     
     private func configureView() {
@@ -52,7 +55,6 @@ final class PexelsSearchViewController: UIViewController {
         let searchBar = searchController.searchBar
         searchBar.placeholder = "Search Pexels Content"
         searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
-        searchBar.showsScopeBar = true
     }
     
     private func configureNavigationItem() {
@@ -66,6 +68,11 @@ final class PexelsSearchViewController: UIViewController {
         addCategoryCollectionView()
         categoryCollectionView.dataSource = diffableDataSource
         categoryCollectionView.setCollectionViewLayout(twoColumnGridLayout, animated: false)
+    }
+    
+    private func updateSnapShot(with categoryList: [Category]) {
+        snapShot.append(categoryList)
+        diffableDataSource?.apply(snapShot, to: .category)
     }
     
     private func addCategoryCollectionView() {
@@ -128,12 +135,25 @@ final class PexelsSearchViewController: UIViewController {
 }
 
 extension PexelsSearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = false
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        viewModel?.searchQuery = searchText
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        
+        if selectedScope == 1 {
+            viewModel?.searchContentType = .video
+        } else {
+            viewModel?.searchContentType = .image
+        }
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

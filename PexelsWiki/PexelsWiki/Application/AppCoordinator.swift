@@ -53,9 +53,11 @@ final class AppCoordinator: AppCoordinatorProtocol {
             tag: 1
         )
         
+        let searchViewModel = PexelsSearchViewModel()
         let searchView = PexelsSearchViewController()
         searchView.title = "Pexels Search"
         searchView.tabBarItem = searchTabBarItem
+        searchView.viewModel = searchViewModel
         let searchNavigation = UINavigationController(rootViewController: searchView)
         searchNavigation.navigationBar.prefersLargeTitles = true
         
