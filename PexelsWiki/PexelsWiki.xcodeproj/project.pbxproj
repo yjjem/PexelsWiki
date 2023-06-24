@@ -42,10 +42,10 @@
 		DFD7929C2A448AF400729C2F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7929B2A448AF400729C2F /* HomeViewModel.swift */; };
 		DFD7929E2A44A05F00729C2F /* PageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7929D2A44A05F00729C2F /* PageSize.swift */; };
 		DFD792A22A456B5500729C2F /* MainBundle + APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792A12A456B5500729C2F /* MainBundle + APIKey.swift */; };
-		DFD792A92A45B42E00729C2F /* PexelsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792A82A45B42E00729C2F /* PexelsSearchViewController.swift */; };
+		DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792A82A45B42E00729C2F /* SearchNavigatorViewController.swift */; };
 		DFD792AB2A45CA3000729C2F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792AA2A45CA3000729C2F /* Category.swift */; };
 		DFD792AD2A46818700729C2F /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792AC2A46818700729C2F /* CategoryCell.swift */; };
-		DFD792AF2A4687C000729C2F /* PexelsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792AE2A4687C000729C2F /* PexelsSearchViewModel.swift */; };
+		DFD792AF2A4687C000729C2F /* SearchNavigatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792AE2A4687C000729C2F /* SearchNavigatorViewModel.swift */; };
 		DFD792B12A46A8AC00729C2F /* PexelsPhotoSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792B02A46A8AC00729C2F /* PexelsPhotoSearchUseCase.swift */; };
 		DFD792B32A46A9F600729C2F /* PexelsVideoSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792B22A46A9F600729C2F /* PexelsVideoSearchUseCase.swift */; };
 		DFD792B52A46B77600729C2F /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792B42A46B77600729C2F /* ContentType.swift */; };
@@ -90,10 +90,10 @@
 		DFD7929D2A44A05F00729C2F /* PageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSize.swift; sourceTree = "<group>"; };
 		DFD7929F2A456AA500729C2F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DFD792A12A456B5500729C2F /* MainBundle + APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainBundle + APIKey.swift"; sourceTree = "<group>"; };
-		DFD792A82A45B42E00729C2F /* PexelsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsSearchViewController.swift; sourceTree = "<group>"; };
+		DFD792A82A45B42E00729C2F /* SearchNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigatorViewController.swift; sourceTree = "<group>"; };
 		DFD792AA2A45CA3000729C2F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		DFD792AC2A46818700729C2F /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		DFD792AE2A4687C000729C2F /* PexelsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsSearchViewModel.swift; sourceTree = "<group>"; };
+		DFD792AE2A4687C000729C2F /* SearchNavigatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigatorViewModel.swift; sourceTree = "<group>"; };
 		DFD792B02A46A8AC00729C2F /* PexelsPhotoSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoSearchUseCase.swift; sourceTree = "<group>"; };
 		DFD792B22A46A9F600729C2F /* PexelsVideoSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsVideoSearchUseCase.swift; sourceTree = "<group>"; };
 		DFD792B42A46B77600729C2F /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
@@ -322,8 +322,8 @@
 		DFD792A72A45B3A500729C2F /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				DFD792A82A45B42E00729C2F /* PexelsSearchViewController.swift */,
-				DFD792AE2A4687C000729C2F /* PexelsSearchViewModel.swift */,
+				DFD792A82A45B42E00729C2F /* SearchNavigatorViewController.swift */,
+				DFD792AE2A4687C000729C2F /* SearchNavigatorViewModel.swift */,
 				DFD792AC2A46818700729C2F /* CategoryCell.swift */,
 			);
 			path = Search;
@@ -420,7 +420,7 @@
 				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
 				DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */,
 				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
-				DFD792A92A45B42E00729C2F /* PexelsSearchViewController.swift in Sources */,
+				DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */,
 				DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */,
 				DFD792AD2A46818700729C2F /* CategoryCell.swift in Sources */,
 				DFD792B32A46A9F600729C2F /* PexelsVideoSearchUseCase.swift in Sources */,
@@ -432,7 +432,7 @@
 				DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
 				DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */,
-				DFD792AF2A4687C000729C2F /* PexelsSearchViewModel.swift in Sources */,
+				DFD792AF2A4687C000729C2F /* SearchNavigatorViewModel.swift in Sources */,
 				DFD792882A41BA8200729C2F /* UserInfoView.swift in Sources */,
 				DFD792B12A46A8AC00729C2F /* PexelsPhotoSearchUseCase.swift in Sources */,
 				DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */,

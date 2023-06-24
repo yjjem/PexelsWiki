@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PexelsSearchViewController: UIViewController {
+final class SearchNavigatorViewController: UIViewController {
     
     typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, Category>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Category>
@@ -20,7 +20,7 @@ final class PexelsSearchViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    var viewModel: PexelsSearchViewModel?
+    var viewModel: SearchNavigatorViewModel?
     
     private let searchController: UISearchController = {
         let search = UISearchController()
@@ -134,7 +134,7 @@ final class PexelsSearchViewController: UIViewController {
     }
 }
 
-extension PexelsSearchViewController: UISearchBarDelegate {
+extension SearchNavigatorViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsScopeBar = true

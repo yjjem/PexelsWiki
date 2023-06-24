@@ -53,8 +53,8 @@ final class AppCoordinator: AppCoordinatorProtocol {
             tag: 1
         )
         
-        let searchViewModel = PexelsSearchViewModel()
-        let searchView = PexelsSearchViewController()
+        let searchViewModel = SearchNavigatorViewModel()
+        let searchView = SearchNavigatorViewController()
         searchView.title = "Pexels Search"
         searchView.tabBarItem = searchTabBarItem
         searchView.viewModel = searchViewModel

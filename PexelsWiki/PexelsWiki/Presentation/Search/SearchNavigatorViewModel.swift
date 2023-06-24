@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PexelsSearchViewModel {
+final class SearchNavigatorViewModel {
     
     var searchQuery: String = ""
     var searchContentType: ContentType = .image
