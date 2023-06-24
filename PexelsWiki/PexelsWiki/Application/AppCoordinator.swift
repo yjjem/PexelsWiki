@@ -28,7 +28,11 @@ final class AppCoordinator: AppCoordinatorProtocol {
     
     func showTabBarFlow() {
         
-        let homeTabBarItem = UITabBarItem(title: "Home", image: .init(systemName: "house"), tag: 0)
+        let homeTabBarItem = UITabBarItem(
+            title: "Home",
+            image: .init(systemName: "house"),
+            tag: 0
+        )
         
         let provider = DefaultNetworkProvider()
         let repository = PexelsPhotoRepository(provider: provider)
@@ -43,8 +47,20 @@ final class AppCoordinator: AppCoordinatorProtocol {
         let homeNavigation = UINavigationController(rootViewController: homeView)
         homeNavigation.navigationBar.prefersLargeTitles = true
         
+        let searchTabBarItem = UITabBarItem(
+            title: "Search",
+            image: .init(systemName: "magnifyingglass"),
+            tag: 1
+        )
+        
+        let searchView = PexelsSearchViewController()
+        searchView.title = "Pexels Search"
+        searchView.tabBarItem = searchTabBarItem
+        let searchNavigation = UINavigationController(rootViewController: searchView)
+        searchNavigation.navigationBar.prefersLargeTitles = true
+        
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [homeNavigation]
+        tabBar.viewControllers = [homeNavigation, searchNavigation]
         
         window.rootViewController = tabBar
         window.makeKeyAndVisible()
