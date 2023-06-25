@@ -21,14 +21,8 @@ final class VideoPlayerView: UIView, VideoPlayable {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configurePlayerLayer()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override class var layerClass: AnyClass {
+        return AVPlayerLayer.self
     }
     
     func loadVideo(from urlString: String) {
@@ -41,10 +35,5 @@ final class VideoPlayerView: UIView, VideoPlayable {
         case .active: playVideo()
         case .inactive: pauseVideo()
         }
-    }
-    
-    func configurePlayerLayer() {
-        guard let playerLayer else { return }
-        layer.addSublayer(playerLayer)
     }
 }
