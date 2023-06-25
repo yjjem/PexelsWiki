@@ -18,14 +18,14 @@ final class PhotoSearchViewModel {
     private var hasNext: Bool = false
     private var contentType: ContentOrientation = .landscape
     
-    private let repository: PexelsPhotoSearchUseCaseInterface
+    private let useCase: PexelsPhotoSearchUseCaseInterface
     
-    init(repository: PexelsPhotoSearchUseCaseInterface) {
-        self.repository = repository
+    init(useCase: PexelsPhotoSearchUseCaseInterface) {
+        self.useCase = useCase
     }
     
     func loadSearchResults() {
-        repository.search(
+        useCase.search(
             query: query,
             orientation: orientation,
             size: size,
