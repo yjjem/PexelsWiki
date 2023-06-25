@@ -132,6 +132,20 @@ final class SearchNavigatorViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    private func pushPhotoSearchViewController(with query: String) {
+        
+        let provider = DefaultNetworkProvider()
+        let repository = PexelsPhotoRepository(provider: provider)
+        let useCase = PexelsPhotoSearchUseCase(repository: repository)
+        let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
+        
+        let photoSearchViewController = PhotoSearchViewController()
+        photoSearchViewController.viewModel = photoSearchViewModel
+        photoSearchViewModel.query = query
+        
+        navigationController?.pushViewController(photoSearchViewController, animated: true)
+    }
 }
 
 extension SearchNavigatorViewController: UISearchBarDelegate {
@@ -157,6 +171,13 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let viewModel else { return }
         
+        let searchQuery = viewModel.searchQuery
+        let selectedIndex = searchBar.selectedScopeButtonIndex
+        
+        if selectedIndex == 0 {
+            pushPhotoSearchViewController(with: searchQuery)
+        }
     }
 }

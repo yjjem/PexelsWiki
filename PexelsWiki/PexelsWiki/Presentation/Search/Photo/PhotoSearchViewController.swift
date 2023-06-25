@@ -32,13 +32,18 @@ final class PhotoSearchViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        
         configurePhotoCollectionView()
+        bindViewModel()
+    }
+    
+    private func addNavigationTitle(_ title: String) {
+        navigationItem.title = title
     }
     
     private func bindViewModel() {
         guard let viewModel else { return }
         
+        addNavigationTitle(viewModel.query)
         viewModel.loadSearchResults()
         viewModel.loadedPhotoResources = { [weak self] photoResources in
             self?.updateSnapShot(using: photoResources)
@@ -50,14 +55,14 @@ final class PhotoSearchViewController: UIViewController {
         
         addPhotoCollectionView()
         photoCollectionView.dataSource = diffableDataSource
-        photoCollectionView.setCollectionViewLayout(.squareLayout, animated: false)
+        photoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: false)
     }
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
         let registration = PhotoContentCellRegistartion { cell, indexPath, photoResource in
             
             let viewModel = PhotoContentCellViewModel(
-                imageURLString: photoResource.url["portrait"]!,
+                imageURLString: photoResource.url["landscape"]!,
                 userName: photoResource.photographer
             )
             
