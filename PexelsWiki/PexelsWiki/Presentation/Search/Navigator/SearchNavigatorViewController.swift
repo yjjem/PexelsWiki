@@ -52,16 +52,16 @@ final class SearchNavigatorViewController: UIViewController {
     }
     
     private func configureSearchController() {
-        searchController.scopeBarActivation = .onSearchActivation
-        
         let searchBar = searchController.searchBar
         searchBar.placeholder = "Search Pexels Content"
         searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
+        searchBar.showsScopeBar = true
+        searchBar.delegate = self
     }
     
     private func configureNavigationItem() {
         navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func configureCategoryCollectionView() {
@@ -69,6 +69,7 @@ final class SearchNavigatorViewController: UIViewController {
         diffableDataSource = makeDataSource()
         addCategoryCollectionView()
         categoryCollectionView.dataSource = diffableDataSource
+        categoryCollectionView.delegate = self
         categoryCollectionView.setCollectionViewLayout(twoColumnGridLayout, animated: false)
     }
     
@@ -103,7 +104,7 @@ final class SearchNavigatorViewController: UIViewController {
         
         let diffableDataSource = DataSource(collectionView: categoryCollectionView) {
             collectionView, indexPath, categoryItem in
-                
+            
             collectionView.dequeueConfiguredReusableCell(
                 using: categoryCellRegistration,
                 for: indexPath,
@@ -130,8 +131,10 @@ final class SearchNavigatorViewController: UIViewController {
             count: 2
         )
         group.interItemSpacing = .fixed(5)
+        
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
+        
         return layout
     }
     
@@ -163,6 +166,24 @@ final class SearchNavigatorViewController: UIViewController {
     }
 }
 
+extension SearchNavigatorViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let viewModel,
+              let selectedCell = collectionView.cellForItem(at: indexPath) as? CategoryCell else {
+            return
+        }
+        
+        let selectedCategory = selectedCell.categoryName
+        
+        switch viewModel.searchContentType {
+        case .image: pushPhotoSearchViewController(with: selectedCategory)
+        case .video: pushVideoSearchViewController(with: selectedCategory)
+        }
+    }
+}
+
 extension SearchNavigatorViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -176,7 +197,7 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
             viewModel?.searchContentType = .image
         }
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let viewModel else { return }
         

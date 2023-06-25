@@ -23,6 +23,8 @@ final class CategoryCell: UICollectionViewCell {
         return label
     }()
     
+    var categoryName: String = ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -37,6 +39,7 @@ final class CategoryCell: UICollectionViewCell {
         let image = UIImage(named: category.name)
         imageView.image = image
         categoryLabel.text = category.name
+        categoryName = category.name
     }
     
     private func configureLayoutConstraints() {
