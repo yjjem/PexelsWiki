@@ -31,6 +31,11 @@ final class VideoPlayerView: UIView, VideoPlayable {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func loadVideo(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        player = makePlayer(with: url)
+    }
+    
     func stateDidChange() {
         switch playerState {
         case .active: playVideo()

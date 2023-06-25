@@ -15,7 +15,10 @@ protocol VideoPlayable: UIView {
     
     func playVideo()
     func pauseVideo()
+    
     func stateDidChange()
+    func loadVideo(from urlString: String)
+    func makePlayer(with url: URL) -> AVPlayer
 }
 
 extension VideoPlayable {
@@ -43,4 +46,9 @@ extension VideoPlayable {
         player?.pause()
     }
     
+    func makePlayer(with url: URL) -> AVPlayer {
+        let item = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: item)
+        return player
+    }
 }
