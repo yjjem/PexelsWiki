@@ -29,21 +29,36 @@ final class VideoContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        videoView.player = nil
+    }
+    
+    func play() {
+        videoView.playVideo()
+    }
+    
+    func pause() {
+        videoView.pauseVideo()
+    }
+    
     func configure(using viewModel: VideoContentCellViewModel) {
         videoView.loadVideo(from: viewModel.videoURLString)
         userInfoView.add(userName: viewModel.userName)
     }
     
     private func configureViewLayoutConstraints() {
-        addSubview(videoView)
-        addSubview(userInfoView)
+        contentView.addSubview(videoView)
+        contentView.addSubview(userInfoView)
         
         videoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             videoView.topAnchor.constraint(equalTo: contentView.topAnchor),
             videoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             videoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            videoView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9)
+            videoView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9),
+            videoView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
         ])
         
         userInfoView.translatesAutoresizingMaskIntoConstraints = false
