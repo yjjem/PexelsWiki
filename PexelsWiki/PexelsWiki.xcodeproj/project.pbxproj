@@ -58,6 +58,8 @@
 		DFD792CC2A482D1F00729C2F /* VideoPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */; };
 		DFD792CE2A484ABE00729C2F /* VideoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */; };
 		DFD792D02A484BB500729C2F /* VideoContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */; };
+		DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */; };
+		DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,8 @@
 		DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayable.swift; sourceTree = "<group>"; };
 		DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentCell.swift; sourceTree = "<group>"; };
 		DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentCellViewModel.swift; sourceTree = "<group>"; };
+		DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewController.swift; sourceTree = "<group>"; };
+		DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +378,8 @@
 		DFD792C82A482C4700729C2F /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */,
+				DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */,
 				DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */,
 				DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */,
 			);
@@ -465,6 +471,7 @@
 				DFA491462A3AD168008BC5C4 /* Result + Better Mapping.swift in Sources */,
 				DFD792962A44705C00729C2F /* PexelsPhotoUseCase.swift in Sources */,
 				DFA491432A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift in Sources */,
+				DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DFD7928E2A42010500729C2F /* HomeContentCell.swift in Sources */,
@@ -480,6 +487,7 @@
 				DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */,
 				DFD792AD2A46818700729C2F /* CategoryCell.swift in Sources */,
 				DFD792B32A46A9F600729C2F /* PexelsVideoSearchUseCase.swift in Sources */,
+				DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */,
 				DFD792B52A46B77600729C2F /* ContentType.swift in Sources */,
 				DFA4914D2A3AD8EE008BC5C4 /* RepositoryError.swift in Sources */,
 				DFA491352A3AB73C008BC5C4 /* URLRequest + parameters.swift in Sources */,

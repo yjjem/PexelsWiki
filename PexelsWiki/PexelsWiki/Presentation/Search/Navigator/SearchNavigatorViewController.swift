@@ -135,6 +135,19 @@ final class SearchNavigatorViewController: UIViewController {
         return layout
     }
     
+    private func pushVideoSearchViewController(with query: String) {
+        let provider = DefaultNetworkProvider()
+        let repository = PexelsVideoRepository(provider: provider)
+        let useCase = PexelsVideoSearchUseCase(repository: repository)
+        let videoSearchViewModel = VideoSearchViewModel(useCase: useCase)
+        
+        let videoSearchViewController = VideoSearchViewController()
+        videoSearchViewController.viewModel = videoSearchViewModel
+        videoSearchViewModel.query = query
+        
+        navigationController?.pushViewController(videoSearchViewController, animated: true)
+    }
+    
     private func pushPhotoSearchViewController(with query: String) {
         
         let provider = DefaultNetworkProvider()
@@ -172,6 +185,10 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
         
         if selectedIndex == 0 {
             pushPhotoSearchViewController(with: searchQuery)
+        }
+        
+        if selectedIndex == 1 {
+            pushVideoSearchViewController(with: searchQuery)
         }
     }
 }
