@@ -55,6 +55,7 @@ final class PhotoSearchViewController: UIViewController {
         
         addPhotoCollectionView()
         photoCollectionView.dataSource = diffableDataSource
+        photoCollectionView.delegate = self
         photoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: false)
     }
     
@@ -106,5 +107,17 @@ final class PhotoSearchViewController: UIViewController {
             photoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             photoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension PhotoSearchViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let paginationPoint = scrollView.contentSize.height - scrollView.bounds.height
+        let offset = scrollView.contentOffset.y
+
+        if paginationPoint < offset {
+            viewModel?.loadNextPage()
+        }
     }
 }
