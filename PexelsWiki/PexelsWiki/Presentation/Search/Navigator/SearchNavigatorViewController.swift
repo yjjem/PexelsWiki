@@ -52,6 +52,8 @@ final class SearchNavigatorViewController: UIViewController {
     }
     
     private func configureSearchController() {
+        searchController.scopeBarActivation = .onSearchActivation
+        
         let searchBar = searchController.searchBar
         searchBar.placeholder = "Search Pexels Content"
         searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
@@ -149,14 +151,6 @@ final class SearchNavigatorViewController: UIViewController {
 }
 
 extension SearchNavigatorViewController: UISearchBarDelegate {
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsScopeBar = true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsScopeBar = false
-    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel?.searchQuery = searchText
