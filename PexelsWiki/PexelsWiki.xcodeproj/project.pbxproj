@@ -54,6 +54,8 @@
 		DFD792BE2A47BB6A00729C2F /* UICollectionViewLayout + content layouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792BD2A47BB6A00729C2F /* UICollectionViewLayout + content layouts.swift */; };
 		DFD792C02A47FCA300729C2F /* PhotoSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792BF2A47FCA300729C2F /* PhotoSearchViewModel.swift */; };
 		DFD792C22A47FCD900729C2F /* PhotoContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792C12A47FCD900729C2F /* PhotoContentCellViewModel.swift */; };
+		DFD792CA2A482C6800729C2F /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792C92A482C6800729C2F /* VideoPlayerView.swift */; };
+		DFD792CC2A482D1F00729C2F /* VideoPlayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		DFD792BD2A47BB6A00729C2F /* UICollectionViewLayout + content layouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout + content layouts.swift"; sourceTree = "<group>"; };
 		DFD792BF2A47FCA300729C2F /* PhotoSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchViewModel.swift; sourceTree = "<group>"; };
 		DFD792C12A47FCD900729C2F /* PhotoContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentCellViewModel.swift; sourceTree = "<group>"; };
+		DFD792C92A482C6800729C2F /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +330,8 @@
 			children = (
 				DFD792872A41BA8200729C2F /* UserInfoView.swift */,
 				DFD792BD2A47BB6A00729C2F /* UICollectionViewLayout + content layouts.swift */,
+				DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */,
+				DFD792C92A482C6800729C2F /* VideoPlayerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 			children = (
 				DFD792C32A47FCE300729C2F /* Navigator */,
 				DFD792C42A47FCF300729C2F /* Photo */,
+				DFD792C82A482C4700729C2F /* Video */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -358,6 +365,13 @@
 				DFD792C12A47FCD900729C2F /* PhotoContentCellViewModel.swift */,
 			);
 			path = Photo;
+			sourceTree = "<group>";
+		};
+		DFD792C82A482C4700729C2F /* Video */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFD792CC2A482D1F00729C2F /* VideoPlayable.swift in Sources */,
 				DFA4913C2A3AB7B7008BC5C4 /* PexelsVideoServiceTarget.swift in Sources */,
 				DFD7929E2A44A05F00729C2F /* PageSize.swift in Sources */,
 				DFA491502A3AD910008BC5C4 /* PexelsVideoRepositoryInterface.swift in Sources */,
@@ -475,6 +490,7 @@
 				DFD792C02A47FCA300729C2F /* PhotoSearchViewModel.swift in Sources */,
 				DFD792A22A456B5500729C2F /* MainBundle + APIKey.swift in Sources */,
 				DFA4915C2A3AF5A8008BC5C4 /* WrappedPhotoListResponse.swift in Sources */,
+				DFD792CA2A482C6800729C2F /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
