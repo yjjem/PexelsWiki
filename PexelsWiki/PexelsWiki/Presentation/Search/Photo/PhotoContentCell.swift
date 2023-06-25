@@ -28,6 +28,12 @@ final class PhotoContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+    }
+    
     func configure(using viewModel: PhotoContentCellViewModel) {
         guard let url = URL(string: viewModel.imageURLString) else { return }
         imageView.load(url: url)
