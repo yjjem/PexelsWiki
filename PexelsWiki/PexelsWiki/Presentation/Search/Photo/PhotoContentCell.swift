@@ -9,6 +9,8 @@ import UIKit
 
 final class PhotoContentCell: UICollectionViewCell {
     
+    // MARK: Variable(s)
+    
     private let imageView: UIImageView = {
         let image = UIImageView()
         return image
@@ -20,6 +22,8 @@ final class PhotoContentCell: UICollectionViewCell {
     }()
     
     private var contentLoad: Cancellable?
+    
+    // MARK: Override(s)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,6 +45,8 @@ final class PhotoContentCell: UICollectionViewCell {
         contentLoad?.cancel()
     }
     
+    // MARK: Function(s)
+    
     func configure(using viewModel: PhotoContentCellViewModel) {
         
         guard let url = URL(string: viewModel.imageURLString) else { return }
@@ -54,6 +60,8 @@ final class PhotoContentCell: UICollectionViewCell {
             response.onComplete(self.imageView.addImage)
         }
     }
+    
+    // MARK: Private Function(s)
     
     private func configureLayoutConstraints() {
         contentView.addSubview(imageView)

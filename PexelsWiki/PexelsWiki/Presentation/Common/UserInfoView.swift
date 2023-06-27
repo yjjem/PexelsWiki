@@ -9,6 +9,8 @@ import UIKit
 
 final class UserInfoView: UIView {
     
+    // MARK: View(s)
+    
     private let userIconView: UIImageView = {
         let defaultUserImage = UIImage(systemName: "person.fill")
         let view = UIImageView(image: defaultUserImage)
@@ -26,14 +28,16 @@ final class UserInfoView: UIView {
     
     private let informationStackView: UIStackView = {
         let stack = UIStackView()
-        stack.alignment = .center
-        stack.distribution = .fill
-        stack.axis = .horizontal
-        stack.spacing = 5
         stack.layoutMargins = .init(top: 5, left: 10, bottom: 5, right: 10)
         stack.isLayoutMarginsRelativeArrangement = true
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
+        stack.spacing = 5
         return stack
     }()
+    
+    // MARK: Override(s)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,9 +49,13 @@ final class UserInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Function(s)
+    
     func add(userName: String) {
         userNameLabel.text = userName
     }
+    
+    // MARK: Private Function(s)
     
     private func configureLayoutConstraints() {
         informationStackView.addArrangedSubview(userIconView)

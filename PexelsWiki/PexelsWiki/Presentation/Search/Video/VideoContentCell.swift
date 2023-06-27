@@ -9,6 +9,8 @@ import UIKit
 
 final class VideoContentCell: UICollectionViewCell {
     
+    // MARK: Variable(s)
+    
     private let videoView: VideoPlayerView = {
         let videoView = VideoPlayerView()
         return videoView
@@ -18,6 +20,8 @@ final class VideoContentCell: UICollectionViewCell {
         let userInfoView = UserInfoView()
         return userInfoView
     }()
+    
+    // MARK: Override(s)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +39,8 @@ final class VideoContentCell: UICollectionViewCell {
         videoView.player = nil
     }
     
+    // MARK: Function(s)
+    
     func play() {
         videoView.playVideo()
     }
@@ -47,6 +53,8 @@ final class VideoContentCell: UICollectionViewCell {
         videoView.loadVideo(from: viewModel.videoURLString)
         userInfoView.add(userName: viewModel.userName)
     }
+    
+    // MARK: Private Function(s)
     
     private func configureViewLayoutConstraints() {
         contentView.addSubview(videoView)

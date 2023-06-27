@@ -162,7 +162,7 @@ extension VideoSearchViewController: SearchFilterViewControllerDelegate {
         case .landscape:
             videoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: true)
         case .portrait:
-            videoCollectionView.setCollectionViewLayout(.makePortraitLayout, animated: true)
+            videoCollectionView.setCollectionViewLayout(.portraitLayout, animated: true)
         case .square:
             videoCollectionView.setCollectionViewLayout(.squareLayout, animated: true)
         }

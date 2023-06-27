@@ -9,11 +9,7 @@ import Foundation
 
 final class VideoSearchViewModel {
     
-    var loadedVideoResources: (([VideoResource]) -> Void)?
-    
-    var query: String = ""
-    var orientation: ContentOrientation = .landscape
-    var size: ContentSize = .small
+    // MARK: Variable(s)
     
     private var page: Int = 1
     private var pageSize: PageSize = .small
@@ -23,9 +19,17 @@ final class VideoSearchViewModel {
     
     private let useCase: PexelsVideoSearchUseCaseInterface
     
+    var query: String = ""
+    var orientation: ContentOrientation = .landscape
+    var size: ContentSize = .small
+    
+    var loadedVideoResources: (([VideoResource]) -> Void)?
+    
     init(useCase: PexelsVideoSearchUseCaseInterface) {
         self.useCase = useCase
     }
+    
+    // MARK: Function(s)
     
     func loadSearchResults() {
         isLoading = true

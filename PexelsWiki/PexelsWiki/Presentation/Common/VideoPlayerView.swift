@@ -15,15 +15,21 @@ final class VideoPlayerView: UIView, VideoPlayable {
         case inactive
     }
     
+    // MARK: Variable(s)
+    
     var playerState: PlayerState = .inactive {
         didSet {
             stateDidChange()
         }
     }
     
+    // MARK: Override(s)
+    
     override class var layerClass: AnyClass {
         return AVPlayerLayer.self
     }
+    
+    // MARK: Function(s)
     
     func loadVideo(from urlString: String) {
         guard let url = URL(string: urlString) else { return }

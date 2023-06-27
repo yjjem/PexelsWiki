@@ -51,7 +51,7 @@ extension UICollectionViewLayout {
         return layout
     }
     
-    static var makePortraitLayout: UICollectionViewLayout {
+    static var portraitLayout: UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)

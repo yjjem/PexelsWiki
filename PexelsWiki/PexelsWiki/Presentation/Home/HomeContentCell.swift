@@ -9,6 +9,8 @@ import UIKit
 
 final class HomeContentCell: UICollectionViewCell {
     
+    // MARK: Variable(s)
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
@@ -18,6 +20,10 @@ final class HomeContentCell: UICollectionViewCell {
         let userInfoView = UserInfoView()
         return userInfoView
     }()
+    
+    private var contentLoad: Cancellable?
+    
+    // MARK: Override(s)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +35,9 @@ final class HomeContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var contentLoad: Cancellable?
+    deinit {
+        contentLoad?.cancel()
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -38,9 +46,7 @@ final class HomeContentCell: UICollectionViewCell {
         contentLoad?.cancel()
     }
     
-    deinit {
-        contentLoad?.cancel()
-    }
+    // MARK: Function(s)
     
     func configure(using viewModel: HomeContentCellViewModel) {
         guard let url = URL(string: viewModel.imageURL) else { return }
@@ -53,6 +59,8 @@ final class HomeContentCell: UICollectionViewCell {
             response.onComplete(self.imageView.addImage)
         }
     }
+    
+    // MARK: Private Function(s)
     
     private func configureViews() {
         

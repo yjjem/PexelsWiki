@@ -42,6 +42,7 @@ final class PexelsVideoSearchUseCase: PexelsVideoSearchUseCaseInterface {
             page: page,
             perPage: perPage
         ) { response in
+            
             response.onComplete { videoPage in
                 completion(.success(videoPage))
             }

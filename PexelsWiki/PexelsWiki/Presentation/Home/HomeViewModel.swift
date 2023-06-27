@@ -9,18 +9,21 @@ import Foundation
 
 final class HomeViewModel {
     
-    var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
+    // MARK: Variable(s)
     
+    private let useCase: PexelsPhotoUseCaseInterface
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
     
-    private let useCase: PexelsPhotoUseCaseInterface
+    var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
     
     init(useCase: PexelsPhotoUseCaseInterface) {
         self.useCase = useCase
     }
+    
+    // MARK: Function(s)
     
     func loadCuratedPhotosPage() {
         useCase.loadCuratedPhotoPage(page: page, perPage: pageSize.itemsPerPage) { response in

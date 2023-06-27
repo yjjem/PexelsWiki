@@ -13,21 +13,32 @@ protocol SearchFilterViewControllerDelegate {
 
 final class SearchFilterViewController: UIViewController {
     
+    // MARK: Variable(s)
+    
     private let searchFilterTableView: UITableView = {
         let collection = UITableView(frame: .zero, style: .insetGrouped)
         return collection
     }()
     
-    var viewModel: SearchFilterViewModel?
     var delegate: SearchFilterViewControllerDelegate?
+    var viewModel: SearchFilterViewModel?
+    
+    // MARK: Override(s)
     
     override func loadView() {
         super.loadView()
         
         configureNavigationItem()
         configureSearchFilterTableView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         bindViewModel()
     }
+    
+    // MARK: Private Function(s)
     
     private func bindViewModel() {
         guard let viewModel else { return }
@@ -45,31 +56,23 @@ final class SearchFilterViewController: UIViewController {
         searchFilterTableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
     }
     
-    @objc func didTapDoneButton() {
-        if let viewModel {
-            let options = FilterOptions(
-                orientation: viewModel.selectedOrientation,
-                size: viewModel.selectedSize
-            )
-            delegate?.didApplyFilterOptions(options)
-        }
-        
-        dismiss(animated: true)
-    }
-    
     private func configureNavigationItem() {
+        let navigationTitle = "Search Filter"
+        let confirmButtonTitle = "Apply Filter"
         let confirmButtonItem = UIBarButtonItem(
-            title: "Apply Filter",
+            title: confirmButtonTitle,
             style: .plain,
             target: self,
-            action: #selector(didTapDoneButton)
+            action: #selector(didTapApplyFilter)
         )
-        navigationItem.title = "Search Filter"
+        
+        navigationItem.title = navigationTitle
         navigationItem.rightBarButtonItem = confirmButtonItem
     }
     
     private func configureSearchFilterTableView() {
         addSearchFilterTableView()
+        
         searchFilterTableView.allowsMultipleSelection = true
         searchFilterTableView.dataSource = self
         searchFilterTableView.delegate = self
@@ -90,7 +93,59 @@ final class SearchFilterViewController: UIViewController {
             searchFilterTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    // MARK: Action(s)
+    
+    @objc func didTapApplyFilter() {
+        if let viewModel {
+            let options = FilterOptions(
+                orientation: viewModel.selectedOrientation,
+                size: viewModel.selectedSize
+            )
+            delegate?.didApplyFilterOptions(options)
+        }
+        
+        dismiss(animated: true)
+    }
 }
+
+// MARK: UITableViewDataSource
+
+extension SearchFilterViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Section.allCases[section].sectionName
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Section.allCases[section].numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let sectionOptions = Section.allCases[indexPath.section]
+        let currentRowOptionName = sectionOptions.optionsNames[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: SearchFilterOptionCell.reuseIdentifier,
+            for: indexPath
+        ) as! SearchFilterOptionCell
+        
+        var configuration = cell.defaultContentConfiguration()
+        configuration.prefersSideBySideTextAndSecondaryText = true
+        configuration.text = currentRowOptionName
+        
+        cell.contentConfiguration = configuration
+        
+        return cell
+    }
+}
+
+// MARK: UITableViewDelegate
 
 extension SearchFilterViewController: UITableViewDelegate {
     
@@ -128,35 +183,7 @@ extension SearchFilterViewController: UITableViewDelegate {
     }
 }
 
-extension SearchFilterViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.allCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Section.allCases[section].sectionName
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Section.allCases[section].numberOfRows
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: SearchFilterOptionCell.reuseIdentifier,
-            for: indexPath
-        ) as! SearchFilterOptionCell
-        
-        var configuration = cell.defaultContentConfiguration()
-        configuration.prefersSideBySideTextAndSecondaryText = true
-        configuration.text = Section.allCases[indexPath.section].optionsNames[indexPath.row]
-        cell.contentConfiguration = configuration
-        
-        return cell
-    }
-}
+// MARK: SearchFilterViewController + Section
 
 extension SearchFilterViewController {
     

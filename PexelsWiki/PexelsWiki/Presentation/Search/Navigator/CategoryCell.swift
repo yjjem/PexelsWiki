@@ -9,6 +9,8 @@ import UIKit
 
 final class CategoryCell: UICollectionViewCell {
     
+    // MARK: Variable(s)
+    
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
@@ -25,6 +27,8 @@ final class CategoryCell: UICollectionViewCell {
     
     var categoryName: String = ""
     
+    // MARK: Override(s)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,12 +39,16 @@ final class CategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Function(s)
+    
     func configure(using category: Category) {
         let image = UIImage(named: category.name)
         imageView.image = image
         categoryLabel.text = category.name
         categoryName = category.name
     }
+    
+    // MARK: Private Function(s)
     
     private func configureLayoutConstraints() {
         imageView.addSubview(categoryLabel)

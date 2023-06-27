@@ -7,11 +7,7 @@
 
 final class PhotoSearchViewModel {
     
-    var loadedPhotoResources: (([PhotoContentCellViewModel]) -> Void)?
-    
-    var query: String = ""
-    var orientation: ContentOrientation = .landscape
-    var size: ContentSize = .small
+    // MARK: Variable(s)
     
     private var page: Int = 1
     private var pageSize: PageSize = .small
@@ -21,9 +17,17 @@ final class PhotoSearchViewModel {
     
     private let useCase: PexelsPhotoSearchUseCaseInterface
     
+    var query: String = ""
+    var orientation: ContentOrientation = .landscape
+    var size: ContentSize = .small
+    
+    var loadedPhotoResources: (([PhotoContentCellViewModel]) -> Void)?
+    
     init(useCase: PexelsPhotoSearchUseCaseInterface) {
         self.useCase = useCase
     }
+    
+    // MARK: Function(s)
     
     func loadSearchResults() {
         isLoading = true
@@ -74,6 +78,8 @@ final class PhotoSearchViewModel {
         hasNext = false
         loadSearchResults()
     }
+    
+    // MARK: Private Function(s)
     
     private func makePhotoContentCellViewModel(
         _ resource: PhotoResource

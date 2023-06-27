@@ -9,6 +9,8 @@ import UIKit
 
 final class SearchNavigatorViewController: UIViewController {
     
+    // MARK: Type(s)
+    
     typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, Category>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Category>
     typealias SnapShot = NSDiffableDataSourceSectionSnapshot<Category>
@@ -17,10 +19,7 @@ final class SearchNavigatorViewController: UIViewController {
         case category
     }
     
-    private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot = SnapShot()
-    
-    var viewModel: SearchNavigatorViewModel?
+    // MARK: Variable(s)
     
     private let searchController: UISearchController = {
         let search = UISearchController()
@@ -32,6 +31,13 @@ final class SearchNavigatorViewController: UIViewController {
         return collection
     }()
     
+    private var diffableDataSource: DataSource?
+    private var snapShot: SnapShot = SnapShot()
+    
+    var viewModel: SearchNavigatorViewModel?
+    
+    // MARK: Override(s)
+    
     override func loadView() {
         super.loadView()
         
@@ -39,8 +45,15 @@ final class SearchNavigatorViewController: UIViewController {
         configureNavigationItem()
         configureSearchController()
         configureCategoryCollectionView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         bindViewModel()
     }
+    
+    // MARK: Private Function(s)
     
     private func bindViewModel() {
         guard let viewModel else { return }
@@ -51,31 +64,28 @@ final class SearchNavigatorViewController: UIViewController {
         view.backgroundColor = .systemGray6
     }
     
-    private func configureSearchController() {
-        let searchBar = searchController.searchBar
-        searchBar.placeholder = "Search Pexels Content"
-        searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
-        searchBar.showsScopeBar = true
-        searchBar.delegate = self
-    }
-    
     private func configureNavigationItem() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    private func configureSearchController() {
+        let searchBarPlaceHolderText = "Search Pexels Content"
+        let searchBar = searchController.searchBar
+        searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
+        searchBar.placeholder = searchBarPlaceHolderText
+        searchBar.showsScopeBar = true
+        searchBar.delegate = self
     }
     
     private func configureCategoryCollectionView() {
         let twoColumnGridLayout = makeTwoColumnGridLayout()
         diffableDataSource = makeDataSource()
         addCategoryCollectionView()
+        
         categoryCollectionView.dataSource = diffableDataSource
         categoryCollectionView.delegate = self
         categoryCollectionView.setCollectionViewLayout(twoColumnGridLayout, animated: false)
-    }
-    
-    private func updateSnapShot(with categoryList: [Category]) {
-        snapShot.append(categoryList)
-        diffableDataSource?.apply(snapShot, to: .category)
     }
     
     private func addCategoryCollectionView() {
@@ -88,15 +98,6 @@ final class SearchNavigatorViewController: UIViewController {
             categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-    
-    private func makeCategoryCellRegistration() -> CategoryCellRegistration {
-        let categoryRegistration = CategoryCellRegistration { cell, indexPath, categoryItem in
-            
-            cell.configure(using: categoryItem)
-        }
-        
-        return categoryRegistration
     }
     
     private func makeDataSource() -> DataSource {
@@ -113,6 +114,12 @@ final class SearchNavigatorViewController: UIViewController {
         }
         
         return diffableDataSource
+    }
+    
+    private func makeCategoryCellRegistration() -> CategoryCellRegistration {
+        return CategoryCellRegistration { cell, indexPath, categoryItem in
+            cell.configure(using: categoryItem)
+        }
     }
     
     private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
@@ -137,6 +144,11 @@ final class SearchNavigatorViewController: UIViewController {
         return layout
     }
     
+    private func updateSnapShot(with categoryList: [Category]) {
+        snapShot.append(categoryList)
+        diffableDataSource?.apply(snapShot, to: .category)
+    }
+    
     private func pushVideoSearchViewController(with query: String) {
         let provider = DefaultNetworkProvider()
         let repository = PexelsVideoRepository(provider: provider)
@@ -151,7 +163,6 @@ final class SearchNavigatorViewController: UIViewController {
     }
     
     private func pushPhotoSearchViewController(with query: String) {
-        
         let provider = DefaultNetworkProvider()
         let repository = PexelsPhotoRepository(provider: provider)
         let useCase = PexelsPhotoSearchUseCase(repository: repository)
@@ -165,12 +176,15 @@ final class SearchNavigatorViewController: UIViewController {
     }
 }
 
+// MARK: UICollectionViewDelegate
+
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let viewModel,
-              let selectedCell = collectionView.cellForItem(at: indexPath) as? CategoryCell else {
+        guard let selectedCell = collectionView.cellForItem(at: indexPath) as? CategoryCell,
+              let viewModel
+        else {
             return
         }
         
@@ -182,6 +196,8 @@ extension SearchNavigatorViewController: UICollectionViewDelegate {
         }
     }
 }
+
+// MARK: UISearchBarDelegate
 
 extension SearchNavigatorViewController: UISearchBarDelegate {
     
