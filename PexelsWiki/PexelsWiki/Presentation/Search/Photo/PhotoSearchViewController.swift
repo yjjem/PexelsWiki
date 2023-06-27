@@ -69,9 +69,7 @@ final class PhotoSearchViewController: UIViewController {
             selectedSize: viewModel.size
         )
         
-        let filterView = makeFilterView()
-        filterView.delegate = self
-        filterView.viewModel = filterViewModel
+        let filterView = makeFilterView(with: filterViewModel)
         
         let navigation = UINavigationController(rootViewController: filterView)
         navigation.navigationBar.prefersLargeTitles = true
@@ -79,9 +77,14 @@ final class PhotoSearchViewController: UIViewController {
         present(navigation, animated: true)
     }
     
-    private func makeFilterView() -> SearchFilterViewController {
+    private func makeFilterView(
+        with viewModel: SearchFilterViewModel
+    ) -> SearchFilterViewController {
+        
         let filterView = SearchFilterViewController()
+        filterView.viewModel = viewModel
         filterView.delegate = self
+        
         return filterView
     }
     
