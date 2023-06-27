@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PhotoContentCellViewModel {
+struct PhotoContentCellViewModel: Hashable {
     let imageURLString: String
     let userName: String
 }

@@ -3,15 +3,15 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
 
 final class PhotoSearchViewController: UIViewController {
     
-    typealias PhotoContentCellRegistartion = UICollectionView.CellRegistration<PhotoContentCell, PhotoResource>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, PhotoResource>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<PhotoResource>
+    typealias PhotoContentCellRegistartion = UICollectionView.CellRegistration<PhotoContentCell, PhotoContentCellViewModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, PhotoContentCellViewModel>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<PhotoContentCellViewModel>
     
     enum Section {
         case main
@@ -23,10 +23,10 @@ final class PhotoSearchViewController: UIViewController {
     private var snapShot: SnapShot = SnapShot()
     
     private let photoCollectionView: UICollectionView = {
-       let collection = UICollectionView(
-        frame: .zero,
-        collectionViewLayout: .init()
-       )
+        let collection = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: .init()
+        )
         return collection
     }()
     
@@ -34,6 +34,7 @@ final class PhotoSearchViewController: UIViewController {
         super.loadView()
         configurePhotoCollectionView()
         bindViewModel()
+        configureNavigationItem()
     }
     
     private func addNavigationTitle(_ title: String) {
@@ -50,6 +51,40 @@ final class PhotoSearchViewController: UIViewController {
         }
     }
     
+    private func configureNavigationItem() {
+        let filterButtonItem = UIBarButtonItem(
+            image: .init(systemName: "line.3.horizontal.decrease.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFilterButton)
+        )
+        navigationItem.rightBarButtonItem = filterButtonItem
+    }
+    
+    @objc func didTapFilterButton() {
+        guard let viewModel else { return }
+        
+        let filterViewModel = SearchFilterViewModel(
+            selectedOrientation: viewModel.orientation,
+            selectedSize: viewModel.size
+        )
+        
+        let filterView = makeFilterView()
+        filterView.delegate = self
+        filterView.viewModel = filterViewModel
+        
+        let navigation = UINavigationController(rootViewController: filterView)
+        navigation.navigationBar.prefersLargeTitles = true
+        
+        present(navigation, animated: true)
+    }
+    
+    private func makeFilterView() -> SearchFilterViewController {
+        let filterView = SearchFilterViewController()
+        filterView.delegate = self
+        return filterView
+    }
+    
     private func configurePhotoCollectionView() {
         diffableDataSource = makeDiffableDataSource()
         
@@ -60,14 +95,9 @@ final class PhotoSearchViewController: UIViewController {
     }
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
-        let registration = PhotoContentCellRegistartion { cell, indexPath, photoResource in
+        let registration = PhotoContentCellRegistartion { cell, indexPath, cellViewModel in
             
-            let viewModel = PhotoContentCellViewModel(
-                imageURLString: photoResource.url["landscape"]!,
-                userName: photoResource.photographer
-            )
-            
-            cell.configure(using: viewModel)
+            cell.configure(using: cellViewModel)
         }
         return registration
     }
@@ -88,7 +118,7 @@ final class PhotoSearchViewController: UIViewController {
         return diffableDataSource
     }
     
-    private func updateSnapShot(using photoList: [PhotoResource]) {
+    private func updateSnapShot(using photoList: [PhotoContentCellViewModel]) {
         snapShot.append(photoList)
         diffableDataSource?.apply(snapShot, to: .main)
     }
@@ -110,12 +140,36 @@ final class PhotoSearchViewController: UIViewController {
     }
 }
 
+extension PhotoSearchViewController: SearchFilterViewControllerDelegate {
+    
+    func didApplyFilterOptions(_ options: FilterOptions) {
+        
+        guard let viewModel else { return }
+        
+        resetSnapShot()
+        viewModel.apply(filter: options)
+        
+        switch viewModel.orientation {
+        case .landscape:
+            photoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: true)
+        case .portrait:
+            photoCollectionView.setCollectionViewLayout(.makePortraitLayout, animated: true)
+        case .square:
+            photoCollectionView.setCollectionViewLayout(.squareLayout, animated: true)
+        }
+        
+        viewModel.resetPage()
+        
+        photoCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: true)
+    }
+}
+
 extension PhotoSearchViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let paginationPoint = scrollView.contentSize.height - scrollView.bounds.height
         let offset = scrollView.contentOffset.y
-
+        
         if paginationPoint < offset {
             viewModel?.loadNextPage()
         }

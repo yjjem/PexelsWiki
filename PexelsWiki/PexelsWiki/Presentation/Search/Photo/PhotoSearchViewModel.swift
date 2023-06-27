@@ -7,7 +7,7 @@
 
 final class PhotoSearchViewModel {
     
-    var loadedPhotoResources: (([PhotoResource]) -> Void)?
+    var loadedPhotoResources: (([PhotoContentCellViewModel]) -> Void)?
     
     var query: String = ""
     var orientation: ContentOrientation = .landscape
@@ -27,6 +27,7 @@ final class PhotoSearchViewModel {
     
     func loadSearchResults() {
         isLoading = true
+        
         useCase.search(
             query: query,
             orientation: orientation,
@@ -36,12 +37,24 @@ final class PhotoSearchViewModel {
         ) { response in
             
             response.onComplete { [weak self] photoPage in
-                self?.isLoading = false
-                self?.page = photoPage.page
-                self?.hasNext = photoPage.hasNext
-                self?.loadedPhotoResources?(photoPage.photos)
+                guard let self else { return }
+                
+                let photoResources = photoPage.photos
+                
+                self.isLoading = false
+                self.page = photoPage.page
+                self.hasNext = photoPage.hasNext
+                
+                let cellViewModels = photoResources.map(makePhotoContentCellViewModel)
+                
+                self.loadedPhotoResources?(cellViewModels)
             }
         }
+    }
+    
+    func apply(filter options: FilterOptions) {
+        orientation = options.orientation
+        size = options.size
     }
     
     func loadNextPage() {
@@ -60,5 +73,15 @@ final class PhotoSearchViewModel {
         pageSize = .small
         hasNext = false
         loadSearchResults()
+    }
+    
+    private func makePhotoContentCellViewModel(
+        _ resource: PhotoResource
+    ) -> PhotoContentCellViewModel {
+        
+        return PhotoContentCellViewModel(
+            imageURLString: resource.url["large"]!,
+            userName: resource.photographer
+        )
     }
 }
