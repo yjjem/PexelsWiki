@@ -13,7 +13,7 @@ protocol Cancellable {
 
 extension URLSessionDataTask: Cancellable { }
 
-final class ImageLoadManager {
+enum ImageLoadManager {
     
     private static let imageCache = URLCache(
         memoryCapacity: 200.mb,
@@ -66,12 +66,5 @@ final class ImageLoadManager {
         task.resume()
         
         return task
-    }
-}
-
-fileprivate extension Int {
-    
-    var mb: Int {
-        return self * 1024 * 1024
     }
 }
