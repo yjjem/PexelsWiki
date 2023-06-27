@@ -29,18 +29,29 @@ final class HomeContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var contentLoad: Cancellable?
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         imageView.image = nil
+        contentLoad?.cancel()
+    }
+    
+    deinit {
+        contentLoad?.cancel()
     }
     
     func configure(using viewModel: HomeContentCellViewModel) {
-        
-        // TODO: Add Image Cache
         guard let url = URL(string: viewModel.imageURL) else { return }
-        imageView.load(url: url)
+        
         userInfoView.add(userName: viewModel.userName)
+        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(url: url) {
+            [weak self] response in
+            
+            guard let self else { return }
+            response.onComplete(self.imageView.addImage)
+        }
     }
     
     private func configureViews() {
@@ -63,19 +74,5 @@ final class HomeContentCell: UICollectionViewCell {
             userInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             userInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-    }
-}
-
-extension UIImageView {
-    func load(url: URL) {
-        
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            if let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.image = image
-                }
-            }
-        }
     }
 }

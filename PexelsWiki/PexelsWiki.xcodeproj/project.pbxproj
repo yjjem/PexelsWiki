@@ -11,6 +11,8 @@
 		DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */; };
 		DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */; };
 		DF3FC2BE2A3DA089000DD223 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BD2A3DA089000DD223 /* AppCoordinator.swift */; };
+		DF42BDA42A49EF6E00AA0896 /* ImageLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */; };
+		DF42BDA62A4AD65A00AA0896 /* UIImage + imageFromData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA52A4AD65A00AA0896 /* UIImage + imageFromData.swift */; };
 		DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */; };
 		DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */; };
 		DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */; };
@@ -60,6 +62,10 @@
 		DFD792D02A484BB500729C2F /* VideoContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */; };
 		DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */; };
 		DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */; };
+		DFD792D62A4877B600729C2F /* SearchFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D52A4877B600729C2F /* SearchFilterViewController.swift */; };
+		DFD792D82A487CB000729C2F /* SearchFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */; };
+		DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */; };
+		DFD792E42A49C70F00729C2F /* FilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792E32A49C70F00729C2F /* FilterOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +73,8 @@
 		DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoRepositoryInterface.swift; sourceTree = "<group>"; };
 		DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DF3FC2BD2A3DA089000DD223 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadManager.swift; sourceTree = "<group>"; };
+		DF42BDA52A4AD65A00AA0896 /* UIImage + imageFromData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + imageFromData.swift"; sourceTree = "<group>"; };
 		DFA4910E2A3A1F76008BC5C4 /* PexelsWiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsWiki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +127,10 @@
 		DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentCellViewModel.swift; sourceTree = "<group>"; };
 		DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewController.swift; sourceTree = "<group>"; };
 		DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewModel.swift; sourceTree = "<group>"; };
+		DFD792D52A4877B600729C2F /* SearchFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewController.swift; sourceTree = "<group>"; };
+		DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewModel.swift; sourceTree = "<group>"; };
+		DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterOptionCell.swift; sourceTree = "<group>"; };
+		DFD792E32A49C70F00729C2F /* FilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +281,7 @@
 			children = (
 				DFA491452A3AD168008BC5C4 /* Result + Better Mapping.swift */,
 				DFD792A12A456B5500729C2F /* MainBundle + APIKey.swift */,
+				DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -340,6 +353,7 @@
 				DFD792BD2A47BB6A00729C2F /* UICollectionViewLayout + content layouts.swift */,
 				DFD792CB2A482D1F00729C2F /* VideoPlayable.swift */,
 				DFD792C92A482C6800729C2F /* VideoPlayerView.swift */,
+				DF42BDA52A4AD65A00AA0896 /* UIImage + imageFromData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -350,6 +364,7 @@
 				DFD792C32A47FCE300729C2F /* Navigator */,
 				DFD792C42A47FCF300729C2F /* Photo */,
 				DFD792C82A482C4700729C2F /* Video */,
+				DFD792DB2A498D6F00729C2F /* Filter */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -384,6 +399,17 @@
 				DFD792CF2A484BB400729C2F /* VideoContentCellViewModel.swift */,
 			);
 			path = Video;
+			sourceTree = "<group>";
+		};
+		DFD792DB2A498D6F00729C2F /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				DFD792D52A4877B600729C2F /* SearchFilterViewController.swift */,
+				DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */,
+				DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */,
+				DFD792E32A49C70F00729C2F /* FilterOptions.swift */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,11 +487,13 @@
 				DFD7929E2A44A05F00729C2F /* PageSize.swift in Sources */,
 				DFA491502A3AD910008BC5C4 /* PexelsVideoRepositoryInterface.swift in Sources */,
 				DF3FC2BE2A3DA089000DD223 /* AppCoordinator.swift in Sources */,
+				DF42BDA62A4AD65A00AA0896 /* UIImage + imageFromData.swift in Sources */,
 				DFA491482A3AD406008BC5C4 /* NetworkError.swift in Sources */,
 				DFD792BC2A46DA5700729C2F /* PhotoContentCell.swift in Sources */,
 				DFA4914A2A3AD54A008BC5C4 /* PexelsVideoRepository.swift in Sources */,
 				DFD792AB2A45CA3000729C2F /* Category.swift in Sources */,
 				DFA491402A3AC8D3008BC5C4 /* Data + DecodeResult.swift in Sources */,
+				DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
 				DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */,
 				DFA491462A3AD168008BC5C4 /* Result + Better Mapping.swift in Sources */,
@@ -475,11 +503,13 @@
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DFD7928E2A42010500729C2F /* HomeContentCell.swift in Sources */,
+				DF42BDA42A49EF6E00AA0896 /* ImageLoadManager.swift in Sources */,
 				DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */,
 				DFD792CE2A484ABE00729C2F /* VideoContentCell.swift in Sources */,
 				DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */,
 				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
 				DFD792BA2A46D5EA00729C2F /* PhotoSearchViewController.swift in Sources */,
+				DFD792D62A4877B600729C2F /* SearchFilterViewController.swift in Sources */,
 				DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */,
 				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
 				DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */,
@@ -490,6 +520,7 @@
 				DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */,
 				DFD792B52A46B77600729C2F /* ContentType.swift in Sources */,
 				DFA4914D2A3AD8EE008BC5C4 /* RepositoryError.swift in Sources */,
+				DFD792D82A487CB000729C2F /* SearchFilterViewModel.swift in Sources */,
 				DFA491352A3AB73C008BC5C4 /* URLRequest + parameters.swift in Sources */,
 				DFD792C22A47FCD900729C2F /* PhotoContentCellViewModel.swift in Sources */,
 				DFD792D02A484BB500729C2F /* VideoContentCellViewModel.swift in Sources */,
@@ -497,6 +528,7 @@
 				DFA4913E2A3AC8B4008BC5C4 /* HTTPURLResponse + validation.swift in Sources */,
 				DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
+				DFD792E42A49C70F00729C2F /* FilterOptions.swift in Sources */,
 				DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */,
 				DFD792AF2A4687C000729C2F /* SearchNavigatorViewModel.swift in Sources */,
 				DFD792882A41BA8200729C2F /* UserInfoView.swift in Sources */,

@@ -19,6 +19,8 @@ final class PhotoContentCell: UICollectionViewCell {
         return userInfo
     }()
     
+    private var contentLoad: Cancellable?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayoutConstraints()
@@ -28,16 +30,29 @@ final class PhotoContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        contentLoad?.cancel()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         imageView.image = nil
+        contentLoad?.cancel()
     }
     
     func configure(using viewModel: PhotoContentCellViewModel) {
+        
         guard let url = URL(string: viewModel.imageURLString) else { return }
-        imageView.load(url: url)
+        
         userInfoView.add(userName: viewModel.userName)
+        
+        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(url: url) {
+            [weak self] response in
+            
+            guard let self else { return }
+            response.onComplete(self.imageView.addImage)
+        }
     }
     
     private func configureLayoutConstraints() {
