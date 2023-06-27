@@ -130,7 +130,6 @@ final class SearchNavigatorViewController: UIViewController {
             repeatingSubitem: item,
             count: 2
         )
-        group.interItemSpacing = .fixed(5)
         
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
