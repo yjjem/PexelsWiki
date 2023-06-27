@@ -46,6 +46,11 @@ final class VideoSearchViewModel {
         }
     }
     
+    func apply(filter options: FilterOptions) {
+        orientation = options.orientation
+        size = options.size
+    }
+    
     func loadNextPage() {
         if isLoading {
             return

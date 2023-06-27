@@ -32,12 +32,50 @@ final class VideoSearchViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        configureNavigationItem()
         configurePhotoCollectionView()
         bindViewModel()
     }
     
     private func addNavigationTitle(_ title: String) {
         navigationItem.title = title
+    }
+    
+    private func configureNavigationItem() {
+        let filterButtonItem = UIBarButtonItem(
+            image: .init(systemName: "line.3.horizontal.decrease.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFilterButton)
+        )
+        navigationItem.rightBarButtonItem = filterButtonItem
+    }
+    
+    private func makeFilterView(
+        with viewModel: SearchFilterViewModel
+    ) -> SearchFilterViewController {
+        
+        let filterView = SearchFilterViewController()
+        filterView.viewModel = viewModel
+        filterView.delegate = self
+        
+        return filterView
+    }
+    
+    @objc func didTapFilterButton() {
+        guard let viewModel else { return }
+        
+        let filterViewModel = SearchFilterViewModel(
+            selectedOrientation: viewModel.orientation,
+            selectedSize: viewModel.size
+        )
+        
+        let filterView = makeFilterView(with: filterViewModel)
+        
+        let navigation = UINavigationController(rootViewController: filterView)
+        navigation.navigationBar.prefersLargeTitles = true
+        
+        present(navigation, animated: true)
     }
     
     private func bindViewModel() {
@@ -109,6 +147,27 @@ final class VideoSearchViewController: UIViewController {
             videoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             videoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+extension VideoSearchViewController: SearchFilterViewControllerDelegate {
+    
+    func didApplyFilterOptions(_ options: FilterOptions) {
+        guard let viewModel else { return }
+        
+        resetSnapShot()
+        viewModel.apply(filter: options)
+        
+        switch viewModel.orientation {
+        case .landscape:
+            videoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: true)
+        case .portrait:
+            videoCollectionView.setCollectionViewLayout(.makePortraitLayout, animated: true)
+        case .square:
+            videoCollectionView.setCollectionViewLayout(.squareLayout, animated: true)
+        }
+        
+        viewModel.resetPage()
     }
 }
 
