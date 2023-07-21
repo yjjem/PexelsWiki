@@ -8,9 +8,14 @@
 import UIKit
 
 final class SceneDelegate: UIResponder {
-
+    
     var window: UIWindow?
+}
 
+// MARK: UIWindowSceneDelegate
+
+extension SceneDelegate: UIWindowSceneDelegate {
+    
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -25,5 +30,3 @@ final class SceneDelegate: UIResponder {
         appCoordinator.start()
     }
 }
-
-extension SceneDelegate: UIWindowSceneDelegate { }

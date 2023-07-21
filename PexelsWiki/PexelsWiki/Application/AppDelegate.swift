@@ -8,8 +8,12 @@
 import UIKit
 
 @main
-final class AppDelegate: UIResponder {
-    
+final class AppDelegate: UIResponder { }
+
+// MARK: UIApplicationDelegate
+
+extension AppDelegate: UIApplicationDelegate {
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -17,6 +21,4 @@ final class AppDelegate: UIResponder {
         return true
     }
 }
-
-extension AppDelegate: UIApplicationDelegate { }
 
