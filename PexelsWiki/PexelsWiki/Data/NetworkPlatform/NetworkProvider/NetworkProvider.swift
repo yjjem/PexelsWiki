@@ -23,10 +23,10 @@ final class DefaultNetworkProvider: Networkable {
         self.session = session
     }
     
-    func load<Target>(
+    func load<Target: Requestable>(
         _ target: Target,
         _ completion: @escaping (Result<Target.Response, NetworkError>) -> Void
-    ) where Target : Requestable {
+    ) {
         
         let task = session.dataTask(with: target.urlRequest) { data, response, error in
             
