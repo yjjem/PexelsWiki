@@ -49,13 +49,15 @@ final class HomeContentCell: UICollectionViewCell {
     // MARK: Function(s)
     
     func configure(using viewModel: HomeContentCellViewModel) {
-        guard let url = URL(string: viewModel.imageURL) else { return }
         
         userInfoView.add(userName: viewModel.userName)
-        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(url: url) {
-            [weak self] response in
+        
+        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
+            urlString: viewModel.imageURL
+        ) { [weak self] response in
             
             guard let self else { return }
+            
             response.onComplete(self.imageView.addImage)
         }
     }

@@ -49,11 +49,11 @@ final class PhotoContentCell: UICollectionViewCell {
     
     func configure(using viewModel: PhotoContentCellViewModel) {
         
-        guard let url = URL(string: viewModel.imageURLString) else { return }
-        
         userInfoView.add(userName: viewModel.userName)
         
-        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(url: url) {
+        contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
+            urlString: viewModel.imageURLString
+        ) {
             [weak self] response in
             
             guard let self else { return }

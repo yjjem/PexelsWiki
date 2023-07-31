@@ -21,9 +21,12 @@ enum ImageLoadManager {
     )
     
     static func fetchCachedImageDataElseLoad(
-        url: URL,
+        urlString: String,
         _ completion: @escaping (Result<Data, Error>) -> Void
     ) -> URLSessionDataTask? {
+        
+        guard let url = URL(string: urlString) else { return nil }
+        
         let request = URLRequest(url: url)
         
         if let cached = imageCache.cachedResponse(for: request) {
