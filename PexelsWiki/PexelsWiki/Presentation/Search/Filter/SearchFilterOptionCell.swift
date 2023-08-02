@@ -8,7 +8,7 @@
 import UIKit
 
 final class SearchFilterOptionCell: UITableViewCell {
-    static let reuseIdentifier: String = #file
+    static let reuseIdentifier: String = "SearchFilterOptionCell"
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
