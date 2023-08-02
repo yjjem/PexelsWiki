@@ -182,17 +182,13 @@ extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let selectedCell = collectionView.cellForItem(at: indexPath) as? CategoryCell,
-              let viewModel
-        else {
-            return
-        }
+        guard let viewModel else { return }
         
-        let selectedCategory = selectedCell.categoryName
+        let selectedCategory = viewModel.categoryItems[indexPath.item]
         
         switch viewModel.searchContentType {
-        case .image: pushPhotoSearchViewController(with: selectedCategory)
-        case .video: pushVideoSearchViewController(with: selectedCategory)
+        case .image: pushPhotoSearchViewController(with: selectedCategory.name)
+        case .video: pushVideoSearchViewController(with: selectedCategory.name)
         }
     }
 }

@@ -25,8 +25,6 @@ final class CategoryCell: UICollectionViewCell {
         return label
     }()
     
-    var categoryName: String = ""
-    
     // MARK: Override(s)
     
     override init(frame: CGRect) {
@@ -45,7 +43,6 @@ final class CategoryCell: UICollectionViewCell {
         let image = UIImage(named: category.name)
         imageView.image = image
         categoryLabel.text = category.name
-        categoryName = category.name
     }
     
     // MARK: Private Function(s)
