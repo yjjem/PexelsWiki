@@ -49,13 +49,15 @@ final class HomeViewController: UIViewController {
         bindViewModel()
     }
     
-    // MARK: Private Function(s)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel?.loadCuratedPhotosPage()
+    }
     
     private func bindViewModel() {
-        guard let viewModel else { return }
         
-        viewModel.loadCuratedPhotosPage()
-        viewModel.loadedCuratedPhotos = { [weak self] curatedPhotos in
+        viewModel?.loadedCuratedPhotos = { [weak self] curatedPhotos in
             self?.applySnapShot(with: curatedPhotos)
         }
     }
