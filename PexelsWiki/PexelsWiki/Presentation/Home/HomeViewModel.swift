@@ -11,13 +11,13 @@ final class HomeViewModel {
     
     // MARK: Variable(s)
     
+    var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
+    
     private let useCase: PexelsPhotoUseCaseInterface
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
-    
-    var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
     
     init(useCase: PexelsPhotoUseCaseInterface) {
         self.useCase = useCase

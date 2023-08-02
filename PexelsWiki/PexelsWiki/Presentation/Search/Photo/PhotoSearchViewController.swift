@@ -21,6 +21,8 @@ final class PhotoSearchViewController: UIViewController {
     
     // MARK: Variable(s)
     
+    var viewModel: PhotoSearchViewModel?
+    
     private let photoCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
@@ -31,8 +33,6 @@ final class PhotoSearchViewController: UIViewController {
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
-    
-    var viewModel: PhotoSearchViewModel?
     
     // MARK: Override(s)
     

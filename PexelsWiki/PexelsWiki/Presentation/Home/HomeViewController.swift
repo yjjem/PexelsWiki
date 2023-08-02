@@ -21,6 +21,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: Variable(s)
     
+    var viewModel: HomeViewModel?
+    
     private let contentCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
@@ -31,8 +33,6 @@ final class HomeViewController: UIViewController {
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
-    
-    var viewModel: HomeViewModel?
     
     // MARK: Override(s)
     

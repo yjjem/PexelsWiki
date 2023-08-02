@@ -11,6 +11,12 @@ final class VideoSearchViewModel {
     
     // MARK: Variable(s)
     
+    var query: String = ""
+    var orientation: ContentOrientation = .landscape
+    var size: ContentSize = .small
+    
+    var loadedVideoResources: (([VideoResource]) -> Void)?
+    
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
@@ -18,12 +24,6 @@ final class VideoSearchViewModel {
     private var contentType: ContentOrientation = .landscape
     
     private let useCase: PexelsVideoSearchUseCaseInterface
-    
-    var query: String = ""
-    var orientation: ContentOrientation = .landscape
-    var size: ContentSize = .small
-    
-    var loadedVideoResources: (([VideoResource]) -> Void)?
     
     init(useCase: PexelsVideoSearchUseCaseInterface) {
         self.useCase = useCase

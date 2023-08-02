@@ -21,6 +21,8 @@ final class SearchNavigatorViewController: UIViewController {
     
     // MARK: Variable(s)
     
+    var viewModel: SearchNavigatorViewModel?
+    
     private let searchController: UISearchController = {
         let search = UISearchController()
         return search
@@ -33,8 +35,6 @@ final class SearchNavigatorViewController: UIViewController {
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
-    
-    var viewModel: SearchNavigatorViewModel?
     
     // MARK: Override(s)
     

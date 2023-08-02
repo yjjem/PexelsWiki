@@ -15,13 +15,13 @@ final class SearchFilterViewController: UIViewController {
     
     // MARK: Variable(s)
     
+    var delegate: SearchFilterViewControllerDelegate?
+    var viewModel: SearchFilterViewModel?
+    
     private let searchFilterTableView: UITableView = {
         let collection = UITableView(frame: .zero, style: .insetGrouped)
         return collection
     }()
-    
-    var delegate: SearchFilterViewControllerDelegate?
-    var viewModel: SearchFilterViewModel?
     
     // MARK: Override(s)
     
