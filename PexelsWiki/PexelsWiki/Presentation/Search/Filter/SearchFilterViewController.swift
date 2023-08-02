@@ -35,6 +35,12 @@ final class SearchFilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        preselectOptions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         preselectOptions()
     }
     
@@ -148,9 +154,16 @@ extension SearchFilterViewController: UITableViewDataSource {
 
 extension SearchFilterViewController: UITableViewDelegate {
     
-    func uncheckPreviousCells(in tableView: UITableView, _ indexPath: IndexPath) {
+    func deselectPreviouslySelectedCell(
+        in tableView: UITableView,
+        _ indexPath: IndexPath
+    ) {
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows
+        else {
+            return
+        }
+        
         let currentSection = indexPath.section
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         if selectedIndexPaths.contains(indexPath) {
             return
@@ -163,7 +176,7 @@ extension SearchFilterViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        uncheckPreviousCells(in: tableView, indexPath)
+        deselectPreviouslySelectedCell(in: tableView, indexPath)
         
         return indexPath
     }
