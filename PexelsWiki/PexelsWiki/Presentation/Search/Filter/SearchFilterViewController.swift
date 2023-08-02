@@ -35,12 +35,12 @@ final class SearchFilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindViewModel()
+        preselectOptions()
     }
     
     // MARK: Private Function(s)
     
-    private func bindViewModel() {
+    private func preselectOptions() {
         guard let viewModel else { return }
         
         let selectedOrientationIndex = viewModel.selectedOrientation.orderIndex
@@ -48,7 +48,6 @@ final class SearchFilterViewController: UIViewController {
         
         let selectedSizeIndex = viewModel.selectedSize.orderIndex
         preselectOptionAt(section: .size, row: selectedSizeIndex)
-        
     }
     
     private func preselectOptionAt(section: Section, row: Int) {
