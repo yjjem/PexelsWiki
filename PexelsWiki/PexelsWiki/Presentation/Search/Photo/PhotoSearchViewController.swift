@@ -41,6 +41,10 @@ final class PhotoSearchViewController: UIViewController {
         
         configureNavigationItem()
         configurePhotoCollectionView()
+        
+        if let viewModel {
+            addNavigationTitle(viewModel.query)
+        }
     }
     
     override func viewDidLoad() {
@@ -49,13 +53,17 @@ final class PhotoSearchViewController: UIViewController {
         bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel?.loadSearchResults()
+    }
+    
     // MARK: Private Function(s)
     
     private func bindViewModel() {
         guard let viewModel else { return }
         
-        addNavigationTitle(viewModel.query)
-        viewModel.loadSearchResults()
         viewModel.loadedPhotoResources = { [weak self] photoResources in
             self?.updateSnapShot(using: photoResources)
         }
