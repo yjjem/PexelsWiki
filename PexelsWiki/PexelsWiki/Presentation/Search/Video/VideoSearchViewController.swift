@@ -33,8 +33,23 @@ final class VideoSearchViewController: UIViewController {
     override func loadView() {
         super.loadView()
         configureNavigationItem()
-        configurePhotoCollectionView()
+        configureVideoCollectionView()
+        
+        if let viewModel {
+            addNavigationTitle(viewModel.query)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel?.loadSearchResults()
     }
     
     private func addNavigationTitle(_ title: String) {
@@ -81,14 +96,12 @@ final class VideoSearchViewController: UIViewController {
     private func bindViewModel() {
         guard let viewModel else { return }
 
-        addNavigationTitle(viewModel.query)
-        viewModel.loadSearchResults()
         viewModel.loadedVideoResources = { [weak self] videoResource in
             self?.updateSnapShot(using: videoResource)
         }
     }
     
-    private func configurePhotoCollectionView() {
+    private func configureVideoCollectionView() {
         diffableDataSource = makeDiffableDataSource()
         addVideoCollectionView()
         videoCollectionView.dataSource = diffableDataSource
@@ -113,13 +126,13 @@ final class VideoSearchViewController: UIViewController {
     }
     
     private func makeDiffableDataSource() -> DataSource {
-        let photoContentCellRegistration = makeVideoContentCellRegistration()
+        let videoContentCellRegistration = makeVideoContentCellRegistration()
         
         let diffableDataSource = DataSource(collectionView: videoCollectionView) {
             collectionView, indexPath, itemIdentifier in
             
             collectionView.dequeueConfiguredReusableCell(
-                using: photoContentCellRegistration,
+                using: videoContentCellRegistration,
                 for: indexPath,
                 item: itemIdentifier
             )
