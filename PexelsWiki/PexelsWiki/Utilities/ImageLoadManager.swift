@@ -16,8 +16,8 @@ extension URLSessionDataTask: Cancellable { }
 enum ImageLoadManager {
     
     private static let imageCache = URLCache(
-        memoryCapacity: 200.mb,
-        diskCapacity: 500.mb
+        memoryCapacity: 200.megaBytes,
+        diskCapacity: 500.megaBytes
     )
     
     static func fetchCachedImageDataElseLoad(
