@@ -7,7 +7,7 @@
 
 extension Int {
     
-    var megaBytes: Int {
+    var megaByte: Int {
         return self * 1024 * 1024
     }
 }
