@@ -182,16 +182,7 @@ extension SearchFilterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sectionIndex = indexPath.section
-        let rowIndex = indexPath.row
-        let sections = Section.allCases
-        
-        switch sections[sectionIndex] {
-        case .orientation:
-            viewModel?.selectedOrientation = ContentOrientation.allCases[rowIndex]
-        case .size:
-            viewModel?.selectedSize = ContentSize.allCases[rowIndex]
-        }
+        viewModel?.selectOptions(at: indexPath)
     }
 }
 
