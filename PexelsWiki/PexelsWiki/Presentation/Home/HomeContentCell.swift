@@ -50,7 +50,7 @@ final class HomeContentCell: UICollectionViewCell {
     
     func configure(using viewModel: HomeContentCellViewModel) {
         
-        userInfoView.add(userName: viewModel.userName)
+        userInfoView.setupUserName(using: viewModel.userName)
         
         contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
             urlString: viewModel.imageURL

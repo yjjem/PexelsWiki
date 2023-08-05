@@ -51,7 +51,7 @@ final class UserInfoView: UIView {
     
     // MARK: Function(s)
     
-    func add(userName: String) {
+    func setupUserName(using userName: String) {
         userNameLabel.text = userName
     }
     

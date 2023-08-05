@@ -51,7 +51,7 @@ final class VideoContentCell: UICollectionViewCell {
     
     func configure(using viewModel: VideoContentCellViewModel) {
         videoView.loadVideo(from: viewModel.videoURLString)
-        userInfoView.add(userName: viewModel.userName)
+        userInfoView.setupUserName(using: viewModel.userName)
     }
     
     // MARK: Private Function(s)

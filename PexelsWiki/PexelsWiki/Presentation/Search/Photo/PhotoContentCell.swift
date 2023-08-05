@@ -49,7 +49,7 @@ final class PhotoContentCell: UICollectionViewCell {
     
     func configure(using viewModel: PhotoContentCellViewModel) {
         
-        userInfoView.add(userName: viewModel.userName)
+        userInfoView.setupUserName(using: viewModel.userName)
         
         contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
             urlString: viewModel.imageURLString
