@@ -31,6 +31,11 @@ final class HomeViewController: UIViewController {
         return collection
     }()
     
+    private let contentRefreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
+    
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
@@ -40,6 +45,7 @@ final class HomeViewController: UIViewController {
         super.loadView()
         
         configureView()
+        configureContentRefreshControl()
         configureContentCollectionView()
     }
     
@@ -57,8 +63,14 @@ final class HomeViewController: UIViewController {
     
     private func bindViewModel() {
         
+        let mainQueue = DispatchQueue.main
+        
         viewModel?.loadedCuratedPhotos = { [weak self] curatedPhotos in
             self?.applySnapShot(with: curatedPhotos)
+            
+            mainQueue.async {
+                self?.contentRefreshControl.endRefreshing()
+            }
         }
     }
     
@@ -72,9 +84,17 @@ final class HomeViewController: UIViewController {
         diffableDataSource = makeDataSource()
         
         contentCollectionView.setCollectionViewLayout(.portraitLayout, animated: false)
-        contentCollectionView.refreshControl = makeCollectionViewRefreshControl()
+        contentCollectionView.refreshControl = contentRefreshControl
         contentCollectionView.dataSource = diffableDataSource
         contentCollectionView.delegate = self
+    }
+    
+    private func configureContentRefreshControl() {
+        contentRefreshControl.addTarget(
+            self,
+            action: #selector(didInvokeRefresh),
+            for: .valueChanged
+        )
     }
     
     private func addContentCollectionView() {
@@ -130,21 +150,12 @@ final class HomeViewController: UIViewController {
         snapShot.deleteAll()
     }
     
-    private func makeCollectionViewRefreshControl() -> UIRefreshControl {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(didInvokeRefresh), for: .valueChanged)
-        return refreshControl
-    }
-    
     // MARK: Action(s)
     
     @objc
     private func didInvokeRefresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.resetSnapShot()
-            self.viewModel?.resetPage()
-            self.contentCollectionView.refreshControl?.endRefreshing()
-        }
+        resetSnapShot()
+        viewModel?.resetPage()
     }
 }
 
@@ -155,7 +166,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let verticalPaginationTriggerPoint = scrollView.contentSize.height - scrollView.bounds.height
         let currentYPosition = scrollView.contentOffset.y
-
+        
         if currentYPosition > verticalPaginationTriggerPoint {
             viewModel?.loadNextPage()
         }
