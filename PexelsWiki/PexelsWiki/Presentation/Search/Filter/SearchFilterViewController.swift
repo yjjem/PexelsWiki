@@ -32,12 +32,6 @@ final class SearchFilterViewController: UIViewController {
         configureSearchFilterTableView()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        preselectOptions()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
