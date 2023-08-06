@@ -10,7 +10,7 @@ import Foundation
 extension WrappedVideoListResponse {
     
     var hasNextPage: Bool {
-        return nextPage != nil ? true: false
+        return nextPage != nil
     }
     
     func toVideoPage() -> VideoPage {
@@ -25,7 +25,7 @@ extension WrappedVideoListResponse {
 extension WrappedPhotoListResponse {
     
     var hasNextPage: Bool {
-        return nextPage != nil ? true: false
+        return nextPage != nil
     }
     
     func toPhotoPage() -> PhotoPage {
