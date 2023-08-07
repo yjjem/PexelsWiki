@@ -67,12 +67,13 @@ final class HomeViewController: UIViewController {
         
         viewModel?.loadedCuratedPhotos = { [weak self] curatedPhotos in
             guard let self else { return }
+            let refreshControl = self.contentRefreshControl
             
             self.applySnapShot(with: curatedPhotos)
             
-            if self.contentRefreshControl.isRefreshing {
-                mainQueue.async {
-                    self.contentRefreshControl.endRefreshing()
+            mainQueue.async {
+                if refreshControl.isRefreshing {
+                    refreshControl.endRefreshing()
                 }
             }
         }
