@@ -67,6 +67,7 @@
 		DFD792D82A487CB000729C2F /* SearchFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */; };
 		DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */; };
 		DFD792E42A49C70F00729C2F /* FilterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792E32A49C70F00729C2F /* FilterOptions.swift */; };
+		DFE101692AF775750036158A /* TabTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE101682AF775750036158A /* TabTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +134,7 @@
 		DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewModel.swift; sourceTree = "<group>"; };
 		DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterOptionCell.swift; sourceTree = "<group>"; };
 		DFD792E32A49C70F00729C2F /* FilterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptions.swift; sourceTree = "<group>"; };
+		DFE101682AF775750036158A /* TabTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		DFA491252A3A2065008BC5C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DFE101672AF775660036158A /* Tabs */,
 				DFD792A62A45AB1F00729C2F /* Common */,
 				DFD792A52A45AB1300729C2F /* Home */,
 				DFD792A72A45B3A500729C2F /* Search */,
@@ -415,6 +418,14 @@
 			path = Filter;
 			sourceTree = "<group>";
 		};
+		DFE101672AF775660036158A /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				DFE101682AF775750036158A /* TabTypes.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -505,6 +516,7 @@
 				DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
+				DFE101692AF775750036158A /* TabTypes.swift in Sources */,
 				DFD7928E2A42010500729C2F /* HomeContentCell.swift in Sources */,
 				DF42BDA42A49EF6E00AA0896 /* ImageLoadManager.swift in Sources */,
 				DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */,
