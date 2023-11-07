@@ -19,35 +19,36 @@ final class TabCoordinator: Coordinator {
     }
     
     func start() {
+
         let homeTabBarItem = makeTabBarItem(type: .home)
-        let defaultNetworkProvider = DefaultNetworkProvider()
-        let photoRepository = PexelsPhotoRepository(provider: defaultNetworkProvider)
-        let photoUseCase = PexelsPhotoUseCase(repository: photoRepository)
-        let homeViewModel = HomeViewModel(useCase: photoUseCase)
-        let homeViewController = HomeViewController()
+        let homeNavigationViewController = UINavigationController()
+        homeNavigationViewController.tabBarItem = homeTabBarItem
+        homeNavigationViewController.navigationBar.prefersLargeTitles = true
         
-        homeViewController.title = TabTypes.home.title
-        homeViewController.tabBarItem = homeTabBarItem
-        homeViewController.viewModel = homeViewModel
-        
-        let homeNavigation = UINavigationController(rootViewController: homeViewController)
-        homeNavigation.navigationBar.prefersLargeTitles = true
+        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
+        homeCoordinator.start()
         
         let searchTabBarItem = makeTabBarItem(type: .search)
         let searchNavigatorViewModel = SearchNavigatorViewModel()
         let searchNavigatorViewController = SearchNavigatorViewController()
-        
         searchNavigatorViewController.title = TabTypes.search.title
         searchNavigatorViewController.tabBarItem = searchTabBarItem
         searchNavigatorViewController.viewModel = searchNavigatorViewModel
         
-        let searchNavigation = UINavigationController(
+        let searchNavigationViewController = UINavigationController(
             rootViewController: searchNavigatorViewController
         )
-        searchNavigation.navigationBar.prefersLargeTitles = true
+        searchNavigationViewController.navigationBar.prefersLargeTitles = true
         
         let tabBarViewController = UITabBarController()
-        tabBarViewController.viewControllers = [homeNavigation, searchNavigation]
+        tabBarViewController.viewControllers = [
+            homeNavigationViewController, 
+            searchNavigationViewController
+        ]
+        
+        let tabCoordinators: [Coordinator] = [homeCoordinator]
+        tabCoordinators.forEach { $0.start() }
+        childCoordinators = tabCoordinators
         
         window.rootViewController = tabBarViewController
     }
@@ -56,10 +57,6 @@ final class TabCoordinator: Coordinator {
         let defaultIcon = UIImage(systemName: type.defaultIconName)
         let selectedIcon = UIImage(systemName: type.selectedIconName)
         
-        return UITabBarItem(
-            title: type.title,
-            image: defaultIcon,
-            selectedImage: selectedIcon
-        )
+        return UITabBarItem(title: type.title, image: defaultIcon, selectedImage: selectedIcon)
     }
 }
