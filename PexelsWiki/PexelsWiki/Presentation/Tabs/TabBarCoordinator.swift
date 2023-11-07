@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabCoordinator: Coordinator {
+final class TabBarCoordinator: Coordinator {
     
     // MARK: Property(s)
     
@@ -25,15 +25,8 @@ final class TabCoordinator: Coordinator {
     
     func start() {
 
-        let homeTabBarItem = makeTabBarItem(type: .home)
-        let homeNavigationViewController = UINavigationController()
-        homeNavigationViewController.tabBarItem = homeTabBarItem
-        homeNavigationViewController.navigationBar.prefersLargeTitles = true
-        
-        let searchTabBarItem = makeTabBarItem(type: .search)
-        let searchNavigationViewController = UINavigationController()
-        searchNavigationViewController.tabBarItem = searchTabBarItem
-        searchNavigationViewController.navigationBar.prefersLargeTitles = true
+        let homeNavigationViewController = makeTabNavigationViewController(type: .home)
+        let searchNavigationViewController = makeTabNavigationViewController(type: .search)
         
         let tabBarViewController = UITabBarController()
         tabBarViewController.viewControllers = [
@@ -49,6 +42,14 @@ final class TabCoordinator: Coordinator {
         childCoordinators = tabCoordinators
         
         window.rootViewController = tabBarViewController
+    }
+    
+    private func makeTabNavigationViewController(type: TabTypes) -> UINavigationController {
+        let navigationViewController = UINavigationController()
+        navigationViewController.tabBarItem = makeTabBarItem(type: type)
+        navigationViewController.navigationBar.prefersLargeTitles = true
+        
+        return navigationViewController
     }
     
     private func makeTabBarItem(type: TabTypes) -> UITabBarItem {

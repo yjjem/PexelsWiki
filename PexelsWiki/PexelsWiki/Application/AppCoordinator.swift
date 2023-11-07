@@ -28,7 +28,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func showTabBarFlow() {
-        let tabCoordinator = TabCoordinator(window: window)
+        let tabCoordinator = TabBarCoordinator(window: window)
         tabCoordinator.start()
     }
 }
