@@ -39,10 +39,10 @@ final class CategoryCell: UICollectionViewCell {
     
     // MARK: Function(s)
     
-    func configure(using category: Category) {
-        let image = UIImage(named: category.name)
+    func configure(using category: RecommendedCategory) {
+        let image = UIImage(named: category.imageName)
         imageView.image = image
-        categoryLabel.text = category.name
+        categoryLabel.text = category.capitalizedName
     }
     
     // MARK: Private Function(s)

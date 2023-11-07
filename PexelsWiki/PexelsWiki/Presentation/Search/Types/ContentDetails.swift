@@ -5,17 +5,17 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-enum ContentOrientation: CaseIterable {
+enum ContentOrientation: String, CaseIterable {
     case landscape
     case portrait
     case square
     
     var name: String {
-        switch self {
-        case .landscape: return "landscape"
-        case .portrait: return "portrait"
-        case .square: return "square"
-        }
+        return rawValue
+    }
+    
+    var capitalizedName: String {
+        return rawValue.capitalized
     }
     
     var orderIndex: Int {
@@ -27,17 +27,17 @@ enum ContentOrientation: CaseIterable {
     }
 }
 
-enum ContentSize: CaseIterable {
+enum ContentSize: String, CaseIterable {
     case large
     case medium
     case small
     
     var name: String {
-        switch self {
-        case .large: return "large"
-        case .medium: return "medium"
-        case .small: return "small"
-        }
+        return rawValue
+    }
+    
+    var capitalizedName: String {
+        return rawValue.capitalized
     }
     
     var orderIndex: Int {

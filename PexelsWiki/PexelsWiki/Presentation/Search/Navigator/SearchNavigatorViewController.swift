@@ -11,9 +11,9 @@ final class SearchNavigatorViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, Category>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Category>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<Category>
+    typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, RecommendedCategory>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedCategory>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<RecommendedCategory>
     
     enum Section {
         case category
@@ -144,7 +144,7 @@ final class SearchNavigatorViewController: UIViewController {
         return layout
     }
     
-    private func updateSnapShot(with categoryList: [Category]) {
+    private func updateSnapShot(with categoryList: [RecommendedCategory]) {
         snapShot.append(categoryList)
         diffableDataSource?.apply(snapShot, to: .category)
     }
@@ -187,8 +187,8 @@ extension SearchNavigatorViewController: UICollectionViewDelegate {
         let selectedCategory = viewModel.categoryItems[indexPath.item]
         
         switch viewModel.searchContentType {
-        case .image: pushPhotoSearchViewController(with: selectedCategory.name)
-        case .video: pushVideoSearchViewController(with: selectedCategory.name)
+        case .image: pushPhotoSearchViewController(with: selectedCategory.capitalizedName)
+        case .video: pushVideoSearchViewController(with: selectedCategory.capitalizedName)
         }
     }
 }

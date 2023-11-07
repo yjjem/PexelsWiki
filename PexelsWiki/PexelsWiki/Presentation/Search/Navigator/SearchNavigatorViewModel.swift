@@ -12,14 +12,5 @@ final class SearchNavigatorViewModel {
     var searchQuery: String = ""
     var searchContentType: ContentType = .image
     
-    let categoryItems: [Category] = [
-        Category(name: "business"),
-        Category(name: "flowers"),
-        Category(name: "forest"),
-        Category(name: "summer"),
-        Category(name: "landscape"),
-        Category(name: "black and white"),
-        Category(name: "nature"),
-        Category(name: "food"),
-    ]
+    let categoryItems: [RecommendedCategory] = RecommendedCategory.allCases
 }

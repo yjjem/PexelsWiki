@@ -184,15 +184,12 @@ extension SearchFilterViewController: UITableViewDelegate {
 
 extension SearchFilterViewController {
     
-    enum Section: CaseIterable {
+    enum Section: String, CaseIterable {
         case orientation
         case size
         
         var sectionName: String {
-            switch self {
-            case .orientation: return "Orientation"
-            case .size: return "Size"
-            }
+            return rawValue.capitalized
         }
         
         var numberOfRows: Int {
@@ -204,8 +201,8 @@ extension SearchFilterViewController {
         
         var optionsNames: [String] {
             switch self {
-            case .orientation: return ContentOrientation.allCases.map { $0.name }
-            case .size: return ContentSize.allCases.map { $0.name }
+            case .orientation: return ContentOrientation.allCases.map { $0.capitalizedName }
+            case .size: return ContentSize.allCases.map { $0.capitalizedName }
             }
         }
         
