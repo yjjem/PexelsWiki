@@ -21,8 +21,8 @@ protocol PexelsVideoRepositoryInterface {
     
     func searchVideos(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, RepositoryError>) -> Void

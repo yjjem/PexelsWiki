@@ -34,8 +34,8 @@ final class PhotoSearchViewModel {
         
         useCase.search(
             query: query,
-            orientation: orientation,
-            size: size,
+            orientation: orientation.name,
+            size: size.name,
             page: page,
             perPage: pageSize.itemsPerPage
         ) { response in

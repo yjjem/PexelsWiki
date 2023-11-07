@@ -11,8 +11,8 @@ protocol PexelsPhotoSearchUseCaseInterface {
     
     func search(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
@@ -29,8 +29,8 @@ final class PexelsPhotoSearchUseCase: PexelsPhotoSearchUseCaseInterface {
     
     func search(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void

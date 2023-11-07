@@ -11,8 +11,8 @@ protocol PexelsVideoSearchUseCaseInterface {
     
     func search(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
@@ -29,8 +29,8 @@ final class PexelsVideoSearchUseCase: PexelsVideoSearchUseCaseInterface {
     
     func search(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void

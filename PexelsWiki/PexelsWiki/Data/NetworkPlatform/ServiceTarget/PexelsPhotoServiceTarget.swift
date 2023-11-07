@@ -10,8 +10,8 @@ import Foundation
 enum PexelsPhotoServiceTarget {
     case searchPhotos(
         query: String,
-        orientation: ContentOrientation,
-        size: ContentSize,
+        orientation: String,
+        size: String,
         page: Int,
         perPage: Int
     )
@@ -38,8 +38,8 @@ extension PexelsPhotoServiceTarget: Requestable {
         case let .searchPhotos(query, orientation, size, page, perPage):
             return [
                 "query": query,
-                "orientation": orientation.name,
-                "size": size.name,
+                "orientation": orientation,
+                "size": size,
                 "page": String(page),
                 "per_page": String(perPage)
             ]
