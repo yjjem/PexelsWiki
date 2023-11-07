@@ -9,14 +9,19 @@ import UIKit
 
 final class TabCoordinator: Coordinator {
     
+    // MARK: Property(s)
+    
     var childCoordinators: [Coordinator] = []
     
-    private let navigationController: UINavigationController = .init()
     private let window: UIWindow
+    
+    // MARK: Initializer(s)
     
     init(window: UIWindow) {
         self.window = window
     }
+    
+    // MARK: Function(s)
     
     func start() {
 
@@ -25,19 +30,9 @@ final class TabCoordinator: Coordinator {
         homeNavigationViewController.tabBarItem = homeTabBarItem
         homeNavigationViewController.navigationBar.prefersLargeTitles = true
         
-        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
-        homeCoordinator.start()
-        
         let searchTabBarItem = makeTabBarItem(type: .search)
-        let searchNavigatorViewModel = SearchNavigatorViewModel()
-        let searchNavigatorViewController = SearchNavigatorViewController()
-        searchNavigatorViewController.title = TabTypes.search.title
-        searchNavigatorViewController.tabBarItem = searchTabBarItem
-        searchNavigatorViewController.viewModel = searchNavigatorViewModel
-        
-        let searchNavigationViewController = UINavigationController(
-            rootViewController: searchNavigatorViewController
-        )
+        let searchNavigationViewController = UINavigationController()
+        searchNavigationViewController.tabBarItem = searchTabBarItem
         searchNavigationViewController.navigationBar.prefersLargeTitles = true
         
         let tabBarViewController = UITabBarController()
@@ -46,7 +41,10 @@ final class TabCoordinator: Coordinator {
             searchNavigationViewController
         ]
         
-        let tabCoordinators: [Coordinator] = [homeCoordinator]
+        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
+        let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
+        
+        let tabCoordinators: [Coordinator] = [homeCoordinator, searchCoordinator]
         tabCoordinators.forEach { $0.start() }
         childCoordinators = tabCoordinators
         

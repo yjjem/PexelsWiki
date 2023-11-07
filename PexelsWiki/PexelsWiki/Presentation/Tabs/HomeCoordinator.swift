@@ -9,13 +9,19 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
     
+    // MARK: Property(s)
+    
     var childCoordinators: [Coordinator] = []
     
     private let navigationController: UINavigationController
     
+    // MARK: Initializer(s)
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
+    // MARK: Function(s)
     
     func start() {
         showMainFlow()

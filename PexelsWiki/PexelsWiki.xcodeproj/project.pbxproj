@@ -70,6 +70,7 @@
 		DFE101692AF775750036158A /* TabTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE101682AF775750036158A /* TabTypes.swift */; };
 		DFE1016B2AF775A30036158A /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016A2AF775A30036158A /* TabCoordinator.swift */; };
 		DFE1016D2AF91BC70036158A /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */; };
+		DFE1016F2AFA4B400036158A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,7 @@
 		DFE101682AF775750036158A /* TabTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTypes.swift; sourceTree = "<group>"; };
 		DFE1016A2AF775A30036158A /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +430,7 @@
 				DFE101682AF775750036158A /* TabTypes.swift */,
 				DFE1016A2AF775A30036158A /* TabCoordinator.swift */,
 				DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */,
+				DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				DF42BDA62A4AD65A00AA0896 /* UIImage+ImageFromData.swift in Sources */,
 				DFA491482A3AD406008BC5C4 /* NetworkError.swift in Sources */,
 				DFD792BC2A46DA5700729C2F /* PhotoContentCell.swift in Sources */,
+				DFE1016F2AFA4B400036158A /* SearchCoordinator.swift in Sources */,
 				DFA4914A2A3AD54A008BC5C4 /* PexelsVideoRepository.swift in Sources */,
 				DFD792AB2A45CA3000729C2F /* Category.swift in Sources */,
 				DFE1016B2AF775A30036158A /* TabCoordinator.swift in Sources */,
