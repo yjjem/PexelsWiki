@@ -13,6 +13,7 @@ final class VideoContentCell: UICollectionViewCell {
     
     private let videoView: VideoPlayerView = {
         let videoView = VideoPlayerView()
+        videoView.allowsVideoSounds = false
         return videoView
     }()
     
@@ -25,8 +26,8 @@ final class VideoContentCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureViewLayoutConstraints()
         
+        configureViewLayoutConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -36,7 +37,7 @@ final class VideoContentCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        videoView.player = nil
+        videoView.prepareForReuse()
     }
     
     // MARK: Function(s)
@@ -50,7 +51,7 @@ final class VideoContentCell: UICollectionViewCell {
     }
     
     func configure(using viewModel: VideoContentCellViewModel) {
-        videoView.loadVideo(from: viewModel.videoURLString)
+        videoView.fetchVideo(using: viewModel.videoURLString)
         userInfoView.setupUserName(using: viewModel.userName)
     }
     
@@ -76,5 +77,14 @@ final class VideoContentCell: UICollectionViewCell {
             userInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             userInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+}
+
+fileprivate extension VideoPlayerView {
+    
+    func prepareForReuse() {
+        videoAsset?.cancelLoading()
+        videoAsset = nil
+        playerItem = nil
     }
 }

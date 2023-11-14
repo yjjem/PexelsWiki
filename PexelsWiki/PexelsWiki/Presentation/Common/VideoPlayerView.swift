@@ -5,22 +5,24 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
     
 
-import UIKit
 import AVKit
 
-final class VideoPlayerView: UIView, VideoPlayable {
+class VideoPlayerView: UIView {
     
-    enum PlayerState {
-        case active
-        case inactive
+    // MARK: Property(s)
+    
+    var videoAsset: AVAsset?
+    var playerItem: AVPlayerItem?
+    var allowsVideoSounds: Bool = true
+    
+    var player: AVPlayer? {
+        didSet {
+            playerLayer?.player = player
+        }
     }
     
-    // MARK: Variable(s)
-    
-    var playerState: PlayerState = .inactive {
-        didSet {
-            stateDidChange()
-        }
+    var playerLayer: AVPlayerLayer? {
+        return layer as? AVPlayerLayer
     }
     
     // MARK: Override(s)
@@ -31,15 +33,40 @@ final class VideoPlayerView: UIView, VideoPlayable {
     
     // MARK: Function(s)
     
-    func loadVideo(from urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        player = makePlayer(with: url)
+    func fetchVideo(using urlString: String) {
+        
+        guard let videoURL = URL(string: urlString) else { return }
+        
+        let videoAsset = AVAsset(url: videoURL)
+        self.videoAsset = videoAsset
+        
+        let playerItem = AVPlayerItem(asset: videoAsset)
+        self.playerItem = playerItem
+        
+        if let player {
+            player.replaceCurrentItem(with: playerItem)
+        } else {
+            makePlayer(item: playerItem)
+        }
     }
     
-    func stateDidChange() {
-        switch playerState {
-        case .active: playVideo()
-        case .inactive: pauseVideo()
+    func playVideo() {
+        if let player, player.currentItem?.status == .readyToPlay {
+            player.play()
         }
+    }
+    
+    func pauseVideo() {
+        if let player, player.currentItem?.status == .readyToPlay {
+            player.pause()
+        }
+    }
+    
+    // MARK: Private Function(s)
+    
+    private func makePlayer(item: AVPlayerItem) {
+        let videoPlayer = AVPlayer(playerItem: playerItem)
+        videoPlayer.isMuted = allowsVideoSounds
+        player = videoPlayer
     }
 }
