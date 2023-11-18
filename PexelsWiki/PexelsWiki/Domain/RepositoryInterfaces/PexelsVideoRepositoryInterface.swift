@@ -16,7 +16,7 @@ protocol PexelsVideoRepositoryInterface {
         maxDuration: Int,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<VideoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<VideoPage, Error>) -> Void
     )
     
     func searchVideos(
@@ -25,6 +25,6 @@ protocol PexelsVideoRepositoryInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<VideoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<VideoPage, Error>) -> Void
     )
 }

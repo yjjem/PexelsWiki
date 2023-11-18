@@ -38,20 +38,12 @@ final class PhotoSearchViewModel {
             size: size.name,
             page: page,
             perPage: pageSize.itemsPerPage
-        ) { response in
+        ) { [weak self] response in
             
-            response.onComplete { [weak self] photoPage in
-                guard let self else { return }
-                
-                let photoResources = photoPage.photos
-                
+            if let self, case .success(let photoPage) = response {
                 self.isLoading = false
                 self.page = photoPage.page
                 self.hasNext = photoPage.hasNext
-                
-                let cellViewModels = photoResources.map(makePhotoContentCellViewModel)
-                
-                self.loadedPhotoResources?(cellViewModels)
             }
         }
     }

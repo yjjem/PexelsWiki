@@ -52,13 +52,15 @@ final class HomeContentCell: UICollectionViewCell {
         
         userInfoView.setupUserName(using: viewModel.userName)
         
+        // TODO: 셀이 로딩 로직을 모르도록 수정할 것
+        
         contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
             urlString: viewModel.imageURL
         ) { [weak self] response in
             
             guard let self else { return }
             
-            response.onComplete(self.imageView.addImage)
+            _ = response.map(self.imageView.addImage)
         }
     }
     

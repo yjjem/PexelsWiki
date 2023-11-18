@@ -30,9 +30,7 @@ final class PexelsPhotoUseCase: PexelsPhotoUseCaseInterface {
         completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) {
         repository.loadCuratedPhotos(page: page, perPage: perPage) { response in
-            response.onComplete { photoPage in
-                completion(.success(photoPage))
-            }
+            completion(response.mapError { $0 as Error })
         }
     }
 }

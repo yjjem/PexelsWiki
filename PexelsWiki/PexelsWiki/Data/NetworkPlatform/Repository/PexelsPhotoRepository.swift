@@ -16,15 +16,15 @@ final class PexelsPhotoRepository: PexelsPhotoRepositoryInterface {
     func loadCuratedPhotos(
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) {
         let target: PexelsPhotoServiceTarget = .curatedPhotos(page: page, perPage: perPage)
         
-        provider.load(target) { response in
-            response.onComplete { data in
-                let photoPage = data.toPhotoPage()
-                completion(.success(photoPage))
-            }
+        provider.load(target) { result in
+            let mappedResult = result
+                .map { $0.toPhotoPage() }
+                .mapError { $0 as Error }
+            completion(mappedResult)
         }
     }
     
@@ -34,7 +34,7 @@ final class PexelsPhotoRepository: PexelsPhotoRepositoryInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) {
         let target: PexelsPhotoServiceTarget = .searchPhotos(
             query: query,
@@ -44,11 +44,11 @@ final class PexelsPhotoRepository: PexelsPhotoRepositoryInterface {
             perPage: perPage
         )
         
-        provider.load(target) { response in
-            response.onComplete { data in
-                let photoPage = data.toPhotoPage()
-                completion(.success(photoPage))
-            }
+        provider.load(target) { result in
+            let mappedResult = result
+                .map { $0.toPhotoPage() }
+                .mapError { $0 as Error }
+            completion(mappedResult)
         }
     }
 }

@@ -39,13 +39,13 @@ final class VideoSearchViewModel {
             size: size.name,
             page: page,
             perPage: pageSize.itemsPerPage
-        ) { response in
+        ) { [weak self] response in
             
-            response.onComplete { [weak self] videoPage in
-                self?.isLoading = false
-                self?.page = videoPage.page
-                self?.hasNext = videoPage.hasNext
-                self?.loadedVideoResources?(videoPage.videos)
+            if let self, case .success(let videoPage) = response {
+                self.isLoading = false
+                self.page = videoPage.page
+                self.hasNext = videoPage.hasNext
+                self.loadedVideoResources?(videoPage.videos)
             }
         }
     }

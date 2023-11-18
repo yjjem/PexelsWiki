@@ -12,7 +12,7 @@ protocol PexelsPhotoRepositoryInterface {
     func loadCuratedPhotos(
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     )
     
     func searchPhotos(
@@ -21,6 +21,6 @@ protocol PexelsPhotoRepositoryInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, RepositoryError>) -> Void
+        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     )
 }
