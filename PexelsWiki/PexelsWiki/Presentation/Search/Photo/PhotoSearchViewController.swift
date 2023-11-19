@@ -100,7 +100,10 @@ final class PhotoSearchViewController: UIViewController {
         
         photoCollectionView.dataSource = diffableDataSource
         photoCollectionView.delegate = self
-        photoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: false)
+        photoCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.landscapeLayout,
+            animated: false
+        )
     }
     
     private func makeDiffableDataSource() -> DataSource {
@@ -176,11 +179,20 @@ extension PhotoSearchViewController: SearchFilterViewControllerDelegate {
         
         switch viewModel.orientation {
         case .landscape:
-            photoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: true)
+            photoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.landscapeLayout,
+                animated: true
+            )
         case .portrait:
-            photoCollectionView.setCollectionViewLayout(.portraitLayout, animated: true)
+            photoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.portraitLayout,
+                animated: true
+            )
         case .square:
-            photoCollectionView.setCollectionViewLayout(.squareLayout, animated: true)
+            photoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.squareLayout,
+                animated: true
+            )
         }
         
         viewModel.resetPage()

@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension UICollectionViewLayout {
+extension UICollectionViewCompositionalLayout {
     
-    static var squareLayout: UICollectionViewLayout {
+    static var squareLayout: UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -30,7 +30,7 @@ extension UICollectionViewLayout {
         return layout
     }
     
-    static var landscapeLayout: UICollectionViewLayout {
+    static var landscapeLayout: UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -51,7 +51,7 @@ extension UICollectionViewLayout {
         return layout
     }
     
-    static var portraitLayout: UICollectionViewLayout {
+    static var portraitLayout: UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)

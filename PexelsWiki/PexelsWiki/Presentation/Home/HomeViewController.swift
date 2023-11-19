@@ -88,7 +88,10 @@ final class HomeViewController: UIViewController {
         addContentCollectionView()
         diffableDataSource = makeDataSource()
         
-        contentCollectionView.setCollectionViewLayout(.portraitLayout, animated: false)
+        contentCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.portraitLayout,
+            animated: false
+        )
         contentCollectionView.refreshControl = contentRefreshControl
         contentCollectionView.dataSource = diffableDataSource
         contentCollectionView.delegate = self

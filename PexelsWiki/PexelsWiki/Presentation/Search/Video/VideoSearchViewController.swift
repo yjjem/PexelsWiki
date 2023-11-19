@@ -106,7 +106,10 @@ final class VideoSearchViewController: UIViewController {
         addVideoCollectionView()
         videoCollectionView.dataSource = diffableDataSource
         videoCollectionView.delegate = self
-        videoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: false)
+        videoCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.landscapeLayout,
+            animated: false
+        )
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
@@ -173,11 +176,20 @@ extension VideoSearchViewController: SearchFilterViewControllerDelegate {
         
         switch viewModel.orientation {
         case .landscape:
-            videoCollectionView.setCollectionViewLayout(.landscapeLayout, animated: true)
+            videoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.landscapeLayout,
+                animated: true
+            )
         case .portrait:
-            videoCollectionView.setCollectionViewLayout(.portraitLayout, animated: true)
+            videoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.portraitLayout,
+                animated: true
+            )
         case .square:
-            videoCollectionView.setCollectionViewLayout(.squareLayout, animated: true)
+            videoCollectionView.setCollectionViewLayout(
+                UICollectionViewCompositionalLayout.squareLayout,
+                animated: true
+            )
         }
         
         viewModel.resetPage()
