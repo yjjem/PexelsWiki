@@ -50,12 +50,12 @@ final class SearchNavigatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindViewModel()
+        configureUsingViewModel()
     }
     
     // MARK: Private Function(s)
     
-    private func bindViewModel() {
+    private func configureUsingViewModel() {
         guard let viewModel else { return }
         updateSnapShot(with: viewModel.categoryItems)
     }
@@ -124,21 +124,25 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/2),
-            heightDimension: .fractionalHeight(1/1)
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
         )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/1),
-            heightDimension: .fractionalWidth(1/2)
+            widthDimension: .fractionalWidth(1/3),
+            heightDimension: .fractionalWidth(1/3)
         )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             repeatingSubitem: item,
-            count: 2
+            count: 1
         )
-        
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+        section.orthogonalScrollingBehavior = .continuous
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout

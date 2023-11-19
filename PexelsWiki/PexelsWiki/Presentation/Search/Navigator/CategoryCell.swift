@@ -31,6 +31,7 @@ final class CategoryCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureLayoutConstraints()
+        configureLayerAppearance()
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +47,13 @@ final class CategoryCell: UICollectionViewCell {
     }
     
     // MARK: Private Function(s)
+    
+    private func configureLayerAppearance() {
+        layer.borderWidth = 0.3
+        layer.borderColor = UIColor.systemGray.cgColor
+        layer.cornerRadius = 15
+        layer.masksToBounds = true
+    }
     
     private func configureLayoutConstraints() {
         imageView.addSubview(categoryLabel)
