@@ -69,7 +69,9 @@ final class HomeViewController: UIViewController {
             guard let self else { return }
             let refreshControl = self.contentRefreshControl
             
-            self.applySnapShot(with: curatedPhotos)
+            let snapShotItems = self.snapShot.items
+            let itemsWithoutDuplication = curatedPhotos.filter { !snapShotItems.contains($0) }
+            self.applySnapShot(with: itemsWithoutDuplication)
             
             mainQueue.async {
                 if refreshControl.isRefreshing {
