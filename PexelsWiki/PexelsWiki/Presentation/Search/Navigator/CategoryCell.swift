@@ -22,6 +22,7 @@ final class CategoryCell: UICollectionViewCell {
         label.backgroundColor = .systemGray6
         label.layer.cornerRadius = 5
         label.layer.masksToBounds = true
+        label.textAlignment = .center
         return label
     }()
     
@@ -69,6 +70,7 @@ final class CategoryCell: UICollectionViewCell {
         
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            categoryLabel.widthAnchor.constraint(equalToConstant: 90),
             categoryLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             categoryLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
         ])
