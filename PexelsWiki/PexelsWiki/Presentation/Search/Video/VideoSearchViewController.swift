@@ -97,7 +97,12 @@ final class VideoSearchViewController: UIViewController {
         guard let viewModel else { return }
 
         viewModel.loadedVideoResources = { [weak self] videoResource in
-            self?.updateSnapShot(using: videoResource)
+            
+            guard let self else { return }
+            
+            let snapShotItems = self.snapShot.items
+            let itemsWithoutDuplications = videoResource.filter { !snapShotItems.contains($0) }
+            self.updateSnapShot(using: itemsWithoutDuplications)
         }
     }
     
