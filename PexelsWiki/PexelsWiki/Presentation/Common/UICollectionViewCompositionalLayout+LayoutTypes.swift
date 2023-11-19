@@ -23,7 +23,6 @@ extension UICollectionViewCompositionalLayout {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         
@@ -44,7 +43,6 @@ extension UICollectionViewCompositionalLayout {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         
@@ -65,7 +63,6 @@ extension UICollectionViewCompositionalLayout {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         
