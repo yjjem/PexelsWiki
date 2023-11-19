@@ -21,9 +21,7 @@ final class PexelsPhotoRepository: PexelsPhotoRepositoryInterface {
         let target: PexelsPhotoServiceTarget = .curatedPhotos(page: page, perPage: perPage)
         
         provider.load(target) { result in
-            let mappedResult = result
-                .map { $0.toPhotoPage() }
-                .mapError { $0 as Error }
+            let mappedResult = result.map { $0.toPhotoPage() }
             completion(mappedResult)
         }
     }
@@ -45,9 +43,7 @@ final class PexelsPhotoRepository: PexelsPhotoRepositoryInterface {
         )
         
         provider.load(target) { result in
-            let mappedResult = result
-                .map { $0.toPhotoPage() }
-                .mapError { $0 as Error }
+            let mappedResult = result.map { $0.toPhotoPage() }
             completion(mappedResult)
         }
     }

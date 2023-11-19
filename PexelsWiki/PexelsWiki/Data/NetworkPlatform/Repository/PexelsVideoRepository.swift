@@ -32,10 +32,8 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         )
         
         provider.load(target) { result in
-            let response = result
-                .map { $0.toVideoPage() }
-                .mapError { $0 as Error }
-            completion(response)
+            let mappedResult = result.map { $0.toVideoPage() }
+            completion(mappedResult)
         }
     }
     
@@ -56,10 +54,8 @@ final class PexelsVideoRepository: PexelsVideoRepositoryInterface {
         )
         
         provider.load(target) { result in
-            let response = result
-                .map { $0.toVideoPage() }
-                .mapError { $0 as Error }
-            completion(response)
+            let mappedResult = result.map { $0.toVideoPage() }
+            completion(mappedResult)
         }
     }
 }
