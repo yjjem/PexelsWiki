@@ -132,13 +132,14 @@ extension SearchFilterViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: SearchFilterOptionCell.reuseIdentifier,
             for: indexPath
-        ) as! SearchFilterOptionCell
+        )
         
-        var configuration = cell.defaultContentConfiguration()
-        configuration.prefersSideBySideTextAndSecondaryText = true
-        configuration.text = currentRowOptionName
-        
-        cell.contentConfiguration = configuration
+        if let searchFilterOptionCell = cell as? SearchFilterOptionCell {
+            var configuration = searchFilterOptionCell.defaultContentConfiguration()
+            configuration.prefersSideBySideTextAndSecondaryText = true
+            configuration.text = currentRowOptionName
+            searchFilterOptionCell.contentConfiguration = configuration
+        }
         
         return cell
     }
