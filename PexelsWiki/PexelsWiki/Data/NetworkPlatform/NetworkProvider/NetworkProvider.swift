@@ -11,7 +11,7 @@ protocol Networkable {
 
     func load<Target: Requestable>(
         _ target: Target,
-        _ completion: @escaping (Result<Target.Response, NetworkError>) -> Void
+        _ completion: @escaping (Result<Target.Response, Error>) -> Void
     )
 }
 
@@ -25,23 +25,24 @@ final class DefaultNetworkProvider: Networkable {
     
     func load<Target: Requestable>(
         _ target: Target,
-        _ completion: @escaping (Result<Target.Response, NetworkError>) -> Void
+        _ completion: @escaping (Result<Target.Response, Error>) -> Void
     ) {
         
         let task = session.dataTask(with: target.urlRequest) { data, response, error in
             
             if let error = error as? URLError {
-                completion(.failure(.targetRequestFailed(reason: error)))
+                completion(.failure(error))
                 return
             }
             
             guard let response = response as? HTTPURLResponse else {
-                completion(.failure(.notHTTPResponse))
+                completion(.failure(ProviderValidationError.notHTTPResponse))
                 return
             }
             
             guard response.codeIsNot(200) else {
-                completion(.failure(.badHTTPResponse(code: response.statusCode)))
+                let receivedCode = response.statusCode
+                completion(.failure(ProviderValidationError.badHTTPResponse(receivedCode)))
                 return
             }
             

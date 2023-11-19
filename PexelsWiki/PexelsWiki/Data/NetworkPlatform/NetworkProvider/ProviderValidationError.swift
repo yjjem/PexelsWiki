@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum NetworkError: Error {
-    case targetRequestFailed(reason: URLError)
+enum ProviderValidationError: Error {
+    typealias ResponseCode = Int
+    
     case notHTTPResponse
-    case badHTTPResponse(code: Int)
-    case decodeFailed(reason: Error)
+    case badHTTPResponse(_ code: ResponseCode)
 }
