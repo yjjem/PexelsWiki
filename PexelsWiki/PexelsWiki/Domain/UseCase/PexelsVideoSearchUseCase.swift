@@ -43,7 +43,6 @@ final class PexelsVideoSearchUseCase: PexelsVideoSearchUseCaseInterface {
             perPage: perPage
         ) { response in
             
-            let response = response.mapError { $0 as Error }
             completion(response)
         }
     }

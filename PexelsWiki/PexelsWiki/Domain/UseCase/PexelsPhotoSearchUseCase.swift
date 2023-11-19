@@ -43,8 +43,7 @@ final class PexelsPhotoSearchUseCase: PexelsPhotoSearchUseCaseInterface {
             perPage: perPage
         ) { response in
             
-            let mappedResult = response.mapError { $0 as Error }
-            completion(mappedResult)
+            completion(response)
         }
     }
 }
