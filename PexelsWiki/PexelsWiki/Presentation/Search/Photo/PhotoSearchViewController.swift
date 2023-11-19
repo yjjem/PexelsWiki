@@ -64,7 +64,7 @@ final class PhotoSearchViewController: UIViewController {
     private func bindViewModel() {
         guard let viewModel else { return }
         
-        viewModel.loadedPhotoResources = { [weak self] photoResources in
+        viewModel.loadedPhotoContentCellViewModels = { [weak self] photoResources in
             self?.updateSnapShot(using: photoResources)
         }
     }

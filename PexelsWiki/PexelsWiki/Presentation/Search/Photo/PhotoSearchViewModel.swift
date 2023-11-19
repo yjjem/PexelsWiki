@@ -13,7 +13,7 @@ final class PhotoSearchViewModel {
     var orientation: ContentOrientation = .landscape
     var size: ContentSize = .small
     
-    var loadedPhotoResources: (([PhotoContentCellViewModel]) -> Void)?
+    var loadedPhotoContentCellViewModels: (([PhotoContentCellViewModel]) -> Void)?
     
     private var page: Int = 1
     private var pageSize: PageSize = .small
@@ -41,9 +41,11 @@ final class PhotoSearchViewModel {
         ) { [weak self] response in
             
             if let self, case .success(let photoPage) = response {
+                let photoCellViewModels = photoPage.photos.map(makePhotoContentCellViewModel)
                 self.isLoading = false
                 self.page = photoPage.page
                 self.hasNext = photoPage.hasNext
+                self.loadedPhotoContentCellViewModels?(photoCellViewModels)
             }
         }
     }
