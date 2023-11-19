@@ -9,7 +9,7 @@ import Foundation
 
 extension Data {
     
-    func decode<Entity: Decodable>(to type: Entity.Type) -> Result<Entity, NetworkError> {
+    func decode<Entity: Decodable>(to type: Entity.Type) -> Result<Entity, Error> {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -17,7 +17,7 @@ extension Data {
             let decoded = try decoder.decode(type.self, from: self)
             return .success(decoded)
         } catch {
-            return .failure(.decodeFailed(reason: error))
+            return .failure(error)
         }
     }
 }
