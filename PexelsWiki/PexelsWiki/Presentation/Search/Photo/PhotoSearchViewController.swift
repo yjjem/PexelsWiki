@@ -65,7 +65,11 @@ final class PhotoSearchViewController: UIViewController {
         guard let viewModel else { return }
         
         viewModel.loadedPhotoContentCellViewModels = { [weak self] photoResources in
-            self?.updateSnapShot(using: photoResources)
+            
+            guard let self else { return }
+            let snapShotItems = self.snapShot.items
+            let itemsWithoutDuplications = snapShotItems.filter { !snapShotItems.contains($0) }
+            self.updateSnapShot(using: itemsWithoutDuplications)
         }
     }
     
