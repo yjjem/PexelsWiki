@@ -68,7 +68,7 @@ final class PhotoSearchViewController: UIViewController {
             
             guard let self else { return }
             let snapShotItems = self.snapShot.items
-            let itemsWithoutDuplications = snapShotItems.filter { !snapShotItems.contains($0) }
+            let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
             self.updateSnapShot(using: itemsWithoutDuplications)
         }
     }
