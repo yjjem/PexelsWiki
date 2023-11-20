@@ -8,7 +8,6 @@
 import Foundation
 
 final class HomeViewModel {
-    typealias Hello = String
     
     // MARK: Variable(s)
     
