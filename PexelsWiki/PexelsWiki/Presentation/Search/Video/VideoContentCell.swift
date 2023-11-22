@@ -83,8 +83,6 @@ final class VideoContentCell: UICollectionViewCell {
 fileprivate extension VideoPlayerView {
     
     func prepareForReuse() {
-        videoAsset?.cancelLoading()
-        videoAsset = nil
         playerItem = nil
     }
 }

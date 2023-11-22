@@ -11,7 +11,6 @@ class VideoPlayerView: UIView {
     
     // MARK: Property(s)
     
-    var videoAsset: AVAsset?
     var playerItem: AVPlayerItem?
     var allowsVideoSounds: Bool = true
     
@@ -36,11 +35,7 @@ class VideoPlayerView: UIView {
     func fetchVideo(using urlString: String) {
         
         guard let videoURL = URL(string: urlString) else { return }
-        
-        let videoAsset = AVAsset(url: videoURL)
-        self.videoAsset = videoAsset
-        
-        let playerItem = AVPlayerItem(asset: videoAsset)
+        let playerItem = AVPlayerItem(url: videoURL)
         self.playerItem = playerItem
         
         if let player {
