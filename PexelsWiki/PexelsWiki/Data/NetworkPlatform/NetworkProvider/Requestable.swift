@@ -19,7 +19,7 @@ protocol Requestable {
 
 extension Requestable {
     
-    var url: URL {
+    private var url: URL {
         var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         components?.path = path
         components?.queryItems = queries.map { key, value in
