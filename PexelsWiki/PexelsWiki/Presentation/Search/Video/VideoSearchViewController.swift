@@ -9,6 +9,8 @@ import UIKit
 
 final class VideoSearchViewController: UIViewController {
     
+    // MARK: Type(s)
+    
     typealias VideoContentCellRegistration = UICollectionView.CellRegistration<VideoContentCell, VideoResource>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoResource>
     typealias SnapShot = NSDiffableDataSourceSectionSnapshot<VideoResource>
@@ -16,6 +18,8 @@ final class VideoSearchViewController: UIViewController {
     enum Section {
         case main
     }
+    
+    // MARK: Variable(s)
     
     var viewModel: VideoSearchViewModel?
     
@@ -29,6 +33,8 @@ final class VideoSearchViewController: UIViewController {
        )
         return collection
     }()
+    
+    // MARK: Override(s)
     
     override func loadView() {
         super.loadView()
@@ -51,6 +57,8 @@ final class VideoSearchViewController: UIViewController {
         
         viewModel?.loadSearchResults()
     }
+    
+    // MARK: Private Function(s)
     
     private func addNavigationTitle(_ title: String) {
         navigationItem.title = title
@@ -171,6 +179,8 @@ final class VideoSearchViewController: UIViewController {
     }
 }
 
+// MARK: SearchFilterViewControllerDelegate
+
 extension VideoSearchViewController: SearchFilterViewControllerDelegate {
     
     func didApplyFilterOptions(_ options: FilterOptions) {
@@ -200,6 +210,8 @@ extension VideoSearchViewController: SearchFilterViewControllerDelegate {
         viewModel.resetPage()
     }
 }
+
+// MARK: UICollectionViewDelegate
 
 extension VideoSearchViewController: UICollectionViewDelegate {
     
