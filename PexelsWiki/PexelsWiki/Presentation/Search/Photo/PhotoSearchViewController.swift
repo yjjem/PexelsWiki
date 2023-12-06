@@ -23,6 +23,9 @@ final class PhotoSearchViewController: UIViewController {
     
     var viewModel: PhotoSearchViewModel?
     
+    private var diffableDataSource: DataSource?
+    private var snapShot: SnapShot = SnapShot()
+    
     private let photoCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
@@ -31,8 +34,7 @@ final class PhotoSearchViewController: UIViewController {
         return collection
     }()
     
-    private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot = SnapShot()
+    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     
     // MARK: Override(s)
     
@@ -41,6 +43,7 @@ final class PhotoSearchViewController: UIViewController {
         
         configureNavigationItem()
         configurePhotoCollectionView()
+        configurePaginationFetchControl()
         
         if let viewModel {
             addNavigationTitle(viewModel.query)
@@ -103,11 +106,17 @@ final class PhotoSearchViewController: UIViewController {
         addPhotoCollectionView()
         
         photoCollectionView.dataSource = diffableDataSource
-        photoCollectionView.delegate = self
         photoCollectionView.setCollectionViewLayout(
             UICollectionViewCompositionalLayout.landscapeLayout,
             animated: false
         )
+    }
+    
+    private func configurePaginationFetchControl() {
+        paginationFetchControl.configure(scrollView: photoCollectionView)
+        paginationFetchControl.didTriggerFetchMore = { [weak self] in
+            self?.viewModel?.loadNextPage()
+        }
     }
     
     private func makeDiffableDataSource() -> DataSource {
@@ -203,19 +212,5 @@ extension PhotoSearchViewController: SearchFilterViewControllerDelegate {
         
         let topIndexPath = IndexPath(item: 0, section: 0)
         photoCollectionView.scrollToItem(at: topIndexPath, at: .top, animated: true)
-    }
-}
-
-// MARK: UICollectionViewDelegate
-
-extension PhotoSearchViewController: UICollectionViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let paginationPoint = scrollView.contentSize.height - scrollView.bounds.height
-        let offset = scrollView.contentOffset.y
-        
-        if paginationPoint < offset {
-            viewModel?.loadNextPage()
-        }
     }
 }
