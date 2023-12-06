@@ -48,6 +48,8 @@ final class TabBarCoordinator: Coordinator {
         window.rootViewController = tabBarViewController
     }
     
+    // MARK: Private Function(s)
+    
     private func makeTabNavigationViewController(type: TabTypes) -> UINavigationController {
         let navigationViewController = UINavigationController()
         navigationViewController.tabBarItem = makeTabBarItem(type: type)
