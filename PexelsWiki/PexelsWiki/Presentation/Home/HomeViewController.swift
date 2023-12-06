@@ -23,6 +23,9 @@ final class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel?
     
+    private var diffableDataSource: DataSource?
+    private var snapShot: SnapShot = SnapShot()
+    
     private let contentCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
@@ -31,13 +34,8 @@ final class HomeViewController: UIViewController {
         return collection
     }()
     
-    private let contentRefreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        return refreshControl
-    }()
-    
-    private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot = SnapShot()
+    private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
+    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     
     // MARK: Override(s)
     
@@ -47,6 +45,7 @@ final class HomeViewController: UIViewController {
         configureView()
         configureContentRefreshControl()
         configureContentCollectionView()
+        configurePaginationFetchControl()
     }
     
     override func viewDidLoad() {
@@ -60,6 +59,8 @@ final class HomeViewController: UIViewController {
         
         viewModel?.loadCuratedPhotosPage()
     }
+    
+    // MARK: Private Function(s)
     
     private func bindViewModel() {
         
@@ -85,26 +86,25 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .systemGray6
     }
     
-    private func configureContentCollectionView() {
-        
-        addContentCollectionView()
-        diffableDataSource = makeDataSource()
-        
-        contentCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.portraitLayout,
-            animated: false
-        )
-        contentCollectionView.refreshControl = contentRefreshControl
-        contentCollectionView.dataSource = diffableDataSource
-        contentCollectionView.delegate = self
+    private func configureContentRefreshControl() {
+        let refreshAction = #selector(didInvokeRefresh)
+        contentRefreshControl.addTarget(self, action: refreshAction, for: .valueChanged)
     }
     
-    private func configureContentRefreshControl() {
-        contentRefreshControl.addTarget(
-            self,
-            action: #selector(didInvokeRefresh),
-            for: .valueChanged
-        )
+    private func configureContentCollectionView() {
+        let portraitLayout = UICollectionViewCompositionalLayout.portraitLayout
+        diffableDataSource = makeDataSource()
+        addContentCollectionView()
+        contentCollectionView.setCollectionViewLayout(portraitLayout, animated: false)
+        contentCollectionView.refreshControl = contentRefreshControl
+        contentCollectionView.dataSource = diffableDataSource
+    }
+    
+    private func configurePaginationFetchControl() {
+        paginationFetchControl.configure(scrollView: contentCollectionView)
+        paginationFetchControl.didTriggerFetchMore = { [weak self] in
+            self?.viewModel?.loadNextPage()
+        }
     }
     
     private func addContentCollectionView() {
@@ -166,19 +166,5 @@ final class HomeViewController: UIViewController {
     private func didInvokeRefresh() {
         resetSnapShot()
         viewModel?.resetPage()
-    }
-}
-
-// MARK: UICollectionViewDelegate
-
-extension HomeViewController: UICollectionViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let verticalPaginationTriggerPoint = scrollView.contentSize.height - scrollView.bounds.height
-        let currentYPosition = scrollView.contentOffset.y
-        
-        if currentYPosition > verticalPaginationTriggerPoint {
-            viewModel?.loadNextPage()
-        }
     }
 }
