@@ -34,13 +34,16 @@ final class VideoSearchViewController: UIViewController {
         return collection
     }()
     
+    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
+    
     // MARK: Override(s)
     
     override func loadView() {
         super.loadView()
+        
         configureNavigationItem()
         configureVideoCollectionView()
-        
+        configurePaginationFetchControl()
         if let viewModel {
             addNavigationTitle(viewModel.query)
         }
@@ -123,6 +126,13 @@ final class VideoSearchViewController: UIViewController {
             UICollectionViewCompositionalLayout.landscapeLayout,
             animated: false
         )
+    }
+    
+    private func configurePaginationFetchControl() {
+        paginationFetchControl.configure(scrollView: videoCollectionView)
+        paginationFetchControl.didTriggerFetchMore = { [weak self] in
+            self?.viewModel?.loadNextPage()
+        }
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
@@ -214,15 +224,6 @@ extension VideoSearchViewController: SearchFilterViewControllerDelegate {
 // MARK: UICollectionViewDelegate
 
 extension VideoSearchViewController: UICollectionViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let paginationPoint = scrollView.contentSize.height - scrollView.bounds.height
-        let offset = scrollView.contentOffset.y
-
-        if paginationPoint < offset {
-            viewModel?.loadNextPage()
-        }
-    }
     
     func collectionView(
         _ collectionView: UICollectionView,
