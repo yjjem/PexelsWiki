@@ -15,12 +15,20 @@ protocol AppCoordinatorProtocol: Coordinator {
 
 final class AppCoordinator: AppCoordinatorProtocol {
     
-    var childCoordinators: [Coordinator] = []
+    // MARK: Property(s)
+    
     var window: UIWindow
+    var childCoordinators: [String: Coordinator] = [:]
+    
+    let identifier: String = "AppCoordinator"
+    
+    // MARK: Initialzier(s)
     
     init(window: UIWindow) {
         self.window = window
     }
+    
+    // MARK: Function(s)
     
     func start() {
         window.makeKeyAndVisible()
@@ -29,6 +37,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
     
     func showTabBarFlow() {
         let tabCoordinator = TabBarCoordinator(window: window)
+        childCoordinators[tabCoordinator.identifier] = tabCoordinator
         tabCoordinator.start()
     }
 }

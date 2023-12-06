@@ -11,7 +11,9 @@ final class TabBarCoordinator: Coordinator {
     
     // MARK: Property(s)
     
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [String: Coordinator] = [:]
+    
+    let identifier: String = "TabBarCoordinator"
     
     private let window: UIWindow
     
@@ -38,8 +40,10 @@ final class TabBarCoordinator: Coordinator {
         let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
         
         let tabCoordinators: [Coordinator] = [homeCoordinator, searchCoordinator]
-        tabCoordinators.forEach { $0.start() }
-        childCoordinators = tabCoordinators
+        tabCoordinators.forEach { coordinator in
+            childCoordinators[coordinator.identifier] = coordinator
+            coordinator.start()
+        }
         
         window.rootViewController = tabBarViewController
     }

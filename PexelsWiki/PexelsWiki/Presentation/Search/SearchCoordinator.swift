@@ -11,7 +11,9 @@ final class SearchCoordinator: Coordinator {
     
     // MARK: Property(s)
     
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [String: Coordinator] = [:]
+    
+    let identifier: String = "SearchCoordinator"
     
     private let navigationController: UINavigationController
     

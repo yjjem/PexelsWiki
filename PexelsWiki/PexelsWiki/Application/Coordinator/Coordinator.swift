@@ -9,7 +9,8 @@ import UIKit
 
 protocol Coordinator {
     
-    var childCoordinators: [Coordinator] { get set }
+    var childCoordinators: [String: Coordinator] { get set }
+    var identifier: String { get }
     
     func start()
 }

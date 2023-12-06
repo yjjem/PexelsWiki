@@ -11,7 +11,9 @@ final class HomeCoordinator: Coordinator {
     
     // MARK: Property(s)
     
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [String: Coordinator] = [:]
+    
+    let identifier: String = "HomeCoordinator"
     
     private let navigationController: UINavigationController
     
