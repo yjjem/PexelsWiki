@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SearchNavigatorViewControllerDelegate {
+    func didSelectSearchQuery(_ searchQuery: String, contentType: ContentType)
+}
+
 final class SearchNavigatorViewController: UIViewController {
     
     // MARK: Type(s)
@@ -22,6 +26,10 @@ final class SearchNavigatorViewController: UIViewController {
     // MARK: Variable(s)
     
     var viewModel: SearchNavigatorViewModel?
+    var delegate: SearchNavigatorViewControllerDelegate?
+    
+    private var diffableDataSource: DataSource?
+    private var snapShot: SnapShot = SnapShot()
     
     private let searchController: UISearchController = {
         let search = UISearchController()
@@ -32,9 +40,6 @@ final class SearchNavigatorViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: .init())
         return collection
     }()
-    
-    private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot = SnapShot()
     
     // MARK: Override(s)
     
@@ -152,32 +157,6 @@ final class SearchNavigatorViewController: UIViewController {
         snapShot.append(categoryList)
         diffableDataSource?.apply(snapShot, to: .category)
     }
-    
-    private func pushVideoSearchViewController(with query: String) {
-        let provider = DefaultNetworkProvider()
-        let repository = PexelsVideoRepository(provider: provider)
-        let useCase = PexelsVideoSearchUseCase(repository: repository)
-        let videoSearchViewModel = VideoSearchViewModel(useCase: useCase)
-        
-        let videoSearchViewController = VideoSearchViewController()
-        videoSearchViewController.viewModel = videoSearchViewModel
-        videoSearchViewModel.query = query
-        
-        navigationController?.pushViewController(videoSearchViewController, animated: true)
-    }
-    
-    private func pushPhotoSearchViewController(with query: String) {
-        let provider = DefaultNetworkProvider()
-        let repository = PexelsPhotoRepository(provider: provider)
-        let useCase = PexelsPhotoSearchUseCase(repository: repository)
-        let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
-        
-        let photoSearchViewController = PhotoSearchViewController()
-        photoSearchViewController.viewModel = photoSearchViewModel
-        photoSearchViewModel.query = query
-        
-        navigationController?.pushViewController(photoSearchViewController, animated: true)
-    }
 }
 
 // MARK: UICollectionViewDelegate
@@ -185,15 +164,12 @@ final class SearchNavigatorViewController: UIViewController {
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         guard let viewModel else { return }
         
-        let selectedCategory = viewModel.categoryItems[indexPath.item]
+        let selectedCategoryName = viewModel.categoryItems[indexPath.item].capitalizedName
+        let selectedContentType = viewModel.searchContentType
         
-        switch viewModel.searchContentType {
-        case .image: pushPhotoSearchViewController(with: selectedCategory.capitalizedName)
-        case .video: pushVideoSearchViewController(with: selectedCategory.capitalizedName)
-        }
+        delegate?.didSelectSearchQuery(selectedCategoryName, contentType: selectedContentType)
     }
 }
 
@@ -206,25 +182,18 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        if selectedScope == 1 {
-            viewModel?.searchContentType = .video
-        } else {
-            viewModel?.searchContentType = .image
-        }
+        guard let viewModel else { return }
+        
+        let selectedSearchContentType = ContentType.allCases[selectedScope]
+        viewModel.searchContentType = selectedSearchContentType
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let viewModel else { return }
         
         let searchQuery = viewModel.searchQuery
-        let selectedIndex = searchBar.selectedScopeButtonIndex
+        let contentType = viewModel.searchContentType
         
-        if selectedIndex == 0 {
-            pushPhotoSearchViewController(with: searchQuery)
-        }
-        
-        if selectedIndex == 1 {
-            pushVideoSearchViewController(with: searchQuery)
-        }
+        delegate?.didSelectSearchQuery(searchQuery, contentType: contentType)
     }
 }
