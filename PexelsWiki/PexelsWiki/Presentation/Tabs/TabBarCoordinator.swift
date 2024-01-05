@@ -9,12 +9,12 @@ import UIKit
 
 final class TabBarCoordinator: Coordinator {
     
-    private let window: UIWindow
+    private let navigationController: UINavigationController
     
     // MARK: Initializer(s)
     
-    init(window: UIWindow) {
-        self.window = window
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
     }
     
     // MARK: Function(s)
@@ -37,7 +37,7 @@ final class TabBarCoordinator: Coordinator {
             coordinator.start()
         }
         
-        window.rootViewController = tabBarViewController
+        navigationController.pushViewController(tabBarViewController, animated: true)
     }
     
     // MARK: Private Function(s)

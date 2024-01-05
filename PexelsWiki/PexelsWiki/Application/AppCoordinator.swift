@@ -11,6 +11,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Property(s)
     
     private let window: UIWindow
+    private let navigationController: UINavigationController = .init()
     
     // MARK: Initialzier(s)
     
@@ -21,6 +22,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Function(s)
     
     override func start() {
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         showTabBarFlow()
     }
@@ -28,7 +30,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Private Function(s)
     
     private func showTabBarFlow() {
-        let tabCoordinator = TabBarCoordinator(window: window)
+        let tabCoordinator = TabBarCoordinator(navigationController: navigationController)
         addChild(tabCoordinator)
         tabCoordinator.start()
     }
