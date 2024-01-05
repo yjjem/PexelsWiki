@@ -9,12 +9,6 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
     
-    // MARK: Property(s)
-    
-    var childCoordinators: [String: Coordinator] = [:]
-    
-    let identifier: String = "HomeCoordinator"
-    
     private let navigationController: UINavigationController
     
     // MARK: Initializer(s)
@@ -25,11 +19,13 @@ final class HomeCoordinator: Coordinator {
     
     // MARK: Function(s)
     
-    func start() {
+    override func start() {
         showMainFlow()
     }
     
-    func showMainFlow() {
+    // MARK: Private Function(s)
+    
+    private func showMainFlow() {
         let defaultNetworkProvider = DefaultNetworkProvider()
         let photoRepository = PexelsPhotoRepository(provider: defaultNetworkProvider)
         let photoUseCase = PexelsPhotoUseCase(repository: photoRepository)

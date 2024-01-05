@@ -2,15 +2,15 @@
 //  Coordinator.swift
 //  PexelsWiki
 //
-//  Copyright (c) 2023 Jeremy All rights reserved.
+//  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-import UIKit
+import Foundation
 
-protocol Coordinator {
+class Coordinator: CoordinatorProtocol {
     
-    var childCoordinators: [String: Coordinator] { get set }
-    var identifier: String { get }
+    var childCoordinators: [UUID : CoordinatorProtocol] = [:]
+    let identifier: UUID = .init()
     
-    func start()
+    func start() { }
 }

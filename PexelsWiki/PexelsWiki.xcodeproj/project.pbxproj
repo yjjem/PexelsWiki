@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2B62A3C681F000DD223 /* PexelsPhotoRepository.swift */; };
 		DF3FC2B92A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */; };
-		DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */; };
+		DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */; };
 		DF3FC2BE2A3DA089000DD223 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BD2A3DA089000DD223 /* AppCoordinator.swift */; };
 		DF42BDA42A49EF6E00AA0896 /* ImageLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */; };
 		DF42BDA62A4AD65A00AA0896 /* UIImage+ImageFromData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */; };
@@ -69,12 +69,13 @@
 		DFE1016B2AF775A30036158A /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016A2AF775A30036158A /* TabBarCoordinator.swift */; };
 		DFE1016D2AF91BC70036158A /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */; };
 		DFE1016F2AFA4B400036158A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */; };
+		DFFF662B2B47BE6E00489DF0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DF3FC2B62A3C681F000DD223 /* PexelsPhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoRepository.swift; sourceTree = "<group>"; };
 		DF3FC2B82A3C6840000DD223 /* PexelsPhotoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsPhotoRepositoryInterface.swift; sourceTree = "<group>"; };
-		DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		DF3FC2BD2A3DA089000DD223 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadManager.swift; sourceTree = "<group>"; };
 		DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageFromData.swift"; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		DFE1016A2AF775A30036158A /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +155,8 @@
 		DF3FC2BA2A3D6A15000DD223 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				DF3FC2BB2A3D6A25000DD223 /* Coordinator.swift */,
+				DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */,
+				DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -558,7 +561,7 @@
 				DF3FC2B72A3C681F000DD223 /* PexelsPhotoRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
 				DFD792E42A49C70F00729C2F /* FilterOptions.swift in Sources */,
-				DF3FC2BC2A3D6A25000DD223 /* Coordinator.swift in Sources */,
+				DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */,
 				DFD792AF2A4687C000729C2F /* SearchNavigatorViewModel.swift in Sources */,
 				DFD792882A41BA8200729C2F /* UserInfoView.swift in Sources */,
 				DFD792B12A46A8AC00729C2F /* PexelsPhotoSearchUseCase.swift in Sources */,
@@ -568,6 +571,7 @@
 				DFD792A22A456B5500729C2F /* MainBundle+APIKey.swift in Sources */,
 				DF42BDAA2A4AE27300AA0896 /* Int+StorageUnits.swift in Sources */,
 				DFA4915C2A3AF5A8008BC5C4 /* WrappedPhotoListResponse.swift in Sources */,
+				DFFF662B2B47BE6E00489DF0 /* Coordinator.swift in Sources */,
 				DFD792CA2A482C6800729C2F /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

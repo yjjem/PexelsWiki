@@ -9,12 +9,6 @@ import UIKit
 
 final class TabBarCoordinator: Coordinator {
     
-    // MARK: Property(s)
-    
-    var childCoordinators: [String: Coordinator] = [:]
-    
-    let identifier: String = "TabBarCoordinator"
-    
     private let window: UIWindow
     
     // MARK: Initializer(s)
@@ -25,23 +19,21 @@ final class TabBarCoordinator: Coordinator {
     
     // MARK: Function(s)
     
-    func start() {
-
+    override func start() {
         let homeNavigationViewController = makeTabNavigationViewController(type: .home)
-        let searchNavigationViewController = makeTabNavigationViewController(type: .search)
+        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
         
+        let searchNavigationViewController = makeTabNavigationViewController(type: .search)
+        let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
+        
+        let tabCoordinators: [CoordinatorProtocol] = [homeCoordinator, searchCoordinator]
         let tabBarViewController = UITabBarController()
         tabBarViewController.viewControllers = [
             homeNavigationViewController, 
             searchNavigationViewController
         ]
-        
-        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
-        let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
-        
-        let tabCoordinators: [Coordinator] = [homeCoordinator, searchCoordinator]
         tabCoordinators.forEach { coordinator in
-            childCoordinators[coordinator.identifier] = coordinator
+            addChild(coordinator)
             coordinator.start()
         }
         

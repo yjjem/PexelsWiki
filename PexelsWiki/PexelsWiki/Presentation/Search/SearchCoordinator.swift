@@ -9,12 +9,6 @@ import UIKit
 
 final class SearchCoordinator: Coordinator {
     
-    // MARK: Property(s)
-    
-    var childCoordinators: [String: Coordinator] = [:]
-    
-    let identifier: String = "SearchCoordinator"
-    
     private let navigationController: UINavigationController
     
     // MARK: Initializer(s)
@@ -25,11 +19,13 @@ final class SearchCoordinator: Coordinator {
     
     // MARK: Function(s)
     
-    func start() {
+    override func start() {
         showSearchNavigatorFlow()
     }
     
-    func showSearchNavigatorFlow() {
+    // MARK: Private Function(s)
+    
+    private func showSearchNavigatorFlow() {
         let searchNavigatorViewModel = SearchNavigatorViewModel()
         let searchNavigatorViewController = SearchNavigatorViewController()
         searchNavigatorViewController.title = TabTypes.search.title
@@ -39,7 +35,7 @@ final class SearchCoordinator: Coordinator {
         navigationController.pushViewController(searchNavigatorViewController, animated: true)
     }
     
-    func showPhotoSearchFlow(searchQuery: String) {
+    private func showPhotoSearchFlow(searchQuery: String) {
         let provider = DefaultNetworkProvider()
         let repository = PexelsPhotoRepository(provider: provider)
         let useCase = PexelsPhotoSearchUseCase(repository: repository)
@@ -52,7 +48,7 @@ final class SearchCoordinator: Coordinator {
         navigationController.pushViewController(photoSearchViewController, animated: true)
     }
     
-    func showVideoSearchFlow(searchQuery: String) {
+    private func showVideoSearchFlow(searchQuery: String) {
         let provider = DefaultNetworkProvider()
         let repository = PexelsVideoRepository(provider: provider)
         let useCase = PexelsVideoSearchUseCase(repository: repository)

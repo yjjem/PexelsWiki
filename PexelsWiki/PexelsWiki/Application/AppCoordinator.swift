@@ -6,21 +6,11 @@
 
 import UIKit
 
-protocol AppCoordinatorProtocol: Coordinator {
-    
-    var window: UIWindow { get set }
-    
-    func showTabBarFlow()
-}
-
-final class AppCoordinator: AppCoordinatorProtocol {
+final class AppCoordinator: Coordinator {
     
     // MARK: Property(s)
     
-    var window: UIWindow
-    var childCoordinators: [String: Coordinator] = [:]
-    
-    let identifier: String = "AppCoordinator"
+    private let window: UIWindow
     
     // MARK: Initialzier(s)
     
@@ -30,14 +20,16 @@ final class AppCoordinator: AppCoordinatorProtocol {
     
     // MARK: Function(s)
     
-    func start() {
+    override func start() {
         window.makeKeyAndVisible()
         showTabBarFlow()
     }
     
-    func showTabBarFlow() {
+    // MARK: Private Function(s)
+    
+    private func showTabBarFlow() {
         let tabCoordinator = TabBarCoordinator(window: window)
-        childCoordinators[tabCoordinator.identifier] = tabCoordinator
+        addChild(tabCoordinator)
         tabCoordinator.start()
     }
 }
