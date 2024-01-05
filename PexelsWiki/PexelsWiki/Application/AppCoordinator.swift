@@ -22,6 +22,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Function(s)
     
     override func start() {
+        navigationController.isNavigationBarHidden = true
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         showTabBarFlow()
