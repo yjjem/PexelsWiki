@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PhotoSearchViewControllerDelegate: AnyObject {
+    func didTapFilterButton(_ currentOptions: FilterOptions)
+}
+
 final class PhotoSearchViewController: UIViewController {
     
     // MARK: Type(s)
@@ -22,6 +26,7 @@ final class PhotoSearchViewController: UIViewController {
     // MARK: Variable(s)
     
     var viewModel: PhotoSearchViewModel?
+    weak var delegate: PhotoSearchViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
@@ -68,11 +73,34 @@ final class PhotoSearchViewController: UIViewController {
         guard let viewModel else { return }
         
         viewModel.loadedPhotoContentCellViewModels = { [weak self] photoResources in
-            
             guard let self else { return }
             let snapShotItems = self.snapShot.items
             let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
             self.updateSnapShot(using: itemsWithoutDuplications)
+        }
+        
+        viewModel.didSelectFilterOptions = { [weak self] filterOptions in
+            guard let self else { return }
+            self.resetSnapShot()
+            self.switchContentOrientation(filterOptions.orientation)
+            viewModel.resetPage()
+        }
+    }
+    
+    private func switchContentOrientation(_ orientation: ContentOrientation) {
+        switch orientation {
+        case .landscape: photoCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.landscapeLayout,
+            animated: true
+        )
+        case .portrait: photoCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.portraitLayout,
+            animated: true
+        )
+        case .square: photoCollectionView.setCollectionViewLayout(
+            UICollectionViewCompositionalLayout.squareLayout,
+            animated: true
+        )
         }
     }
     
@@ -88,17 +116,6 @@ final class PhotoSearchViewController: UIViewController {
             action: #selector(didTapFilterButton)
         )
         navigationItem.rightBarButtonItem = filterButtonItem
-    }
-    
-    private func makeFilterView(
-        with viewModel: SearchFilterViewModel
-    ) -> SearchFilterViewController {
-        
-        let filterView = SearchFilterViewController()
-        filterView.viewModel = viewModel
-        filterView.delegate = self
-        
-        return filterView
     }
     
     private func configurePhotoCollectionView() {
@@ -164,53 +181,8 @@ final class PhotoSearchViewController: UIViewController {
     
     // MARK: Action(s)
     
-    @objc func didTapFilterButton() {
+    @objc private func didTapFilterButton() {
         guard let viewModel else { return }
-        
-        let filterViewModel = SearchFilterViewModel(
-            selectedOrientation: viewModel.orientation,
-            selectedSize: viewModel.size
-        )
-        let filterView = makeFilterView(with: filterViewModel)
-        
-        let navigation = UINavigationController(rootViewController: filterView)
-        navigation.navigationBar.prefersLargeTitles = true
-        
-        present(navigation, animated: true)
-    }
-}
-
-// MARK: SearchFilterViewControllerDelegate
-
-extension PhotoSearchViewController: SearchFilterViewControllerDelegate {
-    
-    func didApplyFilterOptions(_ options: FilterOptions) {
-        guard let viewModel else { return }
-        
-        resetSnapShot()
-        viewModel.apply(filter: options)
-        
-        switch viewModel.orientation {
-        case .landscape:
-            photoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.landscapeLayout,
-                animated: true
-            )
-        case .portrait:
-            photoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.portraitLayout,
-                animated: true
-            )
-        case .square:
-            photoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.squareLayout,
-                animated: true
-            )
-        }
-        
-        viewModel.resetPage()
-        
-        let topIndexPath = IndexPath(item: 0, section: 0)
-        photoCollectionView.scrollToItem(at: topIndexPath, at: .top, animated: true)
+        delegate?.didTapFilterButton(viewModel.currentFilterOptions())
     }
 }

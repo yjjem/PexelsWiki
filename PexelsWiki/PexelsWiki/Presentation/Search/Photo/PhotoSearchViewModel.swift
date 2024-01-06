@@ -10,16 +10,15 @@ final class PhotoSearchViewModel {
     // MARK: Variable(s)
     
     var query: String = ""
-    var orientation: ContentOrientation = .landscape
-    var size: ContentSize = .small
+    private var filterOptions: FilterOptions = FilterOptions()
     
     var loadedPhotoContentCellViewModels: (([PhotoContentCellViewModel]) -> Void)?
+    var didSelectFilterOptions: ((FilterOptions) -> Void)?
     
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
-    private var contentType: ContentOrientation = .landscape
     
     private let useCase: PexelsPhotoSearchUseCaseInterface
     
@@ -29,13 +28,17 @@ final class PhotoSearchViewModel {
     
     // MARK: Function(s)
     
+    func currentFilterOptions() -> FilterOptions {
+        return filterOptions
+    }
+    
     func loadSearchResults() {
         isLoading = true
         
         useCase.search(
             query: query,
-            orientation: orientation.name,
-            size: size.name,
+            orientation: filterOptions.orientation.name,
+            size: filterOptions.size.name,
             page: page,
             perPage: pageSize.itemsPerPage
         ) { [weak self] response in
@@ -50,9 +53,9 @@ final class PhotoSearchViewModel {
         }
     }
     
-    func apply(filter options: FilterOptions) {
-        orientation = options.orientation
-        size = options.size
+    func apply(_ selectedFilterOptions: FilterOptions) {
+        self.filterOptions = selectedFilterOptions
+        didSelectFilterOptions?(selectedFilterOptions)
     }
     
     func loadNextPage() {

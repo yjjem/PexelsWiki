@@ -70,6 +70,7 @@
 		DFE1016D2AF91BC70036158A /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */; };
 		DFE1016F2AFA4B400036158A /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */; };
 		DFFF662B2B47BE6E00489DF0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */; };
+		DFFF662D2B47C50C00489DF0 /* PhotoSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF662C2B47C50C00489DF0 /* PhotoSearchCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,7 @@
 		DFE1016C2AF91BC70036158A /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DFFF662C2B47C50C00489DF0 /* PhotoSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +392,7 @@
 		DFD792C42A47FCF300729C2F /* Photo */ = {
 			isa = PBXGroup;
 			children = (
+				DFFF662C2B47C50C00489DF0 /* PhotoSearchCoordinator.swift */,
 				DFD792B92A46D5EA00729C2F /* PhotoSearchViewController.swift */,
 				DFD792BF2A47FCA300729C2F /* PhotoSearchViewModel.swift */,
 				DFD792BB2A46DA5700729C2F /* PhotoContentCell.swift */,
@@ -527,6 +530,7 @@
 				DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
 				DFA491552A3AF1B2008BC5C4 /* WrappedVideoListResponse.swift in Sources */,
+				DFFF662D2B47C50C00489DF0 /* PhotoSearchCoordinator.swift in Sources */,
 				DFD792962A44705C00729C2F /* PexelsPhotoUseCase.swift in Sources */,
 				DFA491432A3ACB99008BC5C4 /* PexelsPhotoServiceTarget.swift in Sources */,
 				DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */,

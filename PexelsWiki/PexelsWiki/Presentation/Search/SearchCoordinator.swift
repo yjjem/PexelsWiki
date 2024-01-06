@@ -45,6 +45,10 @@ final class SearchCoordinator: Coordinator {
         photoSearchViewController.viewModel = photoSearchViewModel
         photoSearchViewModel.query = searchQuery
         
+        let photoSearchCoordinator = PhotoSearchCoordinator(rootView: photoSearchViewController)
+        photoSearchViewController.delegate = photoSearchCoordinator
+        addChild(photoSearchCoordinator)
+        
         navigationController.pushViewController(photoSearchViewController, animated: true)
     }
     
