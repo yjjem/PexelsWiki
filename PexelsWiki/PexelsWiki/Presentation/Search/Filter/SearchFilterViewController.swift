@@ -43,11 +43,9 @@ final class SearchFilterViewController: UIViewController {
     private func preselectOptions() {
         guard let viewModel else { return }
         
-        let selectedOrientationIndex = viewModel.selectedOrientation.orderIndex
-        preselectOptionAt(section: .orientation, row: selectedOrientationIndex)
-        
-        let selectedSizeIndex = viewModel.selectedSize.orderIndex
-        preselectOptionAt(section: .size, row: selectedSizeIndex)
+        let options = viewModel.currentFilterOptions()
+        preselectOptionAt(section: .orientation, row: options.orientation.orderIndex)
+        preselectOptionAt(section: .size, row: options.size.orderIndex)
     }
     
     private func preselectOptionAt(section: Section, row: Int) {
@@ -57,14 +55,13 @@ final class SearchFilterViewController: UIViewController {
     
     private func configureNavigationItem() {
         let navigationTitle = "Search Filter"
-        let confirmButtonTitle = "Apply Filter"
+        let confirmButtonTitle = "Apply"
         let confirmButtonItem = UIBarButtonItem(
             title: confirmButtonTitle,
-            style: .plain,
+            style: .done,
             target: self,
-            action: #selector(didTapApplyFilter)
+            action: #selector(didTapApplyButton)
         )
-        
         navigationItem.title = navigationTitle
         navigationItem.rightBarButtonItem = confirmButtonItem
     }
@@ -95,16 +92,10 @@ final class SearchFilterViewController: UIViewController {
     
     // MARK: Action(s)
     
-    @objc func didTapApplyFilter() {
+    @objc private func didTapApplyButton() {
         if let viewModel {
-            let options = FilterOptions(
-                orientation: viewModel.selectedOrientation,
-                size: viewModel.selectedSize
-            )
-            delegate?.didApplyFilterOptions(options)
+            delegate?.didApplyFilterOptions(viewModel.currentFilterOptions())
         }
-        
-        dismiss(animated: true)
     }
 }
 
@@ -170,14 +161,13 @@ extension SearchFilterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        
         deselectPreviouslySelectedCell(in: tableView, indexPath)
-        
         return indexPath
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.selectOptions(at: indexPath)
+        guard let viewModel else { return }
+        viewModel.selectOptions(at: indexPath)
     }
 }
 
@@ -215,4 +205,3 @@ extension SearchFilterViewController {
         }
     }
 }
-

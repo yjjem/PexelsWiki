@@ -14,8 +14,12 @@ final class SearchFilterViewModel {
         case size
     }
     
-    var selectedOrientation: ContentOrientation = .landscape
-    var selectedSize: ContentSize = .large
+    // MARK: Property(s)
+    
+    private var selectedOrientation: ContentOrientation = .landscape
+    private var selectedSize: ContentSize = .large
+    
+    // MARK: Initializer(s)
     
     init(selectedOrientation: ContentOrientation, selectedSize: ContentSize) {
         self.selectedOrientation = selectedOrientation
@@ -23,6 +27,10 @@ final class SearchFilterViewModel {
     }
     
     // MARK: Function(s)
+    
+    func currentFilterOptions() -> FilterOptions {
+        return FilterOptions(orientation: selectedOrientation, size: selectedSize)
+    }
     
     func selectOptions(at indexPath: IndexPath) {
         let selectedOptionType = Option.allCases[indexPath.section]
