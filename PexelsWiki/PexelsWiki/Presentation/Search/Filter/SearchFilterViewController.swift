@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SearchFilterViewControllerDelegate {
+protocol SearchFilterViewControllerDelegate: AnyObject {
     func didApplyFilterOptions(_ options: FilterOptions)
 }
 
@@ -15,7 +15,7 @@ final class SearchFilterViewController: UIViewController {
     
     // MARK: Variable(s)
     
-    var delegate: SearchFilterViewControllerDelegate?
+    weak var delegate: SearchFilterViewControllerDelegate?
     var viewModel: SearchFilterViewModel?
     
     private let searchFilterTableView: UITableView = {
