@@ -40,7 +40,7 @@ final class DefaultNetworkProvider: Networkable {
                 return
             }
             
-            guard response.codeIsNot(200) else {
+            guard (200...299) ~= response.statusCode else {
                 let receivedCode = response.statusCode
                 completion(.failure(ProviderValidationError.badHTTPResponse(receivedCode)))
                 return
