@@ -7,30 +7,34 @@
 
 import Foundation
 
-protocol PexelsPhotoUseCaseInterface {
+protocol CuratedPhotosUseCaseInterface {
     
-    func loadCuratedPhotoPage(
+    func fetchCuratedPhotoPage(
         page: Int,
         perPage: Int,
         completion: @escaping (Result<PhotoPage, Error>) -> Void
     )
 }
 
-final class PexelsPhotoUseCase: PexelsPhotoUseCaseInterface {
+final class PexelsPhotoUseCase: CuratedPhotosUseCaseInterface {
     
-    private let repository: PexelsPhotoRepositoryInterface
+    // MARK: Property(s)
     
-    init(repository: PexelsPhotoRepositoryInterface) {
+    private let repository: VisualContentRepositoryInterface
+    
+    init(repository: VisualContentRepositoryInterface) {
         self.repository = repository
     }
     
-    func loadCuratedPhotoPage(
+    // MARK: Function(s)
+    
+    func fetchCuratedPhotoPage(
         page: Int,
         perPage: Int,
         completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) {
-        repository.loadCuratedPhotos(page: page, perPage: perPage) { response in
-            completion(response.mapError { $0 as Error })
+        repository.fetchCuratedPhotos(page: page, perPage: perPage) { response in
+            completion(response)
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  PexelsPhotoSearchUseCase.swift
+//  PexelsVideoSearchUseCase.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PexelsPhotoSearchUseCaseInterface {
+protocol VideoSearchUseCaseInterface {
     
     func search(
         query: String,
@@ -15,15 +15,15 @@ protocol PexelsPhotoSearchUseCaseInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<VideoPage, Error>) -> Void
     )
 }
 
-final class PexelsPhotoSearchUseCase: PexelsPhotoSearchUseCaseInterface {
+final class VideoSearchUseCase: VideoSearchUseCaseInterface {
     
-    private let repository: PexelsPhotoRepositoryInterface
+    private let repository: VisualContentRepositoryInterface
     
-    init(repository: PexelsPhotoRepositoryInterface) {
+    init(repository: VisualContentRepositoryInterface) {
         self.repository = repository
     }
     
@@ -33,9 +33,9 @@ final class PexelsPhotoSearchUseCase: PexelsPhotoSearchUseCaseInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<VideoPage, Error>) -> Void
     ) {
-        repository.searchPhotos(
+        repository.searchVideos(
             query: query,
             orientation: orientation,
             size: size,

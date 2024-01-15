@@ -37,8 +37,8 @@ final class SearchCoordinator: Coordinator {
     
     private func showPhotoSearchFlow(searchQuery: String) {
         let provider = DefaultNetworkProvider()
-        let repository = PexelsPhotoRepository(provider: provider)
-        let useCase = PexelsPhotoSearchUseCase(repository: repository)
+        let repository = VisualContentRepository(provider: provider)
+        let useCase = PhotoSearchUseCase(repository: repository)
         let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
         
         let photoSearchViewController = PhotoSearchViewController()
@@ -54,8 +54,8 @@ final class SearchCoordinator: Coordinator {
     
     private func showVideoSearchFlow(searchQuery: String) {
         let provider = DefaultNetworkProvider()
-        let repository = PexelsVideoRepository(provider: provider)
-        let useCase = PexelsVideoSearchUseCase(repository: repository)
+        let repository = VisualContentRepository(provider: provider)
+        let useCase = VideoSearchUseCase(repository: repository)
         let videoSearchViewModel = VideoSearchViewModel(useCase: useCase)
         
         let videoSearchViewController = VideoSearchViewController()

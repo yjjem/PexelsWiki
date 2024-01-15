@@ -27,7 +27,7 @@ final class HomeCoordinator: Coordinator {
     
     private func showMainFlow() {
         let defaultNetworkProvider = DefaultNetworkProvider()
-        let photoRepository = PexelsPhotoRepository(provider: defaultNetworkProvider)
+        let photoRepository = VisualContentRepository(provider: defaultNetworkProvider)
         let photoUseCase = PexelsPhotoUseCase(repository: photoRepository)
         let homeViewModel = HomeViewModel(useCase: photoUseCase)
         let homeViewController = HomeViewController()

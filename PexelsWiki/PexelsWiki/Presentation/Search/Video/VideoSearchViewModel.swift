@@ -23,9 +23,9 @@ final class VideoSearchViewModel {
     private var isLoading: Bool = false
     private var contentType: ContentOrientation = .landscape
     
-    private let useCase: PexelsVideoSearchUseCaseInterface
+    private let useCase: VideoSearchUseCaseInterface
     
-    init(useCase: PexelsVideoSearchUseCaseInterface) {
+    init(useCase: VideoSearchUseCaseInterface) {
         self.useCase = useCase
     }
     

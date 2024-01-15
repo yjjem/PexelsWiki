@@ -13,20 +13,20 @@ final class HomeViewModel {
     
     var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
     
-    private let useCase: PexelsPhotoUseCaseInterface
+    private let useCase: CuratedPhotosUseCaseInterface
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
     
-    init(useCase: PexelsPhotoUseCaseInterface) {
+    init(useCase: CuratedPhotosUseCaseInterface) {
         self.useCase = useCase
     }
     
     // MARK: Function(s)
     
     func loadCuratedPhotosPage() {
-        useCase.loadCuratedPhotoPage(
+        useCase.fetchCuratedPhotoPage(
             page: page,
             perPage: pageSize.itemsPerPage
         ) { [weak self] response in

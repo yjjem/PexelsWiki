@@ -20,9 +20,9 @@ final class PhotoSearchViewModel {
     private var hasNext: Bool = false
     private var isLoading: Bool = false
     
-    private let useCase: PexelsPhotoSearchUseCaseInterface
+    private let useCase: PhotoSearchUseCaseInterface
     
-    init(useCase: PexelsPhotoSearchUseCaseInterface) {
+    init(useCase: PhotoSearchUseCaseInterface) {
         self.useCase = useCase
     }
     
