@@ -7,15 +7,6 @@
 
 import Foundation
 
-protocol CuratedPhotosUseCaseInterface {
-    
-    func fetchCuratedPhotoPage(
-        page: Int,
-        perPage: Int,
-        completion: @escaping (Result<PhotoPage, Error>) -> Void
-    )
-}
-
 final class PexelsPhotoUseCase: CuratedPhotosUseCaseInterface {
     
     // MARK: Property(s)

@@ -7,18 +7,6 @@
 
 import Foundation
 
-protocol VideoSearchUseCaseInterface {
-    
-    func search(
-        query: String,
-        orientation: String,
-        size: String,
-        page: Int,
-        perPage: Int,
-        _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    )
-}
-
 final class VideoSearchUseCase: VideoSearchUseCaseInterface {
     
     private let repository: VisualContentRepositoryInterface
