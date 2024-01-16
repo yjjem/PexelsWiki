@@ -7,14 +7,9 @@
 
 import UIKit
 
-final class SceneDelegate: UIResponder {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-}
-
-// MARK: UIWindowSceneDelegate
-
-extension SceneDelegate: UIWindowSceneDelegate {
     
     func scene(
         _ scene: UIScene,
