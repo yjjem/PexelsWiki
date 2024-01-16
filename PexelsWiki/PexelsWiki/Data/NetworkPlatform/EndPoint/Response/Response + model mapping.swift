@@ -9,7 +9,7 @@ import Foundation
 
 extension WrappedVideoListResponse {
     
-    var hasNextPage: Bool {
+    private var hasNextPage: Bool {
         return nextPage != nil
     }
     
@@ -24,7 +24,7 @@ extension WrappedVideoListResponse {
 
 extension WrappedPhotoListResponse {
     
-    var hasNextPage: Bool {
+    private var hasNextPage: Bool {
         return nextPage != nil
     }
     
