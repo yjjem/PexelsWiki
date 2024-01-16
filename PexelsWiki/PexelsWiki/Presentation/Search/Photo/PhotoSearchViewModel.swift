@@ -32,7 +32,7 @@ final class PhotoSearchViewModel {
         return filterOptions
     }
     
-    func loadSearchResults() {
+    func fetchSearchResults() {
         isLoading = true
         
         useCase.search(
@@ -58,14 +58,14 @@ final class PhotoSearchViewModel {
         didSelectFilterOptions?(selectedFilterOptions)
     }
     
-    func loadNextPage() {
+    func fetchNextPage() {
         if isLoading {
             return
         }
         
         if hasNext {
             page += 1
-            loadSearchResults()
+            fetchSearchResults()
         }
     }
     
@@ -73,7 +73,7 @@ final class PhotoSearchViewModel {
         page = 1
         pageSize = .small
         hasNext = false
-        loadSearchResults()
+        fetchSearchResults()
     }
     
     // MARK: Private Function(s)

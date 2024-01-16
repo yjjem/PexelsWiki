@@ -57,7 +57,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel?.loadCuratedPhotosPage()
+        viewModel?.fetchCuratedPhotosPage()
     }
     
     // MARK: Private Function(s)
@@ -103,7 +103,7 @@ final class HomeViewController: UIViewController {
     private func configurePaginationFetchControl() {
         paginationFetchControl.configure(scrollView: contentCollectionView)
         paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.loadNextPage()
+            self?.viewModel?.fetchNextPage()
         }
     }
     

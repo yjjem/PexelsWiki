@@ -25,7 +25,7 @@ final class HomeViewModel {
     
     // MARK: Function(s)
     
-    func loadCuratedPhotosPage() {
+    func fetchCuratedPhotosPage() {
         useCase.fetchCuratedPhotoPage(
             page: page,
             perPage: pageSize.itemsPerPage
@@ -40,13 +40,13 @@ final class HomeViewModel {
         }
     }
     
-    func loadNextPage() {
+    func fetchNextPage() {
         guard isLoading == false else { return }
         
         if hasNext {
             page += 1
             isLoading = true
-            loadCuratedPhotosPage()
+            fetchCuratedPhotosPage()
         }
     }
     
@@ -54,6 +54,6 @@ final class HomeViewModel {
         page = 1
         pageSize = .small
         hasNext = false
-        loadCuratedPhotosPage()
+        fetchCuratedPhotosPage()
     }
 }

@@ -31,7 +31,7 @@ final class VideoSearchViewModel {
     
     // MARK: Function(s)
     
-    func loadSearchResults() {
+    func fetchSearchResults() {
         isLoading = true
         useCase.search(
             query: query,
@@ -55,14 +55,14 @@ final class VideoSearchViewModel {
         size = options.size
     }
     
-    func loadNextPage() {
+    func fetchNextPage() {
         if isLoading {
             return
         }
         
         if hasNext {
             page += 1
-            loadSearchResults()
+            fetchSearchResults()
         }
     }
     
@@ -70,6 +70,6 @@ final class VideoSearchViewModel {
         page = 1
         pageSize = .small
         hasNext = false
-        loadSearchResults()
+        fetchSearchResults()
     }
 }

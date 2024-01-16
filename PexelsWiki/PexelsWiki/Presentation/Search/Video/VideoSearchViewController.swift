@@ -58,7 +58,7 @@ final class VideoSearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel?.loadSearchResults()
+        viewModel?.fetchSearchResults()
     }
     
     // MARK: Private Function(s)
@@ -131,7 +131,7 @@ final class VideoSearchViewController: UIViewController {
     private func configurePaginationFetchControl() {
         paginationFetchControl.configure(scrollView: videoCollectionView)
         paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.loadNextPage()
+            self?.viewModel?.fetchNextPage()
         }
     }
     
