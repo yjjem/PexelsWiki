@@ -9,7 +9,7 @@ import Foundation
 
 protocol Networkable {
 
-    func send(request: URLRequest, _ completion: @escaping (Result<Data, Error>) -> Void)
+    func send(request: URLRequest?, _ completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 final class DefaultNetworkProvider: Networkable {
@@ -20,7 +20,9 @@ final class DefaultNetworkProvider: Networkable {
         self.session = session
     }
     
-    func send(request: URLRequest, _ completion: @escaping (Result<Data, Error>) -> Void) {
+    func send(request: URLRequest?, _ completion: @escaping (Result<Data, Error>) -> Void) {
+        
+        guard let request else { return }
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error as? URLError {

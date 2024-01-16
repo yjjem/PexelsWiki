@@ -34,7 +34,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.urlRequest) { result in
+        provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toPhotoPage() }
@@ -63,7 +63,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.urlRequest) { result in
+        provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toPhotoPage() }
@@ -94,7 +94,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.urlRequest) { result in
+        provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toVideoPage() }
@@ -122,7 +122,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.urlRequest) { result in
+        provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toVideoPage() }

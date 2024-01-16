@@ -19,22 +19,18 @@ protocol Requestable {
 
 extension Requestable {
     
-    private var url: URL {
+    private func makeURL() -> URL? {
         var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        components?.queryItems = queries.map { URLQueryItem(name: $0, value: $1) }
         components?.path = path
-        components?.queryItems = queries.map { key, value in
-            URLQueryItem(name: key, value: value)
-        }
-        
-        guard let url = components?.url else {
-            fatalError()
-        }
-        
-        return url
+        return components?.url
     }
     
-    var urlRequest: URLRequest {
-        let urlRequest = URLRequest(url: url, method: method, headers: headers)
-        return urlRequest
+    func makeURLRequest() -> URLRequest? {
+        guard let url = makeURL() else { return nil }
+        var request = URLRequest(url: url)
+        request.httpMethod = method.name
+        request.allHTTPHeaderFields = headers
+        return request
     }
 }
