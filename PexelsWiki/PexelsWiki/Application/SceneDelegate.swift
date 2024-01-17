@@ -9,7 +9,12 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    // MARK: Variable(s)
+    
     var window: UIWindow?
+    private var sceneCoordinator: SceneCoordinator?
+    
+    // MARK: Function(s)
     
     func scene(
         _ scene: UIScene,
