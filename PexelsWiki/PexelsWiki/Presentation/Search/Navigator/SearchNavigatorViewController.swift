@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SearchNavigatorViewControllerDelegate {
+protocol SearchNavigatorViewControllerDelegate: AnyObject {
     func didSelectSearchQuery(_ searchQuery: String, contentType: ContentType)
 }
 
@@ -26,7 +26,7 @@ final class SearchNavigatorViewController: UIViewController {
     // MARK: Variable(s)
     
     var viewModel: SearchNavigatorViewModel?
-    var delegate: SearchNavigatorViewControllerDelegate?
+    weak var delegate: SearchNavigatorViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
