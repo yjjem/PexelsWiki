@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class AppCoordinator: Coordinator {
+final class SceneCoordinator: Coordinator {
     
     // MARK: Property(s)
     
