@@ -83,7 +83,6 @@ final class PhotoSearchViewController: UIViewController {
             guard let self else { return }
             self.resetSnapShot()
             self.switchContentOrientation(filterOptions.orientation)
-            viewModel.resetPage()
         }
     }
     
@@ -102,6 +101,7 @@ final class PhotoSearchViewController: UIViewController {
             animated: true
         )
         }
+        viewModel?.resetPage()
     }
     
     private func addNavigationTitle(_ title: String) {
