@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF2B01362B60076000214C8D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2B01352B60076000214C8D /* Router.swift */; };
 		DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */; };
 		DF3FC2BE2A3DA089000DD223 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3FC2BD2A3DA089000DD223 /* SceneCoordinator.swift */; };
 		DF42BDA42A49EF6E00AA0896 /* ImageLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF2B01352B60076000214C8D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		DF3FC2BD2A3DA089000DD223 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadManager.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				DF3FC2BB2A3D6A25000DD223 /* CoordinatorProtocol.swift */,
 				DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */,
+				DF2B01352B60076000214C8D /* Router.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				DFD792882A41BA8200729C2F /* UserInfoView.swift in Sources */,
 				DFD792B12A46A8AC00729C2F /* PhotoSearchUseCase.swift in Sources */,
 				DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */,
+				DF2B01362B60076000214C8D /* Router.swift in Sources */,
 				DFD7929C2A448AF400729C2F /* HomeViewModel.swift in Sources */,
 				DFD792C02A47FCA300729C2F /* PhotoSearchViewModel.swift in Sources */,
 				DFD792A22A456B5500729C2F /* MainBundle+APIKey.swift in Sources */,
