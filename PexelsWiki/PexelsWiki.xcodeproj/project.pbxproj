@@ -261,8 +261,6 @@
 		DFA491392A3AB7A0008BC5C4 /* NetworkProvider */ = {
 			isa = PBXGroup;
 			children = (
-				DFA4912F2A3AB6C3008BC5C4 /* HTTPMethod.swift */,
-				DFA491322A3AB6E4008BC5C4 /* Requestable.swift */,
 				DFA491472A3AD406008BC5C4 /* ProviderValidationError.swift */,
 				DFA4912D2A3A26DD008BC5C4 /* NetworkProvider.swift */,
 			);
@@ -425,6 +423,8 @@
 			children = (
 				DFA491582A3AF2E5008BC5C4 /* Response */,
 				DFF20DD82B551C6000E01DB7 /* EndPoint.swift */,
+				DFA491322A3AB6E4008BC5C4 /* Requestable.swift */,
+				DFA4912F2A3AB6C3008BC5C4 /* HTTPMethod.swift */,
 			);
 			path = EndPoint;
 			sourceTree = "<group>";
