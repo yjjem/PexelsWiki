@@ -31,40 +31,29 @@ final class PhotoSearchViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     private let photoCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
-            collectionViewLayout: .init()
+            collectionViewLayout: UICollectionViewCompositionalLayout.landscapeLayout
         )
         return collection
     }()
     
-    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
-    
     // MARK: Override(s)
     
     override func loadView() {
-        super.loadView()
-        
-        configureNavigationItem()
-        configurePhotoCollectionView()
-        configurePaginationFetchControl()
-        
-        if let viewModel {
-            addNavigationTitle(viewModel.query)
-        }
+        self.view = photoCollectionView
+        photoCollectionView.dataSource = diffableDataSource
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bindViewModel()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        configureDiffableDataSource()
         viewModel?.fetchSearchResults()
+        configureNavigationItem()
+        configurePaginationFetchControl()
     }
     
     // MARK: Private Function(s)
@@ -86,6 +75,38 @@ final class PhotoSearchViewController: UIViewController {
         }
     }
     
+    private func configureDiffableDataSource() {
+        let photoContentCellRegistration = makePhotoContentCellRegistration()
+        let diffableDataSource = DataSource(collectionView: photoCollectionView) {
+            collectionView, indexPath, itemIdentifier in
+            
+            collectionView.dequeueConfiguredReusableCell(
+                using: photoContentCellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
+        }
+        self.diffableDataSource = diffableDataSource
+    }
+    
+    private func configureNavigationItem() {
+        let filterButtonItem = UIBarButtonItem(
+            image: .init(systemName: "line.3.horizontal.decrease.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFilterButton)
+        )
+        navigationItem.rightBarButtonItem = filterButtonItem
+        navigationItem.title = viewModel?.query
+    }
+    
+    private func configurePaginationFetchControl() {
+        paginationFetchControl.configure(scrollView: photoCollectionView)
+        paginationFetchControl.didTriggerFetchMore = { [weak self] in
+            self?.viewModel?.fetchNextPage()
+        }
+    }
+    
     private func switchContentOrientation(_ orientation: ContentOrientation) {
         switch orientation {
         case .landscape: photoCollectionView.setCollectionViewLayout(
@@ -104,54 +125,6 @@ final class PhotoSearchViewController: UIViewController {
         viewModel?.resetPage()
     }
     
-    private func addNavigationTitle(_ title: String) {
-        navigationItem.title = title
-    }
-    
-    private func configureNavigationItem() {
-        let filterButtonItem = UIBarButtonItem(
-            image: .init(systemName: "line.3.horizontal.decrease.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapFilterButton)
-        )
-        navigationItem.rightBarButtonItem = filterButtonItem
-    }
-    
-    private func configurePhotoCollectionView() {
-        diffableDataSource = makeDiffableDataSource()
-        addPhotoCollectionView()
-        
-        photoCollectionView.dataSource = diffableDataSource
-        photoCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.landscapeLayout,
-            animated: false
-        )
-    }
-    
-    private func configurePaginationFetchControl() {
-        paginationFetchControl.configure(scrollView: photoCollectionView)
-        paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.fetchNextPage()
-        }
-    }
-    
-    private func makeDiffableDataSource() -> DataSource {
-        let photoContentCellRegistration = makePhotoContentCellRegistration()
-        
-        let diffableDataSource = DataSource(collectionView: photoCollectionView) {
-            collectionView, indexPath, itemIdentifier in
-            
-            collectionView.dequeueConfiguredReusableCell(
-                using: photoContentCellRegistration,
-                for: indexPath,
-                item: itemIdentifier
-            )
-        }
-        
-        return diffableDataSource
-    }
-    
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
         return PhotoContentCellRegistartion { cell, indexPath, cellViewModel in
             cell.configure(using: cellViewModel)
@@ -165,18 +138,6 @@ final class PhotoSearchViewController: UIViewController {
     
     private func resetSnapShot() {
         snapShot.deleteAll()
-    }
-    
-    private func addPhotoCollectionView() {
-        view.addSubview(photoCollectionView)
-        
-        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            photoCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            photoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            photoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            photoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     // MARK: Action(s)
