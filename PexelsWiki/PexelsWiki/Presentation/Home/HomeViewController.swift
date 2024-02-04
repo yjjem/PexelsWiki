@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
     private let contentCollectionView: UICollectionView = {
         let collection = UICollectionView(
             frame: .zero,
-            collectionViewLayout: .init()
+            collectionViewLayout: UICollectionViewCompositionalLayout.portraitLayout
         )
         return collection
     }()
@@ -40,64 +40,42 @@ final class HomeViewController: UIViewController {
     // MARK: Override(s)
     
     override func loadView() {
-        super.loadView()
-        
-        configureView()
-        configureContentRefreshControl()
-        configureContentCollectionView()
-        configurePaginationFetchControl()
+        self.view = contentCollectionView
+        self.view.backgroundColor = .systemGray6
+        contentCollectionView.refreshControl = contentRefreshControl
+        contentCollectionView.dataSource = diffableDataSource
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bindViewModel()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        configureContentRefreshControl()
+        configureDiffableDataSource()
+        configurePaginationFetchControl()
         viewModel?.fetchCuratedPhotosPage()
     }
     
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        
-        let mainQueue = DispatchQueue.main
-        
         viewModel?.loadedCuratedPhotos = { [weak self] curatedPhotos in
             guard let self else { return }
-            let refreshControl = self.contentRefreshControl
             
             let snapShotItems = self.snapShot.items
             let itemsWithoutDuplication = curatedPhotos.filter { !snapShotItems.contains($0) }
-            self.applySnapShot(with: itemsWithoutDuplication)
+            applySnapShot(with: itemsWithoutDuplication)
             
-            mainQueue.async {
-                if refreshControl.isRefreshing {
-                    refreshControl.endRefreshing()
+            DispatchQueue.main.async {
+                if self.contentRefreshControl.isRefreshing {
+                    self.contentRefreshControl.endRefreshing()
                 }
             }
         }
     }
     
-    private func configureView() {
-        view.backgroundColor = .systemGray6
-    }
-    
     private func configureContentRefreshControl() {
         let refreshAction = #selector(didInvokeRefresh)
         contentRefreshControl.addTarget(self, action: refreshAction, for: .valueChanged)
-    }
-    
-    private func configureContentCollectionView() {
-        let portraitLayout = UICollectionViewCompositionalLayout.portraitLayout
-        diffableDataSource = makeDataSource()
-        addContentCollectionView()
-        contentCollectionView.setCollectionViewLayout(portraitLayout, animated: false)
-        contentCollectionView.refreshControl = contentRefreshControl
-        contentCollectionView.dataSource = diffableDataSource
     }
     
     private func configurePaginationFetchControl() {
@@ -107,23 +85,8 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func addContentCollectionView() {
-        
-        view.addSubview(contentCollectionView)
-        
-        contentCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            contentCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            contentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
-    
-    private func makeDataSource() -> DataSource {
-        
+    private func configureDiffableDataSource() {
         let contentCellRegistration = makeContentCellRegistration()
-        
         let diffableDataSource = DataSource(collectionView: contentCollectionView) {
             collectionView, indexPath, viewModel in
             
@@ -133,20 +96,17 @@ final class HomeViewController: UIViewController {
                 item: viewModel
             )
         }
-        
-        return diffableDataSource
+        self.diffableDataSource = diffableDataSource
     }
     
     private func makeContentCellRegistration() -> ContentCellRegistration {
         return ContentCellRegistration { cell, indexPath, photoResource in
-            
             let imageURL = photoResource.url["portrait"]!
             let viewModel = HomeContentCellViewModel(
                 userName: photoResource.photographer,
                 userProfileURL: photoResource.photographerURL,
                 imageURL: imageURL
             )
-            
             cell.configure(using: viewModel)
         }
     }
