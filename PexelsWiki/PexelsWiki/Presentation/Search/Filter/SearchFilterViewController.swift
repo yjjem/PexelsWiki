@@ -19,22 +19,25 @@ final class SearchFilterViewController: UIViewController {
     var viewModel: SearchFilterViewModel?
     
     private let searchFilterTableView: UITableView = {
-        let collection = UITableView(frame: .zero, style: .insetGrouped)
-        return collection
+        return UITableView(frame: .zero, style: .insetGrouped)
     }()
     
     // MARK: Override(s)
     
     override func loadView() {
-        super.loadView()
-        
-        configureNavigationItem()
-        configureSearchFilterTableView()
+        self.view = searchFilterTableView
+        searchFilterTableView.dataSource = self
+        searchFilterTableView.delegate = self
+        searchFilterTableView.allowsMultipleSelection = true
+        searchFilterTableView.register(
+            SearchFilterOptionCell.self,
+            forCellReuseIdentifier: SearchFilterOptionCell.reuseIdentifier
+        )
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureNavigationItem()
         preselectOptions()
     }
     
@@ -64,30 +67,6 @@ final class SearchFilterViewController: UIViewController {
         )
         navigationItem.title = navigationTitle
         navigationItem.rightBarButtonItem = confirmButtonItem
-    }
-    
-    private func configureSearchFilterTableView() {
-        addSearchFilterTableView()
-        
-        searchFilterTableView.allowsMultipleSelection = true
-        searchFilterTableView.dataSource = self
-        searchFilterTableView.delegate = self
-        searchFilterTableView.register(
-            SearchFilterOptionCell.self,
-            forCellReuseIdentifier: SearchFilterOptionCell.reuseIdentifier
-        )
-    }
-    
-    private func addSearchFilterTableView() {
-        view.addSubview(searchFilterTableView)
-        
-        searchFilterTableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            searchFilterTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            searchFilterTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchFilterTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchFilterTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     // MARK: Action(s)
@@ -144,20 +123,13 @@ extension SearchFilterViewController: UITableViewDelegate {
         in tableView: UITableView,
         _ indexPath: IndexPath
     ) {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows
-        else {
-            return
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+            guard !selectedIndexPaths.contains(indexPath) else { return }
+            let currentSection = indexPath.section
+            selectedIndexPaths
+                .filter { $0.section == currentSection }
+                .forEach { tableView.deselectRow(at: $0, animated: true) }
         }
-        
-        let currentSection = indexPath.section
-        
-        if selectedIndexPaths.contains(indexPath) {
-            return
-        }
-        
-        selectedIndexPaths
-            .filter { $0.section == currentSection }
-            .forEach { tableView.deselectRow(at: $0, animated: true) }
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
