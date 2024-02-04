@@ -10,6 +10,13 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
+    private let tabBarController: UITabBarController = {
+        let tabBarController = UITabBarController()
+        let defaultAppearance = UITabBarAppearance()
+        tabBarController.tabBar.standardAppearance = defaultAppearance
+        tabBarController.tabBar.scrollEdgeAppearance = defaultAppearance
+        return tabBarController
+    }()
     
     // MARK: Initializer(s)
     
@@ -27,9 +34,8 @@ final class TabBarCoordinator: Coordinator {
         let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
         
         let tabCoordinators: [CoordinatorProtocol] = [homeCoordinator, searchCoordinator]
-        let tabBarViewController = UITabBarController()
-        tabBarViewController.viewControllers = [
-            homeNavigationViewController, 
+        tabBarController.viewControllers = [
+            homeNavigationViewController,
             searchNavigationViewController
         ]
         tabCoordinators.forEach { coordinator in
@@ -37,7 +43,7 @@ final class TabBarCoordinator: Coordinator {
             coordinator.start()
         }
         
-        navigationController.pushViewController(tabBarViewController, animated: true)
+        navigationController.pushViewController(tabBarController, animated: true)
     }
     
     // MARK: Private Function(s)
