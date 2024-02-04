@@ -26,89 +26,38 @@ final class VideoSearchViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     private let videoCollectionView: UICollectionView = {
        let collection = UICollectionView(
         frame: .zero,
-        collectionViewLayout: .init()
+        collectionViewLayout: UICollectionViewCompositionalLayout.landscapeLayout
        )
         return collection
     }()
     
-    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
-    
     // MARK: Override(s)
     
     override func loadView() {
-        super.loadView()
-        
-        configureNavigationItem()
-        configureVideoCollectionView()
-        configurePaginationFetchControl()
-        if let viewModel {
-            addNavigationTitle(viewModel.query)
-        }
+        self.view = videoCollectionView
+        videoCollectionView.dataSource = diffableDataSource
+        videoCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bindViewModel()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        configureDiffableDataSource()
+        configureNavigationItem()
+        configurePaginationFetchControl()
         viewModel?.fetchSearchResults()
     }
     
     // MARK: Private Function(s)
     
-    private func addNavigationTitle(_ title: String) {
-        navigationItem.title = title
-    }
-    
-    private func configureNavigationItem() {
-        let filterButtonItem = UIBarButtonItem(
-            image: .init(systemName: "line.3.horizontal.decrease.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapFilterButton)
-        )
-        navigationItem.rightBarButtonItem = filterButtonItem
-    }
-    
-    private func makeFilterView(
-        with viewModel: SearchFilterViewModel
-    ) -> SearchFilterViewController {
-        
-        let filterView = SearchFilterViewController()
-        filterView.viewModel = viewModel
-        filterView.delegate = self
-        
-        return filterView
-    }
-    
-    @objc func didTapFilterButton() {
-        guard let viewModel else { return }
-        
-        let filterViewModel = SearchFilterViewModel(
-            selectedOrientation: viewModel.orientation,
-            selectedSize: viewModel.size
-        )
-        
-        let filterView = makeFilterView(with: filterViewModel)
-        
-        let navigation = UINavigationController(rootViewController: filterView)
-        navigation.navigationBar.prefersLargeTitles = true
-        
-        present(navigation, animated: true)
-    }
-    
     private func bindViewModel() {
         guard let viewModel else { return }
 
         viewModel.loadedVideoResources = { [weak self] videoResource in
-            
             guard let self else { return }
             
             let snapShotItems = self.snapShot.items
@@ -117,15 +66,18 @@ final class VideoSearchViewController: UIViewController {
         }
     }
     
-    private func configureVideoCollectionView() {
-        diffableDataSource = makeDiffableDataSource()
-        addVideoCollectionView()
-        videoCollectionView.dataSource = diffableDataSource
-        videoCollectionView.delegate = self
-        videoCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.landscapeLayout,
-            animated: false
-        )
+    private func configureDiffableDataSource() {
+        let videoContentCellRegistration = makeVideoContentCellRegistration()
+        let diffableDataSource = DataSource(collectionView: videoCollectionView) {
+            collectionView, indexPath, itemIdentifier in
+            
+            collectionView.dequeueConfiguredReusableCell(
+                using: videoContentCellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
+        }
+        self.diffableDataSource = diffableDataSource
     }
     
     private func configurePaginationFetchControl() {
@@ -137,34 +89,15 @@ final class VideoSearchViewController: UIViewController {
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
         let registration = VideoContentCellRegistration { cell, indexPath, videoResource in
-            
             let videoURLString = videoResource.videoFiles[0].link
             let userName = videoResource.user.name
-            
             let viewModel = VideoContentCellViewModel(
                 videoURLString: videoURLString,
                 userName: userName
             )
-            
             cell.configure(using: viewModel)
         }
         return registration
-    }
-    
-    private func makeDiffableDataSource() -> DataSource {
-        let videoContentCellRegistration = makeVideoContentCellRegistration()
-        
-        let diffableDataSource = DataSource(collectionView: videoCollectionView) {
-            collectionView, indexPath, itemIdentifier in
-            
-            collectionView.dequeueConfiguredReusableCell(
-                using: videoContentCellRegistration,
-                for: indexPath,
-                item: itemIdentifier
-            )
-        }
-        
-        return diffableDataSource
     }
     
     private func updateSnapShot(using videoList: [VideoResource]) {
@@ -176,16 +109,39 @@ final class VideoSearchViewController: UIViewController {
         snapShot.deleteAll()
     }
     
-    private func addVideoCollectionView() {
-        view.addSubview(videoCollectionView)
+    private func configureNavigationItem() {
+        let filterButtonItem = UIBarButtonItem(
+            image: .init(systemName: "line.3.horizontal.decrease.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFilterButton)
+        )
+        navigationItem.rightBarButtonItem = filterButtonItem
+        navigationItem.title = viewModel?.query
+    }
+    
+    private func makeFilterView(
+        with viewModel: SearchFilterViewModel
+    ) -> SearchFilterViewController {
         
-        videoCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            videoCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            videoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            videoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            videoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        let filterView = SearchFilterViewController()
+        filterView.viewModel = viewModel
+        filterView.delegate = self
+        // TODO: 분리
+        return filterView
+    }
+    
+    @objc func didTapFilterButton() {
+        guard let viewModel else { return }
+        let filterViewModel = SearchFilterViewModel(
+            selectedOrientation: viewModel.orientation,
+            selectedSize: viewModel.size
+        )
+        let filterView = makeFilterView(with: filterViewModel)
+        let navigation = UINavigationController(rootViewController: filterView)
+        navigation.navigationBar.prefersLargeTitles = true
+        // TODO: presentation 분리
+        present(navigation, animated: true)
     }
 }
 
@@ -193,13 +149,8 @@ final class VideoSearchViewController: UIViewController {
 
 extension VideoSearchViewController: SearchFilterViewControllerDelegate {
     
-    func didApplyFilterOptions(_ options: FilterOptions) {
-        guard let viewModel else { return }
-        
-        resetSnapShot()
-        viewModel.apply(filter: options)
-        
-        switch viewModel.orientation {
+    private func adaptLayout(orientation: ContentOrientation) {
+        switch orientation {
         case .landscape:
             videoCollectionView.setCollectionViewLayout(
                 UICollectionViewCompositionalLayout.landscapeLayout,
@@ -216,7 +167,14 @@ extension VideoSearchViewController: SearchFilterViewControllerDelegate {
                 animated: true
             )
         }
+    }
+    
+    func didApplyFilterOptions(_ options: FilterOptions) {
+        guard let viewModel else { return }
         
+        resetSnapShot()
+        viewModel.apply(filter: options)
+        adaptLayout(orientation: viewModel.orientation)
         viewModel.resetPage()
     }
 }
