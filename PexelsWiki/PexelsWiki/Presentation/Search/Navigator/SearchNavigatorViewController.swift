@@ -31,11 +31,7 @@ final class SearchNavigatorViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let searchController: UISearchController = {
-        let search = UISearchController()
-        return search
-    }()
-    
+    private let searchController: UISearchController = UISearchController()
     private let categoryCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: .init())
         return collection
@@ -44,17 +40,18 @@ final class SearchNavigatorViewController: UIViewController {
     // MARK: Override(s)
     
     override func loadView() {
-        super.loadView()
-        
-        configureView()
-        configureNavigationItem()
-        configureSearchController()
-        configureCategoryCollectionView()
+        self.view = categoryCollectionView
+        self.view.backgroundColor = .systemGray6
+        categoryCollectionView.collectionViewLayout = makeTwoColumnGridLayout()
+        categoryCollectionView.dataSource = diffableDataSource
+        categoryCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureDiffableDataSource()
+        configureNavigationItem()
+        configureSearchController()
         configureUsingViewModel()
     }
     
@@ -63,10 +60,6 @@ final class SearchNavigatorViewController: UIViewController {
     private func configureUsingViewModel() {
         guard let viewModel else { return }
         updateSnapShot(with: viewModel.categoryItems)
-    }
-    
-    private func configureView() {
-        view.backgroundColor = .systemGray6
     }
     
     private func configureNavigationItem() {
@@ -83,31 +76,8 @@ final class SearchNavigatorViewController: UIViewController {
         searchBar.delegate = self
     }
     
-    private func configureCategoryCollectionView() {
-        let twoColumnGridLayout = makeTwoColumnGridLayout()
-        diffableDataSource = makeDataSource()
-        addCategoryCollectionView()
-        
-        categoryCollectionView.dataSource = diffableDataSource
-        categoryCollectionView.delegate = self
-        categoryCollectionView.setCollectionViewLayout(twoColumnGridLayout, animated: false)
-    }
-    
-    private func addCategoryCollectionView() {
-        view.addSubview(categoryCollectionView)
-        
-        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    private func makeDataSource() -> DataSource {
+    private func configureDiffableDataSource() {
         let categoryCellRegistration = makeCategoryCellRegistration()
-        
         let diffableDataSource = DataSource(collectionView: categoryCollectionView) {
             collectionView, indexPath, categoryItem in
             
@@ -117,8 +87,7 @@ final class SearchNavigatorViewController: UIViewController {
                 item: categoryItem
             )
         }
-        
-        return diffableDataSource
+        self.diffableDataSource = diffableDataSource
     }
     
     private func makeCategoryCellRegistration() -> CategoryCellRegistration {
