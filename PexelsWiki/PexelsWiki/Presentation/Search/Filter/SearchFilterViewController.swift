@@ -119,21 +119,11 @@ extension SearchFilterViewController: UITableViewDataSource {
 
 extension SearchFilterViewController: UITableViewDelegate {
     
-    func deselectPreviouslySelectedCell(
-        in tableView: UITableView,
-        _ indexPath: IndexPath
-    ) {
-        if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
-            guard !selectedIndexPaths.contains(indexPath) else { return }
-            let currentSection = indexPath.section
-            selectedIndexPaths
-                .filter { $0.section == currentSection }
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let selectedRows = tableView.indexPathsForSelectedRows {
+            selectedRows.filter { $0.section == indexPath.section }
                 .forEach { tableView.deselectRow(at: $0, animated: true) }
         }
-    }
-    
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        deselectPreviouslySelectedCell(in: tableView, indexPath)
         return indexPath
     }
     
