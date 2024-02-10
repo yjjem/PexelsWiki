@@ -71,9 +71,7 @@ final class SearchNavigatorViewController: UIViewController {
     private func configureSearchController() {
         let searchBarPlaceHolderText = "Search Pexels Content"
         let searchBar = searchController.searchBar
-//        searchBar.scopeButtonTitles = ContentType.allCases.map { $0.name }
         searchBar.placeholder = searchBarPlaceHolderText
-//        searchBar.showsScopeBar = true
         searchBar.delegate = self
     }
     
