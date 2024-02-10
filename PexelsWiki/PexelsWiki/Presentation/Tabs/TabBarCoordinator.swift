@@ -52,6 +52,9 @@ final class TabBarCoordinator: Coordinator {
         let navigationViewController = UINavigationController()
         navigationViewController.tabBarItem = makeTabBarItem(type: type)
         navigationViewController.navigationBar.prefersLargeTitles = true
+        let defaultAppearance = UINavigationBarAppearance()
+        navigationViewController.navigationBar.standardAppearance = defaultAppearance
+        navigationViewController.navigationBar.scrollEdgeAppearance = defaultAppearance
         
         return navigationViewController
     }
