@@ -14,6 +14,7 @@
 		DF42BDA62A4AD65A00AA0896 /* UIImage+ImageFromData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */; };
 		DF42BDAA2A4AE27300AA0896 /* Int+StorageUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF42BDA92A4AE27300AA0896 /* Int+StorageUnits.swift */; };
 		DF7D16B52B1F0A870074B721 /* PaginationFetchControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D16B42B1F0A870074B721 /* PaginationFetchControl.swift */; };
+		DF8DDDBB2B7523170044BE5B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */; };
 		DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */; };
 		DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */; };
 		DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */; };
@@ -80,6 +81,7 @@
 		DF42BDA92A4AE27300AA0896 /* Int+StorageUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+StorageUnits.swift"; sourceTree = "<group>"; };
 		DF42BDAB2A4AEAC600AA0896 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DF7D16B42B1F0A870074B721 /* PaginationFetchControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationFetchControl.swift; sourceTree = "<group>"; };
+		DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		DFA4910E2A3A1F76008BC5C4 /* PexelsWiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsWiki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 				DF2B01352B60076000214C8D /* Router.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DF8DDDB92B7522F60044BE5B /* SearchResults */ = {
+			isa = PBXGroup;
+			children = (
+				DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */,
+			);
+			path = SearchResults;
 			sourceTree = "<group>";
 		};
 		DFA491052A3A1F76008BC5C4 = {
@@ -342,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				DFE1016E2AFA4B400036158A /* SearchCoordinator.swift */,
+				DF8DDDB92B7522F60044BE5B /* SearchResults */,
 				DFE101792AFA607D0036158A /* Types */,
 				DFD792C32A47FCE300729C2F /* Navigator */,
 				DFD792C42A47FCF300729C2F /* Photo */,
@@ -518,6 +529,7 @@
 				DFE1016F2AFA4B400036158A /* SearchCoordinator.swift in Sources */,
 				DFD792AB2A45CA3000729C2F /* RecommendedCategory.swift in Sources */,
 				DFE1016B2AF775A30036158A /* TabBarCoordinator.swift in Sources */,
+				DF8DDDBB2B7523170044BE5B /* SearchResultsViewController.swift in Sources */,
 				DFF20DD92B551C6000E01DB7 /* EndPoint.swift in Sources */,
 				DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
