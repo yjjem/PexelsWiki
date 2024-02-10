@@ -67,14 +67,35 @@ final class SearchCoordinator: Coordinator {
         
         navigationController.pushViewController(videoSearchViewController, animated: true)
     }
+    
+    private func showSearchResultsFlow(query: String) {
+        let searchResultsViewController = SearchResultsViewController()
+        let provider = DefaultNetworkProvider()
+        let repository = VisualContentRepository(provider: provider)
+        let useCase = PhotoSearchUseCase(repository: repository)
+        let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
+        
+        let photoSearchViewController = PhotoSearchViewController()
+        photoSearchViewController.viewModel = photoSearchViewModel
+        photoSearchViewModel.query = query
+        
+        let videoProvider = DefaultNetworkProvider()
+        let videoRepository = VisualContentRepository(provider: videoProvider)
+        let videoUseCase = VideoSearchUseCase(repository: videoRepository)
+        let videoSearchViewModel = VideoSearchViewModel(useCase: videoUseCase)
+        
+        let videoSearchViewController = VideoSearchViewController()
+        videoSearchViewController.viewModel = videoSearchViewModel
+        videoSearchViewModel.query = query
+            
+        searchResultsViewController.configureViewPages([photoSearchViewController, videoSearchViewController])
+        navigationController.pushViewController(searchResultsViewController, animated: true)
+    }
 }
 
 extension SearchCoordinator: SearchNavigatorViewControllerDelegate {
     
     func didSelectSearchQuery(_ searchQuery: String, contentType: ContentType) {
-        switch contentType {
-        case .image: showPhotoSearchFlow(searchQuery: searchQuery)
-        case .video: showVideoSearchFlow(searchQuery: searchQuery)
-        }
+        showSearchResultsFlow(query: searchQuery)
     }
 }
