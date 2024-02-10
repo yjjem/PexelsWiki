@@ -113,7 +113,7 @@ final class SearchNavigatorViewController: UIViewController {
         )
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        section.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+        section.contentInsets = .init(top: 15, leading: 15, bottom: 0, trailing: 15)
         section.orthogonalScrollingBehavior = .continuous
         
         let layout = UICollectionViewCompositionalLayout(section: section)
