@@ -10,7 +10,6 @@ import UIKit
 final class SearchCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
-    private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     
     // MARK: Initializer(s)
     
@@ -34,38 +33,6 @@ final class SearchCoordinator: Coordinator {
         searchNavigatorViewController.delegate = self
         
         navigationController.pushViewController(searchNavigatorViewController, animated: true)
-    }
-    
-    private func showPhotoSearchFlow(searchQuery: String) {
-        let provider = DefaultNetworkProvider()
-        let repository = VisualContentRepository(provider: provider)
-        let useCase = PhotoSearchUseCase(repository: repository)
-        let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
-        
-        let photoSearchViewController = PhotoSearchViewController()
-        photoSearchViewController.viewModel = photoSearchViewModel
-        photoSearchViewModel.query = searchQuery
-        
-        let photoSearchCoordinator = PhotoSearchCoordinator(rootView: photoSearchViewController)
-        photoSearchViewController.delegate = photoSearchCoordinator
-        addChild(photoSearchCoordinator)
-        
-        router.push(photoSearchViewController, animated: true) { [weak self] in
-            self?.removeChild(photoSearchCoordinator)
-        }
-    }
-    
-    private func showVideoSearchFlow(searchQuery: String) {
-        let provider = DefaultNetworkProvider()
-        let repository = VisualContentRepository(provider: provider)
-        let useCase = VideoSearchUseCase(repository: repository)
-        let videoSearchViewModel = VideoSearchViewModel(useCase: useCase)
-        
-        let videoSearchViewController = VideoSearchViewController()
-        videoSearchViewController.viewModel = videoSearchViewModel
-        videoSearchViewModel.query = searchQuery
-        
-        navigationController.pushViewController(videoSearchViewController, animated: true)
     }
     
     private func showSearchResultsFlow(query: String) {
