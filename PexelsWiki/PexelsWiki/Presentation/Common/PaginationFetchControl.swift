@@ -23,7 +23,7 @@ final class PaginationFetchControl: NSObject, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let visibleBottomPointY = scrollView.bounds.minY
+        let visibleBottomPointY = scrollView.bounds.maxY
         let paginationTriggerPointY = scrollView.contentSize.height * 0.8
         let didReachPaginationTriggerPoint = visibleBottomPointY >= paginationTriggerPointY
         
