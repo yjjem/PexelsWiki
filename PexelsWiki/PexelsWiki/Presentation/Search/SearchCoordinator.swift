@@ -53,7 +53,7 @@ final class SearchCoordinator: Coordinator {
         
         let videoSearchViewController = VideoSearchViewController()
         videoSearchViewController.viewModel = videoSearchViewModel
-        videoSearchViewModel.query = query
+        videoSearchViewModel.updateQuery(query)
             
         searchResultsViewController.configureViewPages([photoSearchViewController, videoSearchViewController])
         navigationController.pushViewController(searchResultsViewController, animated: true)

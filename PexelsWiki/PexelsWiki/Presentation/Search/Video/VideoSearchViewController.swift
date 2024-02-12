@@ -11,9 +11,9 @@ final class VideoSearchViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias VideoContentCellRegistration = UICollectionView.CellRegistration<VideoContentCell, VideoResource>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoResource>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<VideoResource>
+    typealias VideoContentCellRegistration = UICollectionView.CellRegistration<VideoContentCell, VideoPreviewItem>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoPreviewItem>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<VideoPreviewItem>
     
     enum Section {
         case main
@@ -27,20 +27,17 @@ final class VideoSearchViewController: UIViewController {
     private var snapShot: SnapShot = SnapShot()
     
     private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
-    private let videoCollectionView: UICollectionView = {
-       let collection = UICollectionView(
+    private let videoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: UICollectionViewCompositionalLayout.landscapeLayout
-       )
-        return collection
-    }()
+        collectionViewLayout: .init()
+    )
     
     // MARK: Override(s)
     
     override func loadView() {
         self.view = videoCollectionView
         videoCollectionView.dataSource = diffableDataSource
-        videoCollectionView.delegate = self
+        videoCollectionView.setCollectionViewLayout(makeCompositionalLayout(), animated: false)
     }
     
     override func viewDidLoad() {
@@ -55,15 +52,34 @@ final class VideoSearchViewController: UIViewController {
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        guard let viewModel else { return }
-
-        viewModel.loadedVideoResources = { [weak self] videoResource in
-            guard let self else { return }
-            
-            let snapShotItems = self.snapShot.items
-            let itemsWithoutDuplications = videoResource.filter { !snapShotItems.contains($0) }
-            self.updateSnapShot(using: itemsWithoutDuplications)
+        viewModel?.fetchedVideoPreviewItems = { [weak self] videoPreviewItem in
+            guard let items = self?.snapShot.items else { return }
+            let itemsWithoutDuplications = videoPreviewItem.filter { !items.contains($0) }
+            self?.updateSnapShot(using: itemsWithoutDuplications)
         }
+    }
+    
+    private func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1/3),
+            heightDimension: .fractionalWidth(1/3 * 1.9)
+        )
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: itemSize.heightDimension
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            repeatingSubitem: item,
+            count: 3
+        )
+        group.interItemSpacing = .fixed(5)
+
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
     }
     
     private func configureDiffableDataSource() {
@@ -88,120 +104,18 @@ final class VideoSearchViewController: UIViewController {
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
-        let registration = VideoContentCellRegistration { cell, indexPath, videoResource in
-            let videoURLString = videoResource.videoFiles[0].link
-            let userName = videoResource.user.name
-            let viewModel = VideoContentCellViewModel(
-                videoURLString: videoURLString,
-                userName: userName
-            )
-            cell.configure(using: viewModel)
+        let registration = VideoContentCellRegistration { cell, indexPath, videoPreviewItem in
+            cell.configure(using: videoPreviewItem)
         }
         return registration
     }
     
-    private func updateSnapShot(using videoList: [VideoResource]) {
+    private func updateSnapShot(using videoList: [VideoPreviewItem]) {
         snapShot.append(videoList)
         diffableDataSource?.apply(snapShot, to: .main)
     }
     
-    private func resetSnapShot() {
-        snapShot.deleteAll()
-    }
-    
     private func configureNavigationItem() {
-        let filterButtonItem = UIBarButtonItem(
-            image: .init(systemName: "line.3.horizontal.decrease.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapFilterButton)
-        )
-        navigationItem.rightBarButtonItem = filterButtonItem
-        navigationItem.title = viewModel?.query
-    }
-    
-    private func makeFilterView(
-        with viewModel: SearchFilterViewModel
-    ) -> SearchFilterViewController {
-        
-        let filterView = SearchFilterViewController()
-        filterView.viewModel = viewModel
-        filterView.delegate = self
-        // TODO: 분리
-        return filterView
-    }
-    
-    @objc func didTapFilterButton() {
-        guard let viewModel else { return }
-        let filterViewModel = SearchFilterViewModel(
-            selectedOrientation: viewModel.orientation,
-            selectedSize: viewModel.size
-        )
-        let filterView = makeFilterView(with: filterViewModel)
-        let navigation = UINavigationController(rootViewController: filterView)
-        navigation.navigationBar.prefersLargeTitles = true
-        // TODO: presentation 분리
-        present(navigation, animated: true)
+        navigationItem.title = viewModel?.currentQuery()
     }
 }
-
-// MARK: SearchFilterViewControllerDelegate
-
-extension VideoSearchViewController: SearchFilterViewControllerDelegate {
-    
-    private func adaptLayout(orientation: ContentOrientation) {
-        switch orientation {
-        case .landscape:
-            videoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.landscapeLayout,
-                animated: true
-            )
-        case .portrait:
-            videoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.portraitLayout,
-                animated: true
-            )
-        case .square:
-            videoCollectionView.setCollectionViewLayout(
-                UICollectionViewCompositionalLayout.squareLayout,
-                animated: true
-            )
-        }
-    }
-    
-    func didApplyFilterOptions(_ options: FilterOptions) {
-        guard let viewModel else { return }
-        
-        resetSnapShot()
-        viewModel.apply(filter: options)
-        adaptLayout(orientation: viewModel.orientation)
-        viewModel.resetPage()
-    }
-}
-
-// MARK: UICollectionViewDelegate
-
-extension VideoSearchViewController: UICollectionViewDelegate {
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        if let cell = cell as? VideoContentCell {
-            cell.play()
-        }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didEndDisplaying cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        if let cell = cell as? VideoContentCell {
-            cell.pause()
-        }
-    }
-}
-
-

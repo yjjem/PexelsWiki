@@ -9,19 +9,19 @@ import Foundation
 
 final class VideoSearchViewModel {
     
-    // MARK: Variable(s)
+    // MARK: Binding(s)
     
-    var query: String = ""
-    var orientation: ContentOrientation = .landscape
-    var size: ContentSize = .small
+    var fetchedVideoPreviewItems: (([VideoPreviewItem]) -> Void)?
     
-    var loadedVideoResources: (([VideoResource]) -> Void)?
+    // MARK: Property(s)
     
+    private var query: String = ""
     private var page: Int = 1
     private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
-    private var contentType: ContentOrientation = .landscape
+    private var contentOrientation: ContentOrientation = .portrait
+    private var contentSize: ContentSize = .small
     
     private let useCase: VideoSearchUseCaseInterface
     
@@ -31,28 +31,40 @@ final class VideoSearchViewModel {
     
     // MARK: Function(s)
     
+    func updateQuery(_ query: String) {
+        self.query = query
+    }
+    
+    func currentQuery() -> String {
+        return query
+    }
+    
     func fetchSearchResults() {
         isLoading = true
         useCase.search(
             query: query,
-            orientation: orientation.name,
-            size: size.name,
+            orientation: contentOrientation.name,
+            size: contentSize.name,
             page: page,
             perPage: pageSize.itemsPerPage
         ) { [weak self] response in
             
-            if let self, case .success(let videoPage) = response {
-                self.isLoading = false
-                self.page = videoPage.page
-                self.hasNext = videoPage.hasNext
-                self.loadedVideoResources?(videoPage.videos)
+            if case .success(let videoPage) = response {
+                self?.isLoading = false
+                self?.page = videoPage.page
+                self?.hasNext = videoPage.hasNext
+                let videoPreviewItem = videoPage.videos.map {
+                    let durationFormatter = VideoDurationFormatter(duration: $0.duration)
+                    let formattedDuration = durationFormatter.formattedString() ?? ""
+                    return VideoPreviewItem(
+                        thumbnailImage: $0.image,
+                        duration: formattedDuration,
+                        id: $0.id
+                    )
+                }
+                self?.fetchedVideoPreviewItems?(videoPreviewItem)
             }
         }
-    }
-    
-    func apply(filter options: FilterOptions) {
-        orientation = options.orientation
-        size = options.size
     }
     
     func fetchNextPage() {

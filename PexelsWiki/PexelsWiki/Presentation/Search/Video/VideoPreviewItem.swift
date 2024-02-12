@@ -5,7 +5,8 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-struct VideoContentCellViewModel {
-    let videoURLString: String
-    let userName: String
+struct VideoPreviewItem: Hashable {
+    let thumbnailImage: String
+    let duration: String
+    let id: Int
 }

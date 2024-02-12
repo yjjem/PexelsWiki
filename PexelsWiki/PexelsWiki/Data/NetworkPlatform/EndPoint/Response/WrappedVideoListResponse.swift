@@ -15,6 +15,7 @@ struct WrappedVideoListResponse: Decodable {
 }
 
 struct VideoResource: Decodable, Hashable {
+    let id: Int
     let user: User
     let tags: [String]
     let image: String

@@ -11,23 +11,17 @@ final class VideoContentCell: UICollectionViewCell {
     
     // MARK: Variable(s)
     
-    private let videoView: VideoPlayerView = {
-        let videoView = VideoPlayerView()
-        videoView.allowsVideoSounds = false
-        return videoView
-    }()
-    
-    private let userInfoView: UserInfoView = {
-        let userInfoView = UserInfoView()
-        return userInfoView
-    }()
+    private let videoThumbnailView: UIImageView = UIImageView()
+    private let durationLabel: UILabel = UILabel()
+    private var imageRequest: Cancellable?
     
     // MARK: Override(s)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configureViewLayoutConstraints()
+        configureHierarchy()
+        configureConstraints()
+        configureStyles()
     }
     
     required init?(coder: NSCoder) {
@@ -36,53 +30,56 @@ final class VideoContentCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        videoView.prepareForReuse()
+        imageRequest?.cancel()
     }
     
     // MARK: Function(s)
     
-    func play() {
-        videoView.playVideo()
-    }
-    
-    func pause() {
-        videoView.pauseVideo()
-    }
-    
-    func configure(using viewModel: VideoContentCellViewModel) {
-        videoView.fetchVideo(using: viewModel.videoURLString)
-        userInfoView.setupUserName(using: viewModel.userName)
+    func configure(using viewModel: VideoPreviewItem) {
+        durationLabel.text = viewModel.duration.description
+        imageRequest = ImageLoadManager.fetchCachedImageDataElseLoad(
+            urlString: viewModel.thumbnailImage
+        ) { [weak self] result in
+            if case let .success(imageData) = result {
+                self?.videoThumbnailView.image = UIImage(data: imageData)
+            }
+        }
     }
     
     // MARK: Private Function(s)
     
-    private func configureViewLayoutConstraints() {
-        contentView.addSubview(videoView)
-        contentView.addSubview(userInfoView)
-        
-        videoView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            videoView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            videoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            videoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            videoView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.9),
-            videoView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
-        ])
-        
-        userInfoView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            userInfoView.topAnchor.constraint(equalTo: videoView.bottomAnchor),
-            userInfoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            userInfoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            userInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+    private func configureStyles() {
+        durationLabel.textColor = .white
+        durationLabel.font = .boldSystemFont(ofSize: 14)
     }
-}
-
-fileprivate extension VideoPlayerView {
     
-    func prepareForReuse() {
-        playerItem = nil
+    private func configureHierarchy() {
+        contentView.addSubview(videoThumbnailView)
+        videoThumbnailView.addSubview(durationLabel)
+    }
+    
+    private func configureConstraints() {
+        videoThumbnailView.contentMode = .scaleAspectFit
+        videoThumbnailView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            videoThumbnailView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            videoThumbnailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            videoThumbnailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            videoThumbnailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            videoThumbnailView.heightAnchor.constraint(greaterThanOrEqualTo: contentView.heightAnchor)
+        ])
+        
+        let durationLabelSpacing: CGFloat = 5
+        durationLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            durationLabel.bottomAnchor.constraint(
+                equalTo: videoThumbnailView.bottomAnchor,
+                constant: -durationLabelSpacing
+            ),
+            durationLabel.trailingAnchor.constraint(
+                equalTo: videoThumbnailView.trailingAnchor,
+                constant: -durationLabelSpacing
+            ),
+        ])
     }
 }
