@@ -57,7 +57,7 @@ final class SearchResultsViewController: UIViewController {
             pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageViewController.view.heightAnchor.constraint(equalTo: view.heightAnchor)
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
