@@ -51,27 +51,19 @@ final class PhotoSearchViewController: UIViewController {
         super.viewDidLoad()
         bindViewModel()
         configureDiffableDataSource()
-        viewModel?.fetchSearchResults()
         configureNavigationItem()
         configurePaginationFetchControl()
+        viewModel?.fetchSearchResults()
     }
     
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        guard let viewModel else { return }
-        
-        viewModel.loadedPhotoContentCellViewModels = { [weak self] photoResources in
+        viewModel?.loadedPhotoContentCellViewModels = { [weak self] photoResources in
             guard let self else { return }
             let snapShotItems = self.snapShot.items
             let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
             self.updateSnapShot(using: itemsWithoutDuplications)
-        }
-        
-        viewModel.didSelectFilterOptions = { [weak self] filterOptions in
-            guard let self else { return }
-            self.resetSnapShot()
-            self.switchContentOrientation(filterOptions.orientation)
         }
     }
     
@@ -90,13 +82,6 @@ final class PhotoSearchViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        let filterButtonItem = UIBarButtonItem(
-            image: .init(systemName: "line.3.horizontal.decrease.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapFilterButton)
-        )
-        navigationItem.rightBarButtonItem = filterButtonItem
         navigationItem.title = viewModel?.query
     }
     
@@ -105,24 +90,6 @@ final class PhotoSearchViewController: UIViewController {
         paginationFetchControl.didTriggerFetchMore = { [weak self] in
             self?.viewModel?.fetchNextPage()
         }
-    }
-    
-    private func switchContentOrientation(_ orientation: ContentOrientation) {
-        switch orientation {
-        case .landscape: photoCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.landscapeLayout,
-            animated: true
-        )
-        case .portrait: photoCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.portraitLayout,
-            animated: true
-        )
-        case .square: photoCollectionView.setCollectionViewLayout(
-            UICollectionViewCompositionalLayout.squareLayout,
-            animated: true
-        )
-        }
-        viewModel?.resetPage()
     }
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
@@ -136,14 +103,6 @@ final class PhotoSearchViewController: UIViewController {
         diffableDataSource?.apply(snapShot, to: .main)
     }
     
-    private func resetSnapShot() {
-        snapShot.deleteAll()
-    }
     
-    // MARK: Action(s)
-    
-    @objc private func didTapFilterButton() {
-        guard let viewModel else { return }
-        delegate?.didTapFilterButton(viewModel.currentFilterOptions())
     }
 }
