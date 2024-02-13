@@ -24,11 +24,12 @@ final class CuratedPhotosUseCase: CuratedPhotosUseCaseInterface {
     
     // MARK: Function(s)
     
+    @discardableResult
     func fetchCuratedPhotoPage(
         _ parameters: SearchParameters,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    ) {
-        repository.fetchCuratedPhotos(
+    ) -> Cancellable? {
+        return repository.fetchCuratedPhotos(
             page: parameters.page,
             perPage: parameters.perPage
         ) { response in

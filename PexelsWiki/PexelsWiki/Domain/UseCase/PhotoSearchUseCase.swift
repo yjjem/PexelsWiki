@@ -29,11 +29,12 @@ final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
     
     // MARK: Function(s)
     
+    @discardableResult
     func search(
         _ parameters: SearchParameters,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    ) {
-        repository.searchPhotos(
+    ) -> Cancellable? {
+        return repository.searchPhotos(
             query: parameters.query,
             orientation: parameters.orientation,
             size: parameters.size,

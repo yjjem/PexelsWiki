@@ -9,20 +9,33 @@ import Foundation
 
 protocol Networkable {
 
-    func send(request: URLRequest?, _ completion: @escaping (Result<Data, Error>) -> Void)
+    func send(
+        request: URLRequest?, 
+        _ completion: @escaping (Result<Data, Error>) -> Void
+    ) -> Cancellable?
 }
 
 final class DefaultNetworkProvider: Networkable {
     
+    //MARK: Property(s)
+    
     private let session: URLSession
+    
+    // MARK: Initializer(s)
     
     init(session: URLSession = .init(configuration: .default)) {
         self.session = session
     }
     
-    func send(request: URLRequest?, _ completion: @escaping (Result<Data, Error>) -> Void) {
+    // MARK: Function(s)
+    
+    @discardableResult 
+    func send(
+        request: URLRequest?,
+        _ completion: @escaping (Result<Data, Error>) -> Void
+    ) -> Cancellable? {
         
-        guard let request else { return }
+        guard let request else { return nil }
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error as? URLError {
@@ -47,5 +60,6 @@ final class DefaultNetworkProvider: Networkable {
         }
         
         task.resume()
+        return task
     }
 }

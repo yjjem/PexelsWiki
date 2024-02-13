@@ -22,11 +22,12 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     
     // MARK: Function(s)
     
+    @discardableResult
     func fetchCuratedPhotos(
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    ) {
+    ) -> Cancellable? {
         let endPoint = EndPoint<WrappedPhotoListResponse>(
             baseURL: baseURL,
             path: "/v1/curated",
@@ -34,7 +35,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.makeURLRequest()) { result in
+        return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toPhotoPage() }
@@ -42,6 +43,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         }
     }
     
+    @discardableResult
     func searchPhotos(
         query: String,
         orientation: String,
@@ -49,7 +51,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    ) {
+    ) -> Cancellable? {
         let endPoint = EndPoint<WrappedPhotoListResponse>(
             baseURL: baseURL,
             path: "/v1/search",
@@ -63,7 +65,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.makeURLRequest()) { result in
+        return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toPhotoPage() }
@@ -71,6 +73,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         }
     }
     
+    @discardableResult
     func fetchPopularVideos(
         minWidth: Int,
         minHeight: Int,
@@ -79,7 +82,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    ) {
+    ) -> Cancellable? {
         let endPoint = EndPoint<WrappedVideoListResponse>(
             baseURL: baseURL,
             path: "/videos/popular",
@@ -94,7 +97,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.makeURLRequest()) { result in
+        return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toVideoPage() }
@@ -102,6 +105,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         }
     }
     
+    @discardableResult
     func searchVideos(
         query: String,
         orientation: String,
@@ -109,7 +113,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    ) {
+    ) -> Cancellable? {
         let endPoint = EndPoint<WrappedVideoListResponse>(
             baseURL: baseURL,
             path: "/videos/search",
@@ -122,7 +126,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             headers: ["Authorization": MainBundle.apiKey],
             method: .get
         )
-        provider.send(request: endPoint.makeURLRequest()) { result in
+        return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toVideoPage() }

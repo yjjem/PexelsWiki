@@ -9,12 +9,14 @@ import Foundation
 
 protocol VisualContentRepositoryInterface {
     
+    @discardableResult
     func fetchCuratedPhotos(
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    )
+    ) -> Cancellable?
     
+    @discardableResult
     func searchPhotos(
         query: String,
         orientation: String,
@@ -22,8 +24,9 @@ protocol VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
-    )
+    ) -> Cancellable?
     
+    @discardableResult
     func fetchPopularVideos(
         minWidth: Int,
         minHeight: Int,
@@ -32,8 +35,9 @@ protocol VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    )
+    ) -> Cancellable?
     
+    @discardableResult
     func searchVideos(
         query: String,
         orientation: String,
@@ -41,5 +45,5 @@ protocol VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    )
+    ) -> Cancellable?
 }

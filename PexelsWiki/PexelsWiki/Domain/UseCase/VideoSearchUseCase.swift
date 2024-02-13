@@ -27,13 +27,14 @@ final class VideoSearchUseCase: VideoSearchUseCaseInterface {
         self.repository = repository
     }
     
-    // MARK: Property(s)
+    // MARK: Function(s)
     
+    @discardableResult
     func search(
         _ parameters: SearchParameters,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    ) {
-        repository.searchVideos(
+    ) -> Cancellable? {
+        return repository.searchVideos(
             query: parameters.query,
             orientation: parameters.orientation,
             size: parameters.size,
