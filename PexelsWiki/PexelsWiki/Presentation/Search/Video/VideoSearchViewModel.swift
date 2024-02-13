@@ -17,15 +17,15 @@ final class VideoSearchViewModel {
     
     private var query: String = ""
     private var page: Int = 1
-    private var pageSize: PageSize = .small
     private var hasNext: Bool = false
     private var isLoading: Bool = false
-    private var contentOrientation: ContentOrientation = .portrait
-    private var contentSize: ContentSize = .small
     
-    private let useCase: VideoSearchUseCaseInterface
+    private let contentOrientation: ContentOrientation = .portrait
+    private let contentSize: ContentSize = .small
+    private let pageSize: PageSize = .small
+    private let useCase: VideoSearchUseCase
     
-    init(useCase: VideoSearchUseCaseInterface) {
+    init(useCase: VideoSearchUseCase) {
         self.useCase = useCase
     }
     
@@ -41,14 +41,14 @@ final class VideoSearchViewModel {
     
     func fetchSearchResults() {
         isLoading = true
-        useCase.search(
+        let searchValues = VideoSearchUseCase.SearchParameters(
             query: query,
             orientation: contentOrientation.name,
             size: contentSize.name,
             page: page,
             perPage: pageSize.itemsPerPage
-        ) { [weak self] response in
-            
+        )
+        useCase.search(searchValues) { [weak self] response in
             if case .success(let videoPage) = response {
                 self?.isLoading = false
                 self?.page = videoPage.page
@@ -80,7 +80,6 @@ final class VideoSearchViewModel {
     
     func resetPage() {
         page = 1
-        pageSize = .small
         hasNext = false
         fetchSearchResults()
     }
