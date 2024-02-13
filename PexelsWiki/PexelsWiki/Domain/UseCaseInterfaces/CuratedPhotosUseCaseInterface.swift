@@ -9,9 +9,12 @@ import Foundation
 
 protocol CuratedPhotosUseCaseInterface {
     
+    associatedtype SearchParameters
+    
     func fetchCuratedPhotoPage(
-        page: Int,
-        perPage: Int,
-        completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ parameters: SearchParameters,
+        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     )
 }
+
+

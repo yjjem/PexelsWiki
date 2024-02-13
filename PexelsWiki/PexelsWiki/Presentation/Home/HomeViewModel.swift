@@ -8,34 +8,37 @@
 import Foundation
 
 final class HomeViewModel {
-    
-    // MARK: Variable(s)
+
+    // MARK: Binding(s)
     
     var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
     
-    private let useCase: CuratedPhotosUseCaseInterface
-    private var page: Int = 1
-    private var pageSize: PageSize = .small
-    private var hasNext: Bool = false
-    private var isLoading: Bool = false
+    // MARK: Property(s)
     
-    init(useCase: CuratedPhotosUseCaseInterface) {
+    private var isLoading: Bool = false
+    private var hasNext: Bool = false
+    private var page: Int = 1
+    
+    private let pageSize: PageSize = .small
+    private let useCase: CuratedPhotosUseCase
+    
+    init(useCase: CuratedPhotosUseCase) {
         self.useCase = useCase
     }
     
     // MARK: Function(s)
     
     func fetchCuratedPhotosPage() {
-        useCase.fetchCuratedPhotoPage(
+        let searchValues = CuratedPhotosUseCase.SearchParameters(
             page: page,
             perPage: pageSize.itemsPerPage
-        ) { [weak self] response in
-            
-            if let self, case .success(let photoPage) = response {
-                self.page = photoPage.page + 1
-                self.hasNext = photoPage.hasNext
-                self.loadedCuratedPhotos?(photoPage.photos)
-                self.isLoading = false
+        )
+        useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
+            if case .success(let photoPage) = response {
+                self?.page = photoPage.page + 1
+                self?.hasNext = photoPage.hasNext
+                self?.loadedCuratedPhotos?(photoPage.photos)
+                self?.isLoading = false
             }
         }
     }
@@ -52,7 +55,6 @@ final class HomeViewModel {
     
     func resetPage() {
         page = 1
-        pageSize = .small
         hasNext = false
         fetchCuratedPhotosPage()
     }
