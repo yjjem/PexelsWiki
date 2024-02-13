@@ -10,6 +10,7 @@ import UIKit
 final class SearchCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
+    private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     
     // MARK: Initializer(s)
     
@@ -31,8 +32,7 @@ final class SearchCoordinator: Coordinator {
         searchNavigatorViewController.title = TabTypes.search.title
         searchNavigatorViewController.viewModel = searchNavigatorViewModel
         searchNavigatorViewController.delegate = self
-        
-        navigationController.pushViewController(searchNavigatorViewController, animated: true)
+        router.push(searchNavigatorViewController, animated: true, nil)
     }
     
     private func showSearchResultsFlow(query: String) {
@@ -56,7 +56,11 @@ final class SearchCoordinator: Coordinator {
         videoSearchViewModel.updateQuery(query)
             
         searchResultsViewController.configureViewPages([photoSearchViewController, videoSearchViewController])
-        navigationController.pushViewController(searchResultsViewController, animated: true)
+        
+        navigationController.tabBarController?.tabBar.isHidden = true
+        router.push(searchResultsViewController, animated: true) { [weak self] in
+            self?.navigationController.tabBarController?.tabBar.isHidden = false
+        }
     }
 }
 
