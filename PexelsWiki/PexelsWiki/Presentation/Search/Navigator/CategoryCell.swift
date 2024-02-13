@@ -12,17 +12,18 @@ final class CategoryCell: UICollectionViewCell {
     // MARK: Variable(s)
     
     private let imageView: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleToFill
-        return image
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 9
+        imageView.layer.cornerCurve = .circular
+        imageView.layer.masksToBounds = true
+        return imageView
     }()
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .systemGray6
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
         label.textAlignment = .center
+        label.backgroundColor = .clear
         return label
     }()
     
@@ -31,8 +32,8 @@ final class CategoryCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configureHierarchy()
         configureLayoutConstraints()
-        configureLayerAppearance()
     }
     
     required init?(coder: NSCoder) {
@@ -49,30 +50,26 @@ final class CategoryCell: UICollectionViewCell {
     
     // MARK: Private Function(s)
     
-    private func configureLayerAppearance() {
-        layer.borderWidth = 0.3
-        layer.borderColor = UIColor.systemGray.cgColor
-        layer.cornerRadius = 15
-        layer.masksToBounds = true
+    private func configureHierarchy() {
+        contentView.addSubview(imageView)
+        contentView.addSubview(categoryLabel)
     }
     
     private func configureLayoutConstraints() {
-        imageView.addSubview(categoryLabel)
-        contentView.addSubview(imageView)
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
         ])
         
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoryLabel.widthAnchor.constraint(equalToConstant: 90),
-            categoryLabel.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            categoryLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
+            categoryLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

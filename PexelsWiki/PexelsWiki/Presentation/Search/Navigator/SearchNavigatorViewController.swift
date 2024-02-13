@@ -97,20 +97,21 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
+            widthDimension: .fractionalWidth(1/3),
+            heightDimension: .estimated(1)
         )
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/3),
-            heightDimension: .fractionalWidth(1/3)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: itemSize.heightDimension
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             repeatingSubitem: item,
-            count: 1
+            count: 3
         )
+        group.interItemSpacing = .fixed(10)
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
         section.contentInsets = .init(top: 15, leading: 15, bottom: 0, trailing: 15)
