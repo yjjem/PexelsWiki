@@ -21,9 +21,11 @@ final class PhotoSearchViewModel {
     private var query: String = ""
     private var page: Int = 1
     
-    private let useCase: PhotoSearchUseCaseInterface
+    private let orientation: ContentOrientation = .landscape
+    private let pageSize: PageSize = .small
+    private let useCase: PhotoSearchUseCase
     
-    init(useCase: PhotoSearchUseCaseInterface) {
+    init(useCase: PhotoSearchUseCase) {
         self.useCase = useCase
     }
     
@@ -43,15 +45,15 @@ final class PhotoSearchViewModel {
     
     func fetchSearchResults() {
         isLoading = true
-        
-        useCase.search(
+        let searchValues = PhotoSearchUseCase.SearchParameters(
             query: query,
-            orientation: filterOptions.orientation.name,
-            size: filterOptions.size.name,
+            orientation: orientation.name,
+            size: ContentSize.large.name,
             page: page,
             perPage: pageSize.itemsPerPage
-        ) { [weak self] response in
-            
+        )
+        
+        useCase.search(searchValues) { [weak self] response in
             if let self, case .success(let photoPage) = response {
                 let photoCellViewModels = photoPage.photos.map(makePhotoContentCellViewModel)
                 self.isLoading = false
