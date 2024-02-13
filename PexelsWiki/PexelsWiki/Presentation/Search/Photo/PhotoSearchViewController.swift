@@ -32,19 +32,17 @@ final class PhotoSearchViewController: UIViewController {
     private var snapShot: SnapShot = SnapShot()
     
     private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
-    private let photoCollectionView: UICollectionView = {
-        let collection = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: UICollectionViewCompositionalLayout.landscapeLayout
-        )
-        return collection
-    }()
+    private let photoCollectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: .init()
+    )
     
     // MARK: Override(s)
     
     override func loadView() {
         self.view = photoCollectionView
         photoCollectionView.dataSource = diffableDataSource
+        photoCollectionView.setCollectionViewLayout(createLayout(), animated: true)
     }
     
     override func viewDidLoad() {
@@ -103,6 +101,51 @@ final class PhotoSearchViewController: UIViewController {
         diffableDataSource?.apply(snapShot, to: .main)
     }
     
+    // MARK: Compositional Layout
     
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        let doubleItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalWidth(1/2 * 0.68)
+        )
+        let doubleItem = NSCollectionLayoutItem(layoutSize: doubleItemSize)
+        
+        let doubleGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(1.0)
+        )
+        let doubleGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: doubleGroupSize,
+            repeatingSubitem: doubleItem,
+            count: 2
+        )
+        doubleGroup.interItemSpacing = .fixed(2.5)
+        
+        let fullItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(0.68)
+        )
+        let fullItem = NSCollectionLayoutItem(layoutSize: fullItemSize)
+        
+        let mixedGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(1)
+        )
+        let mixedGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: mixedGroupSize,
+            subitems: [doubleGroup, fullItem, doubleGroup]
+        )
+        
+        let mainGroupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(1)
+        )
+        let mainGroup = NSCollectionLayoutGroup.vertical(layoutSize: mainGroupSize, subitems: [doubleGroup, doubleGroup, fullItem, mixedGroup, doubleGroup])
+        
+        let section = NSCollectionLayoutSection(group: mainGroup)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
     }
 }
