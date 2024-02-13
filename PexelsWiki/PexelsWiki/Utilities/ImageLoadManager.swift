@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol Cancellable {
-    func cancel()
-}
-
-extension URLSessionDataTask: Cancellable { }
-
 enum ImageLoadManager {
     
     private static let imageCache = URLCache(
