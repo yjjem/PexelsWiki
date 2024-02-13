@@ -8,6 +8,14 @@
 import Foundation
 
 final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
+
+    struct SearchParameters {
+        let query: String
+        let orientation: String
+        let size: String
+        let page: Int
+        let perPage: Int
+    }
     
     // MARK: Property(s)
     
@@ -22,19 +30,15 @@ final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
     // MARK: Function(s)
     
     func search(
-        query: String,
-        orientation: String,
-        size: String,
-        page: Int,
-        perPage: Int,
+        _ parameters: SearchParameters,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) {
         repository.searchPhotos(
-            query: query,
-            orientation: orientation,
-            size: size,
-            page: page,
-            perPage: perPage
+            query: parameters.query,
+            orientation: parameters.orientation,
+            size: parameters.size,
+            page: parameters.page,
+            perPage: parameters.perPage
         ) { response in
             
             completion(response)

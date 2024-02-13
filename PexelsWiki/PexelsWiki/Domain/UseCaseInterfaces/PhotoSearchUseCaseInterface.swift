@@ -8,13 +8,10 @@
 import Foundation
 
 protocol PhotoSearchUseCaseInterface {
+    associatedtype SearchParameters
     
     func search(
-        query: String,
-        orientation: String,
-        size: String,
-        page: Int,
-        perPage: Int,
+        _ parameters: SearchParameters,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     )
 }
