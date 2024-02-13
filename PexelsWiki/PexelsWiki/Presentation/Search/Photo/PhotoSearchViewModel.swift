@@ -14,8 +14,6 @@ final class PhotoSearchViewModel {
     
     // MARK: Variable(s)
     
-    private var filterOptions: FilterOptions = FilterOptions()
-    private var pageSize: PageSize = .small
     private var isLoading: Bool = false
     private var hasNext: Bool = false
     private var query: String = ""
@@ -30,10 +28,6 @@ final class PhotoSearchViewModel {
     }
     
     // MARK: Function(s)
-    
-    func currentFilterOptions() -> FilterOptions {
-        return filterOptions
-    }
     
     func updateQuery(_ query: String) {
         self.query = query
@@ -64,11 +58,6 @@ final class PhotoSearchViewModel {
         }
     }
     
-    func apply(_ selectedFilterOptions: FilterOptions) {
-        self.filterOptions = selectedFilterOptions
-        didSelectFilterOptions?(selectedFilterOptions)
-    }
-    
     func fetchNextPage() {
         if isLoading {
             return
@@ -82,7 +71,6 @@ final class PhotoSearchViewModel {
     
     func resetPage() {
         page = 1
-        pageSize = .small
         hasNext = false
         fetchSearchResults()
     }

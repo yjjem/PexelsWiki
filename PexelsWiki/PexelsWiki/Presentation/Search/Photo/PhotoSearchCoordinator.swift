@@ -47,7 +47,6 @@ extension PhotoSearchCoordinator: PhotoSearchViewControllerDelegate {
 
 extension PhotoSearchCoordinator: SearchFilterViewControllerDelegate {
     func didApplyFilterOptions(_ options: FilterOptions) {
-        rootView.viewModel?.apply(options)
         rootView.dismiss(animated: true)
     }
 }
