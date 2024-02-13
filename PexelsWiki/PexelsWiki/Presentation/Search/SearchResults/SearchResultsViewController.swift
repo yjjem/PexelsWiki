@@ -13,7 +13,7 @@ final class SearchResultsViewController: UIViewController {
     
     private var viewPages: [UIViewController] = [] {
         didSet {
-            viewPages.forEach { $0.loadViewIfNeeded() }
+            viewPages.forEach { $0.view.layoutIfNeeded() }
         }
     }
     
