@@ -7,18 +7,19 @@
 
 final class PhotoSearchViewModel {
     
-    // MARK: Variable(s)
-    
-    var query: String = ""
-    private var filterOptions: FilterOptions = FilterOptions()
+    // MARK: Binding(s)
     
     var loadedPhotoContentCellViewModels: (([PhotoContentCellViewModel]) -> Void)?
     var didSelectFilterOptions: ((FilterOptions) -> Void)?
     
-    private var page: Int = 1
+    // MARK: Variable(s)
+    
+    private var filterOptions: FilterOptions = FilterOptions()
     private var pageSize: PageSize = .small
-    private var hasNext: Bool = false
     private var isLoading: Bool = false
+    private var hasNext: Bool = false
+    private var query: String = ""
+    private var page: Int = 1
     
     private let useCase: PhotoSearchUseCaseInterface
     
@@ -30,6 +31,14 @@ final class PhotoSearchViewModel {
     
     func currentFilterOptions() -> FilterOptions {
         return filterOptions
+    }
+    
+    func updateQuery(_ query: String) {
+        self.query = query
+    }
+    
+    func currentQuery() -> String {
+        return query
     }
     
     func fetchSearchResults() {

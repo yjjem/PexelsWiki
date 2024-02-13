@@ -80,7 +80,7 @@ final class PhotoSearchViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        navigationItem.title = viewModel?.query
+        navigationItem.title = viewModel?.currentQuery()
     }
     
     private func configurePaginationFetchControl() {

@@ -44,7 +44,7 @@ final class SearchCoordinator: Coordinator {
         
         let photoSearchViewController = PhotoSearchViewController()
         photoSearchViewController.viewModel = photoSearchViewModel
-        photoSearchViewModel.query = query
+        photoSearchViewModel.updateQuery(query)
         
         let videoProvider = DefaultNetworkProvider()
         let videoRepository = VisualContentRepository(provider: videoProvider)
