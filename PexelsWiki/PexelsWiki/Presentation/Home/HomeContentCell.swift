@@ -9,19 +9,12 @@ import UIKit
 
 final class HomeContentCell: UICollectionViewCell {
     
-    // MARK: Variable(s)
-    
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    private let userInfoView: UserInfoView = {
-        let userInfoView = UserInfoView()
-        return userInfoView
-    }()
+    // MARK: Property(s)
     
     private var contentLoad: Cancellable?
+    
+    private let imageView: UIImageView = UIImageView()
+    private let userInfoView: UserInfoView = UserInfoView()
     
     // MARK: Override(s)
     
@@ -35,14 +28,8 @@ final class HomeContentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        contentLoad?.cancel()
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        imageView.image = nil
         contentLoad?.cancel()
     }
     
@@ -66,11 +53,12 @@ final class HomeContentCell: UICollectionViewCell {
     
     // MARK: Private Function(s)
     
-    private func configureViews() {
-        
+    private func configureHierarchy() {
         contentView.addSubview(imageView)
         contentView.addSubview(userInfoView)
-        
+    }
+    
+    private func configureViews() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
