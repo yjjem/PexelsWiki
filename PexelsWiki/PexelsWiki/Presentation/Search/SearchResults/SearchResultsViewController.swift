@@ -42,7 +42,7 @@ final class SearchResultsViewController: UIViewController {
     
     private func configureHierarchy() {
         pageSegmentControl.insertSegment(withTitle: "Photos", at: 0, animated: false)
-        pageSegmentControl.insertSegment(withTitle: "Videos", at: 0, animated: false)
+        pageSegmentControl.insertSegment(withTitle: "Videos", at: 1, animated: false)
         pageSegmentControl.translatesAutoresizingMaskIntoConstraints = false
         pageSegmentControl.selectedSegmentIndex = 0
         pageSegmentControl.addTarget(self, action: #selector(didChangeSegment), for: .valueChanged)
