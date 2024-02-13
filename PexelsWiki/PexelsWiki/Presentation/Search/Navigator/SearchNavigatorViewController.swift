@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchNavigatorViewControllerDelegate: AnyObject {
-    func didSelectSearchQuery(_ searchQuery: String, contentType: ContentType)
+    func didSelectSearchQuery(_ searchQuery: String)
 }
 
 final class SearchNavigatorViewController: UIViewController {
@@ -59,7 +59,7 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func configureUsingViewModel() {
         guard let viewModel else { return }
-        updateSnapShot(with: viewModel.categoryItems)
+        updateSnapShot(with: viewModel.shuffledCategories())
     }
     
     private func configureNavigationItem() {
@@ -132,12 +132,9 @@ final class SearchNavigatorViewController: UIViewController {
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let viewModel else { return }
-        
-        let selectedCategoryName = viewModel.categoryItems[indexPath.item].capitalizedName
-        let selectedContentType = viewModel.searchContentType
-        
-        delegate?.didSelectSearchQuery(selectedCategoryName, contentType: selectedContentType)
+        if let selectedCategoryName = viewModel?.categoryItem(for: indexPath) {
+            delegate?.didSelectSearchQuery(selectedCategoryName.rawValue)
+        }
     }
 }
 
@@ -146,22 +143,12 @@ extension SearchNavigatorViewController: UICollectionViewDelegate {
 extension SearchNavigatorViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel?.searchQuery = searchText
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        guard let viewModel else { return }
-        
-        let selectedSearchContentType = ContentType.allCases[selectedScope]
-        viewModel.searchContentType = selectedSearchContentType
+        viewModel?.updateQuery(searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let viewModel else { return }
-        
-        let searchQuery = viewModel.searchQuery
-        let contentType = viewModel.searchContentType
-        
-        delegate?.didSelectSearchQuery(searchQuery, contentType: contentType)
+        if let query = viewModel?.currentQuery() {
+            delegate?.didSelectSearchQuery(query)
+        }
     }
 }

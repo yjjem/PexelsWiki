@@ -9,8 +9,26 @@ import Foundation
 
 final class SearchNavigatorViewModel {
     
-    var searchQuery: String = ""
-    var searchContentType: ContentType = .image
+    // MARK: Property(s)
     
-    let categoryItems: [RecommendedCategory] = RecommendedCategory.allCases
+    private var query: String = ""
+    private let categoryItems: [RecommendedCategory] = RecommendedCategory.allCases
+    
+    // MARK: Function(s)
+    
+    func updateQuery(_ newQuery: String) {
+        self.query = newQuery
+    }
+    
+    func currentQuery() -> String {
+        return query
+    }
+    
+    func categoryItem(for indexPath: IndexPath) -> RecommendedCategory {
+        return categoryItems[indexPath.row]
+    }
+    
+    func shuffledCategories() -> [RecommendedCategory] {
+        return categoryItems.shuffled()
+    }
 }

@@ -64,9 +64,11 @@ final class SearchCoordinator: Coordinator {
     }
 }
 
+// MARK: SearchNavigatorViewControllerDelegate
+
 extension SearchCoordinator: SearchNavigatorViewControllerDelegate {
     
-    func didSelectSearchQuery(_ searchQuery: String, contentType: ContentType) {
+    func didSelectSearchQuery(_ searchQuery: String) {
         showSearchResultsFlow(query: searchQuery)
     }
 }
