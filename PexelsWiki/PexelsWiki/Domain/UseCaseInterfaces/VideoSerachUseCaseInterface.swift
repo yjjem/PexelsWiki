@@ -9,12 +9,10 @@ import Foundation
 
 protocol VideoSearchUseCaseInterface {
     
+    associatedtype SearchParameters
+    
     func search(
-        query: String,
-        orientation: String,
-        size: String,
-        page: Int,
-        perPage: Int,
+        _ parameters: SearchParameters,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
     )
 }
