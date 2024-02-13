@@ -36,7 +36,7 @@ final class PhotoContentCell: UICollectionViewCell {
     func configure(using viewModel: PhotoContentCellViewModel) {
         
         // TODO: 셀이 로딩 로직을 모르도록 수정할 것
-        print(viewModel)
+        
         contentLoad = ImageLoadManager.fetchCachedImageDataElseLoad(
             urlString: viewModel.imageURLString
         ) { [weak self] response in

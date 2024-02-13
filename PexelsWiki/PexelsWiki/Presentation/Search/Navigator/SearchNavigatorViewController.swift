@@ -133,9 +133,7 @@ final class SearchNavigatorViewController: UIViewController {
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let selectedCategoryName = viewModel?.categoryItem(for: indexPath) {
-            delegate?.didSelectSearchQuery(selectedCategoryName.rawValue)
-        }
+        delegate?.didSelectSearchQuery(snapShot.items[indexPath.row].rawValue)
     }
 }
 

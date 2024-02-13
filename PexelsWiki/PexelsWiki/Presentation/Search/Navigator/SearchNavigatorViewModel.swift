@@ -24,10 +24,6 @@ final class SearchNavigatorViewModel {
         return query
     }
     
-    func categoryItem(for indexPath: IndexPath) -> RecommendedCategory {
-        return categoryItems[indexPath.row]
-    }
-    
     func shuffledCategories() -> [RecommendedCategory] {
         return categoryItems.shuffled()
     }
