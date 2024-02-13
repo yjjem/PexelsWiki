@@ -9,11 +9,17 @@ import Foundation
 
 final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
     
+    // MARK: Property(s)
+    
     private let repository: VisualContentRepositoryInterface
+    
+    // MARK: Initializer
     
     init(repository: VisualContentRepositoryInterface) {
         self.repository = repository
     }
+    
+    // MARK: Function(s)
     
     func search(
         query: String,

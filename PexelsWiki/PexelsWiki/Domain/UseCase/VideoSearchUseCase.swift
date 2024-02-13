@@ -9,11 +9,17 @@ import Foundation
 
 final class VideoSearchUseCase: VideoSearchUseCaseInterface {
     
+    // MARK: Property(s)
+    
     private let repository: VisualContentRepositoryInterface
+    
+    // MARK: Initializer
     
     init(repository: VisualContentRepositoryInterface) {
         self.repository = repository
     }
+    
+    // MARK: Property(s)
     
     func search(
         query: String,
