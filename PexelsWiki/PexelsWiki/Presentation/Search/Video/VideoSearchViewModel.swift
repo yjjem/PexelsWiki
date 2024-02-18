@@ -25,8 +25,9 @@ final class VideoSearchViewModel {
     private let pageSize: PageSize = .small
     private let useCase: VideoSearchUseCase
     
-    init(useCase: VideoSearchUseCase) {
+    init(query: String?, useCase: VideoSearchUseCase) {
         self.useCase = useCase
+        self.query = query ?? ""
     }
     
     // MARK: Function(s)

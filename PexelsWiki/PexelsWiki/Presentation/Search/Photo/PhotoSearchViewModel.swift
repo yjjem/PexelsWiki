@@ -23,8 +23,9 @@ final class PhotoSearchViewModel {
     private let pageSize: PageSize = .small
     private let useCase: PhotoSearchUseCase
     
-    init(useCase: PhotoSearchUseCase) {
+    init(query: String?, useCase: PhotoSearchUseCase) {
         self.useCase = useCase
+        self.query = query ?? ""
     }
     
     // MARK: Function(s)
