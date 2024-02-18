@@ -10,12 +10,15 @@ import UIKit
 final class SearchCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
+    private let sceneFactory: SceneFactory
+    
     private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     
     // MARK: Initializer(s)
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, sceneFactory: SceneFactory) {
         self.navigationController = navigationController
+        self.sceneFactory = sceneFactory
     }
     
     // MARK: Function(s)
@@ -26,36 +29,21 @@ final class SearchCoordinator: Coordinator {
     
     // MARK: Private Function(s)
     
-    private func showSearchNavigatorFlow() {
-        let searchNavigatorViewModel = SearchNavigatorViewModel()
+    func showSearchNavigatorFlow() {
         let searchNavigatorViewController = SearchNavigatorViewController()
+        searchNavigatorViewController.viewModel = sceneFactory.makeSearchNavigatorViewModel()
         searchNavigatorViewController.title = TabTypes.search.title
-        searchNavigatorViewController.viewModel = searchNavigatorViewModel
         searchNavigatorViewController.delegate = self
         router.push(searchNavigatorViewController, animated: true, nil)
     }
     
-    private func showSearchResultsFlow(query: String) {
+    func showSearchResultsFlow(query: String) {
+        let photoSearchViewController = sceneFactory.makePhotoSearchViewController(query: query)
+        let videoSearchViewController = sceneFactory.makeVideoSearchViewController(query: query)
+        
+        let viewPages = [photoSearchViewController, videoSearchViewController]
         let searchResultsViewController = SearchResultsViewController()
-        let provider = DefaultNetworkProvider()
-        let repository = VisualContentRepository(provider: provider)
-        let useCase = PhotoSearchUseCase(repository: repository)
-        let photoSearchViewModel = PhotoSearchViewModel(useCase: useCase)
-        
-        let photoSearchViewController = PhotoSearchViewController()
-        photoSearchViewController.viewModel = photoSearchViewModel
-        photoSearchViewModel.updateQuery(query)
-        
-        let videoProvider = DefaultNetworkProvider()
-        let videoRepository = VisualContentRepository(provider: videoProvider)
-        let videoUseCase = VideoSearchUseCase(repository: videoRepository)
-        let videoSearchViewModel = VideoSearchViewModel(useCase: videoUseCase)
-        
-        let videoSearchViewController = VideoSearchViewController()
-        videoSearchViewController.viewModel = videoSearchViewModel
-        videoSearchViewModel.updateQuery(query)
-            
-        searchResultsViewController.configureViewPages([photoSearchViewController, videoSearchViewController])
+        searchResultsViewController.configureViewPages(viewPages)
         
         navigationController.tabBarController?.tabBar.isHidden = true
         router.push(searchResultsViewController, animated: true) { [weak self] in

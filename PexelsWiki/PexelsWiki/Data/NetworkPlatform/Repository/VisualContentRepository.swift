@@ -12,12 +12,13 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     // MARK: Property(s)
     
     private let provider: Networkable
-    private let baseURL: URL = URL(string: "https://api.pexels.com")!
+    private let apiFactory: APIFactory
     
     // MARK: Initializer(s)
     
-    init(provider: Networkable) {
+    init(provider: Networkable, apiFactory: APIFactory) {
         self.provider = provider
+        self.apiFactory = apiFactory
     }
     
     // MARK: Function(s)
@@ -28,13 +29,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) -> Cancellable? {
-        let endPoint = EndPoint<WrappedPhotoListResponse>(
-            baseURL: baseURL,
-            path: "/v1/curated",
-            queries: ["page": String(page), "perPage": String(perPage)],
-            headers: ["Authorization": MainBundle.apiKey],
-            method: .get
-        )
+        let endPoint = apiFactory.makeCuratedPhotosEndPoint(page: page, perPage: perPage)
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
@@ -52,18 +47,12 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) -> Cancellable? {
-        let endPoint = EndPoint<WrappedPhotoListResponse>(
-            baseURL: baseURL,
-            path: "/v1/search",
-            queries: [
-                "query": query,
-                "orientation": orientation,
-                "size": size,
-                "page": String(page),
-                "perPage": String(perPage)
-            ],
-            headers: ["Authorization": MainBundle.apiKey],
-            method: .get
+        let endPoint = apiFactory.makeSearchPhotosEndPoint(
+            query: query,
+            orientation: orientation,
+            size: size,
+            page: page,
+            perPage: perPage
         )
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
@@ -83,19 +72,13 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
     ) -> Cancellable? {
-        let endPoint = EndPoint<WrappedVideoListResponse>(
-            baseURL: baseURL,
-            path: "/videos/popular",
-            queries: [
-                "minWidth": String(minWidth),
-                "minHeight": String(minHeight),
-                "minDuration": String(minDuration),
-                "maxDuration": String(maxDuration),
-                "page": String(page),
-                "perPage": String(perPage),
-            ],
-            headers: ["Authorization": MainBundle.apiKey],
-            method: .get
+        let endPoint = apiFactory.makePopularVideosEndPoint(
+            minWidth: minWidth,
+            minHeight: minHeight,
+            minDuration: minDuration,
+            maxDuration: maxDuration,
+            page: page,
+            perPage: perPage
         )
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
@@ -114,17 +97,12 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
     ) -> Cancellable? {
-        let endPoint = EndPoint<WrappedVideoListResponse>(
-            baseURL: baseURL,
-            path: "/videos/search",
-            queries: [
-                "query": query,
-                "orientation": orientation,
-                "size": size,
-                "page": String(page),
-                "perPage": String(perPage)],
-            headers: ["Authorization": MainBundle.apiKey],
-            method: .get
+        let endPoint = apiFactory.makeSearchVideosEndPoint(
+            query: query,
+            orientation: orientation,
+            size: size,
+            page: page,
+            perPage: perPage
         )
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result

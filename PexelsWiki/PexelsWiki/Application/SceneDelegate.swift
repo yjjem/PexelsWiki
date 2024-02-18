@@ -9,12 +9,14 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     var window: UIWindow?
-    private var sceneCoordinator: SceneCoordinator?
     
-    // MARK: Function(s)
+    private var sceneCoordinator: SceneCoordinator?
+    private var coreFactory: CoreFactory?
+    
+    // MARK: UIWindowSceneDelegate
     
     func scene(
         _ scene: UIScene,
@@ -26,8 +28,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let sceneCoordinator = SceneCoordinator(window: window)
-        sceneCoordinator.start()
+        let coreDependency = CoreFactory(userSecretKey: MainBundle.apiKey)
+        self.coreFactory = coreDependency
+        
+        let presentationDependency = coreDependency.makePresentationFactory()
+        let sceneCoordinator = presentationDependency.makeSceneCoordinator(window: window)
         self.sceneCoordinator = sceneCoordinator
+        sceneCoordinator.start()
     }
 }

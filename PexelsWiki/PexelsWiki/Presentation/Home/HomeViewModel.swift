@@ -19,10 +19,11 @@ final class HomeViewModel {
     private var hasNext: Bool = false
     private var page: Int = 1
     
-    private let pageSize: PageSize = .small
     private let useCase: CuratedPhotosUseCase
+    private let maxItemsPerPage: Int
     
-    init(useCase: CuratedPhotosUseCase) {
+    init(maxItemsPerPage: Int = 15, useCase: CuratedPhotosUseCase) {
+        self.maxItemsPerPage = maxItemsPerPage
         self.useCase = useCase
     }
     
@@ -31,7 +32,7 @@ final class HomeViewModel {
     func fetchCuratedPhotosPage() {
         let searchValues = CuratedPhotosUseCase.SearchParameters(
             page: page,
-            perPage: pageSize.itemsPerPage
+            perPage: maxItemsPerPage
         )
         useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
             if case .success(let photoPage) = response {

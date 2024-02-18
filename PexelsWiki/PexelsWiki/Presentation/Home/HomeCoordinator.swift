@@ -9,12 +9,16 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
     
+    // MARK: Property(s)
+    
+    private let sceneFactory: SceneFactory
     private let navigationController: UINavigationController
     
     // MARK: Initializer(s)
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, sceneFactory: SceneFactory) {
         self.navigationController = navigationController
+        self.sceneFactory = sceneFactory
     }
     
     // MARK: Function(s)
@@ -25,15 +29,9 @@ final class HomeCoordinator: Coordinator {
     
     // MARK: Private Function(s)
     
-    private func showMainFlow() {
-        let defaultNetworkProvider = DefaultNetworkProvider()
-        let photoRepository = VisualContentRepository(provider: defaultNetworkProvider)
-        let photoUseCase = CuratedPhotosUseCase(repository: photoRepository)
-        let homeViewModel = HomeViewModel(useCase: photoUseCase)
-        let homeViewController = HomeViewController()
-        homeViewController.viewModel = homeViewModel
+    func showMainFlow() {
+        let homeViewController = sceneFactory.makeHomeViewController()
         homeViewController.title = TabTypes.home.title
-        
         navigationController.pushViewController(homeViewController, animated: false)
     }
 }

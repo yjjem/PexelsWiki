@@ -11,12 +11,14 @@ final class SceneCoordinator: Coordinator {
     // MARK: Property(s)
     
     private let window: UIWindow
+    private let sceneFactory: SceneFactory
     private let navigationController: UINavigationController = .init()
     
     // MARK: Initialzier(s)
     
-    init(window: UIWindow) {
+    init(window: UIWindow, sceneFactory: SceneFactory) {
         self.window = window
+        self.sceneFactory = sceneFactory
     }
     
     // MARK: Function(s)
@@ -31,8 +33,8 @@ final class SceneCoordinator: Coordinator {
     // MARK: Private Function(s)
     
     private func showTabBarFlow() {
-        let tabCoordinator = TabBarCoordinator(navigationController: navigationController)
-        addChild(tabCoordinator)
-        tabCoordinator.start()
+        let tabBarCoordinator = sceneFactory.makeTabBarCoordinator(navigation: navigationController)
+        addChild(tabBarCoordinator)
+        tabBarCoordinator.start()
     }
 }

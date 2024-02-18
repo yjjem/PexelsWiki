@@ -9,6 +9,9 @@ import UIKit
 
 final class TabBarCoordinator: Coordinator {
     
+    // MARK: Property(s)
+    
+    private let sceneFactory: SceneFactory
     private let navigationController: UINavigationController
     private let tabBarController: UITabBarController = {
         let tabBarController = UITabBarController()
@@ -20,29 +23,25 @@ final class TabBarCoordinator: Coordinator {
     
     // MARK: Initializer(s)
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, sceneFactory: SceneFactory) {
         self.navigationController = navigationController
+        self.sceneFactory = sceneFactory
     }
     
     // MARK: Function(s)
     
     override func start() {
-        let homeNavigationViewController = makeTabNavigationViewController(type: .home)
-        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationViewController)
+        let homeNavigation = makeTabNavigationViewController(type: .home)
+        let searchNavigation = makeTabNavigationViewController(type: .search)
+        let homeCoordinator = sceneFactory.makeHomeCoordinator(navigation: homeNavigation)
+        let searchCoordinator = sceneFactory.makeSearchCoordinator(navigation: searchNavigation)
         
-        let searchNavigationViewController = makeTabNavigationViewController(type: .search)
-        let searchCoordinator = SearchCoordinator(navigationController: searchNavigationViewController)
-        
+        tabBarController.viewControllers = [homeNavigation, searchNavigation]
         let tabCoordinators: [CoordinatorProtocol] = [homeCoordinator, searchCoordinator]
-        tabBarController.viewControllers = [
-            homeNavigationViewController,
-            searchNavigationViewController
-        ]
         tabCoordinators.forEach { coordinator in
             addChild(coordinator)
             coordinator.start()
         }
-        
         navigationController.pushViewController(tabBarController, animated: true)
     }
     
