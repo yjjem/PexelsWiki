@@ -27,8 +27,12 @@ struct APIFactory {
     }
     
     private enum Path {
-        static let image = "v1"
-        static let video = "videos"
+        private static let image = "/v1"
+        private static let video = "/videos"
+        static let searchImages = image + "/search"
+        static let curatedImages = image + "/curated"
+        static let searchVideos = video + "/search"
+        static let popularVideos = video + "/popular"
     }
     
     // MARK: Property(s)
@@ -47,10 +51,10 @@ struct APIFactory {
     func makeCuratedPhotosEndPoint(
         page: Int,
         perPage: Int
-    ) -> EndPoint<WrappedPhotoListResponse> {
-        return EndPoint<WrappedPhotoListResponse>(
+    ) -> EndPoint<PhotoListResponse> {
+        return EndPoint<PhotoListResponse>(
             baseURL: baseURL,
-            path: Path.image,
+            path: Path.curatedImages,
             queries: [
                 QueryKey.page: String(page),
                 QueryKey.perPage: String(perPage)
@@ -66,10 +70,10 @@ struct APIFactory {
         size: String,
         page: Int,
         perPage: Int
-    ) -> EndPoint<WrappedPhotoListResponse> {
-        return EndPoint<WrappedPhotoListResponse>(
+    ) -> EndPoint<PhotoListResponse> {
+        return EndPoint<PhotoListResponse>(
             baseURL: baseURL,
-            path: Path.image,
+            path: Path.searchImages,
             queries: [
                 QueryKey.query: query,
                 QueryKey.orientation: orientation,
@@ -89,10 +93,10 @@ struct APIFactory {
         maxDuration: Int,
         page: Int,
         perPage: Int
-    ) -> EndPoint<WrappedVideoListResponse> {
-        return EndPoint<WrappedVideoListResponse>(
+    ) -> EndPoint<VideoListResponse> {
+        return EndPoint<VideoListResponse>(
             baseURL: baseURL,
-            path: Path.video,
+            path: Path.popularVideos,
             queries: [
                 QueryKey.minWidth: String(minWidth),
                 QueryKey.minHeight: String(minHeight),
@@ -110,10 +114,10 @@ struct APIFactory {
         size: String,
         page: Int,
         perPage: Int
-    ) -> EndPoint<WrappedVideoListResponse> {
-        return EndPoint<WrappedVideoListResponse>(
+    ) -> EndPoint<VideoListResponse> {
+        return EndPoint<VideoListResponse>(
             baseURL: baseURL,
-            path: Path.video,
+            path: Path.searchVideos,
             queries: [
                 QueryKey.query: query,
                 QueryKey.orientation: orientation,
