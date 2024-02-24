@@ -30,6 +30,7 @@ final class HomeViewModel {
     // MARK: Function(s)
     
     func fetchCuratedPhotosPage() {
+        guard isLoading == false else { return }
         isLoading = true
         let searchValues = CuratedPhotosUseCase.SearchParameters(
             page: page,
@@ -37,7 +38,6 @@ final class HomeViewModel {
         )
         useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
             if case .success(let photoPage) = response {
-                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 let homeCellViewModels = photoPage.photos.map {
                     HomeContentCellViewModel(
                         userName: $0.user.name,
@@ -51,13 +51,13 @@ final class HomeViewModel {
                     )
                 }
                 self?.loadedHomeContentViewModelList?(homeCellViewModels)
+                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 self?.isLoading = false
             }
         }
     }
     
     func fetchNextPage() {
-        guard isLoading == false else { return }
         guard hasNext == true else { return }
         fetchCuratedPhotosPage()
     }

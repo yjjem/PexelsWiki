@@ -31,6 +31,7 @@ final class PhotoListViewModel {
     // MARK: Function(s)
     
     func fetchSearchResults() {
+        guard isLoading == false else { return }
         isLoading = true
         let searchValues = PhotoSearchUseCase.SearchParameters(
             query: query,
@@ -41,7 +42,6 @@ final class PhotoListViewModel {
         )
         useCase.search(searchValues) { [weak self] response in
             if case .success(let photoPage) = response {
-                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 let photoCellViewModels = photoPage.photos.compactMap {
                     PhotoContentCellViewModel(
                         imageURLString: $0.variations.landscape,
@@ -49,13 +49,13 @@ final class PhotoListViewModel {
                     )
                 }
                 self?.loadedPhotoContentCellViewModels?(photoCellViewModels)
+                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 self?.isLoading = false
             }
         }
     }
     
     func fetchNextPage() {
-        guard isLoading == false else { return }
         guard hasNext == true else { return }
         fetchSearchResults()
     }

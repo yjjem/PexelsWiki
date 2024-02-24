@@ -33,6 +33,7 @@ final class VideoListViewModel {
     // MARK: Function(s)
     
     func fetchSearchResults() {
+        guard isLoading == false else { return }
         isLoading = true
         let searchValues = VideoSearchUseCase.SearchParameters(
             query: query,
@@ -68,14 +69,13 @@ final class VideoListViewModel {
     }
     
     func fetchNextPage() {
-        guard isLoading == false else { return }
         guard hasNext == true else { return }
         fetchSearchResults()
     }
     
     func resetPage() {
-        hasNext = false
         page = 1
+        hasNext = false
         fetchSearchResults()
     }
     
