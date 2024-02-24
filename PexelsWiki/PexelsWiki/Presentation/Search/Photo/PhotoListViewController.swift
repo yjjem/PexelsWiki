@@ -141,3 +141,15 @@ final class PhotoListViewController: UIViewController {
         return layout
     }
 }
+
+// MARK: UICollectionViewDelegate
+
+extension PhotoListViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isOverPaginationPoint() {
+            viewModel?.fetchNextPage()
+        }
+    }
+}
+

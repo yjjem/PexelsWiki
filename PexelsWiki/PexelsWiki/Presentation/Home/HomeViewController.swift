@@ -130,3 +130,14 @@ final class HomeViewController: UIViewController {
         viewModel?.resetPage()
     }
 }
+
+// MARK: UICollectionViewDelegate
+
+extension HomeViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isOverPaginationPoint() {
+            viewModel?.fetchNextPage()
+        }
+    }
+}

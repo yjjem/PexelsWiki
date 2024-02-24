@@ -111,3 +111,14 @@ final class VideoListViewController: UIViewController {
         navigationItem.title = viewModel?.currentQuery()
     }
 }
+
+// MARK: UICollectionViewDelegate
+
+extension VideoListViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isOverPaginationPoint() {
+            viewModel?.fetchNextPage()
+        }
+    }
+}
