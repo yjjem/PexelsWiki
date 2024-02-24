@@ -30,14 +30,6 @@ final class PhotoSearchViewModel {
     
     // MARK: Function(s)
     
-    func updateQuery(_ query: String) {
-        self.query = query
-    }
-    
-    func currentQuery() -> String {
-        return query
-    }
-    
     func fetchSearchResults() {
         isLoading = true
         let searchValues = PhotoSearchUseCase.SearchParameters(
@@ -47,27 +39,25 @@ final class PhotoSearchViewModel {
             page: page,
             perPage: pageSize.itemsPerPage
         )
-        
         useCase.search(searchValues) { [weak self] response in
-            if let self, case .success(let photoPage) = response {
-                let photoCellViewModels = photoPage.photos.map(makePhotoContentCellViewModel)
-                self.isLoading = false
-                self.page = photoPage.page
-                self.hasNext = photoPage.hasNext
-                self.loadedPhotoContentCellViewModels?(photoCellViewModels)
+            if case .success(let photoPage) = response {
+                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
+                let photoCellViewModels = photoPage.photos.compactMap {
+                    PhotoContentCellViewModel(
+                        imageURLString: $0.variations.landscape,
+                        userName: $0.user.name
+                    )
+                }
+                self?.loadedPhotoContentCellViewModels?(photoCellViewModels)
+                self?.isLoading = false
             }
         }
     }
     
     func fetchNextPage() {
-        if isLoading {
-            return
-        }
-        
-        if hasNext {
-            page += 1
-            fetchSearchResults()
-        }
+        guard isLoading == false else { return }
+        guard hasNext == false else { return }
+        fetchSearchResults()
     }
     
     func resetPage() {
@@ -76,15 +66,18 @@ final class PhotoSearchViewModel {
         fetchSearchResults()
     }
     
+    func updateQuery(_ query: String) {
+        self.query = query
+    }
+    
+    func currentQuery() -> String {
+        return query
+    }
+    
     // MARK: Private Function(s)
     
-    private func makePhotoContentCellViewModel(
-        _ resource: PhotoResource
-    ) -> PhotoContentCellViewModel {
-        
-        return PhotoContentCellViewModel(
-            imageURLString: resource.url["large"]!,
-            userName: resource.photographer
-        )
+    private func updatePageValues(page: Int, hasNext: Bool) {
+        self.page = page
+        self.hasNext = hasNext
     }
 }
