@@ -65,7 +65,6 @@ final class HomeContentCell: UICollectionViewCell {
             if case .success(let imageData) = response {
                 let image = UIImage(data: imageData)
                 self?.imageView.image = image
-                self?.imageView.setNeedsDisplay()
             }
         }
     }
