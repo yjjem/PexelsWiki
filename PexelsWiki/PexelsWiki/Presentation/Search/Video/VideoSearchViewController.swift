@@ -11,9 +11,9 @@ final class VideoSearchViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias VideoContentCellRegistration = UICollectionView.CellRegistration<VideoContentCell, VideoPreviewItem>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoPreviewItem>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<VideoPreviewItem>
+    typealias VideoContentCellRegistration = UICollectionView.CellRegistration<VideoContentCell, VideoCellViewModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, VideoCellViewModel>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<VideoCellViewModel>
     
     enum Section {
         case main
@@ -52,7 +52,7 @@ final class VideoSearchViewController: UIViewController {
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        viewModel?.fetchedVideoPreviewItems = { [weak self] videoPreviewItem in
+        viewModel?.fetchedVideoCellViewModelList = { [weak self] videoPreviewItem in
             guard let items = self?.snapShot.items else { return }
             let itemsWithoutDuplications = videoPreviewItem.filter { !items.contains($0) }
             self?.updateSnapShot(using: itemsWithoutDuplications)
@@ -75,7 +75,7 @@ final class VideoSearchViewController: UIViewController {
             repeatingSubitem: item,
             count: 3
         )
-        group.interItemSpacing = .fixed(5)
+        group.interItemSpacing = .fixed(1.5)
 
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -110,8 +110,8 @@ final class VideoSearchViewController: UIViewController {
         return registration
     }
     
-    private func updateSnapShot(using videoList: [VideoPreviewItem]) {
-        snapShot.append(videoList)
+    private func updateSnapShot(using cellViewModels: [VideoCellViewModel]) {
+        snapShot.append(cellViewModels)
         diffableDataSource?.apply(snapShot, to: .main)
     }
     

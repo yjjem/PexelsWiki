@@ -11,7 +11,7 @@ final class VideoSearchViewModel {
     
     // MARK: Binding(s)
     
-    var fetchedVideoPreviewItems: (([VideoPreviewItem]) -> Void)?
+    var fetchedVideoCellViewModelList: (([VideoCellViewModel]) -> Void)?
     
     // MARK: Property(s)
     
@@ -32,14 +32,6 @@ final class VideoSearchViewModel {
     
     // MARK: Function(s)
     
-    func updateQuery(_ query: String) {
-        self.query = query
-    }
-    
-    func currentQuery() -> String {
-        return query
-    }
-    
     func fetchSearchResults() {
         isLoading = true
         let searchValues = VideoSearchUseCase.SearchParameters(
@@ -51,37 +43,46 @@ final class VideoSearchViewModel {
         )
         useCase.search(searchValues) { [weak self] response in
             if case .success(let videoPage) = response {
-                self?.isLoading = false
-                self?.page = videoPage.page
-                self?.hasNext = videoPage.hasNext
                 let videoPreviewItem = videoPage.videos.map {
                     let durationFormatter = VideoDurationFormatter(duration: $0.duration)
                     let formattedDuration = durationFormatter.formattedString() ?? ""
-                    return VideoPreviewItem(
-                        thumbnailImage: $0.image,
+                    return VideoCellViewModel(
+                        thumbnailImage: $0.previewURL,
                         duration: formattedDuration,
                         id: $0.id
                     )
                 }
-                self?.fetchedVideoPreviewItems?(videoPreviewItem)
+                self?.updatePageValues(page: videoPage.nextPage(), hasNext: videoPage.hasNext)
+                self?.fetchedVideoCellViewModelList?(videoPreviewItem)
+                self?.isLoading = false
             }
         }
     }
     
+    func updateQuery(_ query: String) {
+        self.query = query
+    }
+    
+    func currentQuery() -> String {
+        return query
+    }
+    
     func fetchNextPage() {
-        if isLoading {
-            return
-        }
-        
-        if hasNext {
-            page += 1
-            fetchSearchResults()
-        }
+        guard isLoading == false else { return }
+        guard hasNext == false else { return }
+        fetchSearchResults()
     }
     
     func resetPage() {
-        page = 1
         hasNext = false
+        page = 1
         fetchSearchResults()
+    }
+    
+    // MARK: Private Function(s)
+    
+    private func updatePageValues(page: Int, hasNext: Bool) {
+        self.page = page
+        self.hasNext = hasNext
     }
 }

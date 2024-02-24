@@ -11,10 +11,10 @@ final class VideoContentCell: UICollectionViewCell {
     
     // MARK: Proprety(s)
     
+    private var imageRequest: Cancellable?
     
     private let videoThumbnailView: UIImageView = UIImageView()
     private let durationLabel: UILabel = UILabel()
-    private var imageRequest: Cancellable?
     
     // MARK: Override(s)
     
@@ -36,7 +36,7 @@ final class VideoContentCell: UICollectionViewCell {
     
     // MARK: Function(s)
     
-    func configure(using viewModel: VideoPreviewItem) {
+    func configure(using viewModel: VideoCellViewModel) {
         durationLabel.text = viewModel.duration.description
         imageRequest = ImageLoadManager.fetchCachedImageDataElseLoad(
             urlString: viewModel.thumbnailImage
@@ -52,6 +52,7 @@ final class VideoContentCell: UICollectionViewCell {
     private func configureStyles() {
         durationLabel.textColor = .white
         durationLabel.font = .boldSystemFont(ofSize: 14)
+        videoThumbnailView.contentMode = .scaleAspectFit
     }
     
     private func configureHierarchy() {
@@ -60,7 +61,6 @@ final class VideoContentCell: UICollectionViewCell {
     }
     
     private func configureConstraints() {
-        videoThumbnailView.contentMode = .scaleAspectFit
         videoThumbnailView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             videoThumbnailView.topAnchor.constraint(equalTo: contentView.topAnchor),
