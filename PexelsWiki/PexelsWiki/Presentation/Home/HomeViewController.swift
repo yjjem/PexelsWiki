@@ -26,16 +26,12 @@ final class HomeViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let contentCollectionView: UICollectionView = {
-        let collection = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: UICollectionViewCompositionalLayout.portraitLayout
-        )
-        return collection
-    }()
-    
-    private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
     private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
+    private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
+    private let contentCollectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: .init()
+    )
     
     // MARK: Override(s)
     
@@ -44,6 +40,7 @@ final class HomeViewController: UIViewController {
         contentCollectionView.backgroundColor = .systemGray6
         contentCollectionView.refreshControl = contentRefreshControl
         contentCollectionView.dataSource = diffableDataSource
+        contentCollectionView.setCollectionViewLayout(createCompositionalLayout(), animated: true)
     }
     
     override func viewDidLoad() {
@@ -85,6 +82,28 @@ final class HomeViewController: UIViewController {
         paginationFetchControl.didTriggerFetchMore = { [weak self] in
             self?.viewModel?.fetchNextPage()
         }
+    }
+    
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(1.0)
+        )
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(100)
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: groupSize,
+            repeatingSubitem: item,
+            count: 1
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
     }
     
     private func configureDiffableDataSource() {
