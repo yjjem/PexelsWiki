@@ -26,7 +26,6 @@ final class HomeViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
     private let contentCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -37,10 +36,11 @@ final class HomeViewController: UIViewController {
     
     override func loadView() {
         self.view = contentCollectionView
-        contentCollectionView.backgroundColor = .systemGray6
+        contentCollectionView.setCollectionViewLayout(createCompositionalLayout(), animated: true)
         contentCollectionView.refreshControl = contentRefreshControl
         contentCollectionView.dataSource = diffableDataSource
-        contentCollectionView.setCollectionViewLayout(createCompositionalLayout(), animated: true)
+        contentCollectionView.backgroundColor = .systemGray6
+        contentCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -48,7 +48,6 @@ final class HomeViewController: UIViewController {
         bindViewModel()
         configureContentRefreshControl()
         configureDiffableDataSource()
-        configurePaginationFetchControl()
         viewModel?.fetchCuratedPhotosPage()
     }
     
@@ -76,14 +75,7 @@ final class HomeViewController: UIViewController {
             }
         }
     }
-    
-    private func configurePaginationFetchControl() {
-        paginationFetchControl.configure(scrollView: contentCollectionView)
-        paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.fetchNextPage()
-        }
-    }
-    
+
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),

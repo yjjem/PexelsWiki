@@ -3,7 +3,7 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
 
@@ -26,7 +26,6 @@ final class VideoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     private let videoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()
@@ -36,8 +35,9 @@ final class VideoListViewController: UIViewController {
     
     override func loadView() {
         self.view = videoCollectionView
-        videoCollectionView.dataSource = diffableDataSource
         videoCollectionView.setCollectionViewLayout(makeCompositionalLayout(), animated: false)
+        videoCollectionView.dataSource = diffableDataSource
+        videoCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -45,7 +45,6 @@ final class VideoListViewController: UIViewController {
         bindViewModel()
         configureDiffableDataSource()
         configureNavigationItem()
-        configurePaginationFetchControl()
         viewModel?.fetchSearchResults()
     }
     
@@ -76,7 +75,7 @@ final class VideoListViewController: UIViewController {
             count: 3
         )
         group.interItemSpacing = .fixed(1.5)
-
+        
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -94,13 +93,6 @@ final class VideoListViewController: UIViewController {
             )
         }
         self.diffableDataSource = diffableDataSource
-    }
-    
-    private func configurePaginationFetchControl() {
-        paginationFetchControl.configure(scrollView: videoCollectionView)
-        paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.fetchNextPage()
-        }
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {

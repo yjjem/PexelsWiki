@@ -31,7 +31,6 @@ final class PhotoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let paginationFetchControl: PaginationFetchControl = PaginationFetchControl()
     private let photoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()
@@ -41,8 +40,9 @@ final class PhotoListViewController: UIViewController {
     
     override func loadView() {
         self.view = photoCollectionView
-        photoCollectionView.dataSource = diffableDataSource
         photoCollectionView.setCollectionViewLayout(createLayout(), animated: true)
+        photoCollectionView.dataSource = diffableDataSource
+        photoCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -50,7 +50,6 @@ final class PhotoListViewController: UIViewController {
         bindViewModel()
         configureDiffableDataSource()
         configureNavigationItem()
-        configurePaginationFetchControl()
         viewModel?.fetchSearchResults()
     }
     
@@ -81,13 +80,6 @@ final class PhotoListViewController: UIViewController {
     
     private func configureNavigationItem() {
         navigationItem.title = viewModel?.currentQuery()
-    }
-    
-    private func configurePaginationFetchControl() {
-        paginationFetchControl.configure(scrollView: photoCollectionView)
-        paginationFetchControl.didTriggerFetchMore = { [weak self] in
-            self?.viewModel?.fetchNextPage()
-        }
     }
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
