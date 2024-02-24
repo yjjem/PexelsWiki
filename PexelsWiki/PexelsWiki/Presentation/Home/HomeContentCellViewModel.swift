@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct HomeContentCellViewModel {
+struct HomeContentCellViewModel: Hashable {
     let userName: String
     let userProfileURL: String
+    let imageTitle: String
+    let imageID: Int
     let imageURL: String
+    let imageWidth: Int
+    let imageHeight: Int
+    let resolutionString: String
 }

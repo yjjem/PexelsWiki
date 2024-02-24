@@ -3,15 +3,15 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import Foundation
 
 final class HomeViewModel {
-
+    
     // MARK: Binding(s)
     
-    var loadedCuratedPhotos: (([PhotoResource]) -> Void)?
+    var loadedHomeContentViewModelList: (([HomeContentCellViewModel]) -> Void)?
     
     // MARK: Property(s)
     
@@ -36,9 +36,20 @@ final class HomeViewModel {
         )
         useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
             if case .success(let photoPage) = response {
-                self?.page = photoPage.page + 1
-                self?.hasNext = photoPage.hasNext
-                self?.loadedCuratedPhotos?(photoPage.photos)
+                self?.updatePageValues(page: photoPage.page, hasNext: photoPage.hasNext)
+                let homeCellViewModels = photoPage.photos.map {
+                    HomeContentCellViewModel(
+                        userName: $0.user.name,
+                        userProfileURL: $0.user.profileURL,
+                        imageTitle: $0.title,
+                        imageID: $0.id,
+                        imageURL: $0.variations.large,
+                        imageWidth: $0.resolution.width,
+                        imageHeight: $0.resolution.height,
+                        resolutionString: $0.resolution.toString()
+                    )
+                }
+                self?.loadedHomeContentViewModelList?(homeCellViewModels)
                 self?.isLoading = false
             }
         }
@@ -58,5 +69,12 @@ final class HomeViewModel {
         page = 1
         hasNext = false
         fetchCuratedPhotosPage()
+    }
+    
+    // MARK: Private Function(s)
+    
+    private func updatePageValues(page: Int, hasNext: Bool) {
+        self.page = page
+        self.hasNext = hasNext
     }
 }

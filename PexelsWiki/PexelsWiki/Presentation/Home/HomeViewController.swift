@@ -11,9 +11,9 @@ final class HomeViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias ContentCellRegistration = UICollectionView.CellRegistration<HomeContentCell, PhotoResource>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, PhotoResource>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<PhotoResource>
+    typealias ContentCellRegistration = UICollectionView.CellRegistration<HomeContentCell, HomeContentCellViewModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, HomeContentCellViewModel>
+    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<HomeContentCellViewModel>
     
     enum Section {
         case main
@@ -41,7 +41,7 @@ final class HomeViewController: UIViewController {
     
     override func loadView() {
         self.view = contentCollectionView
-        self.view.backgroundColor = .systemGray6
+        contentCollectionView.backgroundColor = .systemGray6
         contentCollectionView.refreshControl = contentRefreshControl
         contentCollectionView.dataSource = diffableDataSource
     }
@@ -58,24 +58,26 @@ final class HomeViewController: UIViewController {
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        viewModel?.loadedCuratedPhotos = { [weak self] curatedPhotos in
+        viewModel?.loadedHomeContentViewModelList = { [weak self] viewModelList in
             guard let self else { return }
-            
             let snapShotItems = self.snapShot.items
-            let itemsWithoutDuplication = curatedPhotos.filter { !snapShotItems.contains($0) }
+            let itemsWithoutDuplication = viewModelList.filter { !snapShotItems.contains($0) }
             applySnapShot(with: itemsWithoutDuplication)
-            
-            DispatchQueue.main.async {
-                if self.contentRefreshControl.isRefreshing {
-                    self.contentRefreshControl.endRefreshing()
-                }
-            }
+            endRefreshing()
         }
     }
     
     private func configureContentRefreshControl() {
         let refreshAction = #selector(didInvokeRefresh)
         contentRefreshControl.addTarget(self, action: refreshAction, for: .valueChanged)
+    }
+    
+    private func endRefreshing() {
+        DispatchQueue.main.async {
+            if self.contentRefreshControl.isRefreshing {
+                self.contentRefreshControl.endRefreshing()
+            }
+        }
     }
     
     private func configurePaginationFetchControl() {
@@ -100,31 +102,20 @@ final class HomeViewController: UIViewController {
     }
     
     private func makeContentCellRegistration() -> ContentCellRegistration {
-        return ContentCellRegistration { cell, indexPath, photoResource in
-            let imageURL = photoResource.url["portrait"]!
-            let viewModel = HomeContentCellViewModel(
-                userName: photoResource.photographer,
-                userProfileURL: photoResource.photographerURL,
-                imageURL: imageURL
-            )
+        return ContentCellRegistration { cell, indexPath, viewModel in
             cell.configure(using: viewModel)
         }
     }
     
-    private func applySnapShot(with resources: [PhotoResource]) {
+    private func applySnapShot(with resources: [HomeContentCellViewModel]) {
         snapShot.append(resources)
         diffableDataSource?.apply(snapShot, to: .main)
     }
     
-    private func resetSnapShot() {
-        snapShot.deleteAll()
-    }
-    
     // MARK: Action(s)
     
-    @objc
-    private func didInvokeRefresh() {
-        resetSnapShot()
+    @objc private func didInvokeRefresh() {
+        snapShot.deleteAll()
         viewModel?.resetPage()
     }
 }
