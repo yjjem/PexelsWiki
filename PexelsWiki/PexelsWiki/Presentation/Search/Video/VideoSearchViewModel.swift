@@ -69,7 +69,7 @@ final class VideoSearchViewModel {
     
     func fetchNextPage() {
         guard isLoading == false else { return }
-        guard hasNext == false else { return }
+        guard hasNext == true else { return }
         fetchSearchResults()
     }
     
