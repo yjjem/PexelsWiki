@@ -61,8 +61,8 @@
 		DFD792CA2A482C6800729C2F /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792C92A482C6800729C2F /* VideoPlayerView.swift */; };
 		DFD792CE2A484ABE00729C2F /* VideoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */; };
 		DFD792D02A484BB500729C2F /* VideoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792CF2A484BB400729C2F /* VideoCellViewModel.swift */; };
-		DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */; };
-		DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */; };
+		DFD792D22A4854AD00729C2F /* VideoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D12A4854AD00729C2F /* VideoListViewController.swift */; };
+		DFD792D42A48565900729C2F /* VideoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D32A48565900729C2F /* VideoListViewModel.swift */; };
 		DFD792D62A4877B600729C2F /* SearchFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D52A4877B600729C2F /* SearchFilterViewController.swift */; };
 		DFD792D82A487CB000729C2F /* SearchFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */; };
 		DFD792DA2A498D6700729C2F /* SearchFilterOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */; };
@@ -139,8 +139,8 @@
 		DFD792C92A482C6800729C2F /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContentCell.swift; sourceTree = "<group>"; };
 		DFD792CF2A484BB400729C2F /* VideoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellViewModel.swift; sourceTree = "<group>"; };
-		DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewController.swift; sourceTree = "<group>"; };
-		DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSearchViewModel.swift; sourceTree = "<group>"; };
+		DFD792D12A4854AD00729C2F /* VideoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewController.swift; sourceTree = "<group>"; };
+		DFD792D32A48565900729C2F /* VideoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListViewModel.swift; sourceTree = "<group>"; };
 		DFD792D52A4877B600729C2F /* SearchFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewController.swift; sourceTree = "<group>"; };
 		DFD792D72A487CB000729C2F /* SearchFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewModel.swift; sourceTree = "<group>"; };
 		DFD792D92A498D6700729C2F /* SearchFilterOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterOptionCell.swift; sourceTree = "<group>"; };
@@ -422,8 +422,8 @@
 		DFD792C82A482C4700729C2F /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				DFD792D12A4854AD00729C2F /* VideoSearchViewController.swift */,
-				DFD792D32A48565900729C2F /* VideoSearchViewModel.swift */,
+				DFD792D12A4854AD00729C2F /* VideoListViewController.swift */,
+				DFD792D32A48565900729C2F /* VideoListViewModel.swift */,
 				DFD792CD2A484ABE00729C2F /* VideoContentCell.swift */,
 				DFD792CF2A484BB400729C2F /* VideoCellViewModel.swift */,
 				DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */,
@@ -574,7 +574,7 @@
 				DFFF662D2B47C50C00489DF0 /* PhotoSearchCoordinator.swift in Sources */,
 				DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */,
 				DFD792962A44705C00729C2F /* CuratedPhotosUseCase.swift in Sources */,
-				DFD792D42A48565900729C2F /* VideoSearchViewModel.swift in Sources */,
+				DFD792D42A48565900729C2F /* VideoListViewModel.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DFE101692AF775750036158A /* TabTypes.swift in Sources */,
@@ -599,7 +599,7 @@
 				DFF20DE72B56F23B00E01DB7 /* VideoSerachUseCaseInterface.swift in Sources */,
 				DFD792AD2A46818700729C2F /* CategoryCell.swift in Sources */,
 				DFD792B32A46A9F600729C2F /* VideoSearchUseCase.swift in Sources */,
-				DFD792D22A4854AD00729C2F /* VideoSearchViewController.swift in Sources */,
+				DFD792D22A4854AD00729C2F /* VideoListViewController.swift in Sources */,
 				DFD792B52A46B77600729C2F /* ContentType.swift in Sources */,
 				DFD792D82A487CB000729C2F /* SearchFilterViewModel.swift in Sources */,
 				DFD792C22A47FCD900729C2F /* PhotoContentCellViewModel.swift in Sources */,

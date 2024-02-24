@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class VideoSearchViewController: UIViewController {
+final class VideoListViewController: UIViewController {
     
     // MARK: Type(s)
     
@@ -21,7 +21,7 @@ final class VideoSearchViewController: UIViewController {
     
     // MARK: Property(s)
     
-    var viewModel: VideoSearchViewModel?
+    var viewModel: VideoListViewModel?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()

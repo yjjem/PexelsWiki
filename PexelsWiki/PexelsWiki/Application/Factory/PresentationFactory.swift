@@ -32,8 +32,8 @@ struct SceneFactory {
         return PhotoListViewModel(query: query, useCase: domainFactory.makePhotoSearchUseCase())
     }
     
-    func makeVideoSearchViewModel(query: String? = nil) -> VideoSearchViewModel {
-        return VideoSearchViewModel(query: query, useCase: domainFactory.makeVideoSearchUseCase())
+    func makeVideoSearchViewModel(query: String? = nil) -> VideoListViewModel {
+        return VideoListViewModel(query: query, useCase: domainFactory.makeVideoSearchUseCase())
     }
     
     // MARK: ViewController(s)
@@ -50,8 +50,8 @@ struct SceneFactory {
         return photoSearchViewController
     }
     
-    func makeVideoSearchViewController(query: String? = nil) -> VideoSearchViewController {
-        let videoSearchViewController = VideoSearchViewController()
+    func makeVideoSearchViewController(query: String? = nil) -> VideoListViewController {
+        let videoSearchViewController = VideoListViewController()
         videoSearchViewController.viewModel = makeVideoSearchViewModel(query: query)
         return videoSearchViewController
     }

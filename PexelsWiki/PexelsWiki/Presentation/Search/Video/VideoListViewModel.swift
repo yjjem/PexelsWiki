@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class VideoSearchViewModel {
+final class VideoListViewModel {
     
     // MARK: Binding(s)
     
