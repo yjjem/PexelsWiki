@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
         case main
     }
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     var viewModel: HomeViewModel?
     

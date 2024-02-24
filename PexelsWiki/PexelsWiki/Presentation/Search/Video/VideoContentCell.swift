@@ -9,7 +9,8 @@ import UIKit
 
 final class VideoContentCell: UICollectionViewCell {
     
-    // MARK: Variable(s)
+    // MARK: Proprety(s)
+    
     
     private let videoThumbnailView: UIImageView = UIImageView()
     private let durationLabel: UILabel = UILabel()

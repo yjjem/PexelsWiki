@@ -19,7 +19,7 @@ final class VideoSearchViewController: UIViewController {
         case main
     }
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     var viewModel: VideoSearchViewModel?
     

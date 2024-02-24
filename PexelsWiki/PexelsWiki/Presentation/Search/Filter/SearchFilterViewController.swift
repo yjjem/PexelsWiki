@@ -13,7 +13,7 @@ protocol SearchFilterViewControllerDelegate: AnyObject {
 
 final class SearchFilterViewController: UIViewController {
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     weak var delegate: SearchFilterViewControllerDelegate?
     var viewModel: SearchFilterViewModel?

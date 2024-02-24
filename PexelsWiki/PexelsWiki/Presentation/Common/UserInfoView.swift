@@ -9,7 +9,7 @@ import UIKit
 
 final class UserInfoView: UIView {
     
-    // MARK: View(s)
+    // MARK: Property(s)
     
     private let userIconView: UIImageView = {
         let defaultUserImage = UIImage(systemName: "person.fill")

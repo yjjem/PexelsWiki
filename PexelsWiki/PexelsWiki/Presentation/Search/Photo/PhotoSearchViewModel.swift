@@ -12,7 +12,7 @@ final class PhotoSearchViewModel {
     var loadedPhotoContentCellViewModels: (([PhotoContentCellViewModel]) -> Void)?
     var didSelectFilterOptions: ((FilterOptions) -> Void)?
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     private var isLoading: Bool = false
     private var hasNext: Bool = false

@@ -23,7 +23,7 @@ final class PhotoSearchViewController: UIViewController {
         case main
     }
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     var viewModel: PhotoSearchViewModel?
     weak var delegate: PhotoSearchViewControllerDelegate?

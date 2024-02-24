@@ -23,7 +23,7 @@ final class SearchNavigatorViewController: UIViewController {
         case category
     }
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     var viewModel: SearchNavigatorViewModel?
     weak var delegate: SearchNavigatorViewControllerDelegate?

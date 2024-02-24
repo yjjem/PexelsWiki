@@ -9,7 +9,7 @@ import UIKit
 
 final class CategoryCell: UICollectionViewCell {
     
-    // MARK: Variable(s)
+    // MARK: Property(s)
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()

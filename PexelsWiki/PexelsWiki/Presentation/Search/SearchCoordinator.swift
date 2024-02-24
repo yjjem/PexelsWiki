@@ -9,6 +9,8 @@ import UIKit
 
 final class SearchCoordinator: Coordinator {
     
+    // MARK: Property(s)
+    
     private let navigationController: UINavigationController
     private let sceneFactory: SceneFactory
     
