@@ -12,11 +12,11 @@ final class PhotoSearchCoordinator: Coordinator {
     
     // MARK: Property(s)
     
-    private let rootView: PhotoSearchViewController
+    private let rootView: PhotoListViewController
     
     // MARK: Initializer(s)
     
-    init(rootView: PhotoSearchViewController) {
+    init(rootView: PhotoListViewController) {
         self.rootView = rootView
     }
     

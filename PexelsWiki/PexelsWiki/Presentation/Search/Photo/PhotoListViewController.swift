@@ -11,7 +11,7 @@ protocol PhotoSearchViewControllerDelegate: AnyObject {
     func didTapFilterButton(_ currentOptions: FilterOptions)
 }
 
-final class PhotoSearchViewController: UIViewController {
+final class PhotoListViewController: UIViewController {
     
     // MARK: Type(s)
     
@@ -25,7 +25,7 @@ final class PhotoSearchViewController: UIViewController {
     
     // MARK: Property(s)
     
-    var viewModel: PhotoSearchViewModel?
+    var viewModel: PhotoListViewModel?
     weak var delegate: PhotoSearchViewControllerDelegate?
     
     private var diffableDataSource: DataSource?

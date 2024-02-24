@@ -5,7 +5,7 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-final class PhotoSearchViewModel {
+final class PhotoListViewModel {
     
     // MARK: Binding(s)
     

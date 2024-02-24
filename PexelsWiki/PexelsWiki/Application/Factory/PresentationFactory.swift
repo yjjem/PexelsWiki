@@ -28,8 +28,8 @@ struct SceneFactory {
         return SearchNavigatorViewModel()
     }
     
-    func makePhotoSearchViewModel(query: String? = nil) -> PhotoSearchViewModel {
-        return PhotoSearchViewModel(query: query, useCase: domainFactory.makePhotoSearchUseCase())
+    func makePhotoSearchViewModel(query: String? = nil) -> PhotoListViewModel {
+        return PhotoListViewModel(query: query, useCase: domainFactory.makePhotoSearchUseCase())
     }
     
     func makeVideoSearchViewModel(query: String? = nil) -> VideoSearchViewModel {
@@ -44,8 +44,8 @@ struct SceneFactory {
         return homeViewController
     }
     
-    func makePhotoSearchViewController(query: String? = nil) -> PhotoSearchViewController {
-        let photoSearchViewController = PhotoSearchViewController()
+    func makePhotoSearchViewController(query: String? = nil) -> PhotoListViewController {
+        let photoSearchViewController = PhotoListViewController()
         photoSearchViewController.viewModel = makePhotoSearchViewModel(query: query)
         return photoSearchViewController
     }
