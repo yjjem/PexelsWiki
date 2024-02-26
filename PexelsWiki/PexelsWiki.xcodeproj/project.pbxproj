@@ -80,6 +80,8 @@
 		DFF20DE72B56F23B00E01DB7 /* VideoSerachUseCaseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF20DE62B56F23B00E01DB7 /* VideoSerachUseCaseInterface.swift */; };
 		DFF4388E2B8A38CE00F70230 /* ScrollView + Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF4388D2B8A38CE00F70230 /* ScrollView + Pagination.swift */; };
 		DFF438A02B8A489C00F70230 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF4389F2B8A489C00F70230 /* PhotoDetailViewController.swift */; };
+		DFFDC86F2B8CAB7100B0E80F /* FetchSinglePhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDC86E2B8CAB7100B0E80F /* FetchSinglePhotoUseCase.swift */; };
+		DFFDC8712B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFDC8702B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift */; };
 		DFFF662B2B47BE6E00489DF0 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */; };
 		DFFF662D2B47C50C00489DF0 /* PhotoSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF662C2B47C50C00489DF0 /* PhotoSearchCoordinator.swift */; };
 /* End PBXBuildFile section */
@@ -161,6 +163,8 @@
 		DFF20DE62B56F23B00E01DB7 /* VideoSerachUseCaseInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSerachUseCaseInterface.swift; sourceTree = "<group>"; };
 		DFF4388D2B8A38CE00F70230 /* ScrollView + Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollView + Pagination.swift"; sourceTree = "<group>"; };
 		DFF4389F2B8A489C00F70230 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		DFFDC86E2B8CAB7100B0E80F /* FetchSinglePhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSinglePhotoUseCase.swift; sourceTree = "<group>"; };
+		DFFDC8702B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSingleVideoUseCase.swift; sourceTree = "<group>"; };
 		DFFF662A2B47BE6E00489DF0 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DFFF662C2B47C50C00489DF0 /* PhotoSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -368,6 +372,8 @@
 				DFD792952A44705C00729C2F /* CuratedPhotosUseCase.swift */,
 				DFD792B02A46A8AC00729C2F /* PhotoSearchUseCase.swift */,
 				DFD792B22A46A9F600729C2F /* VideoSearchUseCase.swift */,
+				DFFDC86E2B8CAB7100B0E80F /* FetchSinglePhotoUseCase.swift */,
+				DFFDC8702B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -705,11 +711,13 @@
 				DFD792CE2A484ABE00729C2F /* VideoContentCell.swift in Sources */,
 				DF8F83EA2B7C74D8002CA0E7 /* CoreFactory.swift in Sources */,
 				DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */,
+				DFFDC8712B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift in Sources */,
 				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
 				DFD792BA2A46D5EA00729C2F /* PhotoListViewController.swift in Sources */,
 				DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */,
 				DFF438A02B8A489C00F70230 /* PhotoDetailViewController.swift in Sources */,
 				DFD792D62A4877B600729C2F /* SearchFilterViewController.swift in Sources */,
+				DFFDC86F2B8CAB7100B0E80F /* FetchSinglePhotoUseCase.swift in Sources */,
 				DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */,
 				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
 				DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */,

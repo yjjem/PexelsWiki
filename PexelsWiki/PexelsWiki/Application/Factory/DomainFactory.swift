@@ -26,7 +26,15 @@ struct DomainFactory {
         return PhotoSearchUseCase(repository: dataFactory.makeVisualContentRepository())
     }
     
+    func makeFetchSinglePhotoUseCase() -> FetchSinglePhotoUseCase {
+        return FetchSinglePhotoUseCase(repository: dataFactory.makeVisualContentRepository())
+    }
+    
     func makeVideoSearchUseCase() -> VideoSearchUseCase {
         return VideoSearchUseCase(repository: dataFactory.makeVisualContentRepository())
+    }
+    
+    func makeFetchSingleVideoUseCase() -> FetchSingleVideoUseCase {
+        return FetchSingleVideoUseCase(repository: dataFactory.makeVisualContentRepository())
     }
 }

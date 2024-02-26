@@ -9,6 +9,8 @@ import Foundation
 
 protocol VisualContentRepositoryInterface {
     
+    // MARK: Photo
+    
     @discardableResult
     func fetchCuratedPhotos(
         page: Int,
@@ -25,6 +27,14 @@ protocol VisualContentRepositoryInterface {
         perPage: Int,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) -> Cancellable?
+    
+    @discardableResult
+    func fetchPhotoForID(
+        _ id: Int,
+        _ completion: @escaping (Result<PhotoBundle, Error>) -> Void
+    ) -> Cancellable?
+    
+    // MARK: Video
     
     @discardableResult
     func fetchPopularVideos(
@@ -45,5 +55,11 @@ protocol VisualContentRepositoryInterface {
         page: Int,
         perPage: Int,
         _ completion: @escaping (Result<VideoPage, Error>) -> Void
+    ) -> Cancellable?
+    
+    @discardableResult
+    func fetchVideoForID(
+        _ id: Int,
+        _ completion: @escaping (Result<VideoBundle, Error>) -> Void
     ) -> Cancellable?
 }

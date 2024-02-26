@@ -63,6 +63,20 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     }
     
     @discardableResult
+    func fetchPhotoForID(
+        _ id: Int,
+        _ completion: @escaping (Result<PhotoBundle, Error>) -> Void
+    ) -> Cancellable? {
+        let endPoint = apiFactory.makePhotoEndPoint(id: id)
+        return provider.send(request: endPoint.makeURLRequest()) { result in
+            let mappedResult = result
+                .flatMap { endPoint.decode(data: $0) }
+                .map { $0.toPhotoBundle() }
+            completion(mappedResult)
+        }
+    }
+    
+    @discardableResult
     func fetchPopularVideos(
         minWidth: Int,
         minHeight: Int,
@@ -108,6 +122,20 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
                 .map { $0.toVideoPage() }
+            completion(mappedResult)
+        }
+    }
+    
+    @discardableResult
+    func fetchVideoForID(
+        _ id: Int,
+        _ completion: @escaping (Result<VideoBundle, Error>) -> Void
+    ) -> Cancellable? {
+        let endPoint = apiFactory.makeVideoEndPoint(id: id)
+        return provider.send(request: endPoint.makeURLRequest()) { result in
+            let mappedResult = result
+                .flatMap { endPoint.decode(data: $0) }
+                .map { $0.toVideoBundle() }
             completion(mappedResult)
         }
     }

@@ -31,8 +31,18 @@ struct APIFactory {
         private static let video = "/videos"
         static let searchImages = image + "/search"
         static let curatedImages = image + "/curated"
+        static let imageByID = image + "/photos"
         static let searchVideos = video + "/search"
         static let popularVideos = video + "/popular"
+        static let videoByID = video + video
+        
+        static func photo(id: Int) -> String {
+            return imageByID + "/\(id)"
+        }
+        
+        static func video(id: Int) -> String {
+            return videoByID + "/\(id)"
+        }
     }
     
     // MARK: Property(s)
@@ -86,6 +96,15 @@ struct APIFactory {
         )
     }
     
+    func makePhotoEndPoint(id: Int) -> EndPoint<PhotoResourceResponse> {
+        return EndPoint<PhotoResourceResponse>(
+            baseURL: baseURL,
+            path: Path.photo(id: id),
+            headers: [HeaderKey.authorization: secretKey],
+            method: .get
+        )
+    }
+    
     func makePopularVideosEndPoint(
         minWidth: Int,
         minHeight: Int,
@@ -125,6 +144,15 @@ struct APIFactory {
                 QueryKey.page: String(page),
                 QueryKey.perPage: String(perPage)
             ],
+            headers: [HeaderKey.authorization: secretKey],
+            method: .get
+        )
+    }
+    
+    func makeVideoEndPoint(id: Int) -> EndPoint<VideoResourceResponse> {
+        return EndPoint<VideoResourceResponse>(
+            baseURL: baseURL,
+            path: Path.video(id: id),
             headers: [HeaderKey.authorization: secretKey],
             method: .get
         )
