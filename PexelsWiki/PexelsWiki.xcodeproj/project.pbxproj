@@ -35,6 +35,8 @@
 		DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491592A3AF2F7008BC5C4 /* Response + model mapping.swift */; };
 		DFA4915C2A3AF5A8008BC5C4 /* PhotoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4915B2A3AF5A8008BC5C4 /* PhotoListResponse.swift */; };
 		DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4915D2A3AF7AF008BC5C4 /* PhotoPage.swift */; };
+		DFB285502B8BA3440024FC5B /* StretchableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */; };
+		DFB285522B8C3B280024FC5B /* UIColor + Pexels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB285512B8C3B280024FC5B /* UIColor + Pexels.swift */; };
 		DFC289D32B8241100044D0E2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC289D22B8241100044D0E2 /* User.swift */; };
 		DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC289D42B8241180044D0E2 /* ContentResolution.swift */; };
 		DFCDD0382B7A010600C7BB7B /* VideoDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */; };
@@ -113,6 +115,8 @@
 		DFA491592A3AF2F7008BC5C4 /* Response + model mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response + model mapping.swift"; sourceTree = "<group>"; };
 		DFA4915B2A3AF5A8008BC5C4 /* PhotoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListResponse.swift; sourceTree = "<group>"; };
 		DFA4915D2A3AF7AF008BC5C4 /* PhotoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPage.swift; sourceTree = "<group>"; };
+		DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchableImageView.swift; sourceTree = "<group>"; };
+		DFB285512B8C3B280024FC5B /* UIColor + Pexels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Pexels.swift"; sourceTree = "<group>"; };
 		DFC289D22B8241100044D0E2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DFC289D42B8241180044D0E2 /* ContentResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentResolution.swift; sourceTree = "<group>"; };
 		DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDurationFormatter.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				DF8DDDB92B7522F60044BE5B /* SearchResults */,
 				DFD792DB2A498D6F00729C2F /* SearchFilterList */,
 				DFD792C42A47FCF300729C2F /* PhotoList */,
+				DFF4389D2B8A488000F70230 /* PhotoDetail */,
 				DFD792C82A482C4700729C2F /* VideoList */,
 			);
 			path = Presentation;
@@ -511,6 +516,7 @@
 				DFD792BD2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift */,
 				DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */,
 				DFF4388D2B8A38CE00F70230 /* ScrollView + Pagination.swift */,
+				DFB285512B8C3B280024FC5B /* UIColor + Pexels.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +583,14 @@
 				DFD792AE2A4687C000729C2F /* SearchNavigatorViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DFF4389D2B8A488000F70230 /* PhotoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */,
+			);
+			path = PhotoDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -665,6 +679,7 @@
 				DFCDD0382B7A010600C7BB7B /* VideoDurationFormatter.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
 				DFA491552A3AF1B2008BC5C4 /* VideoListResponse.swift in Sources */,
+				DFB285522B8C3B280024FC5B /* UIColor + Pexels.swift in Sources */,
 				DFFF662D2B47C50C00489DF0 /* PhotoSearchCoordinator.swift in Sources */,
 				DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */,
 				DFD792962A44705C00729C2F /* CuratedPhotosUseCase.swift in Sources */,
@@ -700,6 +715,7 @@
 				DFA491332A3AB6E4008BC5C4 /* Requestable.swift in Sources */,
 				DFF20DE52B56F22300E01DB7 /* PhotoSearchUseCaseInterface.swift in Sources */,
 				DF8F83EE2B7E419B002CA0E7 /* PresentationFactory.swift in Sources */,
+				DFB285502B8BA3440024FC5B /* StretchableImageView.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
 				DFD792E42A49C70F00729C2F /* FilterOptions.swift in Sources */,
 				DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */,
