@@ -27,6 +27,13 @@ final class StretchableImageView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Function(s)
+    
+    func addImageData(_ imageData: Data) {
+        let image = UIImage(data: imageData)
+        imageView.image = image
+    }
+    
     // MARK: Private Function(s)
     
     private func configureScrollView() {
@@ -36,6 +43,7 @@ final class StretchableImageView: UIScrollView {
         minimumZoomScale = 1
         maximumZoomScale = 3
         bounces = false
+        delegate = self
     }
     
     private func configureHierarchy() {
@@ -51,7 +59,16 @@ final class StretchableImageView: UIScrollView {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+}
+
+extension StretchableImageView: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        
     }
 }

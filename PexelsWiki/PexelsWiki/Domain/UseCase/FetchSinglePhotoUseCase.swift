@@ -26,6 +26,7 @@ final class FetchSinglePhotoUseCase {
     
     // MARK: Function(s)
     
+    @discardableResult
     func fetchPhoto(
         id: Int,
         _ completion: @escaping (Result<PhotoBundle, Error>) -> Void

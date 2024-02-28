@@ -14,6 +14,7 @@ enum ImageLoadManager {
         diskCapacity: 500.megaByte
     )
     
+    @discardableResult
     static func fetchCachedImageDataElseLoad(
         urlString: String,
         _ completion: @escaping (Result<Data, Error>) -> Void
