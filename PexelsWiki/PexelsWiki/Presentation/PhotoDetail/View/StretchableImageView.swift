@@ -3,7 +3,7 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
+
 
 import UIKit
 
@@ -20,7 +20,6 @@ final class StretchableImageView: UIScrollView {
         configureHierarchy()
         configureConstraints()
         configureScrollView()
-        imageView.image = UIImage(named: "nature")
     }
     
     required init?(coder: NSCoder) {
@@ -65,10 +64,10 @@ final class StretchableImageView: UIScrollView {
 }
 
 extension StretchableImageView: UIScrollViewDelegate {
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        
-    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) { }
 }

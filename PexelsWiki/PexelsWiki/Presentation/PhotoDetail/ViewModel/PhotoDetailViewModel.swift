@@ -18,9 +18,17 @@ final class PhotoDetailViewModel {
     
     private var userProfileURL: String?
     
+    private let imageID: Int
+    private let useCase: FetchSinglePhotoUseCase
+    
     // MARK: Initializer
     
     init(imageID: Int, useCase: FetchSinglePhotoUseCase) {
+        self.imageID = imageID
+        self.useCase = useCase
+    }
+    
+    func startFetching() {
         useCase.fetchPhoto(id: imageID) { [weak self] response in
             if case .success(let photoBundle) = response {
                 let photoInformation = PhotoInformation(
@@ -32,7 +40,7 @@ final class PhotoDetailViewModel {
                 self?.userProfileURL = photoBundle.user.profileURL
                 
                 let originalPhotoURL = photoBundle.variations.original
-                ImageLoadManager.fetchCachedImageDataElseLoad(urlString: originalPhotoURL) { 
+                ImageLoadManager.fetchCachedImageDataElseLoad(urlString: originalPhotoURL) {
                     response in
                     
                     if case .success(let photoData) = response {
