@@ -14,6 +14,8 @@ final class PhotoListViewModel {
     
     // MARK: Property(s)
     
+    var coordinator: SearchCoordinator?
+    
     private var isLoading: Bool = false
     private var hasNext: Bool = false
     private var query: String = ""
@@ -44,8 +46,9 @@ final class PhotoListViewModel {
             if case .success(let photoPage) = response {
                 let photoCellViewModels = photoPage.photos.compactMap {
                     PhotoContentCellViewModel(
+                        userName: $0.user.name,
                         imageURLString: $0.variations.landscape,
-                        userName: $0.user.name
+                        imageID: $0.id
                     )
                 }
                 self?.loadedPhotoContentCellViewModels?(photoCellViewModels)
@@ -72,6 +75,10 @@ final class PhotoListViewModel {
     
     func currentQuery() -> String {
         return query
+    }
+    
+    func selectedItem(id: Int) {
+        coordinator?.showPhotoDetailFlow(id: id)
     }
     
     // MARK: Private Function(s)

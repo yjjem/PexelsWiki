@@ -8,6 +8,7 @@
 import Foundation
 
 struct PhotoContentCellViewModel: Hashable {
-    let imageURLString: String
     let userName: String
+    let imageURLString: String
+    let imageID: Int
 }
