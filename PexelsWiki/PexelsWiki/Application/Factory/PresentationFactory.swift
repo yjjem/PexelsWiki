@@ -36,6 +36,10 @@ struct SceneFactory {
         return VideoListViewModel(query: query, useCase: domainFactory.makeVideoSearchUseCase())
     }
     
+    func makePhotoDetailViewModel(id: Int) -> PhotoDetailViewModel {
+        return PhotoDetailViewModel(imageID: id, useCase: domainFactory.makeFetchSinglePhotoUseCase())
+    }
+    
     // MARK: ViewController(s)
     
     func makeHomeViewController() -> HomeViewController {
@@ -61,6 +65,12 @@ struct SceneFactory {
         searchNavigator.viewModel = makeSearchNavigatorViewModel()
         return searchNavigator
         
+    }
+    
+    func makePhotoDetailViewController(id: Int) -> PhotoDetailViewController {
+        let photoDetail = PhotoDetailViewController()
+        photoDetail.viewModel = makePhotoDetailViewModel(id: id)
+        return photoDetail
     }
  
     // MARK: Coordinator(s)
