@@ -31,7 +31,14 @@ final class HomeCoordinator: Coordinator {
     
     func showMainFlow() {
         let homeViewController = sceneFactory.makeHomeViewController()
+        homeViewController.viewModel?.coordinator = self
         homeViewController.title = TabTypes.home.title
         navigationController.pushViewController(homeViewController, animated: false)
+    }
+    
+    func showDetailFlow(id: Int) {
+        let photoDetailViewController = sceneFactory.makePhotoDetailViewController(id: id)
+        photoDetailViewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(photoDetailViewController, animated: true)
     }
 }
