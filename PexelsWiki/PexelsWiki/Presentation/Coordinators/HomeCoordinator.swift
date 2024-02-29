@@ -32,7 +32,6 @@ final class HomeCoordinator: Coordinator {
     func showMainFlow() {
         let homeViewController = sceneFactory.makeHomeViewController()
         homeViewController.viewModel?.coordinator = self
-        homeViewController.title = TabTypes.home.title
         navigationController.pushViewController(homeViewController, animated: false)
     }
     
