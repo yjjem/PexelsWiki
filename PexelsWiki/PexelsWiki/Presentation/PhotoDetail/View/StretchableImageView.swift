@@ -20,6 +20,7 @@ final class StretchableImageView: UIScrollView {
         configureHierarchy()
         configureConstraints()
         configureScrollView()
+        configureDoubleTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -34,6 +35,21 @@ final class StretchableImageView: UIScrollView {
     }
     
     // MARK: Private Function(s)
+    
+    @objc private func didDoubleTap() {
+        if zoomScale == maximumZoomScale {
+            setZoomScale(minimumZoomScale, animated: true)
+        } else if zoomScale == minimumZoomScale {
+            setZoomScale(maximumZoomScale, animated: true)
+        }
+    }
+    
+    private func configureDoubleTapGesture() {
+        let doubleTapGesture = UITapGestureRecognizer()
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.addTarget(self, action: #selector(didDoubleTap))
+        self.addGestureRecognizer(doubleTapGesture)
+    }
     
     private func configureScrollView() {
         backgroundColor = .tertiarySystemGroupedBackground
