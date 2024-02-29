@@ -9,6 +9,7 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
+    
     // MARK: Type(s)
     
     typealias ContentCellRegistration = UICollectionView.CellRegistration<HomeContentCell, HomeContentCellViewModel>
@@ -49,6 +50,16 @@ final class HomeViewController: UIViewController {
         configureContentRefreshControl()
         configureDiffableDataSource()
         viewModel?.fetchCuratedPhotosPage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     // MARK: Private Function(s)
@@ -136,6 +147,13 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let translationY = scrollView.panGestureRecognizer.translation(in: contentCollectionView).y
+        if translationY < 0 {
+            tabBarController?.tabBar.isHidden = true
+        } else {
+            tabBarController?.tabBar.isHidden = false
+        }
+        
         if scrollView.isOverPaginationPoint() {
             viewModel?.fetchNextPage()
         }
