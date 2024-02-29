@@ -164,7 +164,7 @@ extension PhotoDetailViewController: UIScrollViewDelegate {
     
     private func updateImageViewHeight(in scrollView: UIScrollView) {
         let minHeight: CGFloat = 400
-        let maxHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
+        let maxHeight: CGFloat = 760
         let animationDuration: TimeInterval = 0.6
         let translationY = scrollView.panGestureRecognizer.translation(in: scrollView).y
         
