@@ -20,11 +20,11 @@ struct PhotoBundle {
     let id: Int
     let user: User
     let title: String
-    let variations: ImageVariations
+    let variations: PhotoVariations
     let resolution: ContentResolution
 }
 
-struct ImageVariations {
+struct PhotoVariations {
     let original: String
     let large: String
     let large2x: String

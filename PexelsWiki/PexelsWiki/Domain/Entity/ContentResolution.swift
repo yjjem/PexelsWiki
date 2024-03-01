@@ -12,4 +12,8 @@ struct ContentResolution {
     func toString() -> String {
         return String(width) + " X " + String(height)
     }
+    
+    func pixelsCount() -> Int {
+        return width * height
+    }
 }

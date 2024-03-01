@@ -23,5 +23,14 @@ struct VideoBundle {
     let tags: [String]
     let previewURL: String
     let resolution: ContentResolution
+    let videoFiles: [VideoFile]
+}
+
+struct VideoFile {
+    let id: Int
+    let quality: String
+    let fileType: String
+    let resolution: ContentResolution
+    let link: String
 }
  

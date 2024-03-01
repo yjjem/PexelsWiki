@@ -27,6 +27,20 @@ extension VideoResourceResponse {
         return ContentResolution(width: width, height: height)
     }
     
+    func toVideoFileList() -> [VideoFile] {
+        var videoFiles = videoFiles.map {
+            VideoFile(
+                id: $0.id,
+                quality: $0.quality,
+                fileType: $0.fileType,
+                resolution: toVideoResolution(),
+                link: $0.link
+            )
+        }
+        videoFiles.sort(by: { $0.resolution.pixelsCount() > $1.resolution.pixelsCount() })
+        return videoFiles
+    }
+    
     func toVideoBundle() -> VideoBundle {
         return VideoBundle(
             id: id,
@@ -34,7 +48,8 @@ extension VideoResourceResponse {
             duration: duration,
             tags: tags,
             previewURL: image,
-            resolution: toVideoResolution()
+            resolution: toVideoResolution(),
+            videoFiles: toVideoFileList()
         )
     }
 }
@@ -74,8 +89,8 @@ extension PhotoResourceResponse {
         return ContentResolution(width: width, height: height)
     }
     
-    func toImageVariations() -> ImageVariations {
-        return ImageVariations(
+    func toPhotoVariations() -> PhotoVariations {
+        return PhotoVariations(
             original: imageSources.original,
             large: imageSources.large,
             large2x: imageSources.large2x,
@@ -91,7 +106,7 @@ extension PhotoResourceResponse {
             id: id,
             user: toUser(),
             title: title,
-            variations: toImageVariations(),
+            variations: toPhotoVariations(),
             resolution: toPhotoResolution()
         )
     }
