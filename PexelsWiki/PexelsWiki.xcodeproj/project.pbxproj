@@ -20,6 +20,7 @@
 		DF8F83EE2B7E419B002CA0E7 /* PresentationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83ED2B7E419B002CA0E7 /* PresentationFactory.swift */; };
 		DF8F83F22B7F1E4E002CA0E7 /* DomainFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83F12B7F1E4E002CA0E7 /* DomainFactory.swift */; };
 		DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83F32B7F1E5A002CA0E7 /* DataFactory.swift */; };
+		DFA161042B92F8E4008FEDBE /* UIButton + Pexels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA161032B92F8E4008FEDBE /* UIButton + Pexels.swift */; };
 		DFA491122A3A1F76008BC5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */; };
 		DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */; };
 		DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA491152A3A1F76008BC5C4 /* HomeViewController.swift */; };
@@ -102,6 +103,7 @@
 		DF8F83ED2B7E419B002CA0E7 /* PresentationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationFactory.swift; sourceTree = "<group>"; };
 		DF8F83F12B7F1E4E002CA0E7 /* DomainFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainFactory.swift; sourceTree = "<group>"; };
 		DF8F83F32B7F1E5A002CA0E7 /* DataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFactory.swift; sourceTree = "<group>"; };
+		DFA161032B92F8E4008FEDBE /* UIButton + Pexels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Pexels.swift"; sourceTree = "<group>"; };
 		DFA4910E2A3A1F76008BC5C4 /* PexelsWiki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PexelsWiki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA491112A3A1F76008BC5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA491132A3A1F76008BC5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */,
 				DFF4388D2B8A38CE00F70230 /* ScrollView + Pagination.swift */,
 				DFB285512B8C3B280024FC5B /* UIColor + Pexels.swift */,
+				DFA161032B92F8E4008FEDBE /* UIButton + Pexels.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				DFFDC8712B8CAC3F00B0E80F /* FetchSingleVideoUseCase.swift in Sources */,
 				DFA4915A2A3AF2F7008BC5C4 /* Response + model mapping.swift in Sources */,
 				DFD792BA2A46D5EA00729C2F /* PhotoListViewController.swift in Sources */,
+				DFA161042B92F8E4008FEDBE /* UIButton + Pexels.swift in Sources */,
 				DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */,
 				DFF438A02B8A489C00F70230 /* PhotoDetailViewController.swift in Sources */,
 				DFD792D62A4877B600729C2F /* SearchFilterViewController.swift in Sources */,
