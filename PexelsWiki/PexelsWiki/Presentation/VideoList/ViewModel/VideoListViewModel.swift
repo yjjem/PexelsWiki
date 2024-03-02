@@ -15,6 +15,8 @@ final class VideoListViewModel {
     
     // MARK: Property(s)
     
+    weak var coordinator: SearchCoordinator?
+    
     private var query: String = ""
     private var page: Int = 1
     private var hasNext: Bool = false
@@ -77,6 +79,10 @@ final class VideoListViewModel {
         page = 1
         hasNext = false
         fetchSearchResults()
+    }
+    
+    func selectItem(videoID: Int) {
+        coordinator?.showVideoDetailFlow(id: videoID)
     }
     
     // MARK: Private Function(s)

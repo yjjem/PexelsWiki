@@ -3,9 +3,11 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
+import AVKit
+import Combine
 
 final class SearchCoordinator: Coordinator {
     
@@ -13,6 +15,12 @@ final class SearchCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
     private let sceneFactory: SceneFactory
+    
+    var observing: NSKeyValueObservation?
+    
+    deinit {
+        observing?.invalidate()
+    }
     
     private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     
@@ -43,6 +51,7 @@ final class SearchCoordinator: Coordinator {
         let photoSearchViewController = sceneFactory.makePhotoSearchViewController(query: query)
         photoSearchViewController.viewModel?.coordinator = self
         let videoSearchViewController = sceneFactory.makeVideoSearchViewController(query: query)
+        videoSearchViewController.viewModel?.coordinator = self
         
         let viewPages = [photoSearchViewController, videoSearchViewController]
         let searchResultsViewController = SearchResultsViewController()
@@ -57,6 +66,12 @@ final class SearchCoordinator: Coordinator {
     func showPhotoDetailFlow(id: Int) {
         let photoDetail = sceneFactory.makePhotoDetailViewController(id: id)
         router.push(photoDetail, animated: true, nil)
+    }
+    
+    func showVideoDetailFlow(id: Int) {
+        let videoDetailViewController = VideoDetailViewController()
+        videoDetailViewController.viewModel = sceneFactory.makeVideoDetailViewModel(id: id)
+        router.push(videoDetailViewController, animated: true, nil)
     }
 }
 
