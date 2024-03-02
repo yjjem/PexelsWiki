@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol PhotoSearchViewControllerDelegate: AnyObject {
-    func didTapFilterButton(_ currentOptions: FilterOptions)
-}
-
 final class PhotoListViewController: UIViewController {
     
     // MARK: Type(s)
@@ -26,7 +22,6 @@ final class PhotoListViewController: UIViewController {
     // MARK: Property(s)
     
     var viewModel: PhotoListViewModel?
-    weak var delegate: PhotoSearchViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()

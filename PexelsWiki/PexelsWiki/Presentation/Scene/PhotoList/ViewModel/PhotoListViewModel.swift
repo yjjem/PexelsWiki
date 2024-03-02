@@ -10,7 +10,6 @@ final class PhotoListViewModel {
     // MARK: Binding(s)
     
     var loadedPhotoContentCellViewModels: (([PhotoContentCellViewModel]) -> Void)?
-    var didSelectFilterOptions: ((FilterOptions) -> Void)?
     
     // MARK: Property(s)
     
