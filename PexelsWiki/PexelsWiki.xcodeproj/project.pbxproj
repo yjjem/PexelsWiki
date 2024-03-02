@@ -261,16 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				DFF438952B8A467000F70230 /* Extensions */,
-				DFD792A62A45AB1F00729C2F /* CommonViews */,
 				DFF438962B8A46FA00F70230 /* Coordinators */,
-				DFD792A52A45AB1300729C2F /* Home */,
-				DFD792C32A47FCE300729C2F /* SearchNavigator */,
-				DF8DDDB92B7522F60044BE5B /* SearchResults */,
-				DFD792DB2A498D6F00729C2F /* SearchFilterList */,
-				DFD792C42A47FCF300729C2F /* PhotoList */,
-				DFF4389D2B8A488000F70230 /* PhotoDetail */,
-				DFD792C82A482C4700729C2F /* VideoList */,
-				DFF4389E2B8A488F00F70230 /* VideoDetail */,
+				DFD2E9D02B930C34004390D4 /* Scene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -382,6 +374,22 @@
 				DFA491542A3AF1B2008BC5C4 /* VideoListResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		DFD2E9D02B930C34004390D4 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				DFD792A62A45AB1F00729C2F /* CommonViews */,
+				DFD792A52A45AB1300729C2F /* Home */,
+				DFD792C32A47FCE300729C2F /* SearchNavigator */,
+				DF8DDDB92B7522F60044BE5B /* SearchResults */,
+				DFD792DB2A498D6F00729C2F /* SearchFilterList */,
+				DFD792C42A47FCF300729C2F /* PhotoList */,
+				DFF4389D2B8A488000F70230 /* PhotoDetail */,
+				DFD792C82A482C4700729C2F /* VideoList */,
+				DFF4389E2B8A488F00F70230 /* VideoDetail */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		DFD4116B2B904D31005F1ADE /* View */ = {
