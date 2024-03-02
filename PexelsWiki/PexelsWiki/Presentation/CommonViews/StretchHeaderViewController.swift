@@ -17,7 +17,11 @@ class StretchHeaderViewController: UIViewController {
     }
     var stretchAnimationDuration: TimeInterval = 0.6
     
-    var contentViews: [UIView] = []
+    var contentViews: [UIView] = [] {
+        didSet {
+            configureScrollContent()
+        }
+    }
     var viewToStretch: UIView? {
         return contentViews.first
     }
@@ -43,7 +47,6 @@ class StretchHeaderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureScrollContent()
         configureContentViews()
         configureStretchingView()
     }
