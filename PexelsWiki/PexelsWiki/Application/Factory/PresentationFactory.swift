@@ -40,6 +40,10 @@ struct SceneFactory {
         return PhotoDetailViewModel(imageID: id, useCase: domainFactory.makeFetchSinglePhotoUseCase())
     }
     
+    func makeVideoDetailViewModel(id: Int) -> VideoDetailViewModel {
+        return VideoDetailViewModel(videoID: id, useCase: domainFactory.makeFetchSingleVideoUseCase())
+    }
+    
     // MARK: ViewController(s)
     
     func makeHomeViewController() -> HomeViewController {
