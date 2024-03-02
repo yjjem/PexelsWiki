@@ -7,21 +7,12 @@
 
 import UIKit
 
-final class PhotoDetailViewController: UIViewController {
+final class PhotoDetailViewController: StretchHeaderViewController {
     
     // MARK: Property(s)
     
     var viewModel: PhotoDetailViewModel?
     
-    private var imageViewHeightConstraint: NSLayoutConstraint?
-    private var infoStackBottomConstraint: NSLayoutConstraint?
-    
-    private let contentScrollView = UIScrollView()
-    private let scrollContent: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
     private let imageView = StretchableImageView()
     private let informationStack: UIStackView = {
         let stackView = UIStackView()
@@ -60,11 +51,8 @@ final class PhotoDetailViewController: UIViewController {
     // MARK: Override(s)
     
     override func loadView() {
-        self.view = contentScrollView
-        contentScrollView.backgroundColor = .systemBackground
-        contentScrollView.showsVerticalScrollIndicator = false
-        contentScrollView.alwaysBounceVertical = true
-        contentScrollView.delegate = self
+        super.loadView()
+        contentViews = [imageView, informationStack]
     }
     
     override func viewDidLoad() {
@@ -74,6 +62,11 @@ final class PhotoDetailViewController: UIViewController {
         configureStyle()
         bindViewModel()
         viewModel?.startFetching()
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        imageView.setZoomScale(1, animated: true)
     }
     
     // MARK: Private Function(s)
@@ -95,11 +88,6 @@ final class PhotoDetailViewController: UIViewController {
     }
     
     private func configureViewHierarchy() {
-        contentScrollView.addSubview(scrollContent)
-        
-        scrollContent.addArrangedSubview(imageView)
-        scrollContent.addArrangedSubview(informationStack)
-        
         informationStack.addArrangedSubview(titleLabel)
         informationStack.addArrangedSubview(userNameLabel)
         informationStack.addArrangedSubview(resolutionLabel)
@@ -110,24 +98,6 @@ final class PhotoDetailViewController: UIViewController {
     }
     
     private func configureConstraints() {
-        let scrollViewContentGuide = contentScrollView.contentLayoutGuide
-        scrollContent.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            scrollContent.topAnchor.constraint(equalTo: scrollViewContentGuide.topAnchor),
-            scrollContent.leadingAnchor.constraint(equalTo: scrollViewContentGuide.leadingAnchor),
-            scrollContent.trailingAnchor.constraint(equalTo: scrollViewContentGuide.trailingAnchor),
-            scrollContent.bottomAnchor.constraint(equalTo: scrollViewContentGuide.bottomAnchor),
-            scrollContent.heightAnchor.constraint(equalTo: scrollViewContentGuide.heightAnchor)
-        ])
-        
-        let imageViewHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: 400)
-        self.imageViewHeightConstraint = imageViewHeightConstraint
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentScrollView.topAnchor),
-            imageView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor),
-            imageViewHeightConstraint
-        ])
-        
         let buttonSize: CGFloat = 37
         NSLayoutConstraint.activate([
             downloadButton.heightAnchor.constraint(equalToConstant: buttonSize),
@@ -136,7 +106,6 @@ final class PhotoDetailViewController: UIViewController {
     }
     
     private func configureStyle() {
-        scrollContent.backgroundColor = .systemBackground
         titleLabel.numberOfLines = 2
         titleLabel.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
         userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -150,38 +119,5 @@ final class PhotoDetailViewController: UIViewController {
             button.tintColor = .white
         }
         informationStack.setCustomSpacing(30, after: resolutionLabel)
-    }
-}
-
-// MARK: UIScrollViewDelegate
-
-extension PhotoDetailViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateImageViewHeight(in: scrollView)
-        resetImageViewStretchScale()
-    }
-    
-    private func updateImageViewHeight(in scrollView: UIScrollView) {
-        let minHeight: CGFloat = 400
-        let maxHeight: CGFloat = 760
-        let animationDuration: TimeInterval = 0.6
-        let translationY = scrollView.panGestureRecognizer.translation(in: scrollView).y
-        
-        if translationY < 0 {
-            UIView.animate(withDuration: animationDuration) {
-                self.imageViewHeightConstraint?.constant = minHeight
-                self.view.layoutIfNeeded()
-            }
-        } else if translationY > 0 {
-            UIView.animate(withDuration: animationDuration) {
-                self.imageViewHeightConstraint?.constant = maxHeight
-                self.view.layoutIfNeeded()
-            }
-        }
-    }
-    
-    private func resetImageViewStretchScale() {
-        imageView.setZoomScale(1, animated: true)
     }
 }
