@@ -9,7 +9,6 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    
     // MARK: Type(s)
     
     typealias ContentCellRegistration = UICollectionView.CellRegistration<HomeContentCell, HomeContentCellViewModel>
@@ -147,13 +146,6 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let translationY = scrollView.panGestureRecognizer.translation(in: contentCollectionView).y
-        if translationY < 0 {
-            tabBarController?.tabBar.isHidden = true
-        } else {
-            tabBarController?.tabBar.isHidden = false
-        }
-        
         if scrollView.isOverPaginationPoint() {
             viewModel?.fetchNextPage()
         }
