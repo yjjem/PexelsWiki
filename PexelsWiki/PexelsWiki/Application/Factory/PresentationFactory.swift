@@ -76,6 +76,12 @@ struct SceneFactory {
         photoDetail.viewModel = makePhotoDetailViewModel(id: id)
         return photoDetail
     }
+    
+    func makeVideoDetailViewController(id: Int) -> VideoDetailViewController {
+        let videoDetail = VideoDetailViewController()
+        videoDetail.viewModel = makeVideoDetailViewModel(id: id)
+        return videoDetail
+    }
  
     // MARK: Coordinator(s)
     
