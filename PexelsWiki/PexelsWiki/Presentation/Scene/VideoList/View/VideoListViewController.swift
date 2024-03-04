@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol VideoListViewControllerDelegate: AnyObject {
+    func didSelectVideoItem(id: Int)
+}
+
 final class VideoListViewController: UIViewController {
     
     // MARK: Type(s)
@@ -22,6 +26,7 @@ final class VideoListViewController: UIViewController {
     // MARK: Property(s)
     
     var viewModel: VideoListViewModel?
+    weak var delegate: VideoListViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
@@ -124,7 +129,7 @@ extension VideoListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
-            // TODO: add Delegate
+            delegate?.didSelectVideoItem(id: selectedItem.id)
         }
     }
 }
