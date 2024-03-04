@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PhotolistViewControllerDelegate: AnyObject {
+    func didSelectPhotoItem(id: Int)
+}
+
 final class PhotoListViewController: UIViewController {
     
     // MARK: Type(s)
@@ -22,6 +26,7 @@ final class PhotoListViewController: UIViewController {
     // MARK: Property(s)
     
     var viewModel: PhotoListViewModel?
+    weak var delegate: PhotolistViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
@@ -149,7 +154,7 @@ extension PhotoListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
-            // TODO: Add Delegate
+            delegate?.didSelectPhotoItem(id: selectedItem.imageID)
         }
     }
 }
