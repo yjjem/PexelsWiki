@@ -13,6 +13,7 @@ final class VideoDetailViewController: StretchHeaderViewController {
     // MARK: Property(s)
     
     var viewModel: VideoDetailViewModel?
+    weak var delegate: DetailViewControllerDelegate?
     
     private var playerStatusObserving: NSKeyValueObservation?
     private let playerViewController = AVPlayerViewController()
@@ -56,6 +57,7 @@ final class VideoDetailViewController: StretchHeaderViewController {
         configureStyle()
         configureConstraints()
         configurePlayerStatusObservation()
+        configureButtons()
         bindViewModel()
     }
     
@@ -116,5 +118,29 @@ final class VideoDetailViewController: StretchHeaderViewController {
             downloadButton.heightAnchor.constraint(equalToConstant: buttonSize),
             visitProfileButton.heightAnchor.constraint(equalToConstant: buttonSize),
         ])
+    }
+    
+    // MARK: Action(s)
+    
+    @objc private func didTapVisitProfileButton() {
+        if let viewModel, let userProfileURL = viewModel.userProfileURL {
+            delegate?.didRequestUserProfile(userProfileURL)
+        }
+    }
+    
+    @objc private func didTapDownloadImageButton() {
+        if let viewModel {
+            delegate?.didRequestDownloadPhoto(of: viewModel.videoID)
+        }
+    }
+    
+    private func configureButtons() {
+        visitProfileButton.addTarget(
+            self, action: #selector(didTapVisitProfileButton),
+            for: .touchUpInside
+        )
+        downloadButton.addTarget(
+            self, action: #selector(didTapDownloadImageButton),
+            for: .touchUpInside)
     }
 }
