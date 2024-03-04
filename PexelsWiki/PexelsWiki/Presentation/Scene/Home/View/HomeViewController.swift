@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HomeViewControllerDelegate: AnyObject {
+    func didSelectItem(id: Int)
+}
+
 final class HomeViewController: UIViewController {
     
     // MARK: Type(s)
@@ -22,6 +26,7 @@ final class HomeViewController: UIViewController {
     // MARK: Property(s)
     
     var viewModel: HomeViewModel?
+    weak var delegate: HomeViewControllerDelegate?
     
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
@@ -152,6 +157,8 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
+            delegate?.didSelectItem(id: selectedItem.imageID)
         }
     }
 }

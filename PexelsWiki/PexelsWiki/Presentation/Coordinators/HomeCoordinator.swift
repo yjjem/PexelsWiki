@@ -32,6 +32,7 @@ final class HomeCoordinator: Coordinator {
     
     func showMainFlow() {
         let homeViewController = sceneFactory.makeHomeViewController()
+        homeViewController.delegate = self
         navigationController.pushViewController(homeViewController, animated: false)
     }
     
@@ -46,6 +47,15 @@ final class HomeCoordinator: Coordinator {
         guard let url = URL(string: url) else { return }
         let safariViewController = SFSafariViewController(url: url)
         navigationController.present(safariViewController, animated: true)
+    }
+}
+
+// MARK: HomeViewControllerDelegate
+
+extension HomeCoordinator: HomeViewControllerDelegate {
+    
+    func didSelectItem(id: Int) {
+        showDetailFlow(id: id)
     }
 }
 
