@@ -3,9 +3,10 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
+
 
 import UIKit
+import SafariServices
 
 final class HomeCoordinator: Coordinator {
     
@@ -38,6 +39,7 @@ final class HomeCoordinator: Coordinator {
     func showDetailFlow(id: Int) {
         let photoDetailViewController = sceneFactory.makePhotoDetailViewController(id: id)
         photoDetailViewController.hidesBottomBarWhenPushed = true
+        photoDetailViewController.delegate = self
         navigationController.pushViewController(photoDetailViewController, animated: true)
     }
     
@@ -47,4 +49,16 @@ final class HomeCoordinator: Coordinator {
         navigationController.present(safariViewController, animated: true)
     }
 }
+
+// MARK: DetailViewControllerDelegate
+
+extension HomeCoordinator: DetailViewControllerDelegate {
+    
+    func didRequestUserProfile(_ userProfileURL: String) {
+        showUserProfileFlow(url: userProfileURL)
+    }
+    
+    func didRequestDownloadPhoto(of id: Int) {
+        // TODO: add download photo
+    }
 }

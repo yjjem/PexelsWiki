@@ -7,6 +7,7 @@
 
 import UIKit
 import AVKit
+import SafariServices
 
 final class SearchCoordinator: Coordinator {
     
@@ -54,13 +55,17 @@ final class SearchCoordinator: Coordinator {
     func showPhotoDetailFlow(id: Int) {
         let photoDetail = sceneFactory.makePhotoDetailViewController(id: id)
         photoDetail.hidesBottomBarWhenPushed = true
+        photoDetail.delegate = self
         router.push(photoDetail, animated: true, nil)
     }
     
     func showVideoDetailFlow(id: Int) {
-        let videoDetailViewController = sceneFactory.makeVideoDetailViewController(id: id)
-        videoDetailViewController.hidesBottomBarWhenPushed = true
-        router.push(videoDetailViewController, animated: true, nil)
+        let videoDetail = sceneFactory.makeVideoDetailViewController(id: id)
+        videoDetail.hidesBottomBarWhenPushed = true
+        videoDetail.delegate = self
+        router.push(videoDetail, animated: true, nil)
+    }
+    
     func showUserProfileFlow(profileURLString: String) {
         guard let userProfileURL = URL(string: profileURLString) else { return }
         let safariViewController = SFSafariViewController(url: userProfileURL)
@@ -74,5 +79,18 @@ extension SearchCoordinator: SearchNavigatorViewControllerDelegate {
     
     func didSelectSearchQuery(_ searchQuery: String) {
         showSearchResultsFlow(query: searchQuery)
+    }
+}
+
+// MARK: DetailViewControllerDelegate
+
+extension SearchCoordinator: DetailViewControllerDelegate {
+    
+    func didRequestUserProfile(_ profileURL: String) {
+        showUserProfileFlow(profileURLString: profileURL)
+    }
+    
+    func didRequestDownloadPhoto(of id: Int) {
+        // TODO: add download flow
     }
 }
