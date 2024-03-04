@@ -37,11 +37,16 @@ struct SceneFactory {
     }
     
     func makePhotoDetailViewModel(id: Int) -> PhotoDetailViewModel {
-        return PhotoDetailViewModel(imageID: id, useCase: domainFactory.makeFetchSinglePhotoUseCase())
+        return PhotoDetailViewModel(
+            imageID: id,
+            useCase: domainFactory.makeFetchSinglePhotoUseCase())
     }
     
     func makeVideoDetailViewModel(id: Int) -> VideoDetailViewModel {
-        return VideoDetailViewModel(videoID: id, useCase: domainFactory.makeFetchSingleVideoUseCase())
+        return VideoDetailViewModel(
+            videoID: id,
+            useCase: domainFactory.makeFetchSingleVideoUseCase()
+        )
     }
     
     // MARK: ViewController(s)
@@ -52,13 +57,13 @@ struct SceneFactory {
         return homeViewController
     }
     
-    func makePhotoSearchViewController(query: String? = nil) -> PhotoListViewController {
+    func makePhotoListViewController(query: String? = nil) -> PhotoListViewController {
         let photoSearchViewController = PhotoListViewController()
         photoSearchViewController.viewModel = makePhotoSearchViewModel(query: query)
         return photoSearchViewController
     }
     
-    func makeVideoSearchViewController(query: String? = nil) -> VideoListViewController {
+    func makeVideoListViewController(query: String? = nil) -> VideoListViewController {
         let videoSearchViewController = VideoListViewController()
         videoSearchViewController.viewModel = makeVideoSearchViewModel(query: query)
         return videoSearchViewController

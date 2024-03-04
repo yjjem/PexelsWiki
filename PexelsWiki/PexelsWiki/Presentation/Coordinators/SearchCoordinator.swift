@@ -39,19 +39,16 @@ final class SearchCoordinator: Coordinator {
     }
     
     func showSearchResultsFlow(query: String) {
-        let photoSearchViewController = sceneFactory.makePhotoSearchViewController(query: query)
-        photoSearchViewController.viewModel?.coordinator = self
-        let videoSearchViewController = sceneFactory.makeVideoSearchViewController(query: query)
-        videoSearchViewController.viewModel?.coordinator = self
+        let photoList = sceneFactory.makePhotoListViewController(query: query)
+        let videoList = sceneFactory.makeVideoListViewController(query: query)
+        photoList.viewModel?.coordinator = self
+        videoList.viewModel?.coordinator = self
         
-        let viewPages = [photoSearchViewController, videoSearchViewController]
+        let viewPages = [photoList, videoList]
         let searchResultsViewController = SearchResultsViewController()
         searchResultsViewController.configureViewPages(viewPages)
-        
-        navigationController.tabBarController?.tabBar.isHidden = true
-        router.push(searchResultsViewController, animated: true) { [weak self] in
-            self?.navigationController.tabBarController?.tabBar.isHidden = false
-        }
+        searchResultsViewController.hidesBottomBarWhenPushed = true
+        router.push(searchResultsViewController, animated: true, nil)
     }
     
     func showPhotoDetailFlow(id: Int) {
