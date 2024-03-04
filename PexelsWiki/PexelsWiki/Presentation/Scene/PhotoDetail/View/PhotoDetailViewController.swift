@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol DetailViewControllerDelegate: AnyObject {
+    func didRequestUserProfile(_ userProfileURL: String)
+    func didRequestDownloadPhoto(of id: Int)
+}
+
 final class PhotoDetailViewController: StretchHeaderViewController {
     
     // MARK: Property(s)
     
     var viewModel: PhotoDetailViewModel?
+    weak var delegate: DetailViewControllerDelegate?
     
     private let imageView = StretchableImageView()
     private let informationStack: UIStackView = {
@@ -61,6 +67,7 @@ final class PhotoDetailViewController: StretchHeaderViewController {
         configureViewHierarchy()
         configureConstraints()
         configureStyle()
+        configureButtons()
         bindViewModel()
         viewModel?.startFetching()
     }
@@ -126,5 +133,20 @@ final class PhotoDetailViewController: StretchHeaderViewController {
             button.tintColor = .white
         }
         informationStack.setCustomSpacing(30, after: resolutionLabel)
+    }
+    
+    private func configureButtons() {
+        visitProfileButton.addTarget(
+            self, action: #selector(didTapVisitProfileButton),
+            for: .touchUpInside
+        )
+    }
+    
+    // MARK: Action(s)
+    
+    @objc private func didTapVisitProfileButton() {
+        if let viewModel, let userProfileURL = viewModel.userProfileURL {
+            delegate?.didRequestUserProfile(userProfileURL)
+        }
     }
 }
