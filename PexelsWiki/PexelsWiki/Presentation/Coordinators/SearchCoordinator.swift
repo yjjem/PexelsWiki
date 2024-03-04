@@ -32,8 +32,7 @@ final class SearchCoordinator: Coordinator {
     // MARK: Private Function(s)
     
     func showSearchNavigatorFlow() {
-        let searchNavigatorViewController = SearchNavigatorViewController()
-        searchNavigatorViewController.viewModel = sceneFactory.makeSearchNavigatorViewModel()
+        let searchNavigatorViewController = sceneFactory.makeSearchNavigatorViewController()
         searchNavigatorViewController.title = TabTypes.search.title
         searchNavigatorViewController.delegate = self
         router.push(searchNavigatorViewController, animated: true, nil)
