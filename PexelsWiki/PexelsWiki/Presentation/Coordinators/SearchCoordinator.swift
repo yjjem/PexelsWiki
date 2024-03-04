@@ -7,7 +7,6 @@
 
 import UIKit
 import AVKit
-import Combine
 
 final class SearchCoordinator: Coordinator {
     
@@ -15,14 +14,6 @@ final class SearchCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
     private let sceneFactory: SceneFactory
-    
-    var observing: NSKeyValueObservation?
-    
-    deinit {
-        observing?.invalidate()
-    }
-    
-    private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     
     // MARK: Initializer(s)
     
