@@ -41,7 +41,9 @@ final class SearchCoordinator: Coordinator {
     
     func showSearchResultsFlow(query: String) {
         let photoList = sceneFactory.makePhotoListViewController(query: query)
+        photoList.delegate = self
         let videoList = sceneFactory.makeVideoListViewController(query: query)
+        videoList.delegate = self
         
         let viewPages = [photoList, videoList]
         let searchResultsViewController = SearchResultsViewController()
@@ -68,6 +70,19 @@ final class SearchCoordinator: Coordinator {
         guard let userProfileURL = URL(string: profileURLString) else { return }
         let safariViewController = SFSafariViewController(url: userProfileURL)
         router.present(safariViewController, animated: true, nil)
+    }
+}
+
+// MARK: ListSelect Delegates
+
+extension SearchCoordinator: PhotolistViewControllerDelegate, VideoListViewControllerDelegate {
+    
+    func didSelectPhotoItem(id: Int) {
+        showPhotoDetailFlow(id: id)
+    }
+    
+    func didSelectVideoItem(id: Int) {
+        showVideoDetailFlow(id: id)
     }
 }
 
