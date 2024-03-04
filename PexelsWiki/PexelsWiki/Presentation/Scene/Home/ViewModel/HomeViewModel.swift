@@ -15,8 +15,6 @@ final class HomeViewModel {
     
     // MARK: Property(s)
     
-    weak var coordinator: HomeCoordinator?
-    
     private var isLoading: Bool = false
     private var hasNext: Bool = false
     private var page: Int = 1
@@ -68,10 +66,6 @@ final class HomeViewModel {
         page = 1
         hasNext = false
         fetchCuratedPhotosPage()
-    }
-    
-    func selectedItem(id: Int) {
-        coordinator?.showDetailFlow(id: id)
     }
     
     // MARK: Private Function(s)
