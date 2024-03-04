@@ -124,7 +124,7 @@ extension VideoListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
-            viewModel?.selectItem(videoID: selectedItem.id)
+            // TODO: add Delegate
         }
     }
 }

@@ -13,8 +13,6 @@ final class PhotoListViewModel {
     
     // MARK: Property(s)
     
-    var coordinator: SearchCoordinator?
-    
     private var isLoading: Bool = false
     private var hasNext: Bool = false
     private var query: String = ""
@@ -74,10 +72,6 @@ final class PhotoListViewModel {
     
     func currentQuery() -> String {
         return query
-    }
-    
-    func selectedItem(id: Int) {
-        coordinator?.showPhotoDetailFlow(id: id)
     }
     
     // MARK: Private Function(s)

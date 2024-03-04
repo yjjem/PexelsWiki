@@ -148,9 +148,8 @@ extension PhotoListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath)
-        if let selectedItem {
-            viewModel?.selectedItem(id: selectedItem.imageID)
+        if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
+            // TODO: Add Delegate
         }
     }
 }

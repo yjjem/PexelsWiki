@@ -42,8 +42,6 @@ final class SearchCoordinator: Coordinator {
     func showSearchResultsFlow(query: String) {
         let photoList = sceneFactory.makePhotoListViewController(query: query)
         let videoList = sceneFactory.makeVideoListViewController(query: query)
-        photoList.viewModel?.coordinator = self
-        videoList.viewModel?.coordinator = self
         
         let viewPages = [photoList, videoList]
         let searchResultsViewController = SearchResultsViewController()
