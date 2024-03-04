@@ -57,8 +57,7 @@ final class SearchCoordinator: Coordinator {
     }
     
     func showVideoDetailFlow(id: Int) {
-        let videoDetailViewController = VideoDetailViewController()
-        videoDetailViewController.viewModel = sceneFactory.makeVideoDetailViewModel(id: id)
+        let videoDetailViewController = sceneFactory.makeVideoDetailViewController(id: id)
         router.push(videoDetailViewController, animated: true, nil)
     }
 }
