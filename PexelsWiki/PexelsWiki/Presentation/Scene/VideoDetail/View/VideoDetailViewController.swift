@@ -38,6 +38,7 @@ final class VideoDetailViewController: StretchHeaderViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "arrow.up.right.square"), for: .normal)
         button.setTitle("Visit Profile", for: .normal)
+        button.isEnabled = false
         return button
     }()
     private let downloadButton: UIButton = {
@@ -71,6 +72,13 @@ final class VideoDetailViewController: StretchHeaderViewController {
                 self?.resolutionLabel.text = videoItem.resolution
             }
         }
+        
+        viewModel?.profileIsAvailable = { [weak self] in
+            DispatchQueue.main.async {
+                self?.visitProfileButton.isEnabled = true
+            }
+        }
+        
         viewModel?.startFetchingVideoItem()
     }
     

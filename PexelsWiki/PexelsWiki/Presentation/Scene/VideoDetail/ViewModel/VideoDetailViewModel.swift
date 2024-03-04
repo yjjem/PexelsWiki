@@ -10,12 +10,21 @@ final class VideoDetailViewModel {
     // MARK: Binding(s)
     
     var fetchedVideoItem: ((VideoItem) -> Void)?
+    var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
     
-    private let videoID: Int
-    private let useCase: FetchSingleVideoUseCase
+    var userProfileURL: String? {
+        didSet {
+            if let userProfileURL, userProfileURL.isEmpty == false {
+                profileIsAvailable?()
+            }
+        }
+    }
+    let videoID: Int
+    
     private var videoRequest: Cancellable?
+    private let useCase: FetchSingleVideoUseCase
     
     // MARK: Initializer
     
@@ -46,6 +55,7 @@ final class VideoDetailViewModel {
                     resolution: videoResource.resolution.toString(),
                     files: videoFiles
                 )
+                self?.userProfileURL = videoResource.user.profileURL
                 self?.fetchedVideoItem?(videoItem)
             }
         }

@@ -38,6 +38,7 @@ final class PhotoDetailViewController: StretchHeaderViewController {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "arrow.up.right.square"), for: .normal)
         button.setTitle("Visit Profile", for: .normal)
+        button.isEnabled = false
         return button
     }()
     
@@ -83,6 +84,12 @@ final class PhotoDetailViewController: StretchHeaderViewController {
                 self?.titleLabel.text = photoInformation.title
                 self?.userNameLabel.text = photoInformation.userName
                 self?.resolutionLabel.text = photoInformation.resolution
+            }
+        }
+        
+        viewModel?.profileIsAvailable = { [weak self] in
+            DispatchQueue.main.async {
+                self?.visitProfileButton.isEnabled = true
             }
         }
     }

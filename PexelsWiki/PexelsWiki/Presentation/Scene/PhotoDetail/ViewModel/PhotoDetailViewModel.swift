@@ -13,10 +13,17 @@ final class PhotoDetailViewModel {
     
     var loadedPhotoInformation: ((PhotoInformation) -> Void)?
     var loadedPhotoData: ((Data) -> Void)?
+    var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
     
-    private var userProfileURL: String?
+    var userProfileURL: String? {
+        didSet {
+            if let userProfileURL, userProfileURL.isEmpty == false {
+                profileIsAvailable?()
+            }
+        }
+    }
     
     private let imageID: Int
     private let useCase: FetchSinglePhotoUseCase
@@ -27,6 +34,8 @@ final class PhotoDetailViewModel {
         self.imageID = imageID
         self.useCase = useCase
     }
+    
+    // MARK: Function(s)
     
     func startFetching() {
         useCase.fetchPhoto(id: imageID) { [weak self] response in
