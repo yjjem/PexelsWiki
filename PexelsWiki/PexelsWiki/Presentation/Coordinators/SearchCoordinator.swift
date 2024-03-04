@@ -53,11 +53,13 @@ final class SearchCoordinator: Coordinator {
     
     func showPhotoDetailFlow(id: Int) {
         let photoDetail = sceneFactory.makePhotoDetailViewController(id: id)
+        photoDetail.hidesBottomBarWhenPushed = true
         router.push(photoDetail, animated: true, nil)
     }
     
     func showVideoDetailFlow(id: Int) {
         let videoDetailViewController = sceneFactory.makeVideoDetailViewController(id: id)
+        videoDetailViewController.hidesBottomBarWhenPushed = true
         router.push(videoDetailViewController, animated: true, nil)
     }
 }
