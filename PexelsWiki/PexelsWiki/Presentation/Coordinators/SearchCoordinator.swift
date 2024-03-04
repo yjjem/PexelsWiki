@@ -12,6 +12,7 @@ final class SearchCoordinator: Coordinator {
     
     // MARK: Property(s)
     
+    private lazy var router: RouterProtocol = Router(navigationController: navigationController)
     private let navigationController: UINavigationController
     private let sceneFactory: SceneFactory
     
