@@ -40,4 +40,11 @@ final class HomeCoordinator: Coordinator {
         photoDetailViewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(photoDetailViewController, animated: true)
     }
+    
+    func showUserProfileFlow(url: String) {
+        guard let url = URL(string: url) else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        navigationController.present(safariViewController, animated: true)
+    }
+}
 }

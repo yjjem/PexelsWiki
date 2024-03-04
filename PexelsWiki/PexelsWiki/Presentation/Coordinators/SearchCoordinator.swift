@@ -61,6 +61,10 @@ final class SearchCoordinator: Coordinator {
         let videoDetailViewController = sceneFactory.makeVideoDetailViewController(id: id)
         videoDetailViewController.hidesBottomBarWhenPushed = true
         router.push(videoDetailViewController, animated: true, nil)
+    func showUserProfileFlow(profileURLString: String) {
+        guard let userProfileURL = URL(string: profileURLString) else { return }
+        let safariViewController = SFSafariViewController(url: userProfileURL)
+        router.present(safariViewController, animated: true, nil)
     }
 }
 
