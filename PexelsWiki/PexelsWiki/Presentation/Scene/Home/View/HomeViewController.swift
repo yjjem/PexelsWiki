@@ -71,9 +71,11 @@ final class HomeViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.loadedHomeContentViewModelList = { [weak self] viewModelList in
             guard let self else { return }
-            let snapShotItems = self.snapShot.items
-            let itemsWithoutDuplication = viewModelList.filter { !snapShotItems.contains($0) }
-            applySnapShot(with: itemsWithoutDuplication)
+            if let viewModelList {
+                let snapShotItems = self.snapShot.items
+                let itemsWithoutDuplication = viewModelList.filter { !snapShotItems.contains($0) }
+                applySnapShot(with: itemsWithoutDuplication)
+            }
             endRefreshing()
         }
     }
@@ -90,7 +92,7 @@ final class HomeViewController: UIViewController {
             }
         }
     }
-
+    
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),

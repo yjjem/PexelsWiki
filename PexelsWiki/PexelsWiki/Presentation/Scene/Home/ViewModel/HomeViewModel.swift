@@ -11,7 +11,7 @@ final class HomeViewModel {
     
     // MARK: Binding(s)
     
-    var loadedHomeContentViewModelList: (([HomeContentCellViewModel]) -> Void)?
+    var loadedHomeContentViewModelList: (([HomeContentCellViewModel]?) -> Void)?
     
     // MARK: Property(s)
     
@@ -37,7 +37,8 @@ final class HomeViewModel {
             perPage: maxItemsPerPage
         )
         useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
-            if case .success(let photoPage) = response {
+            switch response {
+            case .success(let photoPage):
                 let homeCellViewModels = photoPage.photos.map {
                     HomeContentCellViewModel(
                         userName: $0.user.name,
@@ -53,6 +54,8 @@ final class HomeViewModel {
                 self?.loadedHomeContentViewModelList?(homeCellViewModels)
                 self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 self?.isLoading = false
+            case .failure(_):
+                self?.loadedHomeContentViewModelList?(nil)
             }
         }
     }
