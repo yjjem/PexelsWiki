@@ -19,12 +19,13 @@ final class DefaultNetworkProvider: Networkable {
     
     //MARK: Property(s)
     
-    private let session: URLSession
+    private let sessionConfiguration: URLSessionConfiguration
+    private lazy var session: URLSession = URLSession(configuration: sessionConfiguration)
     
     // MARK: Initializer(s)
     
-    init(session: URLSession = .init(configuration: .default)) {
-        self.session = session
+    init(configuration: URLSessionConfiguration) {
+        self.sessionConfiguration = configuration
     }
     
     // MARK: Function(s)
