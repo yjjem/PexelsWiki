@@ -9,10 +9,7 @@ import Foundation
 
 enum ImageLoadManager {
     
-    private static let imageCache = URLCache(
-        memoryCapacity: 200.megaByte,
-        diskCapacity: 500.megaByte
-    )
+    private static let imageCache = CacheManager().urlCache
     
     @discardableResult
     static func fetchCachedImageDataElseLoad(
