@@ -121,15 +121,24 @@ final class VideoListViewController: UIViewController {
 
 extension VideoListViewController: UICollectionViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.isOverPaginationPoint() {
-            viewModel?.fetchNextPage()
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
             delegate?.didSelectVideoItem(id: selectedItem.id)
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        if needFetchMore(
+            scrollView: collectionView,
+            willDisplay: indexPath,
+            itemsCount: snapShot.items.count,
+            edgeCountInset: 9
+        ) {
+            viewModel?.fetchNextPage()
         }
     }
 }
