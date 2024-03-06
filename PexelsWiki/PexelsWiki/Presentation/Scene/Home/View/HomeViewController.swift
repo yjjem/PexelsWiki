@@ -164,6 +164,7 @@ extension HomeViewController: UICollectionViewDelegate {
         forItemAt indexPath: IndexPath
     ) {
         if needFetchMore(
+            scrollView: collectionView,
             willDisplay: indexPath,
             itemsCount: snapShot.items.count,
             edgeCountInset: 3
