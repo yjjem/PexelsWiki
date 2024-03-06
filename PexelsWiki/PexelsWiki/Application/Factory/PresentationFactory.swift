@@ -21,7 +21,7 @@ struct SceneFactory {
     // MARK: ViewModel(s)
     
     func makeHomeViewModel() -> HomeViewModel {
-        return HomeViewModel(maxItemsPerPage: 20, useCase: domainFactory.makeCuratedPhotosUseCase())
+        return HomeViewModel(maxItemsPerPage: 50, useCase: domainFactory.makeCuratedPhotosUseCase())
     }
     
     func makeSearchNavigatorViewModel() -> SearchNavigatorViewModel {
@@ -29,11 +29,19 @@ struct SceneFactory {
     }
     
     func makePhotoSearchViewModel(query: String? = nil) -> PhotoListViewModel {
-        return PhotoListViewModel(query: query, useCase: domainFactory.makePhotoSearchUseCase())
+        return PhotoListViewModel(
+            maxItemsPerPage: 50,
+            query: query,
+            useCase: domainFactory.makePhotoSearchUseCase()
+        )
     }
     
     func makeVideoSearchViewModel(query: String? = nil) -> VideoListViewModel {
-        return VideoListViewModel(query: query, useCase: domainFactory.makeVideoSearchUseCase())
+        return VideoListViewModel(
+            maxItemsPerPage: 50,
+            query: query,
+            useCase: domainFactory.makeVideoSearchUseCase()
+        )
     }
     
     func makePhotoDetailViewModel(id: Int) -> PhotoDetailViewModel {

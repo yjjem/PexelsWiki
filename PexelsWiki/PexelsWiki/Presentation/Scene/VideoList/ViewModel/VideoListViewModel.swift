@@ -21,11 +21,12 @@ final class VideoListViewModel {
     private var isLoading: Bool = false
     
     private let contentOrientation: ContentOrientation = .portrait
-    private let contentSize: ContentSize = .small
-    private let pageSize: PageSize = .small
+    private let contentSize: ContentSize = .large
     private let useCase: VideoSearchUseCase
+    private let maxItemsPerPage: Int
     
-    init(query: String?, useCase: VideoSearchUseCase) {
+    init(maxItemsPerPage: Int = 15, query: String?, useCase: VideoSearchUseCase) {
+        self.maxItemsPerPage = maxItemsPerPage
         self.useCase = useCase
         self.query = query ?? ""
     }
@@ -40,7 +41,7 @@ final class VideoListViewModel {
             orientation: contentOrientation.name,
             size: contentSize.name,
             page: page,
-            perPage: pageSize.itemsPerPage
+            perPage: maxItemsPerPage
         )
         useCase.search(searchValues) { [weak self] response in
             if case .success(let videoPage) = response {
