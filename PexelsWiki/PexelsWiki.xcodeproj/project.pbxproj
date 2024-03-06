@@ -419,6 +419,7 @@
 			children = (
 				DFD792872A41BA8200729C2F /* UserInfoView.swift */,
 				DFD792C92A482C6800729C2F /* VideoPlayerView.swift */,
+				DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */,
 				DFA161012B920CF6008FEDBE /* StretchHeaderViewController.swift */,
 			);
 			path = CommonViews;
@@ -619,7 +620,6 @@
 			isa = PBXGroup;
 			children = (
 				DFF4389F2B8A489C00F70230 /* PhotoDetailViewController.swift */,
-				DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

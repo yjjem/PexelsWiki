@@ -21,6 +21,7 @@ final class StretchableImageView: UIScrollView {
         configureConstraints()
         configureScrollView()
         configureDoubleTapGesture()
+        configureStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +77,10 @@ final class StretchableImageView: UIScrollView {
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    private func configureStyle() {
+        backgroundColor = .secondarySystemFill
     }
 }
 
