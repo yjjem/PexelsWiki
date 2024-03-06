@@ -105,6 +105,7 @@ final class VideoDetailViewController: StretchHeaderViewController {
     }
     
     private func configureStyle() {
+        playerViewController.view.backgroundColor = .systemFill
         userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         resolutionLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
         let buttons: [UIButton] = [visitProfileButton, downloadButton]
