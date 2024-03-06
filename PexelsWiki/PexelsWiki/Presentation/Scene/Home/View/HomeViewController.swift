@@ -150,15 +150,23 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.isOverPaginationPoint() {
-            viewModel?.fetchNextPage()
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath) {
             delegate?.didSelectItem(id: selectedItem.imageID)
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        if needFetchMore(
+            willDisplay: indexPath,
+            itemsCount: snapShot.items.count,
+            edgeCountInset: 3
+        ) {
+            viewModel?.fetchNextPage()
         }
     }
 }
