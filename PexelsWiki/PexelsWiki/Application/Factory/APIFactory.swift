@@ -15,11 +15,11 @@ struct APIFactory {
         static let orientation = "orientation"
         static let size = "size"
         static let page = "page"
-        static let perPage = "perPage"
-        static let minWidth = "minWidth"
-        static let minHeight = "minHeight"
-        static let minDuration = "minDuration"
-        static let maxDuration = "maxDuration"
+        static let perPage = "per_age"
+        static let minWidth = "min_width"
+        static let minHeight = "min_height"
+        static let minDuration = "min_duration"
+        static let maxDuration = "max_duration"
     }
     
     private enum HeaderKey {
