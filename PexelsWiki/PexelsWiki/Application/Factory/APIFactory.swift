@@ -15,7 +15,7 @@ struct APIFactory {
         static let orientation = "orientation"
         static let size = "size"
         static let page = "page"
-        static let perPage = "per_age"
+        static let perPage = "per_page"
         static let minWidth = "min_width"
         static let minHeight = "min_height"
         static let minDuration = "min_duration"
