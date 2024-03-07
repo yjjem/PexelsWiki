@@ -59,19 +59,20 @@ final class VideoDetailViewController: StretchHeaderViewController {
         configurePlayerStatusObservation()
         configureButtons()
         bindViewModel()
+        viewModel?.startFetchingVideoItem()
     }
     
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        viewModel?.fetchedVideoItem = { [weak self] videoItem in
-            guard let url = URL(string: videoItem.files[0].url) else { return }
-            
+        
+        viewModel?.fetchedVideo = { [weak self] video in
+            guard let url = URL(string: video.url) else { return }
             DispatchQueue.main.async {
                 let player = AVPlayer(url: url)
                 self?.playerViewController.player = player
-                self?.userNameLabel.text = videoItem.userName
-                self?.resolutionLabel.text = videoItem.resolution
+                self?.userNameLabel.text = video.userName
+                self?.resolutionLabel.text = video.resolution
             }
         }
         
@@ -80,8 +81,6 @@ final class VideoDetailViewController: StretchHeaderViewController {
                 self?.visitProfileButton.isEnabled = true
             }
         }
-        
-        viewModel?.startFetchingVideoItem()
     }
     
     private func configurePlayerStatusObservation() {

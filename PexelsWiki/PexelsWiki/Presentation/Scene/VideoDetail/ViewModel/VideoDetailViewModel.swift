@@ -9,20 +9,15 @@ final class VideoDetailViewModel {
     
     // MARK: Binding(s)
     
-    var fetchedVideoItem: ((VideoItem) -> Void)?
+    var fetchedVideo: ((Video) -> Void)?
     var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
     
-    var userProfileURL: String? {
-        didSet {
-            if let userProfileURL, userProfileURL.isEmpty == false {
-                profileIsAvailable?()
-            }
-        }
-    }
-    let videoID: Int
+    var userProfileURL: String?
+    var video: Video?
     
+    private let videoID: Int
     private var videoRequest: Cancellable?
     private let useCase: FetchSingleVideoUseCase
     
@@ -42,37 +37,23 @@ final class VideoDetailViewModel {
     func startFetchingVideoItem() {
         videoRequest = useCase.fetchVideoBy(id: videoID) { [weak self] response in
             if case .success(let videoResource) = response {
-                let videoFiles: [VideoFile] = videoResource.videoFiles.map {
-                    VideoDetailViewModel.VideoFile(
-                        url: $0.link,
-                        quality: $0.quality,
-                        resolution: $0.resolution.toString(),
-                        fileType: $0.fileType
-                    )
-                }
-                let videoItem = VideoItem(
+                let hdFile = videoResource.videoFiles
+                    .sorted { $0.resolution.pixelsCount() > $1.resolution.pixelsCount() }
+                    .first(where: { $0.quality == "hd" })?.link ?? ""
+                    
+                let video = Video(
                     userName: videoResource.user.name,
+                    userProfileURL: videoResource.user.profileURL,
                     resolution: videoResource.resolution.toString(),
-                    files: videoFiles
+                    url: hdFile
                 )
-                self?.userProfileURL = videoResource.user.profileURL
-                self?.fetchedVideoItem?(videoItem)
+                self?.video = video
+                self?.fetchedVideo?(video)
+                if videoResource.user.profileURL.isEmpty == false {
+                    self?.profileIsAvailable?()
+                }
             }
+            
         }
-    }
-}
-
-extension VideoDetailViewModel {
-    struct VideoItem {
-        let userName: String
-        let resolution: String
-        let files: [VideoFile]
-    }
-    
-    struct VideoFile {
-        let url: String
-        let quality: String
-        let resolution: String
-        let fileType: String
     }
 }
