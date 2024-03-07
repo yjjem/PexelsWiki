@@ -49,6 +49,7 @@ final class VideoDetailViewModel {
                 )
                 self?.video = video
                 self?.fetchedVideo?(video)
+                self?.userProfileURL = videoResource.user.profileURL
                 if videoResource.user.profileURL.isEmpty == false {
                     self?.profileIsAvailable?()
                 }
