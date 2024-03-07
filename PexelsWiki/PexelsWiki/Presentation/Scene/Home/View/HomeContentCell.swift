@@ -14,10 +14,16 @@ final class HomeContentCell: UICollectionViewCell {
     private var currentHeightConstraint: NSLayoutConstraint?
     private var imageRequest: Cancellable?
     
+    private let contentStackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
     private let imageView: UIImageView = UIImageView()
-    private let titleLabel: UILabel = UILabel()
-    private let userNameLabel: UILabel = UILabel()
-    private let resolutionLabel: UILabel = UILabel()
+
     private let informationStack: UIStackView = {
         let stackView = UIStackView()
         stackView.directionalLayoutMargins = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
@@ -27,6 +33,10 @@ final class HomeContentCell: UICollectionViewCell {
         stackView.axis = .vertical
         return stackView
     }()
+    
+    private let titleLabel: UILabel = UILabel()
+    private let userNameLabel: UILabel = UILabel()
+    private let resolutionLabel: UILabel = UILabel()
     
     // MARK: Override(s)
     
@@ -101,30 +111,25 @@ final class HomeContentCell: UICollectionViewCell {
     }
     
     private func configureHierarchy() {
-        contentView.addSubview(imageView)
-        contentView.addSubview(informationStack)
+        contentView.addSubview(contentStackView)
+        contentStackView.addArrangedSubview(imageView)
+        contentStackView.addArrangedSubview(informationStack)
         let infoViews: [UIView] = [titleLabel, userNameLabel, resolutionLabel]
         infoViews.forEach { informationStack.addArrangedSubview($0) }
     }
     
     private func configureConstraints() {
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: informationStack.topAnchor)
+            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
-        informationStack.translatesAutoresizingMaskIntoConstraints = false
-        informationStack.setContentHuggingPriority(.required, for: .vertical)
-        informationStack.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         NSLayoutConstraint.activate([
-            informationStack.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            informationStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            informationStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            informationStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)
         ])
     }
 }
