@@ -32,6 +32,7 @@ final class HomeCoordinator: Coordinator {
     
     func showMainFlow() {
         let homeViewController = sceneFactory.makeHomeViewController()
+        homeViewController.navigationItem.title = "Curated Photos"
         homeViewController.delegate = self
         navigationController.pushViewController(homeViewController, animated: false)
     }
