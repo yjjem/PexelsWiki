@@ -95,6 +95,32 @@ struct SceneFactory {
         videoDetail.viewModel = makeVideoDetailViewModel(id: id)
         return videoDetail
     }
+    
+    func makeSaveFailedAlert(errorMessage: String) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: "Failed",
+            message: "Save failed with: " + errorMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        return alertController
+    }
+    
+    func makeSaveSucceedAlert() -> UIAlertController {
+        let alertController = UIAlertController(
+            title: "Succeed",
+            message: "Save complete",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        return alertController
+    }
  
     // MARK: Coordinator(s)
     

@@ -51,30 +51,14 @@ final class HomeCoordinator: Coordinator {
         router.present(safariViewController, animated: true)
     }
     
-    func showSaveCompleteFlow() {
-        let alertController = UIAlertController(
-            title: "Succeed",
-            message: "Save complete",
-            preferredStyle: .alert
-        )
-        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        router.present(alertController, animated: true, nil)
+    func showSaveSucceedFlow() {
+        let succeedAlert = sceneFactory.makeSaveSucceedAlert()
+        router.present(succeedAlert, animated: true, nil)
     }
     
     func showSaveFailedFlow(_ errorMessage: String) {
-        let alertController = UIAlertController(
-            title: "Failed",
-            message: "Save failed with: " + errorMessage,
-            preferredStyle: .alert
-        )
-        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        router.present(alertController, animated: true, nil)
+        let failedAlert = sceneFactory.makeSaveFailedAlert(errorMessage: errorMessage)
+        router.present(failedAlert, animated: true, nil)
     }
 }
 
@@ -117,7 +101,7 @@ extension HomeCoordinator {
         if let error {
             showSaveFailedFlow(error.localizedDescription)
         } else {
-            showSaveCompleteFlow()
+            showSaveSucceedFlow()
         }
     }
 }
