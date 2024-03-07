@@ -42,12 +42,6 @@ final class VideoDetailViewController: StretchHeaderViewController {
         button.isEnabled = false
         return button
     }()
-    private let downloadButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "arrow.down.doc.fill"), for: .normal)
-        button.setTitle("Download", for: .normal)
-        return button
-    }()
     
     // MARK: Override(s)
     
@@ -100,22 +94,19 @@ final class VideoDetailViewController: StretchHeaderViewController {
         informationStack.addArrangedSubview(buttonsStack)
         
         buttonsStack.addArrangedSubview(visitProfileButton)
-        buttonsStack.addArrangedSubview(downloadButton)
     }
     
     private func configureStyle() {
         playerViewController.view.backgroundColor = .systemFill
         userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         resolutionLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
-        let buttons: [UIButton] = [visitProfileButton, downloadButton]
-        buttons.forEach { $0.asPexelsButton() }
+        visitProfileButton.asPexelsButton()
         informationStack.setCustomSpacing(30, after: resolutionLabel)
     }
     
     private func configureConstraints() {
         let buttonSize: CGFloat = 37
         NSLayoutConstraint.activate([
-            downloadButton.heightAnchor.constraint(equalToConstant: buttonSize),
             visitProfileButton.heightAnchor.constraint(equalToConstant: buttonSize),
         ])
     }
@@ -128,17 +119,10 @@ final class VideoDetailViewController: StretchHeaderViewController {
         }
     }
     
-    @objc private func didTapDownloadVideoButton() {
-        // TODO: Add video Download
-    }
-    
     private func configureButtons() {
         visitProfileButton.addTarget(
             self, action: #selector(didTapVisitProfileButton),
             for: .touchUpInside
         )
-        downloadButton.addTarget(
-            self, action: #selector(didTapDownloadVideoButton),
-            for: .touchUpInside)
     }
 }
