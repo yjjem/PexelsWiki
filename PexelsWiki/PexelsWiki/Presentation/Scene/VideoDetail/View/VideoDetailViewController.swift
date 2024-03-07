@@ -129,10 +129,8 @@ final class VideoDetailViewController: StretchHeaderViewController {
         }
     }
     
-    @objc private func didTapDownloadImageButton() {
-        if let viewModel {
-            delegate?.didRequestDownloadPhoto(of: viewModel.videoID)
-        }
+    @objc private func didTapDownloadVideoButton() {
+        // TODO: Add video Download
     }
     
     private func configureButtons() {
@@ -141,7 +139,7 @@ final class VideoDetailViewController: StretchHeaderViewController {
             for: .touchUpInside
         )
         downloadButton.addTarget(
-            self, action: #selector(didTapDownloadImageButton),
+            self, action: #selector(didTapDownloadVideoButton),
             for: .touchUpInside)
     }
 }
