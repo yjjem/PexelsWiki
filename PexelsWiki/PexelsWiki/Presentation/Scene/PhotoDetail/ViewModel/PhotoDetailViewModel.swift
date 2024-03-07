@@ -11,15 +11,14 @@ final class PhotoDetailViewModel {
     
     // MARK: Binding(s)
     
-    var loadedPhotoInformation: ((PhotoInformation) -> Void)?
-    var loadedPhotoData: ((Data) -> Void)?
+    var loadedPhoto: ((Photo) -> Void)?
     var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
     
-    var userProfileURL: String? {
+    var photo: Photo? {
         didSet {
-            if let userProfileURL, userProfileURL.isEmpty == false {
+            if let photo, photo.userProfileURL.isEmpty == false {
                 profileIsAvailable?()
             }
         }
@@ -40,33 +39,22 @@ final class PhotoDetailViewModel {
     func startFetching() {
         useCase.fetchPhoto(id: imageID) { [weak self] response in
             if case .success(let photoBundle) = response {
-                let photoInformation = PhotoInformation(
-                    title: photoBundle.title,
-                    userName: photoBundle.user.name,
-                    resolution: photoBundle.resolution.toString()
-                )
-                self?.loadedPhotoInformation?(photoInformation)
-                self?.userProfileURL = photoBundle.user.profileURL
-                
-                let originalPhotoURL = photoBundle.variations.original
-                ImageLoadManager.fetchCachedImageDataElseLoad(urlString: originalPhotoURL) {
-                    response in
-                    
+                ImageLoadManager.fetchCachedImageDataElseLoad(
+                    urlString: photoBundle.variations.original
+                ) { response in
                     if case .success(let photoData) = response {
-                        self?.loadedPhotoData?(photoData)
+                        let photo = Photo(
+                            title: photoBundle.title,
+                            userName: photoBundle.user.name,
+                            userProfileURL: photoBundle.user.profileURL,
+                            resolution: photoBundle.resolution.toString(),
+                            data: photoData
+                        )
+                        self?.photo = photo
+                        self?.loadedPhoto?(photo)
                     }
                 }
             }
         }
-    }
-}
-
-// MARK: PhotoInformation
-
-extension PhotoDetailViewModel {
-    struct PhotoInformation {
-        let title: String
-        let userName: String
-        let resolution: String
     }
 }

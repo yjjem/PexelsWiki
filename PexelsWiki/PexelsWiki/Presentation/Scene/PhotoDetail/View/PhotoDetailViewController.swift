@@ -80,17 +80,13 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        viewModel?.loadedPhotoData = { [weak self] photoData in
-            DispatchQueue.main.async {
-                self?.imageView.addImageData(photoData)
-            }
-        }
         
-        viewModel?.loadedPhotoInformation = { [weak self] photoInformation in
+        viewModel?.loadedPhoto = { [weak self] photo in
             DispatchQueue.main.async {
-                self?.titleLabel.text = photoInformation.title
-                self?.userNameLabel.text = photoInformation.userName
-                self?.resolutionLabel.text = photoInformation.resolution
+                self?.titleLabel.text = photo.title
+                self?.userNameLabel.text = photo.userName
+                self?.resolutionLabel.text = photo.resolution
+                self?.imageView.addImageData(photo.data)
             }
         }
         
@@ -145,8 +141,8 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     // MARK: Action(s)
     
     @objc private func didTapVisitProfileButton() {
-        if let viewModel, let userProfileURL = viewModel.userProfileURL {
-            delegate?.didRequestUserProfile(userProfileURL)
+        if let viewModel, let userProfile = viewModel.photo?.userProfileURL {
+            delegate?.didRequestUserProfile(userProfile)
         }
     }
 }
