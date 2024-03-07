@@ -71,6 +71,32 @@ final class SearchCoordinator: Coordinator {
         let safariViewController = SFSafariViewController(url: userProfileURL)
         router.present(safariViewController, animated: true, nil)
     }
+    
+    func showSaveCompleteFlow() {
+        let alertController = UIAlertController(
+            title: "Succeed",
+            message: "Save complete",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        router.present(alertController, animated: true, nil)
+    }
+    
+    func showSaveFailedFlow(_ errorMessage: String) {
+        let alertController = UIAlertController(
+            title: "Failed",
+            message: "Save failed with: " + errorMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        router.present(alertController, animated: true, nil)
+    }
 }
 
 // MARK: ListSelect Delegates
@@ -103,7 +129,29 @@ extension SearchCoordinator: DetailViewControllerDelegate {
         showUserProfileFlow(profileURLString: profileURL)
     }
     
-    func didRequestDownloadPhoto(of id: Int) {
-        // TODO: add download flow
+    func didRequestDownload(_ photo: Photo) {
+        if let imageToSave = UIImage(data: photo.data) {
+            UIImageWriteToSavedPhotosAlbum(
+                imageToSave,
+                self, #selector(image(_:didFinishSavingWithError:contextInfo:)),
+                nil
+            )
+        } else {
+            showSaveFailedFlow("No image")
+        }
+    }
+}
+
+extension SearchCoordinator {
+    @objc func image(
+        _ image: UIImage,
+        didFinishSavingWithError error: NSError?,
+        contextInfo: UnsafeRawPointer
+    ) {
+        if let error {
+            showSaveFailedFlow(error.localizedDescription)
+        } else {
+            showSaveCompleteFlow()
+        }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol DetailViewControllerDelegate: AnyObject {
     func didRequestUserProfile(_ userProfileURL: String)
-    func didRequestDownloadPhoto(of id: Int)
+    func didRequestDownload(_ photo: Photo)
 }
 
 final class PhotoDetailViewController: StretchHeaderViewController {
@@ -48,10 +48,10 @@ final class PhotoDetailViewController: StretchHeaderViewController {
         return button
     }()
     
-    private let downloadButton: UIButton = {
+    private let saveImageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "arrow.down.doc.fill"), for: .normal)
-        button.setTitle("Download", for: .normal)
+        button.setImage(UIImage(systemName: "photo.badge.arrow.down.fill"), for: .normal)
+        button.setTitle("Save to Gallery", for: .normal)
         return button
     }()
     
@@ -104,13 +104,13 @@ final class PhotoDetailViewController: StretchHeaderViewController {
         informationStack.addArrangedSubview(buttonsStack)
         
         buttonsStack.addArrangedSubview(visitProfileButton)
-        buttonsStack.addArrangedSubview(downloadButton)
+        buttonsStack.addArrangedSubview(saveImageButton)
     }
     
     private func configureConstraints() {
         let buttonSize: CGFloat = 37
         NSLayoutConstraint.activate([
-            downloadButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            saveImageButton.heightAnchor.constraint(equalToConstant: buttonSize),
             visitProfileButton.heightAnchor.constraint(equalToConstant: buttonSize),
         ])
     }
@@ -120,7 +120,7 @@ final class PhotoDetailViewController: StretchHeaderViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
         userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         resolutionLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
-        let buttons: [UIButton] = [visitProfileButton, downloadButton]
+        let buttons: [UIButton] = [visitProfileButton, saveImageButton]
         buttons.forEach { button in
             button.backgroundColor = UIColor.pexelsGreen
             button.layer.cornerRadius = 11
@@ -136,6 +136,10 @@ final class PhotoDetailViewController: StretchHeaderViewController {
             self, action: #selector(didTapVisitProfileButton),
             for: .touchUpInside
         )
+        saveImageButton.addTarget(
+            self, action: #selector(didTapSaveImageButton),
+            for: .touchUpInside
+        )
     }
     
     // MARK: Action(s)
@@ -143,6 +147,12 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     @objc private func didTapVisitProfileButton() {
         if let viewModel, let userProfile = viewModel.photo?.userProfileURL {
             delegate?.didRequestUserProfile(userProfile)
+        }
+    }
+    
+    @objc private func didTapSaveImageButton() {
+        if let viewModel, let photo = viewModel.photo {
+            delegate?.didRequestDownload(photo)
         }
     }
 }

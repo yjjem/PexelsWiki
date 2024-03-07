@@ -14,6 +14,7 @@ final class HomeCoordinator: Coordinator {
     
     private let sceneFactory: SceneFactory
     private let navigationController: UINavigationController
+    private lazy var router = Router(navigationController: navigationController)
     
     // MARK: Initializer(s)
     
@@ -34,20 +35,46 @@ final class HomeCoordinator: Coordinator {
         let homeViewController = sceneFactory.makeHomeViewController()
         homeViewController.navigationItem.title = "Curated Photos"
         homeViewController.delegate = self
-        navigationController.pushViewController(homeViewController, animated: false)
+        router.push(homeViewController, animated: true)
     }
     
     func showDetailFlow(id: Int) {
         let photoDetailViewController = sceneFactory.makePhotoDetailViewController(id: id)
         photoDetailViewController.hidesBottomBarWhenPushed = true
         photoDetailViewController.delegate = self
-        navigationController.pushViewController(photoDetailViewController, animated: true)
+        router.push(photoDetailViewController, animated: true)
     }
     
     func showUserProfileFlow(url: String) {
         guard let url = URL(string: url) else { return }
         let safariViewController = SFSafariViewController(url: url)
-        navigationController.present(safariViewController, animated: true)
+        router.present(safariViewController, animated: true)
+    }
+    
+    func showSaveCompleteFlow() {
+        let alertController = UIAlertController(
+            title: "Succeed",
+            message: "Save complete",
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        router.present(alertController, animated: true, nil)
+    }
+    
+    func showSaveFailedFlow(_ errorMessage: String) {
+        let alertController = UIAlertController(
+            title: "Failed",
+            message: "Save failed with: " + errorMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _  in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        router.present(alertController, animated: true, nil)
     }
 }
 
@@ -68,7 +95,29 @@ extension HomeCoordinator: DetailViewControllerDelegate {
         showUserProfileFlow(url: userProfileURL)
     }
     
-    func didRequestDownloadPhoto(of id: Int) {
-        // TODO: add download photo
+    func didRequestDownload(_ photo: Photo) {
+        if let imageToSave = UIImage(data: photo.data) {
+            UIImageWriteToSavedPhotosAlbum(
+                imageToSave,
+                self, #selector(image(_:didFinishSavingWithError:contextInfo:)),
+                nil
+            )
+        } else {
+            showSaveFailedFlow("No image")
+        }
+    }
+}
+
+extension HomeCoordinator {
+    @objc func image(
+        _ image: UIImage,
+        didFinishSavingWithError error: NSError?,
+        contextInfo: UnsafeRawPointer
+    ) {
+        if let error {
+            showSaveFailedFlow(error.localizedDescription)
+        } else {
+            showSaveCompleteFlow()
+        }
     }
 }

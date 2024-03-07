@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Coordinator: CoordinatorProtocol {
+class Coordinator: NSObject, CoordinatorProtocol {
     
     var childCoordinators: [UUID : CoordinatorProtocol] = [:]
     let identifier: UUID = .init()
