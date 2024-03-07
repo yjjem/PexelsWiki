@@ -39,10 +39,19 @@ final class PhotoListViewController: UIViewController {
     // MARK: Override(s)
     
     override func loadView() {
-        self.view = photoCollectionView
+//        self.view = photoCollectionView
+        super.loadView()
         photoCollectionView.setCollectionViewLayout(createLayout(), animated: true)
         photoCollectionView.dataSource = diffableDataSource
         photoCollectionView.delegate = self
+        view.addSubview(photoCollectionView)
+        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            photoCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            photoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            photoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            photoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     override func viewDidLoad() {
@@ -96,46 +105,91 @@ final class PhotoListViewController: UIViewController {
     // MARK: Compositional Layout
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
-        let doubleItemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.5),
-            heightDimension: .fractionalWidth(1/2 * 0.68)
-        )
-        let doubleItem = NSCollectionLayoutItem(layoutSize: doubleItemSize)
         
-        let doubleGroupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(1.0)
+        let defaultInset = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+        
+        let tripleHorizontalItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .fractionalWidth(1/3)
+            )
         )
-        let doubleGroup = NSCollectionLayoutGroup.horizontal(
-            layoutSize: doubleGroupSize,
-            repeatingSubitem: doubleItem,
+        tripleHorizontalItem.contentInsets = defaultInset
+        
+        let tripleHorizontalGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(3/9)
+            ),
+            repeatingSubitem: tripleHorizontalItem,
+            count: 4
+        )
+        
+        let mainHalfItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(2/3),
+                heightDimension: .fractionalWidth(2/3)
+            )
+        )
+        mainHalfItem.contentInsets = defaultInset
+        
+        let halfDoubleItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(0.5)
+            )
+        )
+        halfDoubleItem.contentInsets = defaultInset
+        
+        let stackedDoubleGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .fractionalHeight(1.0)
+            ),
+            repeatingSubitem: halfDoubleItem,
             count: 2
         )
-        doubleGroup.interItemSpacing = .fixed(2.5)
         
-        let fullItemSize = NSCollectionLayoutSize(
+        let mainToLeadingGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(6/9)
+            ),
+            subitems: [mainHalfItem, stackedDoubleGroup]
+        )
+        
+        let mainToTrailingGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(6/9)
+            ),
+            subitems: [stackedDoubleGroup, mainHalfItem]
+        )
+        
+        let topGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1/2)
+            ),
+            subitems: [mainToLeadingGroup, tripleHorizontalGroup]
+        )
+        
+        let bottomGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1/2)
+            ),
+            subitems: [mainToTrailingGroup, tripleHorizontalGroup]
+        )
+
+        let nestedGroup = NSCollectionLayoutGroup.vertical(
+          layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.68)
+            heightDimension: .fractionalWidth(18/9)),
+          subitems: [topGroup, bottomGroup]
         )
-        let fullItem = NSCollectionLayoutItem(layoutSize: fullItemSize)
-        
-        let mixedGroupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(1)
-        )
-        let mixedGroup = NSCollectionLayoutGroup.vertical(
-            layoutSize: mixedGroupSize,
-            subitems: [doubleGroup, fullItem, doubleGroup]
-        )
-        
-        let mainGroupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(1)
-        )
-        let mainGroup = NSCollectionLayoutGroup.vertical(layoutSize: mainGroupSize, subitems: [doubleGroup, doubleGroup, fullItem, mixedGroup, doubleGroup])
-        
-        let section = NSCollectionLayoutSection(group: mainGroup)
-        
+
+        let section = NSCollectionLayoutSection(group: nestedGroup)
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout

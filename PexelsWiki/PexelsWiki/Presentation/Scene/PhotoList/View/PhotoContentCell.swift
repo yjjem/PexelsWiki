@@ -53,13 +53,16 @@ final class PhotoContentCell: UICollectionViewCell {
     }
     
     private func configureLayoutConstraints() {
-        photoThumbnailView.contentMode = .scaleAspectFit
+        photoThumbnailView.contentMode = .scaleAspectFill
         photoThumbnailView.translatesAutoresizingMaskIntoConstraints = false
+        photoThumbnailView.layer.masksToBounds = true
         NSLayoutConstraint.activate([
             photoThumbnailView.topAnchor.constraint(equalTo: contentView.topAnchor),
             photoThumbnailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             photoThumbnailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            photoThumbnailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            photoThumbnailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//            photoThumbnailView.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
+//            photoThumbnailView.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)
         ])
     }
 }
