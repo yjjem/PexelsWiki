@@ -84,25 +84,43 @@ final class HomeViewController: UIViewController {
     }
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(1.0)
-        )
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
-        )
-        
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: groupSize,
-            repeatingSubitem: item,
-            count: 1
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
+        return UICollectionViewCompositionalLayout { section, environment in
+            let rows = self.contentCollectionView.numberOfItems(inSection: .zero)
+            let custom = NSCollectionLayoutGroup.custom(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(environment.container.effectiveContentSize.height)
+                )
+            ) { environment in
+                
+                let contentWidth = environment.container.effectiveContentSize.width
+                let contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                var groupItems: [NSCollectionLayoutGroupCustomItem] = .init()
+                var previousItemOriginY: CGFloat = 0
+                
+                for index in 0..<rows {
+                    let model = self.snapShot.items[index]
+                    let (height, width) = (Float(model.imageHeight), Float(model.imageWidth))
+                    let ratioRelativeToHeight = CGFloat(height / width)
+                    let itemWidth = contentWidth * ratioRelativeToHeight
+                    
+                    let newItemOrigin = CGPoint(x: 0, y: previousItemOriginY)
+                    let newItemSize = CGSize(width: contentWidth, height: itemWidth)
+                    let newItemFrame = CGRect(
+                        origin: newItemOrigin,
+                        size: newItemSize
+                    ).inset(by: contentInset)
+                    
+                    let newCustomItem = NSCollectionLayoutGroupCustomItem(frame: newItemFrame)
+                    groupItems.append(newCustomItem)
+                    
+                    previousItemOriginY = newItemFrame.maxY
+                }
+                
+                return groupItems
+            }
+            return NSCollectionLayoutSection(group: custom)
+        }
     }
     
     private func configureDiffableDataSource() {
