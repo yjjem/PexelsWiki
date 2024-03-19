@@ -13,6 +13,8 @@ final class PhotoListViewModel {
     
     // MARK: Property(s)
     
+    var totalItemsFound: Int = 0
+    
     private var isLoading: Bool = false
     private var hasNext: Bool = false
     private var query: String = ""
@@ -31,8 +33,6 @@ final class PhotoListViewModel {
     // MARK: Function(s)
     
     func fetchSearchResults() {
-        guard isLoading == false else { return }
-        isLoading = true
         let searchValues = PhotoSearchUseCase.SearchParameters(
             query: query,
             orientation: orientation.name,
@@ -49,6 +49,7 @@ final class PhotoListViewModel {
                         imageID: $0.id
                     )
                 }
+                self?.totalItemsFound = photoPage.totalResults
                 self?.loadedPhotoContentCellViewModels?(photoCellViewModels)
                 self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
                 self?.isLoading = false

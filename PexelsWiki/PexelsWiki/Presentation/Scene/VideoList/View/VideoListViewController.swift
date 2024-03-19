@@ -81,13 +81,26 @@ final class VideoListViewController: UIViewController {
         )
         group.interItemSpacing = .fixed(1.5)
         
+        let resultsHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(5)
+            ),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        resultsHeader.pinToVisibleBounds = true
+        
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [resultsHeader]
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
     
     private func configureDiffableDataSource() {
         let videoContentCellRegistration = makeVideoContentCellRegistration()
+        let totalResultsHeaderRegistration = makeTotalResultsCountHeader()
         let diffableDataSource = DataSource(collectionView: videoCollectionView) {
             collectionView, indexPath, itemIdentifier in
             
@@ -97,14 +110,33 @@ final class VideoListViewController: UIViewController {
                 item: itemIdentifier
             )
         }
+        
+        diffableDataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(
+                using: totalResultsHeaderRegistration,
+                for: indexPath
+            )
+        }
         self.diffableDataSource = diffableDataSource
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
-        let registration = VideoContentCellRegistration { cell, indexPath, videoPreviewItem in
+        return VideoContentCellRegistration { cell, indexPath, videoPreviewItem in
+            cell.videoThumbnailView.image = nil
             cell.configure(using: videoPreviewItem)
         }
-        return registration
+    }
+    
+    private func makeTotalResultsCountHeader(
+    ) -> UICollectionView.SupplementaryRegistration<TotalResultsCountHeader> {
+        return UICollectionView.SupplementaryRegistration<TotalResultsCountHeader>(
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { [weak self] supplementaryView, kind, indexPath in
+            guard let self else { return }
+            
+            supplementaryView.addFoundResultsCount(self.viewModel?.totalItemsFound ?? 0)
+            supplementaryView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
+        }
     }
     
     private func updateSnapShot(using cellViewModels: [VideoCellViewModel]) {

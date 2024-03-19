@@ -15,6 +15,8 @@ final class VideoListViewModel {
     
     // MARK: Property(s)
     
+    var totalItemsFound: Int = 0
+    
     private var query: String = ""
     private var page: Int = 1
     private var hasNext: Bool = false
@@ -54,6 +56,7 @@ final class VideoListViewModel {
                         id: $0.id
                     )
                 }
+                self?.totalItemsFound = videoPage.totalResults
                 self?.updatePageValues(page: videoPage.nextPage(), hasNext: videoPage.hasNext)
                 self?.fetchedVideoCellViewModelList?(videoPreviewItem)
                 self?.isLoading = false

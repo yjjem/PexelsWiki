@@ -39,19 +39,10 @@ final class PhotoListViewController: UIViewController {
     // MARK: Override(s)
     
     override func loadView() {
-//        self.view = photoCollectionView
-        super.loadView()
+        self.view = photoCollectionView
         photoCollectionView.setCollectionViewLayout(createLayout(), animated: true)
         photoCollectionView.dataSource = diffableDataSource
         photoCollectionView.delegate = self
-        view.addSubview(photoCollectionView)
-        photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            photoCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            photoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            photoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            photoCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
     
     override func viewDidLoad() {
@@ -75,6 +66,7 @@ final class PhotoListViewController: UIViewController {
     
     private func configureDiffableDataSource() {
         let photoContentCellRegistration = makePhotoContentCellRegistration()
+        let foundResultsRegistration = makeTotalResultsCountHeader()
         let diffableDataSource = DataSource(collectionView: photoCollectionView) {
             collectionView, indexPath, itemIdentifier in
             
@@ -84,11 +76,28 @@ final class PhotoListViewController: UIViewController {
                 item: itemIdentifier
             )
         }
+        diffableDataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(
+                using: foundResultsRegistration,
+                for: indexPath
+            )
+        }
         self.diffableDataSource = diffableDataSource
     }
     
     private func configureNavigationItem() {
         navigationItem.title = viewModel?.currentQuery()
+    }
+    
+    private func makeTotalResultsCountHeader(
+    ) -> UICollectionView.SupplementaryRegistration<TotalResultsCountHeader> {
+        return UICollectionView.SupplementaryRegistration<TotalResultsCountHeader>(
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { supplementaryView, kind, indexPath in
+            
+            supplementaryView.addFoundResultsCount(self.viewModel?.totalItemsFound ?? 0)
+            supplementaryView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
+        }
     }
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
@@ -188,8 +197,20 @@ final class PhotoListViewController: UIViewController {
             heightDimension: .fractionalWidth(18/9)),
           subitems: [topGroup, bottomGroup]
         )
-
+        
+        let resultsHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(5)
+            ),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        resultsHeader.pinToVisibleBounds = true
+        
         let section = NSCollectionLayoutSection(group: nestedGroup)
+        section.boundarySupplementaryItems = [resultsHeader]
+        
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
