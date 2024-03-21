@@ -77,6 +77,7 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func configureDiffableDataSource() {
         let categoryCellRegistration = makeCategoryCellRegistration()
+        let sectionHeaderRegistration = makeSectionHeaderRegistration()
         let diffableDataSource = DataSource(collectionView: categoryCollectionView) {
             collectionView, indexPath, categoryItem in
             
@@ -86,7 +87,21 @@ final class SearchNavigatorViewController: UIViewController {
                 item: categoryItem
             )
         }
+        
+        diffableDataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(
+                using: sectionHeaderRegistration,
+                for: indexPath
+            )
+        }
         self.diffableDataSource = diffableDataSource
+    }
+    
+    private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<SectionTitleHeader> {
+        return .init(elementKind: UICollectionView.elementKindSectionHeader) { 
+            supplementaryView, elementKind, indexPath in
+            supplementaryView.addTitle("Recommended Categories")
+        }
     }
     
     private func makeCategoryCellRegistration() -> CategoryCellRegistration {
@@ -96,26 +111,37 @@ final class SearchNavigatorViewController: UIViewController {
     }
     
     private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/3),
-            heightDimension: .estimated(1)
-        )
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: itemSize.heightDimension
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .estimated(1)
+            )
         )
         
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: item.layoutSize.heightDimension
+            ),
             repeatingSubitem: item,
             count: 3
         )
         group.interItemSpacing = .fixed(10)
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(44)
+            ),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        section.contentInsets = .init(top: 15, leading: 15, bottom: 0, trailing: 15)
+        section.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [sectionHeader]
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         

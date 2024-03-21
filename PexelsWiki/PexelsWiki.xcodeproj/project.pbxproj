@@ -21,6 +21,7 @@
 		DF8F83EE2B7E419B002CA0E7 /* PresentationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83ED2B7E419B002CA0E7 /* PresentationFactory.swift */; };
 		DF8F83F22B7F1E4E002CA0E7 /* DomainFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83F12B7F1E4E002CA0E7 /* DomainFactory.swift */; };
 		DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83F32B7F1E5A002CA0E7 /* DataFactory.swift */; };
+		DF9F43F72BAC102400219F56 /* SectionTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9F43F62BAC102400219F56 /* SectionTitleHeader.swift */; };
 		DFA161022B920CF6008FEDBE /* StretchHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA161012B920CF6008FEDBE /* StretchHeaderViewController.swift */; };
 		DFA161042B92F8E4008FEDBE /* UIButton + Pexels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA161032B92F8E4008FEDBE /* UIButton + Pexels.swift */; };
 		DFA161072B92FB69008FEDBE /* VideoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA161062B92FB69008FEDBE /* VideoDetailViewModel.swift */; };
@@ -108,6 +109,7 @@
 		DF8F83ED2B7E419B002CA0E7 /* PresentationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationFactory.swift; sourceTree = "<group>"; };
 		DF8F83F12B7F1E4E002CA0E7 /* DomainFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainFactory.swift; sourceTree = "<group>"; };
 		DF8F83F32B7F1E5A002CA0E7 /* DataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFactory.swift; sourceTree = "<group>"; };
+		DF9F43F62BAC102400219F56 /* SectionTitleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitleHeader.swift; sourceTree = "<group>"; };
 		DFA161012B920CF6008FEDBE /* StretchHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchHeaderViewController.swift; sourceTree = "<group>"; };
 		DFA161032B92F8E4008FEDBE /* UIButton + Pexels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Pexels.swift"; sourceTree = "<group>"; };
 		DFA161062B92FB69008FEDBE /* VideoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				DFB2854F2B8BA3440024FC5B /* StretchableImageView.swift */,
 				DFA161012B920CF6008FEDBE /* StretchHeaderViewController.swift */,
 				DF41B7B42BA97ED3004CCCB9 /* TotalResultsCountHeader.swift */,
+				DF9F43F62BAC102400219F56 /* SectionTitleHeader.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				DFD792AF2A4687C000729C2F /* SearchNavigatorViewModel.swift in Sources */,
 				DFF20DE32B56F20A00E01DB7 /* CuratedPhotosUseCaseInterface.swift in Sources */,
 				DFD792882A41BA8200729C2F /* UserInfoView.swift in Sources */,
+				DF9F43F72BAC102400219F56 /* SectionTitleHeader.swift in Sources */,
 				DFD792B12A46A8AC00729C2F /* PhotoSearchUseCase.swift in Sources */,
 				DFA491142A3A1F76008BC5C4 /* SceneDelegate.swift in Sources */,
 				DF2B01362B60076000214C8D /* Router.swift in Sources */,
