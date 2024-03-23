@@ -46,6 +46,8 @@
 		DFC1DC072B985DC9002BB669 /* UIScrollView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1DC062B985DC9002BB669 /* UIScrollView + Extension.swift */; };
 		DFC289D32B8241100044D0E2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC289D22B8241100044D0E2 /* User.swift */; };
 		DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC289D42B8241180044D0E2 /* ContentResolution.swift */; };
+		DFC521FF2BAEA75D0033DF7B /* ImageUtilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC521FE2BAEA75D0033DF7B /* ImageUtilityManager.swift */; };
+		DFC522012BAEF55E0033DF7B /* ImageUtilityManagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC522002BAEF55E0033DF7B /* ImageUtilityManagerConfiguration.swift */; };
 		DFCDD0382B7A010600C7BB7B /* VideoDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */; };
 		DFCFF3102B998BFD00947892 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCFF30F2B998BFD00947892 /* Photo.swift */; };
 		DFCFF3142B99A4E900947892 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCFF3132B99A4E900947892 /* Video.swift */; };
@@ -136,6 +138,8 @@
 		DFC1DC062B985DC9002BB669 /* UIScrollView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView + Extension.swift"; sourceTree = "<group>"; };
 		DFC289D22B8241100044D0E2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DFC289D42B8241180044D0E2 /* ContentResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentResolution.swift; sourceTree = "<group>"; };
+		DFC521FE2BAEA75D0033DF7B /* ImageUtilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilityManager.swift; sourceTree = "<group>"; };
+		DFC522002BAEF55E0033DF7B /* ImageUtilityManagerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilityManagerConfiguration.swift; sourceTree = "<group>"; };
 		DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDurationFormatter.swift; sourceTree = "<group>"; };
 		DFCFF30F2B998BFD00947892 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		DFCFF3132B99A4E900947892 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
@@ -352,6 +356,8 @@
 				DFD792A12A456B5500729C2F /* MainBundle+APIKey.swift */,
 				DF42BDA32A49EF6E00AA0896 /* ImageLoadManager.swift */,
 				DFD2E9D22B95B4E7004390D4 /* CacheManager.swift */,
+				DFC521FE2BAEA75D0033DF7B /* ImageUtilityManager.swift */,
+				DFC522002BAEF55E0033DF7B /* ImageUtilityManagerConfiguration.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -727,6 +733,7 @@
 			files = (
 				DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */,
 				DFD7929E2A44A05F00729C2F /* PageSize.swift in Sources */,
+				DFC521FF2BAEA75D0033DF7B /* ImageUtilityManager.swift in Sources */,
 				DF3FC2BE2A3DA089000DD223 /* SceneCoordinator.swift in Sources */,
 				DF42BDA62A4AD65A00AA0896 /* UIImage+ImageFromData.swift in Sources */,
 				DFA491482A3AD406008BC5C4 /* ProviderValidationError.swift in Sources */,
@@ -743,6 +750,7 @@
 				DFCDD0382B7A010600C7BB7B /* VideoDurationFormatter.swift in Sources */,
 				DFA491382A3AB787008BC5C4 /* ContentDetails.swift in Sources */,
 				DFA491552A3AF1B2008BC5C4 /* VideoListResponse.swift in Sources */,
+				DFC522012BAEF55E0033DF7B /* ImageUtilityManagerConfiguration.swift in Sources */,
 				DFB285522B8C3B280024FC5B /* UIColor + Pexels.swift in Sources */,
 				DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */,
 				DFD792962A44705C00729C2F /* CuratedPhotosUseCase.swift in Sources */,
