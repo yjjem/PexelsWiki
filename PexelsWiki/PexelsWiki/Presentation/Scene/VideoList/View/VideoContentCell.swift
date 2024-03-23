@@ -13,7 +13,7 @@ final class VideoContentCell: UICollectionViewCell {
     
     private var imageRequest: Cancellable?
     
-    private let videoThumbnailView: UIImageView = UIImageView()
+    let videoThumbnailView: UIImageView = UIImageView()
     private let durationLabel: UILabel = UILabel()
     
     // MARK: Override(s)
