@@ -28,6 +28,10 @@ final class HomeViewController: UIViewController {
     var viewModel: HomeViewModel?
     weak var delegate: HomeViewControllerDelegate?
     
+    private lazy var imageUtilityManager = ImageUtilityManager(
+        configuration: .defaultConfiguration
+    )
+    
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
@@ -138,8 +142,34 @@ final class HomeViewController: UIViewController {
     }
     
     private func makeContentCellRegistration() -> ContentCellRegistration {
-        return ContentCellRegistration { cell, indexPath, viewModel in
-            cell.configure(using: viewModel)
+        return ContentCellRegistration { [weak self] cell, indexPath, cellViewModel in
+            cell.imageView.image = nil
+            cell.backgroundColor = .quaternarySystemFill
+            
+            let currentLayoutAttributes = self?.contentCollectionView
+                .layoutAttributesForItem(at: indexPath)
+            
+            cell.imageRequest = self?.imageUtilityManager.requestImage(
+                for: cellViewModel.imageURL
+            ) { image in
+                
+                guard let currentLayoutAttributes else {
+                    cell.imageView.image = image
+                    return
+                }
+
+                image?.prepareThumbnail(of: currentLayoutAttributes.size) { image in
+                    DispatchQueue.main.async {
+                        UIView.transition(
+                            with: cell,
+                            duration: 0.2,
+                            options: [.allowUserInteraction, .transitionCrossDissolve]
+                        ) {
+                            cell.imageView.image = image
+                        }
+                    }
+                }
+            }
         }
     }
     
