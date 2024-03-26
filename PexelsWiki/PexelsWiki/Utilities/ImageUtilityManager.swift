@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ImageUtilityManager {
+struct ImageUtilityManager {
     
     // MARK: Property(s)
     
@@ -36,13 +36,11 @@ final class ImageUtilityManager {
         
         let task = self.fetchImage(urlString) { image in
             guard let image else {
-                completion(self.configuration.errorImage)
+                completion(configuration.errorImage)
                 return
             }
             completion(image)
-            DispatchQueue.global().async {
-                self.imageCache.setObject(image, forKey: imageCacheKey)
-            }
+            imageCache.setObject(image, forKey: imageCacheKey)
         }
         task?.resume()
         return task
