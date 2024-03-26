@@ -93,9 +93,9 @@ final class PhotoListViewController: UIViewController {
     ) -> UICollectionView.SupplementaryRegistration<TotalResultsCountHeader> {
         return UICollectionView.SupplementaryRegistration<TotalResultsCountHeader>(
             elementKind: UICollectionView.elementKindSectionHeader
-        ) { supplementaryView, kind, indexPath in
+        ) { [weak self] supplementaryView, kind, indexPath in
             
-            supplementaryView.addFoundResultsCount(self.viewModel?.totalItemsFound ?? 0)
+            supplementaryView.addFoundResultsCount(self?.viewModel?.totalItemsFound ?? 0)
             supplementaryView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         }
     }
