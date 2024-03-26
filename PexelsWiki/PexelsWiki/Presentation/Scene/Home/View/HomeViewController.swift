@@ -143,26 +143,20 @@ final class HomeViewController: UIViewController {
     
     private func makeContentCellRegistration() -> ContentCellRegistration {
         return ContentCellRegistration { [weak self] cell, indexPath, cellViewModel in
+            let currentLayoutSize = self?.contentCollectionView
+                .layoutAttributesForItem(at: indexPath)?.size
+            
             cell.imageView.image = nil
             cell.backgroundColor = .quaternarySystemFill
-            
-            let currentLayoutAttributes = self?.contentCollectionView
-                .layoutAttributesForItem(at: indexPath)
-            
             cell.imageRequest = self?.imageUtilityManager.requestImage(
                 for: cellViewModel.imageURL
-            ) { image in
-                
-                guard let currentLayoutAttributes else {
-                    cell.imageView.image = image
-                    return
-                }
-
-                image?.prepareThumbnail(of: currentLayoutAttributes.size) { image in
+            ) { [weak cell] image in
+                guard let cell else { return }
+                image?.prepareThumbnail(of: currentLayoutSize ?? .zero) { image in
                     DispatchQueue.main.async {
                         UIView.transition(
                             with: cell,
-                            duration: 0.2,
+                            duration: 0.3,
                             options: [.allowUserInteraction, .transitionCrossDissolve]
                         ) {
                             cell.imageView.image = image
