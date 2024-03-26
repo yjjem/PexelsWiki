@@ -62,13 +62,24 @@ final class Router: NSObject, RouterProtocol {
     
     // MARK: NavigationControllerDelegate
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        
-        if let transitionCoordinator = navigationController.transitionCoordinator,
-           let fromViewController = transitionCoordinator.viewController(forKey: .from),
-           let completion = completions[fromViewController] {
-            completion()
-            completions.removeValue(forKey: fromViewController)
+    func navigationController(
+        _ navigationController: UINavigationController,
+        didShow viewController: UIViewController, 
+        animated: Bool
+    ) {
+        if let viewTransitionCoordinator = viewController.transitionCoordinator,
+           let navigationTransitionCoordinator = navigationController.transitionCoordinator {
+            
+            [viewTransitionCoordinator, navigationTransitionCoordinator]
+             .compactMap { $0.viewController(forKey: .from) }
+             .forEach { runCompletion(of: $0) }
         }
+    }
+    
+    private func runCompletion(of viewController: UIViewController) {
+        if let runCompletion = completions[viewController] {
+            runCompletion()
+        }
+        completions.removeValue(forKey: viewController)
     }
 }
