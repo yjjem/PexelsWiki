@@ -50,6 +50,7 @@ final class HomeViewController: UIViewController {
         contentCollectionView.dataSource = diffableDataSource
         contentCollectionView.backgroundColor = .systemGray6
         contentCollectionView.delegate = self
+        contentCollectionView.showsVerticalScrollIndicator = false
     }
     
     override func viewDidLoad() {
@@ -98,7 +99,7 @@ final class HomeViewController: UIViewController {
             ) { environment in
                 
                 let contentWidth = environment.container.effectiveContentSize.width
-                let contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
                 var groupItems: [NSCollectionLayoutGroupCustomItem] = .init()
                 var previousItemOriginY: CGFloat = 0
                 
