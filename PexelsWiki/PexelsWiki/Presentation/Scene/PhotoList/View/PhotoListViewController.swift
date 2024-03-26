@@ -15,7 +15,7 @@ final class PhotoListViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias PhotoContentCellRegistartion = UICollectionView.CellRegistration<PhotoContentCell, PhotoContentCellViewModel>
+    typealias PhotoContentCellRegistration = UICollectionView.CellRegistration<PhotoContentCell, PhotoContentCellViewModel>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, PhotoContentCellViewModel>
     typealias SnapShot = NSDiffableDataSourceSectionSnapshot<PhotoContentCellViewModel>
     
@@ -31,6 +31,7 @@ final class PhotoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
     private let photoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()
@@ -100,9 +101,30 @@ final class PhotoListViewController: UIViewController {
         }
     }
     
-    private func makePhotoContentCellRegistration() -> PhotoContentCellRegistartion {
-        return PhotoContentCellRegistartion { cell, indexPath, cellViewModel in
-            cell.configure(using: cellViewModel)
+    private func makePhotoContentCellRegistration() -> PhotoContentCellRegistration {
+        return PhotoContentCellRegistration { [weak self] cell, indexPath, cellViewModel in
+            
+            let downscaledSize = cellViewModel.downScaledImageSize(by: 1/7)
+            
+            cell.imageView.image = nil
+            cell.backgroundColor = .quaternarySystemFill
+            cell.imageRequest = self?.imageUtilityManager.requestImage(
+                for: cellViewModel.imageURLString
+            ) { [weak cell] requestedImage in
+                
+                requestedImage?.prepareThumbnail(of: downscaledSize) { downscaledImage in
+                    guard let cell else { return }
+                    DispatchQueue.main.async {
+                        UIView.transition(
+                            with: cell,
+                            duration: 0.3,
+                            options: [.transitionCrossDissolve, .allowUserInteraction]
+                        ) {
+                            cell.imageView.image = downscaledImage
+                        }
+                    }
+                }
+            }
         }
     }
     

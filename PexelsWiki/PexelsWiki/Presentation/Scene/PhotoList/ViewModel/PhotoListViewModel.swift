@@ -46,7 +46,9 @@ final class PhotoListViewModel {
                     PhotoContentCellViewModel(
                         userName: $0.user.name,
                         imageURLString: $0.variations.landscape,
-                        imageID: $0.id
+                        imageID: $0.id,
+                        imageWidth: $0.resolution.width,
+                        imageHeight: $0.resolution.height
                     )
                 }
                 self?.totalItemsFound = photoPage.totalResults
