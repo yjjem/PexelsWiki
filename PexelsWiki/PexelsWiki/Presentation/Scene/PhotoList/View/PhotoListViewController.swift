@@ -58,10 +58,10 @@ final class PhotoListViewController: UIViewController {
     
     private func bindViewModel() {
         viewModel?.loadedPhotoContentCellViewModels = { [weak self] photoResources in
-            guard let self else { return }
-            let snapShotItems = self.snapShot.items
+            if let snapShotItems = self?.snapShot.items {
             let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
-            self.updateSnapShot(using: itemsWithoutDuplications)
+                self?.updateSnapShot(using: itemsWithoutDuplications)
+            }
         }
     }
     
