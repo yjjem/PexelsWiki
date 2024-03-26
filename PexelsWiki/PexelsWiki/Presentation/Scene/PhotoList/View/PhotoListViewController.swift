@@ -131,7 +131,7 @@ final class PhotoListViewController: UIViewController {
                 heightDimension: .fractionalHeight(3/9)
             ),
             repeatingSubitem: tripleHorizontalItem,
-            count: 4
+            count: 3
         )
         
         let mainHalfItem = NSCollectionLayoutItem(
@@ -210,6 +210,7 @@ final class PhotoListViewController: UIViewController {
         
         let section = NSCollectionLayoutSection(group: nestedGroup)
         section.boundarySupplementaryItems = [resultsHeader]
+        section.contentInsets = .init(top: 15, leading: 15, bottom: 15, trailing: 15)
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         
@@ -236,7 +237,7 @@ extension PhotoListViewController: UICollectionViewDelegate {
             scrollView: collectionView,
             willDisplay: indexPath,
             itemsCount: snapShot.items.count,
-            edgeCountInset: 20
+            edgeCountInset: 50
         ) {
             viewModel?.fetchNextPage()
         }
