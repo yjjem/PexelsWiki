@@ -12,7 +12,7 @@ final class PhotoContentCell: UICollectionViewCell {
     // MARK: Property(s)
     
     let imageView: UIImageView = UIImageView()
-    weak var imageRequest: Cancellable?
+    var imageRequest: Cancellable?
     
     // MARK: Override(s)
     
