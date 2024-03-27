@@ -94,6 +94,7 @@ final class VideoListViewController: UIViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [resultsHeader]
+        section.contentInsets = .init(top: 15, leading: 15, bottom: 15, trailing: 15)
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -134,7 +135,8 @@ final class VideoListViewController: UIViewController {
                     DispatchQueue.main.async {
                         UIView.transition(
                             with: cell,
-                            duration: 0.3
+                            duration: 0.3,
+                            options: [.allowUserInteraction, .transitionCrossDissolve]
                         ) {
                             cell.videoThumbnailView.image  = thumbnailImage
                         }
@@ -185,7 +187,7 @@ extension VideoListViewController: UICollectionViewDelegate {
             scrollView: collectionView,
             willDisplay: indexPath,
             itemsCount: snapShot.items.count,
-            edgeCountInset: 9
+            edgeCountInset: 20
         ) {
             viewModel?.fetchNextPage()
         }
