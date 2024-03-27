@@ -51,9 +51,11 @@ final class VideoListViewModel {
                     let durationFormatter = VideoDurationFormatter(duration: $0.duration)
                     let formattedDuration = durationFormatter.formattedString() ?? ""
                     return VideoCellViewModel(
+                        id: $0.id,
                         thumbnailImage: $0.previewURL,
                         duration: formattedDuration,
-                        id: $0.id
+                        imageWidth: $0.resolution.width,
+                        imageHeight: $0.resolution.height
                     )
                 }
                 self?.totalItemsFound = videoPage.totalResults

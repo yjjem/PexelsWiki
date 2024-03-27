@@ -31,6 +31,7 @@ final class VideoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
     private let videoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()
@@ -121,9 +122,25 @@ final class VideoListViewController: UIViewController {
     }
     
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
-        return VideoContentCellRegistration { cell, indexPath, videoPreviewItem in
+        return VideoContentCellRegistration { [weak self]  cell, indexPath, videoPreviewItem in
+            
             cell.videoThumbnailView.image = nil
-            cell.configure(using: videoPreviewItem)
+            cell.durationLabel.text = videoPreviewItem.duration
+            cell.imageRequest = self?.imageUtilityManager.requestImage(
+                for: videoPreviewItem.thumbnailImage
+            ) { [weak cell] image in
+                image?.prepareThumbnail(of: videoPreviewItem.thumbnailSize()) { thumbnailImage in
+                    guard let cell else { return }
+                    DispatchQueue.main.async {
+                        UIView.transition(
+                            with: cell,
+                            duration: 0.3
+                        ) {
+                            cell.videoThumbnailView.image  = thumbnailImage
+                        }
+                    }
+                }
+            }
         }
     }
     

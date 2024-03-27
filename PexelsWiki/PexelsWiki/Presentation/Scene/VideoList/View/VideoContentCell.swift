@@ -9,12 +9,11 @@ import UIKit
 
 final class VideoContentCell: UICollectionViewCell {
     
-    // MARK: Proprety(s)
+    // MARK: Property(s)
     
-    private var imageRequest: Cancellable?
-    
+    var imageRequest: Cancellable?
     let videoThumbnailView: UIImageView = UIImageView()
-    private let durationLabel: UILabel = UILabel()
+    let durationLabel: UILabel = UILabel()
     
     // MARK: Override(s)
     
@@ -32,19 +31,6 @@ final class VideoContentCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageRequest?.cancel()
-    }
-    
-    // MARK: Function(s)
-    
-    func configure(using viewModel: VideoCellViewModel) {
-        durationLabel.text = viewModel.duration.description
-        imageRequest = ImageLoadManager.fetchCachedImageDataElseLoad(
-            urlString: viewModel.thumbnailImage
-        ) { [weak self] result in
-            if case let .success(imageData) = result {
-                self?.videoThumbnailView.image = UIImage(data: imageData)
-            }
-        }
     }
     
     // MARK: Private Function(s)
