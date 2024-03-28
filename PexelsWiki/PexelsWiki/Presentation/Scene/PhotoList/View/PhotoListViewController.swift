@@ -107,6 +107,7 @@ final class PhotoListViewController: UIViewController {
             let downscaledSize = cellViewModel.downScaledImageSize(by: 1/7)
             
             cell.imageView.image = nil
+            cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
             cell.imageRequest = self?.imageUtilityManager.requestImage(
                 for: cellViewModel.imageURLString

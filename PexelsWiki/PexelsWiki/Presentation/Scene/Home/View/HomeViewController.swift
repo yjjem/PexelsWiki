@@ -148,6 +148,7 @@ final class HomeViewController: UIViewController {
                 .layoutAttributesForItem(at: indexPath)?.size
             
             cell.imageView.image = nil
+            cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
             cell.imageRequest = self?.imageUtilityManager.requestImage(
                 for: cellViewModel.imageURL

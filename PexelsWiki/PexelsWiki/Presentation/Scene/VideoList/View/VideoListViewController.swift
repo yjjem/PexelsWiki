@@ -125,6 +125,7 @@ final class VideoListViewController: UIViewController {
     private func makeVideoContentCellRegistration() -> VideoContentCellRegistration {
         return VideoContentCellRegistration { [weak self]  cell, indexPath, videoPreviewItem in
             
+            cell.videoThumbnailView.isOpaque = true
             cell.videoThumbnailView.image = nil
             cell.durationLabel.text = videoPreviewItem.duration
             cell.imageRequest = self?.imageUtilityManager.requestImage(
