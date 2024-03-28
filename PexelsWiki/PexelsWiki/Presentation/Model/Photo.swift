@@ -12,5 +12,5 @@ struct Photo {
     let userName: String
     let userProfileURL: String
     let resolution: String
-    let data: Data
+    let url: String
 }

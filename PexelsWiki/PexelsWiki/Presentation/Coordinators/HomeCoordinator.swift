@@ -79,16 +79,9 @@ extension HomeCoordinator: DetailViewControllerDelegate {
         showUserProfileFlow(url: userProfileURL)
     }
     
-    func didRequestDownload(_ photo: Photo) {
-        if let imageToSave = UIImage(data: photo.data) {
-            UIImageWriteToSavedPhotosAlbum(
-                imageToSave,
-                self, #selector(image(_:didFinishSavingWithError:contextInfo:)),
-                nil
-            )
-        } else {
-            showSaveFailedFlow("No image")
-        }
+    func didRequestSave(image: UIImage) {
+        let imageSaveCallbackSelector = #selector(image(_:didFinishSavingWithError:contextInfo:))
+        UIImageWriteToSavedPhotosAlbum(image, self, imageSaveCallbackSelector, nil)
     }
 }
 

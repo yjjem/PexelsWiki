@@ -11,7 +11,7 @@ final class PhotoDetailViewModel {
     
     // MARK: Binding(s)
     
-    var loadedPhoto: ((Photo) -> Void)?
+    var fetchedPhotoItem: ((Photo) -> Void)?
     var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
@@ -26,6 +26,7 @@ final class PhotoDetailViewModel {
     
     private let imageID: Int
     private let useCase: FetchSinglePhotoUseCase
+    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
     
     // MARK: Initializer
     
@@ -39,21 +40,14 @@ final class PhotoDetailViewModel {
     func startFetching() {
         useCase.fetchPhoto(id: imageID) { [weak self] response in
             if case .success(let photoBundle) = response {
-                ImageLoadManager.fetchCachedImageDataElseLoad(
-                    urlString: photoBundle.variations.original
-                ) { response in
-                    if case .success(let photoData) = response {
-                        let photo = Photo(
-                            title: photoBundle.title,
-                            userName: photoBundle.user.name,
-                            userProfileURL: photoBundle.user.profileURL,
-                            resolution: photoBundle.resolution.toString(),
-                            data: photoData
-                        )
-                        self?.photo = photo
-                        self?.loadedPhoto?(photo)
-                    }
-                }
+                let photo = Photo(
+                    title: photoBundle.title,
+                    userName: photoBundle.user.name,
+                    userProfileURL: photoBundle.user.profileURL,
+                    resolution: photoBundle.resolution.toString(),
+                    url: photoBundle.variations.original
+                )
+                self?.fetchedPhotoItem?(photo)
             }
         }
     }

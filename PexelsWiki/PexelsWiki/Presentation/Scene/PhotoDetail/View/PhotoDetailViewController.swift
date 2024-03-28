@@ -9,7 +9,7 @@ import UIKit
 
 protocol DetailViewControllerDelegate: AnyObject {
     func didRequestUserProfile(_ userProfileURL: String)
-    func didRequestDownload(_ photo: Photo)
+    func didRequestSave(image: UIImage)
 }
 
 final class PhotoDetailViewController: StretchHeaderViewController {
@@ -19,7 +19,8 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     var viewModel: PhotoDetailViewModel?
     weak var delegate: DetailViewControllerDelegate?
     
-    private let imageView = StretchableImageView()
+    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let stretchableView = StretchableImageView()
     private let informationStack: UIStackView = {
         let stackView = UIStackView()
         stackView.directionalLayoutMargins = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
@@ -59,7 +60,7 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     
     override func loadView() {
         super.loadView()
-        contentViews = [imageView, informationStack]
+        contentViews = [stretchableView, informationStack]
     }
     
     override func viewDidLoad() {
@@ -74,19 +75,33 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
-        imageView.setZoomScale(1, animated: true)
+        stretchableView.setZoomScale(1, animated: true)
     }
     
     // MARK: Private Function(s)
     
     private func bindViewModel() {
         
-        viewModel?.loadedPhoto = { [weak self] photo in
+        viewModel?.fetchedPhotoItem = { [weak self] photo in
             DispatchQueue.main.async {
                 self?.titleLabel.text = photo.title
                 self?.userNameLabel.text = photo.userName
                 self?.resolutionLabel.text = photo.resolution
-                self?.imageView.addImageData(photo.data)
+                self?.imageUtilityManager.requestImage(
+                    for: photo.url,
+                    shouldCache: false
+                ) { [stretchableView = self?.stretchableView] image in
+                    guard let stretchableView else { return }
+                    DispatchQueue.main.async {
+                        UIView.transition(
+                            with: stretchableView,
+                            duration: 0.3,
+                            options: [.transitionCrossDissolve, .allowUserInteraction]
+                        ) {
+                            stretchableView.imageView.image = image
+                        }
+                    }
+                }
             }
         }
         
@@ -151,8 +166,8 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     }
     
     @objc private func didTapSaveImageButton() {
-        if let viewModel, let photo = viewModel.photo {
-            delegate?.didRequestDownload(photo)
+        if let image = stretchableView.imageView.image {
+            delegate?.didRequestSave(image: image)
         }
     }
 }

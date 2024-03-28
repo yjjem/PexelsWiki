@@ -113,16 +113,9 @@ extension SearchCoordinator: DetailViewControllerDelegate {
         showUserProfileFlow(profileURLString: profileURL)
     }
     
-    func didRequestDownload(_ photo: Photo) {
-        if let imageToSave = UIImage(data: photo.data) {
-            UIImageWriteToSavedPhotosAlbum(
-                imageToSave,
-                self, #selector(image(_:didFinishSavingWithError:contextInfo:)),
-                nil
-            )
-        } else {
-            showSaveFailedFlow("No image")
-        }
+    func didRequestSave(image: UIImage) {
+        let imageSaveCallBackSelector = #selector(image(_:didFinishSavingWithError:contextInfo:))
+        UIImageWriteToSavedPhotosAlbum(image, self, imageSaveCallBackSelector, nil)
     }
 }
 

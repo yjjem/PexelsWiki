@@ -31,6 +31,7 @@ struct ImageUtilityManager {
     
     // MARK: Function(s)
     
+    @discardableResult
     func requestImage(
         for urlString: String,
         shouldCache: Bool = true,
@@ -63,6 +64,7 @@ struct ImageUtilityManager {
         return task
     }
     
+    @discardableResult
     func requestThumbnailImage(
         urlString: String,
         desiredThumbnailSize: CGSize,

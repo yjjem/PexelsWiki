@@ -11,7 +11,7 @@ final class StretchableImageView: UIScrollView {
     
     // MARK: Property(s)
     
-    private let imageView: UIImageView = UIImageView()
+    let imageView: UIImageView = UIImageView()
     
     // MARK: Override(s)
     
