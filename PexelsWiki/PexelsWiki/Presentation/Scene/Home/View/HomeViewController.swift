@@ -28,13 +28,10 @@ final class HomeViewController: UIViewController {
     var viewModel: HomeViewModel?
     weak var delegate: HomeViewControllerDelegate?
     
-    private lazy var imageUtilityManager = ImageUtilityManager(
-        configuration: .defaultConfiguration
-    )
-    
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
+    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
     private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
     private let contentCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
