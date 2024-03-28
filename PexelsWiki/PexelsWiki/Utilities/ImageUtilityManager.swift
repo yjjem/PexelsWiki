@@ -9,6 +9,14 @@ import UIKit
 
 struct ImageUtilityManager {
     
+    // MARK: Shared Property(s)
+    
+    private static let thumbnailCache: NSCache<NSString, UIImage> = {
+        let thumbnailCache = NSCache<NSString, UIImage>()
+        thumbnailCache.countLimit = 200 * 1024 * 1024
+        return thumbnailCache
+    }()
+    
     // MARK: Property(s)
     
     private let configuration: ImageUtilityManagerConfiguration
@@ -53,6 +61,33 @@ struct ImageUtilityManager {
         }
         task?.resume()
         return task
+    }
+    
+    func requestThumbnailImage(
+        urlString: String,
+        desiredThumbnailSize: CGSize,
+        _ completion: @escaping (UIImage?) -> Void
+    ) -> Cancellable? {
+        return requestImage(for: urlString) { image in
+            
+            let thumbnailCacheKey = NSString(string: urlString)
+            
+            if let cachedThumbnail = ImageUtilityManager.thumbnailCache
+                .object(forKey: thumbnailCacheKey) {
+                completion(cachedThumbnail)
+                return
+            }
+            
+            image?.prepareThumbnail(of: desiredThumbnailSize) { thumbnail in
+                if let thumbnail {
+                    ImageUtilityManager.thumbnailCache.setObject(
+                        thumbnail,
+                        forKey: thumbnailCacheKey
+                    )
+                }
+                completion(thumbnail)
+            }
+        }
     }
     
     // MARK: Private Function(s)
