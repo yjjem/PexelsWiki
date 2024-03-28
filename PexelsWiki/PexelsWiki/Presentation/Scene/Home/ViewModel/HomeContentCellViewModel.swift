@@ -16,4 +16,13 @@ struct HomeContentCellViewModel: Hashable {
     let imageWidth: Int
     let imageHeight: Int
     let resolutionString: String
+    
+    func imageSize() -> CGSize {
+        return CGSize(width: imageWidth, height: imageHeight)
+    }
+    
+    func downScaledImageSize(by downscaleValue: CGFloat) -> CGSize{
+        let downScale = CGAffineTransform(scaleX: downscaleValue, y: downscaleValue)
+        return imageSize().applying(downScale)
+    }
 }
