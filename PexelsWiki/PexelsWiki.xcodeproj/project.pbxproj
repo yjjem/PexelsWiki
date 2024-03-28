@@ -69,7 +69,6 @@
 		DFD792B52A46B77600729C2F /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792B42A46B77600729C2F /* ContentType.swift */; };
 		DFD792BA2A46D5EA00729C2F /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792B92A46D5EA00729C2F /* PhotoListViewController.swift */; };
 		DFD792BC2A46DA5700729C2F /* PhotoContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792BB2A46DA5700729C2F /* PhotoContentCell.swift */; };
-		DFD792BE2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792BD2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift */; };
 		DFD792C02A47FCA300729C2F /* PhotoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792BF2A47FCA300729C2F /* PhotoListViewModel.swift */; };
 		DFD792C22A47FCD900729C2F /* PhotoContentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792C12A47FCD900729C2F /* PhotoContentCellViewModel.swift */; };
 		DFD792CA2A482C6800729C2F /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD792C92A482C6800729C2F /* VideoPlayerView.swift */; };
@@ -161,7 +160,6 @@
 		DFD792B42A46B77600729C2F /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		DFD792B92A46D5EA00729C2F /* PhotoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
 		DFD792BB2A46DA5700729C2F /* PhotoContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentCell.swift; sourceTree = "<group>"; };
-		DFD792BD2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCompositionalLayout+LayoutTypes.swift"; sourceTree = "<group>"; };
 		DFD792BF2A47FCA300729C2F /* PhotoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModel.swift; sourceTree = "<group>"; };
 		DFD792C12A47FCD900729C2F /* PhotoContentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoContentCellViewModel.swift; sourceTree = "<group>"; };
 		DFD792C92A482C6800729C2F /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -571,7 +569,6 @@
 		DFF438952B8A467000F70230 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DFD792BD2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift */,
 				DF42BDA52A4AD65A00AA0896 /* UIImage+ImageFromData.swift */,
 				DFC1DC062B985DC9002BB669 /* UIScrollView+Extension.swift */,
 				DFF4388D2B8A38CE00F70230 /* ScrollView+Pagination.swift */,
@@ -777,7 +774,6 @@
 				DFA4915E2A3AF7AF008BC5C4 /* PhotoPage.swift in Sources */,
 				DFA491572A3AF270008BC5C4 /* VideoPage.swift in Sources */,
 				DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */,
-				DFD792BE2A47BB6A00729C2F /* UICollectionViewCompositionalLayout+LayoutTypes.swift in Sources */,
 				DFCFF3102B998BFD00947892 /* Photo.swift in Sources */,
 				DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */,
 				DF8F83F22B7F1E4E002CA0E7 /* DomainFactory.swift in Sources */,
