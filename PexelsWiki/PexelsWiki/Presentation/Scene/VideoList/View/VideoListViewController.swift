@@ -127,20 +127,20 @@ final class VideoListViewController: UIViewController {
             
             cell.videoThumbnailView.isOpaque = true
             cell.videoThumbnailView.image = nil
+            cell.backgroundColor = .quaternarySystemFill
             cell.durationLabel.text = videoPreviewItem.duration
-            cell.imageRequest = self?.imageUtilityManager.requestImage(
-                for: videoPreviewItem.thumbnailImage
-            ) { [weak cell] image in
-                image?.prepareThumbnail(of: videoPreviewItem.thumbnailSize()) { thumbnailImage in
-                    guard let cell else { return }
-                    DispatchQueue.main.async {
-                        UIView.transition(
-                            with: cell,
-                            duration: 0.3,
-                            options: [.allowUserInteraction, .transitionCrossDissolve]
-                        ) {
-                            cell.videoThumbnailView.image  = thumbnailImage
-                        }
+            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
+                urlString: videoPreviewItem.thumbnailImage,
+                desiredThumbnailSize: videoPreviewItem.downscaledImageSize(by: 1/10)
+            ) { [weak cell] thumbnail in
+                guard let cell else { return }
+                DispatchQueue.main.async {
+                    UIView.transition(
+                        with: cell,
+                        duration: 0.3,
+                        options: [.allowUserInteraction, .transitionCrossDissolve]
+                    ) {
+                        cell.videoThumbnailView.image  = thumbnail
                     }
                 }
             }

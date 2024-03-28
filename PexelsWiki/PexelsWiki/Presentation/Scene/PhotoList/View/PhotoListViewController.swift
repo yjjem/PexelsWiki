@@ -109,20 +109,18 @@ final class PhotoListViewController: UIViewController {
             cell.imageView.image = nil
             cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
-            cell.imageRequest = self?.imageUtilityManager.requestImage(
-                for: cellViewModel.imageURLString
-            ) { [weak cell] requestedImage in
-                
-                requestedImage?.prepareThumbnail(of: downscaledSize) { downscaledImage in
-                    guard let cell else { return }
-                    DispatchQueue.main.async {
-                        UIView.transition(
-                            with: cell,
-                            duration: 0.3,
-                            options: [.transitionCrossDissolve, .allowUserInteraction]
-                        ) {
-                            cell.imageView.image = downscaledImage
-                        }
+            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
+                urlString: cellViewModel.imageURLString,
+                desiredThumbnailSize: downscaledSize
+            ) { [weak cell] thumbnail in
+                guard let cell else { return }
+                DispatchQueue.main.async {
+                    UIView.transition(
+                        with: cell,
+                        duration: 0.3,
+                        options: [.allowUserInteraction, .transitionCrossDissolve]
+                    ) {
+                        cell.imageView.image = thumbnail
                     }
                 }
             }

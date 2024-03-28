@@ -150,19 +150,18 @@ final class HomeViewController: UIViewController {
             cell.imageView.image = nil
             cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
-            cell.imageRequest = self?.imageUtilityManager.requestImage(
-                for: cellViewModel.imageURL
-            ) { [weak cell] image in
+            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
+                urlString: cellViewModel.imageURL,
+                desiredThumbnailSize: currentLayoutSize ?? .zero
+            ) { [weak cell] thumbnail in
                 guard let cell else { return }
-                image?.prepareThumbnail(of: currentLayoutSize ?? .zero) { image in
-                    DispatchQueue.main.async {
-                        UIView.transition(
-                            with: cell,
-                            duration: 0.3,
-                            options: [.allowUserInteraction, .transitionCrossDissolve]
-                        ) {
-                            cell.imageView.image = image
-                        }
+                DispatchQueue.main.async {
+                    UIView.transition(
+                        with: cell,
+                        duration: 0.3,
+                        options: [.transitionCrossDissolve, .allowUserInteraction]
+                    ) {
+                        cell.imageView.image = thumbnail
                     }
                 }
             }
