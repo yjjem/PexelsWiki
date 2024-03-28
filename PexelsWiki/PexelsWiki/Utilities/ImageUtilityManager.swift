@@ -25,13 +25,17 @@ struct ImageUtilityManager {
     
     func requestImage(
         for urlString: String,
+        shouldCache: Bool = true,
         _ completion: @escaping (UIImage?) -> Void
     ) -> Cancellable? {
         
         let imageCacheKey = NSString(string: urlString)
-        if let objectFromCache = imageCache.object(forKey: imageCacheKey) {
-            completion(objectFromCache)
-            return nil
+        
+        if shouldCache {
+            if let objectFromCache = imageCache.object(forKey: imageCacheKey) {
+                completion(objectFromCache)
+                return nil
+            }
         }
         
         let task = self.fetchImage(urlString) { image in
@@ -39,8 +43,13 @@ struct ImageUtilityManager {
                 completion(configuration.errorImage)
                 return
             }
+            
+            if shouldCache {
+                imageCache.setObject(image, forKey: imageCacheKey)
+            }
+            
             completion(image)
-            imageCache.setObject(image, forKey: imageCacheKey)
+            
         }
         task?.resume()
         return task
