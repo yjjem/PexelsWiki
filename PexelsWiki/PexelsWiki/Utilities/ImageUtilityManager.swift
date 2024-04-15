@@ -13,7 +13,7 @@ struct ImageUtilityManager {
     
     private static let thumbnailCache: NSCache<NSString, UIImage> = {
         let thumbnailCache = NSCache<NSString, UIImage>()
-        thumbnailCache.countLimit = 200 * 1024 * 1024
+        thumbnailCache.totalCostLimit = 200 * 1024 * 1024
         return thumbnailCache
     }()
     
