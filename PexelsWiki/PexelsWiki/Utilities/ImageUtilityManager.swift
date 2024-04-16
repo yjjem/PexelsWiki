@@ -70,26 +70,29 @@ struct ImageUtilityManager {
         desiredThumbnailSize: CGSize,
         _ completion: @escaping (UIImage?) -> Void
     ) -> Cancellable? {
-        return requestImage(for: urlString) { image in
             
-            let thumbnailCacheKey = NSString(string: urlString)
+        let cacheKey = NSString(string: urlString)
+        
+        if let thumbnailFromCache = ImageUtilityManager.thumbnailCache.object(forKey: cacheKey) {
+            completion(thumbnailFromCache)
+            return nil
+        }
             
-            if let cachedThumbnail = ImageUtilityManager.thumbnailCache
-                .object(forKey: thumbnailCacheKey) {
-                completion(cachedThumbnail)
+        let task = fetchImage(urlString) { optionalImage in
+            guard let fetchedImage = optionalImage else {
+                completion(nil)
                 return
             }
             
-            image?.prepareThumbnail(of: desiredThumbnailSize) { thumbnail in
-                if let thumbnail {
-                    ImageUtilityManager.thumbnailCache.setObject(
-                        thumbnail,
-                        forKey: thumbnailCacheKey
-                    )
+            fetchedImage.prepareThumbnail(of: desiredThumbnailSize) { optionalThumbnail in
+                if let thumbnail = optionalThumbnail {
+                    ImageUtilityManager.thumbnailCache.setObject(thumbnail, forKey: cacheKey)
                 }
-                completion(thumbnail)
+                completion(optionalThumbnail)
             }
         }
+        task?.resume()
+        return task
     }
     
     // MARK: Private Function(s)
