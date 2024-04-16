@@ -38,26 +38,24 @@ struct ImageUtilityManager {
         _ completion: @escaping (UIImage?) -> Void
     ) -> Cancellable? {
         
-        let imageCacheKey = NSString(string: urlString)
+        let cacheKey = NSString(string: urlString)
         
-        if shouldCache {
-            if let objectFromCache = imageCache.object(forKey: imageCacheKey) {
-                completion(objectFromCache)
-                return nil
-            }
+        if shouldCache, let imageFromCache = imageCache.object(forKey: cacheKey) {
+            completion(imageFromCache)
+            return nil
         }
         
-        let task = self.fetchImage(urlString) { image in
-            guard let image else {
+        let task = fetchImage(urlString) { optionalImage in
+            guard let image = optionalImage else {
                 completion(configuration.errorImage)
                 return
             }
             
             if shouldCache {
-                imageCache.setObject(image, forKey: imageCacheKey)
+                imageCache.setObject(image, forKey: cacheKey)
             }
             
-            completion(image)
+            completion(optionalImage)
             
         }
         task?.resume()
