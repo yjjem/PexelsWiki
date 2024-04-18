@@ -31,7 +31,7 @@ final class PhotoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let imageUtilityManager = ImageUtilityManager()
     private let photoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()
@@ -59,7 +59,7 @@ final class PhotoListViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.loadedPhotoContentCellViewModels = { [weak self] photoResources in
             if let snapShotItems = self?.snapShot.items {
-            let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
+                let itemsWithoutDuplications = photoResources.filter { !snapShotItems.contains($0) }
                 self?.updateSnapShot(using: itemsWithoutDuplications)
             }
         }
@@ -211,12 +211,12 @@ final class PhotoListViewController: UIViewController {
             ),
             subitems: [mainToTrailingGroup, tripleHorizontalGroup]
         )
-
+        
         let nestedGroup = NSCollectionLayoutGroup.vertical(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(18/9)),
-          subitems: [topGroup, bottomGroup]
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(18/9)),
+            subitems: [topGroup, bottomGroup]
         )
         
         let resultsHeader = NSCollectionLayoutBoundarySupplementaryItem(

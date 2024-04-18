@@ -19,15 +19,17 @@ struct ImageUtilityManager {
     
     // MARK: Property(s)
     
-    private let configuration: ImageUtilityManagerConfiguration
-    private let imageCache = NSCache<NSString, UIImage>()
-    private let imageFetchSession: URLSession
-    
-    init(configuration: ImageUtilityManagerConfiguration) {
-        self.configuration = configuration
-        self.imageFetchSession = URLSession(configuration: configuration.sessionConfiguration)
-        self.imageCache.totalCostLimit = configuration.cacheCapacity
-    }
+    private let imageCache: NSCache = {
+        let imageCache = NSCache<NSString, UIImage>()
+        imageCache.totalCostLimit = 100 * 1024 * 1024
+        return imageCache
+    }()
+
+    private let imageFetchSession: URLSession = {
+        let sessionConfiguration = URLSessionConfiguration.ephemeral
+        sessionConfiguration.waitsForConnectivity = true
+        return URLSession(configuration: sessionConfiguration)
+    }()
     
     // MARK: Function(s)
     
@@ -47,7 +49,7 @@ struct ImageUtilityManager {
         
         let task = fetchImage(urlString) { optionalImage in
             guard let image = optionalImage else {
-                completion(configuration.errorImage)
+                completion(nil)
                 return
             }
             
@@ -118,11 +120,12 @@ struct ImageUtilityManager {
                 return
             }
             
-            if let data {
-                completion(UIImage(data: data))
-            } else {
+            guard let data else {
                 completion(nil)
+                return
             }
+            
+            completion(UIImage(data: data))
         }
     }
 }

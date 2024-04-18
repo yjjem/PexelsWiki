@@ -19,7 +19,7 @@ final class PhotoDetailViewController: StretchHeaderViewController {
     var viewModel: PhotoDetailViewModel?
     weak var delegate: DetailViewControllerDelegate?
     
-    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let imageUtilityManager = ImageUtilityManager()
     private let stretchableView = StretchableImageView()
     private let informationStack: UIStackView = {
         let stackView = UIStackView()

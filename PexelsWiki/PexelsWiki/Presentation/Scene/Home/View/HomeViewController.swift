@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let imageUtilityManager = ImageUtilityManager()
     private let contentRefreshControl: UIRefreshControl = UIRefreshControl()
     private let contentCollectionView: UICollectionView = UICollectionView(
         frame: .zero,

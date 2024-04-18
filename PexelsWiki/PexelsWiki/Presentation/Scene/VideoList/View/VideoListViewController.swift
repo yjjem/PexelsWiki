@@ -31,7 +31,7 @@ final class VideoListViewController: UIViewController {
     private var diffableDataSource: DataSource?
     private var snapShot: SnapShot = SnapShot()
     
-    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let imageUtilityManager = ImageUtilityManager()
     private let videoCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: .init()

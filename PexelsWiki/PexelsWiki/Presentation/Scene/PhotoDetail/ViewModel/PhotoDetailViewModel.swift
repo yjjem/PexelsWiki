@@ -26,7 +26,7 @@ final class PhotoDetailViewModel {
     
     private let imageID: Int
     private let useCase: FetchSinglePhotoUseCase
-    private let imageUtilityManager = ImageUtilityManager(configuration: .defaultConfiguration)
+    private let imageUtilityManager = ImageUtilityManager()
     
     // MARK: Initializer
     
