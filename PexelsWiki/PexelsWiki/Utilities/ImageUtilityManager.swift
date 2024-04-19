@@ -108,7 +108,8 @@ struct ImageUtilityManager {
     private func calculateCacheCostFor(preparedImage: UIImage) -> Int {
         let preparedImageSize = preparedImage.size
         let areaValue = preparedImageSize.width * preparedImageSize.height
-        let preparedImageCost = Int(areaValue *  preparedImage.scale) * 4
+        let bytesPerPixel = (preparedImage.cgImage?.bitsPerPixel ?? 1) * 1/4
+        let preparedImageCost = Int(areaValue *  preparedImage.scale) * bytesPerPixel
         return preparedImageCost
     }
     
