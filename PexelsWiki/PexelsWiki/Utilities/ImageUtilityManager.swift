@@ -48,17 +48,22 @@ struct ImageUtilityManager {
         }
         
         let task = fetchImage(urlString) { optionalImage in
-            guard let image = optionalImage else {
-                completion(nil)
-                return
+            optionalImage?.prepareForDisplay { optionalPreparedImage in
+                guard let preparedImage = optionalPreparedImage else {
+                    completion(nil)
+                    return
+                }
+                
+                if shouldCache {
+                    imageCache.setObject(
+                        preparedImage,
+                        forKey: cacheKey,
+                        cost: calculateCacheCostFor(preparedImage: preparedImage)
+                    )
+                }
+                
+                completion(preparedImage)
             }
-            
-            if shouldCache {
-                imageCache.setObject(image, forKey: cacheKey)
-            }
-            
-            completion(optionalImage)
-            
         }
         task?.resume()
         return task
@@ -79,16 +84,19 @@ struct ImageUtilityManager {
         }
             
         let task = fetchImage(urlString) { optionalImage in
-            guard let fetchedImage = optionalImage else {
-                completion(nil)
-                return
-            }
-            
-            fetchedImage.prepareThumbnail(of: desiredThumbnailSize) { optionalThumbnail in
-                if let thumbnail = optionalThumbnail {
-                    ImageUtilityManager.thumbnailCache.setObject(thumbnail, forKey: cacheKey)
+            optionalImage?.prepareThumbnail(of: desiredThumbnailSize) { optionalThumbnail in
+                guard let preparedThumbnail = optionalThumbnail else {
+                    completion(nil)
+                    return
                 }
-                completion(optionalThumbnail)
+                
+                ImageUtilityManager.thumbnailCache.setObject(
+                    preparedThumbnail,
+                    forKey: cacheKey,
+                    cost: calculateCacheCostFor(preparedImage: preparedThumbnail)
+                )
+                
+                completion(preparedThumbnail)
             }
         }
         task?.resume()
@@ -96,6 +104,13 @@ struct ImageUtilityManager {
     }
     
     // MARK: Private Function(s)
+    
+    private func calculateCacheCostFor(preparedImage: UIImage) -> Int {
+        let preparedImageSize = preparedImage.size
+        let areaValue = preparedImageSize.width * preparedImageSize.height
+        let preparedImageCost = Int(areaValue *  preparedImage.scale) * 4
+        return preparedImageCost
+    }
     
     private func fetchImage(
         _ urlString: String,
