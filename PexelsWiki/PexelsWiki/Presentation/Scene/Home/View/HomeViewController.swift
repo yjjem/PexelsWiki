@@ -87,38 +87,27 @@ final class HomeViewController: UIViewController {
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { section, environment in
-            let rows = self.contentCollectionView.numberOfItems(inSection: .zero)
-            let custom = NSCollectionLayoutGroup.custom(
+            let items = self.contentCollectionView.numberOfItems(inSection: .zero)
+            let customGroup = NSCollectionLayoutGroup.custom(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .estimated(environment.container.effectiveContentSize.height)
                 )
             ) { environment in
                 
-                let contentWidth = environment.container.effectiveContentSize.width
+                let itemWidth = environment.container.effectiveContentSize.width
                 let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
                 var groupItems: [NSCollectionLayoutGroupCustomItem] = .init()
                 var previousItemOriginY: CGFloat = 0
                 
-                for index in 0..<rows {
-                    print("image =============== of\(index)\(index)\(index)\(index)==")
-                    let model = self.snapShot.items[index]
-                    let (height, width) = (CGFloat(model.imageHeight), CGFloat(model.imageWidth))
-                    print("val: \([width, height])")
-//                    let ratioRelativeToHeight = contentWidth / height
-//                    print(ratioRelativeToHeight)
-                    let itehWidth = width * contentWidth / width
-                    let itemHeight = height * contentWidth / width
-                    print("width: \(itehWidth)")
-                    print("height: \(itemHeight)")
-                    
-                    let newItemOrigin = CGPoint(x: 0, y: previousItemOriginY)
-                    let newItemSize = CGSize(width: contentWidth, height: itemHeight)
-                    print(newItemSize)
-                    let newItemFrame = CGRect(
-                        origin: newItemOrigin,
-                        size: newItemSize
-                    ).inset(by: contentInset)
+                for index in 0..<items {
+                    let viewModelForIndex = self.snapShot.items[index]
+                    let (height, width) = (CGFloat(viewModelForIndex.imageHeight), CGFloat(viewModelForIndex.imageWidth))
+                    let itemHeight = height * itemWidth / width
+                    let newItemOrigin = CGPoint(x: .zero, y: previousItemOriginY)
+                    let newItemSize = CGSize(width: itemWidth, height: itemHeight)
+                    let newItemFrame = CGRect(origin: newItemOrigin,size: newItemSize)
+                        .inset(by: contentInset)
                     
                     let newCustomItem = NSCollectionLayoutGroupCustomItem(frame: newItemFrame)
                     groupItems.append(newCustomItem)
@@ -128,7 +117,7 @@ final class HomeViewController: UIViewController {
                 
                 return groupItems
             }
-            return NSCollectionLayoutSection(group: custom)
+            return NSCollectionLayoutSection(group: customGroup)
         }
     }
     
