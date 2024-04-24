@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 final class CacheManager {
-    private let memoryCapacity = 200 * 1024 * 1024 // 200 MB
-    private let diskCapacity = 500 * 1024 * 1024 // 500 MB
+    private let memoryCapacity = 20 * 1024 * 1024 // 20 MB
+    private let diskCapacity = 50 * 1024 * 1024 // 50 MB
     private let cacheDirectory: URL? = {
         return try? FileManager.default.url(
             for: .cachesDirectory,
