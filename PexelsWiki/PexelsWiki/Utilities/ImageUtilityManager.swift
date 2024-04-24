@@ -24,7 +24,7 @@ struct ImageUtilityManager {
         imageCache.totalCostLimit = 100 * 1024 * 1024
         return imageCache
     }()
-
+    
     private let imageFetchSession: URLSession = {
         let sessionConfiguration = URLSessionConfiguration.ephemeral
         sessionConfiguration.waitsForConnectivity = true
@@ -70,22 +70,36 @@ struct ImageUtilityManager {
     }
     
     @discardableResult
-    func requestThumbnailImage(
-        urlString: String,
-        desiredThumbnailSize: CGSize,
+    func thumbnail(
+        for urlString: String,
+        toFit frameToFit: CGRect,
+        cropStrategy: ImageCropper.CropStrategy,
         _ completion: @escaping (UIImage?) -> Void
     ) -> Cancellable? {
-            
+        
         let cacheKey = NSString(string: urlString)
         
         if let thumbnailFromCache = ImageUtilityManager.thumbnailCache.object(forKey: cacheKey) {
             completion(thumbnailFromCache)
             return nil
         }
-            
+        
         let task = fetchImage(urlString) { optionalImage in
-            optionalImage?.prepareThumbnail(of: desiredThumbnailSize) { optionalThumbnail in
-                guard let preparedThumbnail = optionalThumbnail else {
+            guard let fetchedImage = optionalImage else {
+                completion(nil)
+                return
+            }
+            
+            let croppedImageElseOriginal = ImageCropper(
+                sourceImage: fetchedImage,
+                strategy: cropStrategy,
+                frameToFit: frameToFit
+            ).crop()
+            
+            croppedImageElseOriginal?.prepareThumbnail(of: frameToFit.size) {
+                optionalPreparedThumbnail in
+                
+                guard let preparedThumbnail = optionalPreparedThumbnail else {
                     completion(nil)
                     return
                 }
@@ -96,7 +110,7 @@ struct ImageUtilityManager {
                     cost: calculateCacheCostFor(preparedImage: preparedThumbnail)
                 )
                 
-                completion(preparedThumbnail)
+                completion(optionalPreparedThumbnail)
             }
         }
         task?.resume()

@@ -103,15 +103,13 @@ final class PhotoListViewController: UIViewController {
     
     private func makePhotoContentCellRegistration() -> PhotoContentCellRegistration {
         return PhotoContentCellRegistration { [weak self] cell, indexPath, cellViewModel in
-            
-            let downscaledSize = cellViewModel.downScaledImageSize(by: 1/7)
-            
             cell.imageView.image = nil
             cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
-            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
-                urlString: cellViewModel.imageURLString,
-                desiredThumbnailSize: downscaledSize
+            cell.imageRequest = self?.imageUtilityManager.thumbnail(
+                for: cellViewModel.imageURLString,
+                toFit: cell.frame,
+                cropStrategy: .centerSquare
             ) { [weak cell] thumbnail in
                 guard let cell else { return }
                 DispatchQueue.main.async {

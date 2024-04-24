@@ -101,13 +101,20 @@ final class HomeViewController: UIViewController {
                 var previousItemOriginY: CGFloat = 0
                 
                 for index in 0..<rows {
+                    print("image =============== of\(index)\(index)\(index)\(index)==")
                     let model = self.snapShot.items[index]
-                    let (height, width) = (Float(model.imageHeight), Float(model.imageWidth))
-                    let ratioRelativeToHeight = CGFloat(height / width)
-                    let itemWidth = contentWidth * ratioRelativeToHeight
+                    let (height, width) = (CGFloat(model.imageHeight), CGFloat(model.imageWidth))
+                    print("val: \([width, height])")
+//                    let ratioRelativeToHeight = contentWidth / height
+//                    print(ratioRelativeToHeight)
+                    let itehWidth = width * contentWidth / width
+                    let itemHeight = height * contentWidth / width
+                    print("width: \(itehWidth)")
+                    print("height: \(itemHeight)")
                     
                     let newItemOrigin = CGPoint(x: 0, y: previousItemOriginY)
-                    let newItemSize = CGSize(width: contentWidth, height: itemWidth)
+                    let newItemSize = CGSize(width: contentWidth, height: itemHeight)
+                    print(newItemSize)
                     let newItemFrame = CGRect(
                         origin: newItemOrigin,
                         size: newItemSize
@@ -142,14 +149,15 @@ final class HomeViewController: UIViewController {
     private func makeContentCellRegistration() -> ContentCellRegistration {
         return ContentCellRegistration { [weak self] cell, indexPath, cellViewModel in
             let currentLayoutSize = self?.contentCollectionView
-                .layoutAttributesForItem(at: indexPath)?.size
+                .layoutAttributesForItem(at: indexPath)
             
             cell.imageView.image = nil
             cell.imageView.isOpaque = true
             cell.backgroundColor = .quaternarySystemFill
-            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
-                urlString: cellViewModel.imageURL,
-                desiredThumbnailSize: currentLayoutSize ?? .zero
+            cell.imageRequest = self?.imageUtilityManager.thumbnail(
+                for: cellViewModel.imageURL,
+                toFit: currentLayoutSize?.frame ?? .zero,
+                cropStrategy: .none
             ) { [weak cell] thumbnail in
                 guard let cell else { return }
                 DispatchQueue.main.async {

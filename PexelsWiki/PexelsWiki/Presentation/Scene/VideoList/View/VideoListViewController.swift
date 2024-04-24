@@ -129,9 +129,10 @@ final class VideoListViewController: UIViewController {
             cell.videoThumbnailView.image = nil
             cell.backgroundColor = .quaternarySystemFill
             cell.durationLabel.text = videoPreviewItem.duration
-            cell.imageRequest = self?.imageUtilityManager.requestThumbnailImage(
-                urlString: videoPreviewItem.thumbnailImage,
-                desiredThumbnailSize: videoPreviewItem.downscaledImageSize(by: 1/10)
+            cell.imageRequest = self?.imageUtilityManager.thumbnail(
+                for: videoPreviewItem.thumbnailImage,
+                toFit: cell.frame,
+                cropStrategy: .centerPreserverRatio
             ) { [weak cell] thumbnail in
                 guard let cell else { return }
                 DispatchQueue.main.async {
