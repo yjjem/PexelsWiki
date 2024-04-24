@@ -34,9 +34,7 @@ final class HomeContentCell: UICollectionViewCell {
     
     private func configureConstraints() {
         contentView.addSubview(imageView)
-        contentView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
