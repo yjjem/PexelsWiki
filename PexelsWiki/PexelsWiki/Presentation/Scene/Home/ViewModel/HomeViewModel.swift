@@ -45,7 +45,7 @@ final class HomeViewModel {
                         userProfileURL: $0.user.profileURL,
                         imageTitle: $0.title,
                         imageID: $0.id,
-                        imageURL: $0.variations.original,
+                        imageURL: $0.variations.large,
                         imageWidth: $0.resolution.width,
                         imageHeight: $0.resolution.height,
                         resolutionString: $0.resolution.toString()
