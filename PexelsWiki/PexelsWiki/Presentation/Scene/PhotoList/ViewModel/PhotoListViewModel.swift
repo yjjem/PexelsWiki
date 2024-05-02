@@ -45,7 +45,7 @@ final class PhotoListViewModel {
                 let photoCellViewModels = photoPage.photos.compactMap {
                     PhotoContentCellViewModel(
                         userName: $0.user.name,
-                        imageURLString: $0.variations.medium,
+                        imageURLString: $0.variations.large,
                         imageID: $0.id,
                         imageWidth: $0.resolution.width,
                         imageHeight: $0.resolution.height
