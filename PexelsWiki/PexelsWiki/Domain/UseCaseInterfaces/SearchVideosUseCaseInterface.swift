@@ -1,13 +1,11 @@
 //
-//  VideoSerachUseCaseInterface.swift
+//  SearchVideosUseCaseInterface.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
 
-import Foundation
 
-protocol VideoSearchUseCaseInterface {
+protocol SearchVideosUseCaseInterface {
     associatedtype SearchParameters
     
     @discardableResult

@@ -3,16 +3,9 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
 
-import Foundation
 
-protocol FetchSinglePhotoUseCaseInterface {
-    
-    func fetchPhoto(id: Int, _ completion: (Result<PhotoBundle, Error>) -> Void) -> Cancellable?
-}
-
-final class FetchSinglePhotoUseCase {
+final class FetchSinglePhotoUseCase: FetchPhotoUseCaseInterface {
     
     // MARK: Property(s)
     

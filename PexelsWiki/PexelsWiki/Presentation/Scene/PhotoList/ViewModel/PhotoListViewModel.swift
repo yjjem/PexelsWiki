@@ -21,10 +21,10 @@ final class PhotoListViewModel {
     private var page: Int = 1
     
     private let orientation: ContentOrientation = .landscape
-    private let useCase: PhotoSearchUseCase
+    private let useCase: SearchPhotosUseCase
     private let maxItemsPerPage: Int
     
-    init(maxItemsPerPage: Int = 15, query: String?, useCase: PhotoSearchUseCase) {
+    init(maxItemsPerPage: Int = 15, query: String?, useCase: SearchPhotosUseCase) {
         self.maxItemsPerPage = maxItemsPerPage
         self.useCase = useCase
         self.query = query ?? ""
@@ -33,7 +33,7 @@ final class PhotoListViewModel {
     // MARK: Function(s)
     
     func fetchSearchResults() {
-        let searchValues = PhotoSearchUseCase.SearchParameters(
+        let searchValues = SearchPhotosUseCase.SearchParameters(
             query: query,
             orientation: orientation.name,
             size: ContentSize.large.name,

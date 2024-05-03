@@ -1,14 +1,12 @@
 //
-//  PexelsPhotoSearchUseCase.swift
+//  SearchVideosUseCase.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-import Foundation
-
-final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
-
+final class SearchVideosUseCase: SearchVideosUseCaseInterface {
+    
     struct SearchParameters {
         let query: String
         let orientation: String
@@ -32,9 +30,9 @@ final class PhotoSearchUseCase: PhotoSearchUseCaseInterface {
     @discardableResult
     func search(
         _ parameters: SearchParameters,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<VideoPage, Error>) -> Void
     ) -> Cancellable? {
-        return repository.searchPhotos(
+        return repository.searchVideos(
             query: parameters.query,
             orientation: parameters.orientation,
             size: parameters.size,

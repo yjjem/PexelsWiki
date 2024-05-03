@@ -1,20 +1,16 @@
 //
-//  CuratedPhotosUseCaseInterface.swift
+//  SearchPhotosUseCaseInterface.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
 
-import Foundation
 
-protocol CuratedPhotosUseCaseInterface {
+protocol SearchPhotosUseCaseInterface {
     associatedtype SearchParameters
     
     @discardableResult
-    func fetchCuratedPhotoPage(
+    func search(
         _ parameters: SearchParameters,
         _ completion: @escaping (Result<PhotoPage, Error>) -> Void
     ) -> Cancellable?
 }
-
-
