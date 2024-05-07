@@ -46,20 +46,20 @@ final class VideoListViewModel {
             perPage: maxItemsPerPage
         )
         useCase.search(searchValues) { [weak self] response in
-            if case .success(let videoPage) = response {
-                let videoPreviewItem = videoPage.videos.map {
+            if case .success(let searchedVideosPage) = response {
+                let videoPreviewItem = searchedVideosPage.items.map {
                     let durationFormatter = VideoDurationFormatter(duration: $0.duration)
                     let formattedDuration = durationFormatter.formattedString() ?? ""
                     return VideoCellViewModel(
                         id: $0.id,
-                        thumbnailImage: $0.previewURL,
+                        thumbnailImage: $0.thumbnail,
                         duration: formattedDuration,
-                        imageWidth: $0.resolution.width,
-                        imageHeight: $0.resolution.height
+                        imageWidth: $0.width,
+                        imageHeight: $0.height
                     )
                 }
-                self?.totalItemsFound = videoPage.totalResults
-                self?.updatePageValues(page: videoPage.nextPage(), hasNext: videoPage.hasNext)
+                self?.totalItemsFound = searchedVideosPage.totalResults
+                self?.updatePageValues(page: searchedVideosPage.page + 1, hasNext: searchedVideosPage.hasNext)
                 self?.fetchedVideoCellViewModelList?(videoPreviewItem)
                 self?.isLoading = false
             }

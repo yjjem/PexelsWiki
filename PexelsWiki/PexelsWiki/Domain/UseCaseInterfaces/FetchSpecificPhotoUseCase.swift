@@ -8,6 +8,6 @@
 protocol FetchSpecificPhotoUseCase {
     func fetchPhoto(
         id: Int,
-        _ completion: @escaping (Result<PhotoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
     ) -> Cancellable?
 }

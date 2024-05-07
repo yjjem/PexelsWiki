@@ -5,7 +5,7 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-final class FetchSinglePhotoUseCase: FetchPhotoUseCaseInterface {
+final class FetchSinglePhotoUseCase: FetchSpecificPhotoUseCase {
     
     // MARK: Property(s)
     
@@ -22,7 +22,7 @@ final class FetchSinglePhotoUseCase: FetchPhotoUseCaseInterface {
     @discardableResult
     func fetchPhoto(
         id: Int,
-        _ completion: @escaping (Result<PhotoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
     ) -> Cancellable? {
         return repository.fetchPhotoForID(id, completion)
     }

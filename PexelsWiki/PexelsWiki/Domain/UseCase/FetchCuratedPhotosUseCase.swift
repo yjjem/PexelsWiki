@@ -25,7 +25,7 @@ final class FetchCuratedPhotosUseCase: FetchCuratedPhotosUseCaseInterface {
     @discardableResult
     func fetchCuratedPhotoPage(
         _ parameters: SearchParameters,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<CuratedPhotosPage, Error>) -> Void
     ) -> Cancellable? {
         return repository.fetchCuratedPhotos(
             page: parameters.page,

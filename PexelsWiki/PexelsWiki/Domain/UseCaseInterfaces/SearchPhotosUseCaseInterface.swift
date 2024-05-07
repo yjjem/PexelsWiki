@@ -11,6 +11,6 @@ protocol SearchPhotosUseCaseInterface {
     @discardableResult
     func search(
         _ parameters: SearchParameters,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<SearchedPhotosPage, Error>) -> Void
     ) -> Cancellable?
 }

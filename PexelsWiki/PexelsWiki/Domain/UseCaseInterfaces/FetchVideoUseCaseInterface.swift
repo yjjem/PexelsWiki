@@ -5,9 +5,9 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-protocol FetchSingleVideoUseCaseInterface {
+protocol FetchSpecificVideoUseCase {
     func fetchVideoBy(
         id: Int,
-        _ completion: @escaping (Result<VideoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
     ) -> Cancellable?
 }

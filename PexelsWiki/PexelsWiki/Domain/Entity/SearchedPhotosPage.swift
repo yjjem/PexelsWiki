@@ -5,7 +5,7 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-struct SearchedPhotosPage: Page {
+struct SearchedPhotosPage: Pageable {
     typealias Item = SearchedPhoto
     let page: Int
     let hasNext: Bool

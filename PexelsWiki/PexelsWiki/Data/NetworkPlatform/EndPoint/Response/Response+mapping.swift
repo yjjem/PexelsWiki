@@ -11,53 +11,72 @@ import Foundation
 
 extension VideoListResponse {
     
-    func toVideoPage() -> VideoPage {
-        return VideoPage(
+    func toSearchedVideosPage() -> SearchedVideosPage {
+        return SearchedVideosPage(
             page: page,
             hasNext: nextPage != nil,
             totalResults: totalResults,
-            videos: videos.map { $0.toVideoBundle() }
+            items: videos.map { $0.toSearchedVideo() }
         )
     }
 }
 
 extension VideoResourceResponse {
     
-    func toVideoResolution() -> ContentResolution {
-        return ContentResolution(width: width, height: height)
-    }
-    
-    func toVideoFileList() -> [VideoFile] {
-        var videoFiles = videoFiles.map {
-            VideoFile(
-                id: $0.id,
-                quality: $0.quality,
-                fileType: $0.fileType,
-                resolution: toVideoResolution(),
-                link: $0.link
-            )
-        }
-        videoFiles.sort(by: { $0.resolution.pixelsCount() > $1.resolution.pixelsCount() })
-        return videoFiles
-    }
-    
-    func toVideoBundle() -> VideoBundle {
-        return VideoBundle(
-            id: id,
-            user: userResponse.toUser(),
-            duration: duration,
-            tags: tags,
-            previewURL: image,
-            resolution: toVideoResolution(),
-            videoFiles: toVideoFileList()
+    private func toUser() -> User {
+        return User(
+            id: userResponse.id,
+            name: userResponse.name,
+            profileURL: userResponse.url
         )
     }
-}
-
-extension UserResponse {
     
-    func toUser() -> User {
-        return User(id: id, name: name, profileURL: url)
+    func toSpecificVideo() -> SpecificVideo {
+        return SpecificVideo(
+            id: id,
+            width: width,
+            height: height,
+            user: toUser(),
+            files: toSpecificVideoFiles()
+        )
+    }
+    
+    func toSearchedVideo() -> SearchedVideo {
+        return SearchedVideo(
+            id: id,
+            user: toUser(),
+            thumbnail: image,
+            duration: duration,
+            width: width,
+            height: height,
+            files: toSearchedVideoFiles()
+        )
+    }
+    
+    func toSearchedVideoFiles() -> [SearchedVideoFile] {
+        return videoFiles.map { file in
+            SearchedVideoFile(
+                id: file.id,
+                width: file.width,
+                height: file.height,
+                quality: file.quality,
+                fileType: file.fileType,
+                url: file.link
+            )
+        }
+    }
+    
+    func toSpecificVideoFiles() -> [SpecificVideoFile] {
+        return videoFiles.map { file in
+            SpecificVideoFile(
+                id: file.id,
+                width: file.width,
+                height: file.height,
+                quality: file.quality,
+                fileType: file.fileType,
+                url: file.link
+            )
+        }
     }
 }
 
@@ -65,19 +84,28 @@ extension UserResponse {
 
 extension PhotoListResponse {
     
-    func toPhotoPage() -> PhotoPage {
-        return PhotoPage(
+    func toCuratedPhotosPage() -> CuratedPhotosPage {
+        return CuratedPhotosPage(
             page: page,
             hasNext: nextPage != nil,
             totalResults: totalResults,
-            photos: photos.compactMap { $0.toPhotoBundle() }
+            items: photos.compactMap { $0.toCuratedPhoto() }
+        )
+    }
+    
+    func toSearchedPhotosPage() -> SearchedPhotosPage {
+        return SearchedPhotosPage(
+            page: page,
+            hasNext: nextPage != nil,
+            totalResults: totalResults,
+            items: photos.compactMap { $0.toSearchedPhoto() }
         )
     }
 }
 
 extension PhotoResourceResponse {
     
-    func toUser() -> User {
+    private func toUser() -> User {
         return User(
             id: photographerID,
             name: photographer,
@@ -85,12 +113,8 @@ extension PhotoResourceResponse {
         )
     }
     
-    func toPhotoResolution() -> ContentResolution {
-        return ContentResolution(width: width, height: height)
-    }
-    
-    func toPhotoVariations() -> PhotoVariations {
-        return PhotoVariations(
+    func toPhotoSourceURL() -> PhotoSourceURL {
+        return PhotoSourceURL(
             original: imageSources.original,
             large: imageSources.large,
             large2x: imageSources.large2x,
@@ -101,13 +125,39 @@ extension PhotoResourceResponse {
         )
     }
     
-    func toPhotoBundle() -> PhotoBundle {
-        return PhotoBundle(
+    func toSearchedPhoto() -> SearchedPhoto {
+        return SearchedPhoto(
             id: id,
-            user: toUser(),
             title: title,
-            variations: toPhotoVariations(),
-            resolution: toPhotoResolution()
+            width: width,
+            height: height,
+            averageColor: averageColor,
+            user: toUser(),
+            sources: toPhotoSourceURL()
+        )
+    }
+    
+    func toCuratedPhoto() -> CuratedPhoto {
+        return CuratedPhoto(
+            id: id,
+            title: title,
+            width: width,
+            height: height,
+            averageColor: averageColor,
+            user: toUser(),
+            sources: toPhotoSourceURL()
+        )
+    }
+    
+    func toPhotoBundle() -> SpecificPhoto {
+        return SpecificPhoto(
+            id: id,
+            title: title,
+            width: width,
+            height: height,
+            averageColor: averageColor,
+            user: toUser(),
+            sources: toPhotoSourceURL()
         )
     }
 }

@@ -27,13 +27,13 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     func fetchCuratedPhotos(
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<CuratedPhotosPage, Error>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makeCuratedPhotosEndPoint(page: page, perPage: perPage)
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toPhotoPage() }
+                .map { $0.toCuratedPhotosPage() }
             completion(mappedResult)
         }
     }
@@ -45,7 +45,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<PhotoPage, Error>) -> Void
+        _ completion: @escaping (Result<SearchedPhotosPage, Error>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makeSearchPhotosEndPoint(
             query: query,
@@ -57,7 +57,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toPhotoPage() }
+                .map { $0.toSearchedPhotosPage() }
             completion(mappedResult)
         }
     }
@@ -65,7 +65,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     @discardableResult
     func fetchPhotoForID(
         _ id: Int,
-        _ completion: @escaping (Result<PhotoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makePhotoEndPoint(id: id)
         return provider.send(request: endPoint.makeURLRequest()) { result in
@@ -77,39 +77,13 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     }
     
     @discardableResult
-    func fetchPopularVideos(
-        minWidth: Int,
-        minHeight: Int,
-        minDuration: Int,
-        maxDuration: Int,
-        page: Int,
-        perPage: Int,
-        _ completion: @escaping (Result<VideoPage, Error>) -> Void
-    ) -> Cancellable? {
-        let endPoint = apiFactory.makePopularVideosEndPoint(
-            minWidth: minWidth,
-            minHeight: minHeight,
-            minDuration: minDuration,
-            maxDuration: maxDuration,
-            page: page,
-            perPage: perPage
-        )
-        return provider.send(request: endPoint.makeURLRequest()) { result in
-            let mappedResult = result
-                .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toVideoPage() }
-            completion(mappedResult)
-        }
-    }
-    
-    @discardableResult
     func searchVideos(
         query: String,
         orientation: String,
         size: String,
         page: Int,
         perPage: Int,
-        _ completion: @escaping (Result<VideoPage, Error>) -> Void
+        _ completion: @escaping (Result<SearchedVideosPage, Error>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makeSearchVideosEndPoint(
             query: query,
@@ -121,7 +95,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toVideoPage() }
+                .map { $0.toSearchedVideosPage() }
             completion(mappedResult)
         }
     }
@@ -129,13 +103,13 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     @discardableResult
     func fetchVideoForID(
         _ id: Int,
-        _ completion: @escaping (Result<VideoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makeVideoEndPoint(id: id)
         return provider.send(request: endPoint.makeURLRequest()) { result in
             let mappedResult = result
                 .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toVideoBundle() }
+                .map { $0.toSpecificVideo() }
             completion(mappedResult)
         }
     }

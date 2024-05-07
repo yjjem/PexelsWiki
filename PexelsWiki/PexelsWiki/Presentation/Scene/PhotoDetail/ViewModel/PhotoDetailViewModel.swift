@@ -39,13 +39,13 @@ final class PhotoDetailViewModel {
     
     func startFetching() {
         useCase.fetchPhoto(id: imageID) { [weak self] response in
-            if case .success(let photoBundle) = response {
+            if case .success(let specificPhoto) = response {
                 let photo = Photo(
-                    title: photoBundle.title,
-                    userName: photoBundle.user.name,
-                    userProfileURL: photoBundle.user.profileURL,
-                    resolution: photoBundle.resolution.toString(),
-                    url: photoBundle.variations.original
+                    title: specificPhoto.title,
+                    userName: specificPhoto.user.name,
+                    userProfileURL: specificPhoto.user.profileURL,
+                    resolution: "\(specificPhoto.width) x \(specificPhoto.height)",
+                    url: specificPhoto.sources.original
                 )
                 self?.fetchedPhotoItem?(photo)
             }

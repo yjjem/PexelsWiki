@@ -38,21 +38,21 @@ final class HomeViewModel {
         )
         useCase.fetchCuratedPhotoPage(searchValues) { [weak self] response in
             switch response {
-            case .success(let photoPage):
-                let homeCellViewModels = photoPage.photos.map {
+            case .success(let curatedPhotosPage):
+                let homeCellViewModels = curatedPhotosPage.items.map {
                     HomeContentCellViewModel(
                         userName: $0.user.name,
                         userProfileURL: $0.user.profileURL,
                         imageTitle: $0.title,
                         imageID: $0.id,
-                        imageURL: $0.variations.large,
-                        imageWidth: $0.resolution.width,
-                        imageHeight: $0.resolution.height,
-                        resolutionString: $0.resolution.toString()
+                        imageURL: $0.sources.large,
+                        imageWidth: $0.width,
+                        imageHeight: $0.height,
+                        resolutionString: "\($0.width) x \($0.height)"
                     )
                 }
                 self?.loadedHomeContentViewModelList?(homeCellViewModels)
-                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
+                self?.updatePageValues(page: curatedPhotosPage.page + 1, hasNext: curatedPhotosPage.hasNext)
                 self?.isLoading = false
             case .failure(_):
                 self?.loadedHomeContentViewModelList?(nil)

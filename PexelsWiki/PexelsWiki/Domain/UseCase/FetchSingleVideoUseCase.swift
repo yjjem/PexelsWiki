@@ -5,7 +5,7 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-final class FetchSingleVideoUseCase: FetchSingleVideoUseCaseInterface {
+final class FetchSingleVideoUseCase: FetchSpecificVideoUseCase {
     
     // MARK: Property(s)
     
@@ -19,7 +19,7 @@ final class FetchSingleVideoUseCase: FetchSingleVideoUseCaseInterface {
     
     func fetchVideoBy(
         id: Int,
-        _ completion: @escaping (Result<VideoBundle, Error>) -> Void
+        _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
     ) -> Cancellable? {
         return repository.fetchVideoForID(id, completion)
     }

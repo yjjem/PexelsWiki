@@ -30,7 +30,7 @@ final class SearchVideosUseCase: SearchVideosUseCaseInterface {
     @discardableResult
     func search(
         _ parameters: SearchParameters,
-        _ completion: @escaping (Result<VideoPage, Error>) -> Void
+        _ completion: @escaping (Result<SearchedVideosPage, Error>) -> Void
     ) -> Cancellable? {
         return repository.searchVideos(
             query: parameters.query,

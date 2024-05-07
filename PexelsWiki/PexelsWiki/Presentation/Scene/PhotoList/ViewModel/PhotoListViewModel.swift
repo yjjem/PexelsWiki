@@ -41,19 +41,19 @@ final class PhotoListViewModel {
             perPage: maxItemsPerPage
         )
         useCase.search(searchValues) { [weak self] response in
-            if case .success(let photoPage) = response {
-                let photoCellViewModels = photoPage.photos.compactMap {
+            if case .success(let searchedPhotosPage) = response {
+                let photoCellViewModels = searchedPhotosPage.items.compactMap {
                     PhotoContentCellViewModel(
                         userName: $0.user.name,
-                        imageURLString: $0.variations.large,
+                        imageURLString: $0.sources.large,
                         imageID: $0.id,
-                        imageWidth: $0.resolution.width,
-                        imageHeight: $0.resolution.height
+                        imageWidth: $0.width,
+                        imageHeight: $0.height
                     )
                 }
-                self?.totalItemsFound = photoPage.totalResults
+                self?.totalItemsFound = searchedPhotosPage.totalResults
                 self?.loadedPhotoContentCellViewModels?(photoCellViewModels)
-                self?.updatePageValues(page: photoPage.nextPage(), hasNext: photoPage.hasNext)
+                self?.updatePageValues(page: searchedPhotosPage.page + 1, hasNext: searchedPhotosPage.hasNext)
                 self?.isLoading = false
             }
         }
