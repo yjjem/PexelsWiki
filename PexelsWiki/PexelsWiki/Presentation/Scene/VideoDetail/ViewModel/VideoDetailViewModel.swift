@@ -19,11 +19,11 @@ final class VideoDetailViewModel {
     
     private let videoID: Int
     private var videoRequest: Cancellable?
-    private let useCase: FetchSingleVideoUseCase
+    private let useCase: FetchSpecificVideoUseCase
     
     // MARK: Initializer
     
-    init(videoID: Int, useCase: FetchSingleVideoUseCase) {
+    init(videoID: Int, useCase: FetchSpecificVideoUseCase) {
         self.videoID = videoID
         self.useCase = useCase
     }

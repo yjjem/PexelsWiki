@@ -33,7 +33,7 @@ final class PhotoListViewModel {
     // MARK: Function(s)
     
     func fetchSearchResults() {
-        let searchValues = SearchPhotosUseCase.SearchParameters(
+        let searchValues = SearchPhotosParameter(
             query: query,
             orientation: orientation.name,
             size: ContentSize.large.name,

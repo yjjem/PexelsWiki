@@ -7,27 +7,24 @@
 
 final class CuratedPhotosService: FetchCuratedPhotosUseCase {
     
-    struct SearchParameters {
-        let page: Int
-        let perPage: Int
-    }
-    
     // MARK: Property(s)
     
-    private let repository: VisualContentRepositoryInterface
+    private let port: CuratedPhotosPort
     
-    init(repository: VisualContentRepositoryInterface) {
-        self.repository = repository
+    // MARK: Initializer
+    
+    init(port: CuratedPhotosPort) {
+        self.port = port
     }
     
     // MARK: Function(s)
     
     @discardableResult
     func fetchCuratedPhotoPage(
-        _ parameters: SearchParameters,
+        _ parameters: FetchCuratedPhotosParameter,
         _ completion: @escaping (Result<CuratedPhotosPage, Error>) -> Void
     ) -> Cancellable? {
-        return repository.fetchCuratedPhotos(
+        return port.fetchCuratedPhotos(
             page: parameters.page,
             perPage: parameters.perPage
         ) { response in

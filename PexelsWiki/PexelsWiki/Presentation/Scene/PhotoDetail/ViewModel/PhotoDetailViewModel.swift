@@ -25,12 +25,12 @@ final class PhotoDetailViewModel {
     }
     
     private let imageID: Int
-    private let useCase: FetchSinglePhotoUseCase
+    private let useCase: FetchSpecificPhotoUseCase
     private let imageUtilityManager = ImageUtilityManager()
     
     // MARK: Initializer
     
-    init(imageID: Int, useCase: FetchSinglePhotoUseCase) {
+    init(imageID: Int, useCase: FetchSpecificPhotoUseCase) {
         self.imageID = imageID
         self.useCase = useCase
     }

@@ -9,12 +9,12 @@ final class SpecificVideoService: FetchSpecificVideoUseCase {
     
     // MARK: Property(s)
     
-    private let repository: VisualContentRepositoryInterface
+    private let port: FetchSpecificVideoPort
     
     // MARK: Initializer
     
-    init(repository: VisualContentRepositoryInterface) {
-        self.repository = repository
+    init(port: FetchSpecificVideoPort) {
+        self.port = port
     }
     
     // MARK: Function(s)
@@ -23,6 +23,6 @@ final class SpecificVideoService: FetchSpecificVideoUseCase {
         id: Int,
         _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
     ) -> Cancellable? {
-        return repository.fetchVideoForID(id, completion)
+        return port.fetchVideoForID(id, completion)
     }
 }

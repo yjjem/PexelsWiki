@@ -38,7 +38,7 @@ final class VideoListViewModel {
     func fetchSearchResults() {
         guard isLoading == false else { return }
         isLoading = true
-        let searchValues = SearchVideosUseCase.SearchParameters(
+        let searchValues = SearchVideosParameter(
             query: query,
             orientation: contentOrientation.name,
             size: contentSize.name,

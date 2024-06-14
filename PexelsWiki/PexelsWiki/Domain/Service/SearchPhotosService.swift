@@ -7,32 +7,24 @@
 
 final class SearchPhotosService: SearchPhotosUseCase {
     
-    struct SearchParameters {
-        let query: String
-        let orientation: String
-        let size: String
-        let page: Int
-        let perPage: Int
-    }
-    
     // MARK: Property(s)
     
-    private let repository: VisualContentRepositoryInterface
+    private let port: SearchPhotosPort
     
     // MARK: Initializer
     
-    init(repository: VisualContentRepositoryInterface) {
-        self.repository = repository
+    init(port: SearchPhotosPort) {
+        self.port = port
     }
     
     // MARK: Function(s)
     
     @discardableResult
     func search(
-        _ parameters: SearchParameters,
+        _ parameters: SearchPhotosParameter,
         _ completion: @escaping (Result<SearchedPhotosPage, Error>) -> Void
     ) -> Cancellable? {
-        return repository.searchPhotos(
+        return port.searchPhotos(
             query: parameters.query,
             orientation: parameters.orientation,
             size: parameters.size,

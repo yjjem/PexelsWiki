@@ -6,6 +6,7 @@
     
 
 protocol FetchSpecificPhotoUseCase {
+    @discardableResult
     func fetchPhoto(
         id: Int,
         _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void

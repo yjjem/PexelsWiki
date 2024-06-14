@@ -32,7 +32,7 @@ final class HomeViewModel {
     func fetchCuratedPhotosPage() {
         guard isLoading == false else { return }
         isLoading = true
-        let searchValues = FetchCuratedPhotosUseCase.SearchParameters(
+        let searchValues = FetchCuratedPhotosParameter(
             page: page,
             perPage: maxItemsPerPage
         )

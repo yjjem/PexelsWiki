@@ -19,22 +19,22 @@ struct DomainFactory {
     // MARK: UseCase(s)
     
     func makeCuratedPhotosUseCase() -> FetchCuratedPhotosUseCase {
-        return FetchCuratedPhotosUseCase(repository: dataFactory.makeVisualContentRepository())
+        return CuratedPhotosService(port: dataFactory.makeVisualContentRepository())
     }
     
     func makePhotoSearchUseCase() -> SearchPhotosUseCase {
-        return SearchPhotosUseCase(repository: dataFactory.makeVisualContentRepository())
+        return SearchPhotosService(port: dataFactory.makeVisualContentRepository())
     }
     
-    func makeFetchSinglePhotoUseCase() -> FetchSinglePhotoUseCase {
-        return FetchSinglePhotoUseCase(repository: dataFactory.makeVisualContentRepository())
+    func makeFetchSinglePhotoUseCase() -> FetchSpecificPhotoUseCase {
+        return SpecificPhotoService(port: dataFactory.makeVisualContentRepository())
     }
     
     func makeVideoSearchUseCase() -> SearchVideosUseCase {
-        return SearchVideosUseCase(repository: dataFactory.makeVisualContentRepository())
+        return SearchVideosService(port: dataFactory.makeVisualContentRepository())
     }
     
-    func makeFetchSingleVideoUseCase() -> FetchSingleVideoUseCase {
-        return FetchSingleVideoUseCase(repository: dataFactory.makeVisualContentRepository())
+    func makeFetchSingleVideoUseCase() -> FetchSpecificVideoUseCase {
+        return SpecificVideoService(port: dataFactory.makeVisualContentRepository())
     }
 }
