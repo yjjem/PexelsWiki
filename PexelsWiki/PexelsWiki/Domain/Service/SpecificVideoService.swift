@@ -1,21 +1,23 @@
 //
-//  FetchSingleVideoUseCase.swift
+//  SpecificVideoService.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-final class FetchSingleVideoUseCase: FetchSpecificVideoUseCase {
+final class SpecificVideoService: FetchSpecificVideoUseCase {
     
     // MARK: Property(s)
     
     private let repository: VisualContentRepositoryInterface
     
-    // MARK: Initializer(s)
+    // MARK: Initializer
     
     init(repository: VisualContentRepositoryInterface) {
         self.repository = repository
     }
+    
+    // MARK: Function(s)
     
     func fetchVideoBy(
         id: Int,
