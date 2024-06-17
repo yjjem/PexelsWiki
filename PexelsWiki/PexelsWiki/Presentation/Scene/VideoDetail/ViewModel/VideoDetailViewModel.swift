@@ -36,25 +36,27 @@ final class VideoDetailViewModel {
     
     func startFetchingVideoItem() {
         videoRequest = useCase.fetchVideoBy(id: videoID) { [weak self] response in
-            if case .success(let videoResource) = response {
-                let hdFile = videoResource.videoFiles
-                    .sorted { $0.resolution.pixelsCount() > $1.resolution.pixelsCount() }
-                    .first(where: { $0.quality == "hd" })?.link ?? ""
-                    
-                let video = Video(
-                    userName: videoResource.user.name,
-                    userProfileURL: videoResource.user.profileURL,
-                    resolution: videoResource.resolution.toString(),
-                    url: hdFile
-                )
-                self?.video = video
-                self?.fetchedVideo?(video)
-                self?.userProfileURL = videoResource.user.profileURL
-                if videoResource.user.profileURL.isEmpty == false {
-                    self?.profileIsAvailable?()
-                }
+            
+            guard case .success(let videoResource) = response else {
+                return
             }
             
+            let hdURL: String = videoResource.files
+                .sorted { ($0.width * $0.height) > ($1.width * $1.height)}
+                .first(where: { $0.quality == "hd"})?.url ?? ""
+            
+            let video = Video(
+                userName: videoResource.user.name,
+                userProfileURL: videoResource.user.profileURL,
+                resolution: "\(videoResource.width) x \(videoResource.height)",
+                url: hdURL
+            )
+            self?.video = video
+            self?.fetchedVideo?(video)
+            self?.userProfileURL = videoResource.user.profileURL
+            if videoResource.user.profileURL.isEmpty == false {
+                self?.profileIsAvailable?()
+            }
         }
     }
 }
