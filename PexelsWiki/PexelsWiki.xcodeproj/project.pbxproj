@@ -43,6 +43,7 @@
 		DFA6B1002C32A76F00F1DEBE /* SpeficicPhotoPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6B0FF2C32A76F00F1DEBE /* SpeficicPhotoPort.swift */; };
 		DFA6B1022C32A77F00F1DEBE /* SearchVideosPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6B1012C32A77F00F1DEBE /* SearchVideosPort.swift */; };
 		DFA6B1042C32A79300F1DEBE /* SpecificVideoPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6B1032C32A79300F1DEBE /* SpecificVideoPort.swift */; };
+		DFA6B1082C32FEF800F1DEBE /* FetchCuratedPhotosUseCaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6B1072C32FEF800F1DEBE /* FetchCuratedPhotosUseCaseError.swift */; };
 		DFAC87C72BD7F7E100EC8D4C /* ImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC87C62BD7F7E100EC8D4C /* ImageCropper.swift */; };
 		DFAC87CD2BE3E20D00EC8D4C /* FetchSpecificPhotoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC87CC2BE3E20D00EC8D4C /* FetchSpecificPhotoUseCase.swift */; };
 		DFAC87CF2BE3E29100EC8D4C /* FetchSpecificVideoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC87CE2BE3E29100EC8D4C /* FetchSpecificVideoUseCase.swift */; };
@@ -150,6 +151,7 @@
 		DFA6B0FF2C32A76F00F1DEBE /* SpeficicPhotoPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeficicPhotoPort.swift; sourceTree = "<group>"; };
 		DFA6B1012C32A77F00F1DEBE /* SearchVideosPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVideosPort.swift; sourceTree = "<group>"; };
 		DFA6B1032C32A79300F1DEBE /* SpecificVideoPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificVideoPort.swift; sourceTree = "<group>"; };
+		DFA6B1072C32FEF800F1DEBE /* FetchCuratedPhotosUseCaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCuratedPhotosUseCaseError.swift; sourceTree = "<group>"; };
 		DFAC87C62BD7F7E100EC8D4C /* ImageCropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropper.swift; sourceTree = "<group>"; };
 		DFAC87CC2BE3E20D00EC8D4C /* FetchSpecificPhotoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSpecificPhotoUseCase.swift; sourceTree = "<group>"; };
 		DFAC87CE2BE3E29100EC8D4C /* FetchSpecificVideoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSpecificVideoUseCase.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 			children = (
 				DF2008992C1C247F006F4943 /* Input */,
 				DFF20DE22B56F20A00E01DB7 /* FetchCuratedPhotosUseCase.swift */,
+				DFA6B1072C32FEF800F1DEBE /* FetchCuratedPhotosUseCaseError.swift */,
 				DFF20DE42B56F22300E01DB7 /* SearchPhotosUseCase.swift */,
 				DFF20DE62B56F23B00E01DB7 /* SearchVideosUseCase.swift */,
 				DFAC87CC2BE3E20D00EC8D4C /* FetchSpecificPhotoUseCase.swift */,
@@ -785,6 +788,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */,
+				DFA6B1082C32FEF800F1DEBE /* FetchCuratedPhotosUseCaseError.swift in Sources */,
 				DFD7929E2A44A05F00729C2F /* PageSize.swift in Sources */,
 				DFC521FF2BAEA75D0033DF7B /* ImageUtilityManager.swift in Sources */,
 				DF3FC2BE2A3DA089000DD223 /* SceneCoordinator.swift in Sources */,
