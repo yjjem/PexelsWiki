@@ -9,11 +9,11 @@ final class SpecificVideoService: FetchSpecificVideoUseCase {
     
     // MARK: Property(s)
     
-    private let port: FetchSpecificVideoPort
+    private let port: SpecificVideoPort
     
     // MARK: Initializer
     
-    init(port: FetchSpecificVideoPort) {
+    init(port: SpecificVideoPort) {
         self.port = port
     }
     

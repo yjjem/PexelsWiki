@@ -9,11 +9,11 @@ final class SpecificPhotoService: FetchSpecificPhotoUseCase {
     
     // MARK: Property(s)
     
-    private let port: FetchSpecificPhotoPort
+    private let port: SpecificPhotoPort
     
     // MARK: Initializer
     
-    init(port: FetchSpecificPhotoPort) {
+    init(port: SpecificPhotoPort) {
         self.port = port
     }
     
