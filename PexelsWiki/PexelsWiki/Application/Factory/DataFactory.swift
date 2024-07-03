@@ -33,13 +33,6 @@ struct DataFactory {
         return DefaultNetworkProvider(configuration: makeDefaultSessionConfiguration())
     }
     
-    func makeVisualContentRepository() -> VisualContentRepositoryInterface {
-        return VisualContentRepository(
-            provider: makeDefaultNetworkProvider(),
-            apiFactory: apiFactory
-        )
-    }
-    
     func makeCuratedPhotosPort() -> CuratedPhotosPort {
         return CuratedPhotosWebRepository(
             provider: makeDefaultNetworkProvider(),
@@ -63,6 +56,13 @@ struct DataFactory {
     
     func makeSearchVideosPort() -> SearchVideosPort {
         return VideosWebRepository(
+            provider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
+    
+    func makeSpecificVideoPort() -> SpecificVideoPort {
+        return SpecificVideoWebRepository(
             provider: makeDefaultNetworkProvider(),
             apiFactory: apiFactory
         )

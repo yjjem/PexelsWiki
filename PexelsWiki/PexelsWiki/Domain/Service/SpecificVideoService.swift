@@ -21,8 +21,10 @@ final class SpecificVideoService: FetchSpecificVideoUseCase {
     
     func fetchVideoBy(
         id: Int,
-        _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
+        _ completion: @escaping (Result<SpecificVideo, FetchSpecificVideoUseCaseError>) -> Void
     ) -> Cancellable? {
-        return port.fetchVideoForID(id, completion)
+        return port.fetchVideoForID(id) { result in
+            completion(result)
+        }
     }
 }

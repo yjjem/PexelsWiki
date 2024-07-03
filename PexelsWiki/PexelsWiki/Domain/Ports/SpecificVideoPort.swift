@@ -9,6 +9,6 @@ protocol SpecificVideoPort {
     @discardableResult
     func fetchVideoForID(
         _ id: Int,
-        _ completion: @escaping (Result<SpecificVideo, Error>) -> Void
+        _ completion: @escaping (Result<SpecificVideo, FetchSpecificVideoUseCaseError>) -> Void
     ) -> Cancellable?
 }

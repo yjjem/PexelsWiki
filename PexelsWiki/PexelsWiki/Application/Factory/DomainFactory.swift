@@ -35,6 +35,6 @@ struct DomainFactory {
     }
     
     func makeFetchSingleVideoUseCase() -> FetchSpecificVideoUseCase {
-        return SpecificVideoService(port: dataFactory.makeVisualContentRepository())
+        return SpecificVideoService(port: dataFactory.makeSpecificVideoPort())
     }
 }
