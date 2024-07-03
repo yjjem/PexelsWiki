@@ -3,6 +3,9 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
 
-import Foundation
+
+struct SearchPhotosResult {
+    let totalResults: Int
+    let photos: [SearchedPhoto]
+}

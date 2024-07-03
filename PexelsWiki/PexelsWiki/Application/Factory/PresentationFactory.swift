@@ -30,7 +30,6 @@ struct SceneFactory {
     
     func makePhotoSearchViewModel(query: String? = nil) -> PhotoListViewModel {
         return PhotoListViewModel(
-            maxItemsPerPage: 80,
             query: query,
             useCase: domainFactory.makePhotoSearchUseCase()
         )

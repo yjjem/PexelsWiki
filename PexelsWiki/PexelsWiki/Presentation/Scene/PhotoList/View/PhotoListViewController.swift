@@ -51,7 +51,7 @@ final class PhotoListViewController: UIViewController {
         bindViewModel()
         configureDiffableDataSource()
         configureNavigationItem()
-        viewModel?.fetchSearchResults()
+        viewModel?.onNeedItems()
     }
     
     // MARK: Private Function(s)
@@ -258,7 +258,7 @@ extension PhotoListViewController: UICollectionViewDelegate {
             itemsCount: snapShot.items.count,
             edgeCountInset: 50
         ) {
-            viewModel?.fetchNextPage()
+            viewModel?.onNeedItems()
         }
     }
 }

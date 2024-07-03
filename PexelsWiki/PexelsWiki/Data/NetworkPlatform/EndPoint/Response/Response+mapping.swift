@@ -88,17 +88,19 @@ extension PhotoListResponse {
         return photos.map { $0.toCuratedPhoto() }
     }
     
-    func toPage() -> Page {
-        return Page(index: page, hasNext: nextPage != nil)
+    func toSearchedPhotos() -> [SearchedPhoto] {
+        return photos.map { $0.toSearchedPhoto() }
     }
     
-    func toSearchedPhotosPage() -> SearchedPhotosPage {
-        return SearchedPhotosPage(
-            page: page,
-            hasNext: nextPage != nil,
+    func toSearchPhotosResult() -> SearchPhotosResult {
+        return SearchPhotosResult(
             totalResults: totalResults,
-            items: photos.compactMap { $0.toSearchedPhoto() }
+            photos: toSearchedPhotos()
         )
+    }
+    
+    func toPage() -> Page {
+        return Page(index: page, hasNext: nextPage != nil)
     }
 }
 
