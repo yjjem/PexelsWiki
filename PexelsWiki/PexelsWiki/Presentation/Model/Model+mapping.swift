@@ -59,3 +59,32 @@ extension Array where Element == SearchedVideo {
         }
     }
 }
+
+// MARK: SpecificPhoto
+
+extension SpecificPhoto {
+    
+    func toPhoto() -> Photo {
+        return Photo(
+            title: title,
+            userName: user.name,
+            userProfileURL: user.profileURL,
+            resolution: "\(width) x \(height)",
+            url: sources.original
+        )
+    }
+}
+
+// MARK: SpecificVideo
+
+extension SpecificVideo {
+    
+    func toVideo() -> Video {
+        return Video(
+            userName: user.name, 
+            userProfileURL: user.profileURL,
+            resolution: "\(width) x \(height)",
+            url: user.profileURL
+        )
+    }
+}
