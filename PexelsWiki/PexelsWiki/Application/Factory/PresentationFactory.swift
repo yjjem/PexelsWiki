@@ -21,7 +21,7 @@ struct SceneFactory {
     // MARK: ViewModel(s)
     
     func makeHomeViewModel() -> HomeViewModel {
-        return HomeViewModel(maxItemsPerPage: 50, useCase: domainFactory.makeCuratedPhotosUseCase())
+        return HomeViewModel(useCase: domainFactory.makeCuratedPhotosUseCase())
     }
     
     func makeSearchNavigatorViewModel() -> SearchNavigatorViewModel {

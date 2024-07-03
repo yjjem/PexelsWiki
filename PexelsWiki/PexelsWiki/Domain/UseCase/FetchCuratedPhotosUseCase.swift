@@ -6,9 +6,14 @@
 
 
 protocol FetchCuratedPhotosUseCase {
+    
     @discardableResult
-    func fetchCuratedPhotoPage(
-        _ parameters: FetchCuratedPhotosParameter,
-        _ completion: @escaping (Result<CuratedPhotosPage, Error>) -> Void
+    func fetchCuratedPhotos(
+        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
+    ) -> Cancellable?
+    
+    @discardableResult
+    func reload(
+        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable?
 }

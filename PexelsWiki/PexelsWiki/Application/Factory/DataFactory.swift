@@ -39,4 +39,11 @@ struct DataFactory {
             apiFactory: apiFactory
         )
     }
+    
+    func makeCuratedPhotosPort() -> CuratedPhotosPort {
+        return CuratedPhotosWebRepository(
+            provider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
 }

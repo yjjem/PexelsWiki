@@ -84,13 +84,12 @@ extension VideoResourceResponse {
 
 extension PhotoListResponse {
     
-    func toCuratedPhotosPage() -> CuratedPhotosPage {
-        return CuratedPhotosPage(
-            page: page,
-            hasNext: nextPage != nil,
-            totalResults: totalResults,
-            items: photos.compactMap { $0.toCuratedPhoto() }
-        )
+    func toCuratedPhotos() -> [CuratedPhoto] {
+        return photos.map { $0.toCuratedPhoto() }
+    }
+    
+    func toPage() -> Page {
+        return Page(index: page, hasNext: nextPage != nil)
     }
     
     func toSearchedPhotosPage() -> SearchedPhotosPage {

@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol VisualContentRepositoryInterface: CuratedPhotosPort,
-                                            SearchPhotosPort,
+protocol VisualContentRepositoryInterface: SearchPhotosPort,
                                             SpecificPhotoPort,
                                             SearchVideosPort,
                                             SpecificVideoPort { }

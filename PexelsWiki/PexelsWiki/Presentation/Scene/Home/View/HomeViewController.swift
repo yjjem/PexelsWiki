@@ -55,7 +55,7 @@ final class HomeViewController: UIViewController {
         bindViewModel()
         configureContentRefreshControl()
         configureDiffableDataSource()
-        viewModel?.fetchCuratedPhotosPage()
+        viewModel?.onNeedItems()
     }
     
     // MARK: Private Function(s)
@@ -171,7 +171,7 @@ final class HomeViewController: UIViewController {
     
     @objc private func didInvokeRefresh() {
         snapShot.deleteAll()
-        viewModel?.resetPage()
+        viewModel?.onRefresh()
     }
 }
 
@@ -196,7 +196,7 @@ extension HomeViewController: UICollectionViewDelegate {
             itemsCount: snapShot.items.count,
             edgeCountInset: 3
         ) {
-            viewModel?.fetchNextPage()
+            viewModel?.onNeedItems()
         }
     }
 }

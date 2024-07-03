@@ -20,14 +20,20 @@ final class CuratedPhotosService: FetchCuratedPhotosUseCase {
     // MARK: Function(s)
     
     @discardableResult
-    func fetchCuratedPhotoPage(
-        _ parameters: FetchCuratedPhotosParameter,
-        _ completion: @escaping (Result<CuratedPhotosPage, Error>) -> Void
+    func fetchCuratedPhotos(
+        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
-        return port.fetchCuratedPhotos(
-            page: parameters.page,
-            perPage: parameters.perPage
-        ) { response in
+        return port.fetchCuratedPhotos { response in
+            completion(response)
+        }
+    }
+    
+    @discardableResult
+    func reload(
+        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
+    ) -> Cancellable? {
+        port.reset()
+        return port.fetchCuratedPhotos { response in
             completion(response)
         }
     }
