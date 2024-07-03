@@ -5,8 +5,6 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-import Foundation
-
 final class VideoListViewModel {
     
     // MARK: Binding(s)

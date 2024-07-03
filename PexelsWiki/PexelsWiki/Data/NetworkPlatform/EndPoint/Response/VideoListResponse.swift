@@ -3,9 +3,7 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
-    
 
-import Foundation
 
 struct VideoListResponse: Decodable {
     let page: Int

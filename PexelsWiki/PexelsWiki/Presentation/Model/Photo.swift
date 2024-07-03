@@ -5,8 +5,6 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-import Foundation
-
 struct Photo {
     let title: String
     let userName: String
