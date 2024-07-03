@@ -5,4 +5,4 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-protocol VisualContentRepositoryInterface: SpecificPhotoPort, SearchVideosPort, SpecificVideoPort { }
+protocol VisualContentRepositoryInterface: SearchVideosPort, SpecificVideoPort { }

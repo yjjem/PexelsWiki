@@ -53,4 +53,11 @@ struct DataFactory {
             apiFactory: apiFactory
         )
     }
+    
+    func makeSpecificPhotoPort() -> SpecificPhotoPort {
+        return SpecificPhotoWebRepository(
+            provider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
 }

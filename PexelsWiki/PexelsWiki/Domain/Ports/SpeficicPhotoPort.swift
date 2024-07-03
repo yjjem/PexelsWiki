@@ -9,6 +9,6 @@ protocol SpecificPhotoPort {
     @discardableResult
     func fetchPhotoForID(
         _ id: Int,
-        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
+        _ completion: @escaping (Result<SpecificPhoto, FetchSpecificPhotoUseCaseError>) -> Void
     ) -> Cancellable?
 }

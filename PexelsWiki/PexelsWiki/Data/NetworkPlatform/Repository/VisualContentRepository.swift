@@ -22,35 +22,6 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     // MARK: Function(s)
     
     @discardableResult
-    func fetchCuratedPhotos(
-        page: Int,
-        perPage: Int,
-        _ completion: @escaping (Result<[CuratedPhoto], Error>) -> Void
-    ) -> Cancellable? {
-        let endPoint = apiFactory.makeCuratedPhotosEndPoint(page: page, perPage: perPage)
-        return provider.send(request: endPoint.makeURLRequest()) { result in
-            let mappedResult = result
-                .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toCuratedPhotos() }
-            completion(mappedResult)
-        }
-    }
-    
-    @discardableResult
-    func fetchPhotoForID(
-        _ id: Int,
-        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
-    ) -> Cancellable? {
-        let endPoint = apiFactory.makePhotoEndPoint(id: id)
-        return provider.send(request: endPoint.makeURLRequest()) { result in
-            let mappedResult = result
-                .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toPhotoBundle() }
-            completion(mappedResult)
-        }
-    }
-    
-    @discardableResult
     func searchVideos(
         query: String,
         orientation: String,

@@ -150,7 +150,7 @@ extension PhotoResourceResponse {
         )
     }
     
-    func toPhotoBundle() -> SpecificPhoto {
+    func toSpecificPhoto() -> SpecificPhoto {
         return SpecificPhoto(
             id: id,
             title: title,

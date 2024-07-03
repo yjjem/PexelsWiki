@@ -22,7 +22,7 @@ final class SpecificPhotoService: FetchSpecificPhotoUseCase {
     @discardableResult
     func fetchPhoto(
         id: Int,
-        _ completion: @escaping (Result<SpecificPhoto, Error>) -> Void
+        _ completion: @escaping (Result<SpecificPhoto, FetchSpecificPhotoUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.fetchPhotoForID(id, completion)
     }
