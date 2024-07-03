@@ -26,3 +26,20 @@ extension Array where Element == CuratedPhoto {
         }
     }
 }
+
+// MARK: SearchedPhoto
+
+extension Array where Element == SearchedPhoto {
+    
+    func toPhotoContentCellViewModels() -> [PhotoContentCellViewModel] {
+        return self.map {
+            PhotoContentCellViewModel(
+                userName: $0.user.name,
+                imageURLString: $0.sources.medium,
+                imageID: $0.id,
+                imageWidth: $0.width,
+                imageHeight: $0.height
+            )
+        }
+    }
+}
