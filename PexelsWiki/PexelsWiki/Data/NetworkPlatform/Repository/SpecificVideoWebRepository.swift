@@ -32,7 +32,8 @@ final class SpecificVideoWebRepository: SpecificVideoPort {
                 return
             }
             
-            let finalResult = endPoint.decode(data: receivedData)
+            let finalResult = endPoint
+                .decode(data: receivedData)
                 .map { $0.toSpecificVideo() }
                 .mapError { _ in FetchSpecificVideoUseCaseError.fetchFailed }
             
