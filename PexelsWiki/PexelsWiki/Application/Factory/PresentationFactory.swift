@@ -37,7 +37,6 @@ struct SceneFactory {
     
     func makeVideoSearchViewModel(query: String? = nil) -> VideoListViewModel {
         return VideoListViewModel(
-            maxItemsPerPage: 50,
             query: query,
             useCase: domainFactory.makeVideoSearchUseCase()
         )

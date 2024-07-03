@@ -31,7 +31,7 @@ struct DomainFactory {
     }
     
     func makeVideoSearchUseCase() -> SearchVideosUseCase {
-        return SearchVideosService(port: dataFactory.makeVisualContentRepository())
+        return SearchVideosService(port: dataFactory.makeSearchVideosPort())
     }
     
     func makeFetchSingleVideoUseCase() -> FetchSpecificVideoUseCase {

@@ -60,4 +60,11 @@ struct DataFactory {
             apiFactory: apiFactory
         )
     }
+    
+    func makeSearchVideosPort() -> SearchVideosPort {
+        return VideosWebRepository(
+            provider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
 }

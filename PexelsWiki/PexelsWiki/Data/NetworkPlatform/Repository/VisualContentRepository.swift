@@ -20,31 +20,7 @@ final class VisualContentRepository: VisualContentRepositoryInterface {
     }
     
     // MARK: Function(s)
-    
-    @discardableResult
-    func searchVideos(
-        query: String,
-        orientation: String,
-        size: String,
-        page: Int,
-        perPage: Int,
-        _ completion: @escaping (Result<SearchedVideosPage, Error>) -> Void
-    ) -> Cancellable? {
-        let endPoint = apiFactory.makeSearchVideosEndPoint(
-            query: query,
-            orientation: orientation,
-            size: size,
-            page: page,
-            perPage: perPage
-        )
-        return provider.send(request: endPoint.makeURLRequest()) { result in
-            let mappedResult = result
-                .flatMap { endPoint.decode(data: $0) }
-                .map { $0.toSearchedVideosPage() }
-            completion(mappedResult)
-        }
-    }
-    
+
     @discardableResult
     func fetchVideoForID(
         _ id: Int,

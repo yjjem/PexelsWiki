@@ -51,7 +51,7 @@ final class VideoListViewController: UIViewController {
         bindViewModel()
         configureDiffableDataSource()
         configureNavigationItem()
-        viewModel?.fetchSearchResults()
+        viewModel?.onNeedItems()
     }
     
     // MARK: Private Function(s)
@@ -191,7 +191,7 @@ extension VideoListViewController: UICollectionViewDelegate {
             itemsCount: snapShot.items.count,
             edgeCountInset: 20
         ) {
-            viewModel?.fetchNextPage()
+            viewModel?.onNeedItems()
         }
     }
 }

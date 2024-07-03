@@ -41,3 +41,21 @@ extension Array where Element == SearchedPhoto {
         }
     }
 }
+
+// MARK: SearchedVideo
+
+extension Array where Element == SearchedVideo {
+    
+    func toVideoCellViewModels() -> [VideoCellViewModel] {
+        return map {
+            let durationFormatter = VideoDurationFormatter(duration: $0.duration)
+            return VideoCellViewModel(
+                id: $0.id,
+                thumbnailImage: $0.thumbnail,
+                duration: durationFormatter.formattedString() ?? "",
+                imageWidth: $0.width,
+                imageHeight: $0.height
+            )
+        }
+    }
+}

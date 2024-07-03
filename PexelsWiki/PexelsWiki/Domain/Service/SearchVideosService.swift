@@ -22,16 +22,13 @@ final class SearchVideosService: SearchVideosUseCase {
     @discardableResult
     func search(
         _ parameters: SearchVideosParameter,
-        _ completion: @escaping (Result<SearchedVideosPage, Error>) -> Void
+        _ completion: @escaping (Result<SearchedVideosResult, SearchVideosUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.searchVideos(
             query: parameters.query,
             orientation: parameters.orientation,
-            size: parameters.size,
-            page: parameters.page,
-            perPage: parameters.perPage
+            size: parameters.size
         ) { response in
-            
             completion(response)
         }
     }

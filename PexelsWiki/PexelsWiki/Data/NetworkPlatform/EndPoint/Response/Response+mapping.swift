@@ -9,18 +9,24 @@
 
 extension VideoListResponse {
     
-    func toSearchedVideosPage() -> SearchedVideosPage {
-        return SearchedVideosPage(
-            page: page,
-            hasNext: nextPage != nil,
+    func toPage() -> Page {
+        return Page(index: page, hasNext: nextPage != nil)
+    }
+    
+    func toSearchedVideosResult() -> SearchedVideosResult {
+        return SearchedVideosResult(
             totalResults: totalResults,
-            items: videos.map { $0.toSearchedVideo() }
+            videos: toSearchedVideos()
         )
+    }
+    
+    func toSearchedVideos() -> [SearchedVideo] {
+        return videos.map { $0.toSearchedVideo() }
     }
 }
 
 extension VideoResourceResponse {
-    
+
     private func toUser() -> User {
         return User(
             id: userResponse.id,

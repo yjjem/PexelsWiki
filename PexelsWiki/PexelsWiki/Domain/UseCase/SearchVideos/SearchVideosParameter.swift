@@ -9,6 +9,4 @@ struct SearchVideosParameter {
     let query: String
     let orientation: String
     let size: String
-    let page: Int
-    let perPage: Int
 }
