@@ -6,7 +6,6 @@
 
 
 protocol FetchCuratedPhotosUseCase {
-    
     @discardableResult
     func fetchCuratedPhotos(
         _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
