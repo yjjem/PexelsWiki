@@ -80,11 +80,14 @@ extension SpecificPhoto {
 extension SpecificVideo {
     
     func toVideo() -> Video {
+        let hdFile = files
+            .sorted { ($0.width * $0.height) > ($1.width * $1.height) }
+            .first { $0.quality == "hd" }
         return Video(
             userName: user.name, 
             userProfileURL: user.profileURL,
             resolution: "\(width) x \(height)",
-            url: user.profileURL
+            url: hdFile?.url ?? ""
         )
     }
 }
