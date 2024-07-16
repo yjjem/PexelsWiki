@@ -26,6 +26,9 @@
 		DF5CAE0B2C357A89004642AB /* SpecificVideoWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0A2C357A89004642AB /* SpecificVideoWebRepository.swift */; };
 		DF5CAE0D2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0C2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift */; };
 		DF5CAE0F2C4523A7004642AB /* CollectionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0E2C4523A7004642AB /* CollectionResource.swift */; };
+		DF5CAE122C464DC7004642AB /* FetchFeaturedCollectionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE112C464DC7004642AB /* FetchFeaturedCollectionsUseCase.swift */; };
+		DF5CAE142C464DD9004642AB /* FetchFeaturedCollectionUseCaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE132C464DD9004642AB /* FetchFeaturedCollectionUseCaseError.swift */; };
+		DF5CAE162C464E2F004642AB /* FetchFeaturedCollectionsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE152C464E2F004642AB /* FetchFeaturedCollectionsCommand.swift */; };
 		DF8DDDBB2B7523170044BE5B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */; };
 		DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */; };
 		DF8F83EA2B7C74D8002CA0E7 /* CoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */; };
@@ -140,6 +143,9 @@
 		DF5CAE0A2C357A89004642AB /* SpecificVideoWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificVideoWebRepository.swift; sourceTree = "<group>"; };
 		DF5CAE0C2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSpecificVideoUseCaseError.swift; sourceTree = "<group>"; };
 		DF5CAE0E2C4523A7004642AB /* CollectionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionResource.swift; sourceTree = "<group>"; };
+		DF5CAE112C464DC7004642AB /* FetchFeaturedCollectionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeaturedCollectionsUseCase.swift; sourceTree = "<group>"; };
+		DF5CAE132C464DD9004642AB /* FetchFeaturedCollectionUseCaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeaturedCollectionUseCaseError.swift; sourceTree = "<group>"; };
+		DF5CAE152C464E2F004642AB /* FetchFeaturedCollectionsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFeaturedCollectionsCommand.swift; sourceTree = "<group>"; };
 		DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreFactory.swift; sourceTree = "<group>"; };
@@ -302,6 +308,16 @@
 				DF5CAE0C2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift */,
 			);
 			path = FetchSpecificVideo;
+			sourceTree = "<group>";
+		};
+		DF5CAE102C464DB5004642AB /* FetchFeaturedCollections */ = {
+			isa = PBXGroup;
+			children = (
+				DF5CAE112C464DC7004642AB /* FetchFeaturedCollectionsUseCase.swift */,
+				DF5CAE132C464DD9004642AB /* FetchFeaturedCollectionUseCaseError.swift */,
+				DF5CAE152C464E2F004642AB /* FetchFeaturedCollectionsCommand.swift */,
+			);
+			path = FetchFeaturedCollections;
 			sourceTree = "<group>";
 		};
 		DF8DDDB92B7522F60044BE5B /* SearchResults */ = {
@@ -618,6 +634,7 @@
 		DFF20DE12B56F1F100E01DB7 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				DF5CAE102C464DB5004642AB /* FetchFeaturedCollections */,
 				DF5CADFF2C356FF4004642AB /* FetchCuratedPhotos */,
 				DF5CAE002C357008004642AB /* SearchPhotos */,
 				DF5CAE012C35703A004642AB /* SearchVideos */,
@@ -857,6 +874,7 @@
 				DF5CAE052C35710A004642AB /* SearchVideosUseCaseError.swift in Sources */,
 				DFA161022B920CF6008FEDBE /* StretchHeaderViewController.swift in Sources */,
 				DF5CADFE2C356B29004642AB /* FetchSpecificPhotoUseCaseError.swift in Sources */,
+				DF5CAE162C464E2F004642AB /* FetchFeaturedCollectionsCommand.swift in Sources */,
 				DFAC87E12BE8C17F00EC8D4C /* SearchedVideo.swift in Sources */,
 				DFD4116A2B904D21005F1ADE /* VideoDetailViewController.swift in Sources */,
 				DFE1016B2AF775A30036158A /* TabBarCoordinator.swift in Sources */,
@@ -896,10 +914,12 @@
 				DFA4915A2A3AF2F7008BC5C4 /* Response+mapping.swift in Sources */,
 				DFD792BA2A46D5EA00729C2F /* PhotoListViewController.swift in Sources */,
 				DF5CADF42C3555F5004642AB /* Model+mapping.swift in Sources */,
+				DF5CAE142C464DD9004642AB /* FetchFeaturedCollectionUseCaseError.swift in Sources */,
 				DFA161042B92F8E4008FEDBE /* UIButton+Pexels.swift in Sources */,
 				DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */,
 				DFF438A02B8A489C00F70230 /* PhotoDetailViewController.swift in Sources */,
 				DFFDC86F2B8CAB7100B0E80F /* SpecificPhotoService.swift in Sources */,
+				DF5CAE122C464DC7004642AB /* FetchFeaturedCollectionsUseCase.swift in Sources */,
 				DFAC87CF2BE3E29100EC8D4C /* FetchSpecificVideoUseCase.swift in Sources */,
 				DFAC87E32BE8C1A600EC8D4C /* SearchedVideoFile.swift in Sources */,
 				DFD792A92A45B42E00729C2F /* SearchNavigatorViewController.swift in Sources */,
