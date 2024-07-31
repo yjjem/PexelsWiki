@@ -24,7 +24,7 @@ final class PhotosWebRepository: SearchPhotosPort {
     // MARK: Function(s)
     
     func searchPhotos(
-        _ parameters: SearchPhotosParameter,
+        _ parameters: SearchPhotosCommand,
         _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         

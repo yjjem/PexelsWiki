@@ -18,8 +18,8 @@ struct DomainFactory {
     
     // MARK: UseCase(s)
     
-    func makeCuratedPhotosUseCase() -> FetchCuratedPhotosUseCase {
-        return CuratedPhotosService(port: dataFactory.makeCuratedPhotosPort())
+    func makeCuratedPhotosUseCase() -> DiscoverCuratedPhotosUseCase {
+        return DiscoverCuratedPhotosService(port: dataFactory.makeCuratedPhotosPort())
     }
     
     func makePhotoSearchUseCase() -> SearchPhotosUseCase {

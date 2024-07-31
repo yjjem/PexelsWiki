@@ -8,7 +8,7 @@
 protocol SearchPhotosPort {
     @discardableResult
     func searchPhotos(
-        _ parameters: SearchPhotosParameter,
+        _ parameters: SearchPhotosCommand,
         _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable?
 }

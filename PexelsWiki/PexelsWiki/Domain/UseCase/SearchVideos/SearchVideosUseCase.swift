@@ -8,7 +8,7 @@
 protocol SearchVideosUseCase {
     @discardableResult
     func search(
-        _ parameters: SearchVideosParameter,
+        _ parameters: SearchVideosCommand,
         _ completion: @escaping (Result<SearchedVideosResult, SearchVideosUseCaseError>) -> Void
     ) -> Cancellable?
 }

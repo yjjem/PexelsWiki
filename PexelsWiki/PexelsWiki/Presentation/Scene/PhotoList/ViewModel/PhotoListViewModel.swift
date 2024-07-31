@@ -28,7 +28,7 @@ final class PhotoListViewModel {
     // MARK: Function(s)
     
     func onNeedItems() {
-        let searchValues = SearchPhotosParameter(
+        let searchValues = SearchPhotosCommand(
             query: query,
             orientation: orientation.name,
             size: ContentSize.large.name

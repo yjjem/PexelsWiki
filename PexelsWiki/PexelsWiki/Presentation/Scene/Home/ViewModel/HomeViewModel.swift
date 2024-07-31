@@ -13,9 +13,9 @@ final class HomeViewModel {
     
     // MARK: Property(s)
     
-    private let useCase: FetchCuratedPhotosUseCase
+    private let useCase: DiscoverCuratedPhotosUseCase
     
-    init(useCase: FetchCuratedPhotosUseCase) {
+    init(useCase: DiscoverCuratedPhotosUseCase) {
         self.useCase = useCase
     }
     

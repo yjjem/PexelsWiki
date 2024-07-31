@@ -1,11 +1,11 @@
 //
-//  SearchVideosParameter.swift
+//  SearchPhotosCommand.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-struct SearchVideosParameter {
+struct SearchPhotosCommand {
     let query: String
     let orientation: String
     let size: String

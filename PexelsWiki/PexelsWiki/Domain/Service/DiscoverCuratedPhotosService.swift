@@ -1,11 +1,11 @@
 //
-//  CuratedPhotosService.swift
+//  DiscoverCuratedPhotosService.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-final class CuratedPhotosService: FetchCuratedPhotosUseCase {
+final class DiscoverCuratedPhotosService: DiscoverCuratedPhotosUseCase {
     
     // MARK: Property(s)
     
@@ -21,7 +21,7 @@ final class CuratedPhotosService: FetchCuratedPhotosUseCase {
     
     @discardableResult
     func fetchCuratedPhotos(
-        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.fetchCuratedPhotos { response in
             completion(response)
@@ -30,7 +30,7 @@ final class CuratedPhotosService: FetchCuratedPhotosUseCase {
     
     @discardableResult
     func reload(
-        _ completion: @escaping (Result<[CuratedPhoto], FetchCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         port.reset()
         return port.fetchCuratedPhotos { response in

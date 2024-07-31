@@ -29,7 +29,7 @@ final class VideoListViewModel {
     // MARK: Function(s)
     
     func onNeedItems() {
-        let searchValues = SearchVideosParameter(
+        let searchValues = SearchVideosCommand(
             query: query,
             orientation: contentOrientation.name,
             size: contentSize.name

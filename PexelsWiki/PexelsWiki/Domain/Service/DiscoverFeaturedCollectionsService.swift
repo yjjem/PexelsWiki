@@ -1,11 +1,11 @@
 //
-//  FeaturedCollectionsService.swift
+//  DiscoverFeaturedCollectionsService.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-final class FeaturedCollectionsService: FetchFeaturedCollectionsUseCase {
+final class DiscoverFeaturedCollectionsService: DiscoverFeaturedCollectionsUseCase {
     
     // MARK: Property(s)
     
@@ -17,9 +17,9 @@ final class FeaturedCollectionsService: FetchFeaturedCollectionsUseCase {
     
     // MARK: Function(s)
     
-    func fetchFeaturedCollections(
-        _ command: FetchFeaturedCollectionsCommand,
-        _ completion: @escaping (Result<[CollectionResource], FetchFeaturedCollectionUseCaseError>) -> Void
+    func discoverFeaturedCollections(
+        _ command: DiscoverFeaturedCollectionsCommand,
+        _ completion: @escaping (Result<[CollectionResource], DiscoverFeaturedCollectionUseCaseError>) -> Void
     ) -> Cancellable? {
         
         if command.requiresRefresh {

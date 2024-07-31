@@ -21,10 +21,10 @@ final class SearchPhotosService: SearchPhotosUseCase {
     
     @discardableResult
     func search(
-        _ parameters: SearchPhotosParameter,
+        _ command: SearchPhotosCommand,
         _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
-        return port.searchPhotos(parameters) { response in
+        return port.searchPhotos(command) { response in
             completion(response)
         }
     }

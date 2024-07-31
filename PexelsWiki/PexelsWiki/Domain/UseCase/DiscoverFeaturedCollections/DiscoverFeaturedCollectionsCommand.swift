@@ -5,6 +5,6 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
     
 
-struct FetchFeaturedCollectionsCommand {
+struct DiscoverFeaturedCollectionsCommand {
     let requiresRefresh: Bool
 }
