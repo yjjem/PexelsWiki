@@ -1,5 +1,5 @@
 //
-//  FeaturedCollectionsViewModel.swift
+//  FeaturedCollectionKeywordsListViewModel.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FeaturedCollectionsViewModel {
+final class FeaturedCollectionKeywordsListViewModel {
     
     // MARK: Property(s)
     
