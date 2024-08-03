@@ -69,9 +69,8 @@ final class SearchNavigatorViewController: UIViewController {
     }
     
     private func configureSearchController() {
-        let searchBarPlaceHolderText = "Search Pexels Content"
         let searchBar = searchController.searchBar
-        searchBar.placeholder = searchBarPlaceHolderText
+        searchBar.placeholder = Constants.searchBarPlaceholder
         searchBar.delegate = self
     }
     
@@ -100,7 +99,7 @@ final class SearchNavigatorViewController: UIViewController {
     private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<SectionTitleHeader> {
         return .init(elementKind: UICollectionView.elementKindSectionHeader) { 
             supplementaryView, elementKind, indexPath in
-            supplementaryView.addTitle("Recommended Categories")
+            supplementaryView.addTitle(Constants.recommendedCategoriesHeaderTitle)
         }
     }
     
@@ -176,4 +175,11 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
             delegate?.didSelectSearchQuery(query)
         }
     }
+}
+
+// MARK: Static Constants
+
+fileprivate enum Constants {
+    static let recommendedCategoriesHeaderTitle = "Recommended Categories"
+    static let searchBarPlaceholder = "Search Pexels Content"
 }
