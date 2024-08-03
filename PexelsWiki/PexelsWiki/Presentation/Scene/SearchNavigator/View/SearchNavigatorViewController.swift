@@ -82,13 +82,13 @@ final class SearchNavigatorViewController: UIViewController {
     private func configureDiffableDataSource() {
         let categoryCellRegistration = makeCategoryCellRegistration()
         let sectionHeaderRegistration = makeSectionHeaderRegistration()
-        let diffableDataSource = DataSource(collectionView: categoryCollectionView) {
-            collectionView, indexPath, categoryItem in
+        self.dataSource = DataSource(collectionView: categoryCollectionView) {
+            collectionView, indexPath, sectionItem in
             
             collectionView.dequeueConfiguredReusableCell(
                 using: categoryCellRegistration,
                 for: indexPath,
-                item: categoryItem
+                item: sectionItem
             )
         }
         
@@ -98,7 +98,6 @@ final class SearchNavigatorViewController: UIViewController {
                 for: indexPath
             )
         }
-        self.diffableDataSource = diffableDataSource
     }
     
     private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<SectionTitleHeader> {
@@ -110,7 +109,9 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func makeCategoryCellRegistration() -> CategoryCellRegistration {
         return CategoryCellRegistration { cell, indexPath, categoryItem in
-            cell.configure(using: categoryItem)
+            if case let .recommendedCategory(category) = categoryItem {
+                cell.configure(using: category)
+            }
         }
     }
     
