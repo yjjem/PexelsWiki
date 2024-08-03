@@ -33,6 +33,7 @@
 		DF71D0752C5BDF1900BB6787 /* FeaturedCollectionKeywordsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D0742C5BDF1900BB6787 /* FeaturedCollectionKeywordsListViewModel.swift */; };
 		DF71D0772C5BE5D000BB6787 /* CollectionKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D0762C5BE5D000BB6787 /* CollectionKeyword.swift */; };
 		DF71D0792C5BE64500BB6787 /* DiscoverCollectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D0782C5BE64500BB6787 /* DiscoverCollectionListViewController.swift */; };
+		DF71D07B2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D07A2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift */; };
 		DF8DDDBB2B7523170044BE5B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */; };
 		DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */; };
 		DF8F83EA2B7C74D8002CA0E7 /* CoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */; };
@@ -154,6 +155,7 @@
 		DF71D0742C5BDF1900BB6787 /* FeaturedCollectionKeywordsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionKeywordsListViewModel.swift; sourceTree = "<group>"; };
 		DF71D0762C5BE5D000BB6787 /* CollectionKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionKeyword.swift; sourceTree = "<group>"; };
 		DF71D0782C5BE64500BB6787 /* DiscoverCollectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverCollectionListViewController.swift; sourceTree = "<group>"; };
+		DF71D07A2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigatorDataSource.swift; sourceTree = "<group>"; };
 		DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreFactory.swift; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 			children = (
 				DFD792A82A45B42E00729C2F /* SearchNavigatorViewController.swift */,
 				DFD792AC2A46818700729C2F /* CategoryCell.swift */,
+				DF71D07A2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -938,6 +941,7 @@
 				DF5CADF42C3555F5004642AB /* Model+mapping.swift in Sources */,
 				DF5CAE142C464DD9004642AB /* DiscoverFeaturedCollectionUseCaseError.swift in Sources */,
 				DF5CAE1A2C479881004642AB /* FetchFeaturedCollectionsPort.swift in Sources */,
+				DF71D07B2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift in Sources */,
 				DFA161042B92F8E4008FEDBE /* UIButton+Pexels.swift in Sources */,
 				DF8F83F42B7F1E5A002CA0E7 /* DataFactory.swift in Sources */,
 				DFF438A02B8A489C00F70230 /* PhotoDetailViewController.swift in Sources */,

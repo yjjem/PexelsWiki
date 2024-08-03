@@ -13,30 +13,12 @@ protocol SearchNavigatorViewControllerDelegate: AnyObject {
 
 final class SearchNavigatorViewController: UIViewController {
     
-    // MARK: Type(s)
-    
-    private typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, Section.Item>
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Section.Item>
-    
-    private enum Section {
-        case recommendedCategories
-        case featuredCollections
-        
-        enum Item: Hashable {
-            case recommendedCategory(RecommendedCategory)
-            case featureCollection(CollectionKeyword)
-        }
-    }
-    
     // MARK: Property(s)
     
     var viewModel: SearchNavigatorViewModel?
     weak var delegate: SearchNavigatorViewControllerDelegate?
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Section.Item>?
-    private var recommendedCategoriesSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
-    private var featuredCollectionsSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
-    
+    private let datasource: SearchNavigatorDataSource = SearchNavigatorDataSource()
     private let searchController: UISearchController = UISearchController()
     private let categoryCollectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -49,13 +31,12 @@ final class SearchNavigatorViewController: UIViewController {
         self.view = categoryCollectionView
         self.view.backgroundColor = .systemGray6
         categoryCollectionView.collectionViewLayout = makeTwoColumnGridLayout()
-        categoryCollectionView.dataSource = dataSource
         categoryCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDiffableDataSource()
+        datasource.initializeDataSource(categoryCollectionView)
         configureNavigationItem()
         configureSearchController()
         configureUsingViewModel()
@@ -65,7 +46,7 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func configureUsingViewModel() {
         guard let viewModel else { return }
-        updateRecommendedCategoriesSection(viewModel.shuffledCategories())
+        datasource.updateRecommendedCategoriesSection(with: viewModel.shuffledCategories())
     }
     
     private func configureNavigationItem() {
@@ -78,42 +59,6 @@ final class SearchNavigatorViewController: UIViewController {
         let searchBar = searchController.searchBar
         searchBar.placeholder = Constants.searchBarPlaceholder
         searchBar.delegate = self
-    }
-    
-    private func configureDiffableDataSource() {
-        let categoryCellRegistration = makeCategoryCellRegistration()
-        let sectionHeaderRegistration = makeSectionHeaderRegistration()
-        self.dataSource = DataSource(collectionView: categoryCollectionView) {
-            collectionView, indexPath, sectionItem in
-            
-            collectionView.dequeueConfiguredReusableCell(
-                using: categoryCellRegistration,
-                for: indexPath,
-                item: sectionItem
-            )
-        }
-        
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            collectionView.dequeueConfiguredReusableSupplementary(
-                using: sectionHeaderRegistration,
-                for: indexPath
-            )
-        }
-    }
-    
-    private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<SectionTitleHeader> {
-        return .init(elementKind: UICollectionView.elementKindSectionHeader) { 
-            supplementaryView, elementKind, indexPath in
-            supplementaryView.addTitle(Constants.recommendedCategoriesHeaderTitle)
-        }
-    }
-    
-    private func makeCategoryCellRegistration() -> CategoryCellRegistration {
-        return CategoryCellRegistration { cell, indexPath, categoryItem in
-            if case let .recommendedCategory(category) = categoryItem {
-                cell.configure(using: category)
-            }
-        }
     }
     
     private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
@@ -153,20 +98,6 @@ final class SearchNavigatorViewController: UIViewController {
         
         return layout
     }
-    
-    private func updateRecommendedCategoriesSection(_ categories: [RecommendedCategory]) {
-        let keywordsMappedToSectionItem = categories.map { Section.Item.recommendedCategory($0) }
-        recommendedCategoriesSnapshot.append(keywordsMappedToSectionItem)
-        dataSource?.apply(recommendedCategoriesSnapshot, to: .recommendedCategories)
-    }
-    
-    private func updateFeaturedCollectionKeywordSection(
-        _ keywords: [CollectionKeyword]
-    ) {
-        let keywordsMappedToSectionItem = keywords.map { Section.Item.featureCollection($0) }
-        featuredCollectionsSnapshot.append(keywordsMappedToSectionItem)
-        dataSource?.apply(featuredCollectionsSnapshot, to: .featuredCollections)
-    }
 }
 
 // MARK: UICollectionViewDelegate
@@ -174,19 +105,16 @@ final class SearchNavigatorViewController: UIViewController {
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
     private func selectQuery(_ selectedIndexPath: IndexPath) {
-        let selectedItem = recommendedCategoriesSnapshot.items[selectedIndexPath.item]
-        switch selectedItem {
-        case .featureCollection(_):
-            
-            // MARK: TODO -> add selected feature collection delegate
-            
-            return
-        case .recommendedCategory(let recommendedCategory):
-            delegate?.didSelectSearchQuery(recommendedCategory.imageName)
+        let sectionItem = datasource.sectionItem(for: selectedIndexPath)
+        if case .recommendedCategory(let category) = sectionItem {
+            delegate?.didSelectSearchQuery(category.imageName)
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         selectQuery(indexPath)
     }
 }
@@ -209,6 +137,5 @@ extension SearchNavigatorViewController: UISearchBarDelegate {
 // MARK: Static Constants
 
 fileprivate enum Constants {
-    static let recommendedCategoriesHeaderTitle = "Recommended Categories"
     static let searchBarPlaceholder = "Search Pexels Content"
 }
