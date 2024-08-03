@@ -173,8 +173,21 @@ final class SearchNavigatorViewController: UIViewController {
 
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
+    private func selectQuery(_ selectedIndexPath: IndexPath) {
+        let selectedItem = recommendedCategoriesSnapshot.items[selectedIndexPath.item]
+        switch selectedItem {
+        case .featureCollection(_):
+            
+            // MARK: TODO -> add selected feature collection delegate
+            
+            return
+        case .recommendedCategory(let recommendedCategory):
+            delegate?.didSelectSearchQuery(recommendedCategory.imageName)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelectSearchQuery(snapShot.items[indexPath.row].rawValue)
+        selectQuery(indexPath)
     }
 }
 
