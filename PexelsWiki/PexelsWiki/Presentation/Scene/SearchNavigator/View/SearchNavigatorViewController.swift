@@ -15,12 +15,17 @@ final class SearchNavigatorViewController: UIViewController {
     
     // MARK: Type(s)
     
-    typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, RecommendedCategory>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedCategory>
-    typealias SnapShot = NSDiffableDataSourceSectionSnapshot<RecommendedCategory>
+    private typealias CategoryCellRegistration = UICollectionView.CellRegistration<CategoryCell, Section.Item>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Section.Item>
     
-    enum Section {
-        case category
+    private enum Section {
+        case recommendedCategories
+        case featuredCollections
+        
+        enum Item: Hashable {
+            case recommendedCategory(RecommendedCategory)
+            case featureCollection(CollectionKeyword)
+        }
     }
     
     // MARK: Property(s)
@@ -28,8 +33,8 @@ final class SearchNavigatorViewController: UIViewController {
     var viewModel: SearchNavigatorViewModel?
     weak var delegate: SearchNavigatorViewControllerDelegate?
     
-    private var diffableDataSource: DataSource?
-    private var snapShot: SnapShot = SnapShot()
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Section.Item>?
+    private var recommendedCategoriesSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
     
     private let searchController: UISearchController = UISearchController()
     private let categoryCollectionView: UICollectionView = {
@@ -43,7 +48,7 @@ final class SearchNavigatorViewController: UIViewController {
         self.view = categoryCollectionView
         self.view.backgroundColor = .systemGray6
         categoryCollectionView.collectionViewLayout = makeTwoColumnGridLayout()
-        categoryCollectionView.dataSource = diffableDataSource
+        categoryCollectionView.dataSource = dataSource
         categoryCollectionView.delegate = self
     }
     
@@ -59,7 +64,7 @@ final class SearchNavigatorViewController: UIViewController {
     
     private func configureUsingViewModel() {
         guard let viewModel else { return }
-        updateSnapShot(with: viewModel.shuffledCategories())
+        updateRecommendedCategoriesSection(viewModel.shuffledCategories())
     }
     
     private func configureNavigationItem() {
@@ -87,7 +92,7 @@ final class SearchNavigatorViewController: UIViewController {
             )
         }
         
-        diffableDataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             collectionView.dequeueConfiguredReusableSupplementary(
                 using: sectionHeaderRegistration,
                 for: indexPath
@@ -147,9 +152,11 @@ final class SearchNavigatorViewController: UIViewController {
         return layout
     }
     
-    private func updateSnapShot(with categoryList: [RecommendedCategory]) {
-        snapShot.append(categoryList)
-        diffableDataSource?.apply(snapShot, to: .category)
+    private func updateRecommendedCategoriesSection(_ categories: [RecommendedCategory]) {
+        let keywordsMappedToSectionItem = categories.map { Section.Item.recommendedCategory($0) }
+        recommendedCategoriesSnapshot.append(keywordsMappedToSectionItem)
+        dataSource?.apply(recommendedCategoriesSnapshot, to: .recommendedCategories)
+    }
     }
 }
 
