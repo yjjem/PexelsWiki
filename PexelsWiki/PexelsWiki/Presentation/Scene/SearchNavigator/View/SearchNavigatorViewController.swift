@@ -37,10 +37,10 @@ final class SearchNavigatorViewController: UIViewController {
     private var recommendedCategoriesSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
     
     private let searchController: UISearchController = UISearchController()
-    private let categoryCollectionView: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: .init())
-        return collection
-    }()
+    private let categoryCollectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: .init()
+    )
     
     // MARK: Override(s)
     
