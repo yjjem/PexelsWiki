@@ -35,6 +35,7 @@ final class SearchNavigatorViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Section.Item>?
     private var recommendedCategoriesSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
+    private var featuredCollectionsSnapshot = NSDiffableDataSourceSectionSnapshot<Section.Item>()
     
     private let searchController: UISearchController = UISearchController()
     private let categoryCollectionView: UICollectionView = UICollectionView(
@@ -158,6 +159,13 @@ final class SearchNavigatorViewController: UIViewController {
         recommendedCategoriesSnapshot.append(keywordsMappedToSectionItem)
         dataSource?.apply(recommendedCategoriesSnapshot, to: .recommendedCategories)
     }
+    
+    private func updateFeaturedCollectionKeywordSection(
+        _ keywords: [CollectionKeyword]
+    ) {
+        let keywordsMappedToSectionItem = keywords.map { Section.Item.featureCollection($0) }
+        featuredCollectionsSnapshot.append(keywordsMappedToSectionItem)
+        dataSource?.apply(featuredCollectionsSnapshot, to: .featuredCollections)
     }
 }
 
