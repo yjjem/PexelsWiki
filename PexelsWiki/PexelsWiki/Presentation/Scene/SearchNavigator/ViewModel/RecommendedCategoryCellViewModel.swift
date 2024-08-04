@@ -1,11 +1,11 @@
 //
-//  Category.swift
+//  RecommendedCategoryCellViewModel.swift
 //  PexelsWiki
 //
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-enum RecommendedCategory: String, CaseIterable {
+enum RecommendedCategoryCellViewModel: String, CaseIterable {
     case business, flowers, food, forest, landscape, nature, summer
 
     var capitalizedName: String {

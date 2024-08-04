@@ -11,13 +11,14 @@ final class DiscoverCollectionListViewController: UIViewController {
     
     // MARK: Type(s)
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, CollectionKeyword>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, FeaturedCollectionKeywordCellViewModel>
     private enum Section { case featuredCollections }
     
     // MARK: Property(s)
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, CollectionKeyword>?
-    private var keywordsSectionSnapShot = NSDiffableDataSourceSectionSnapshot<CollectionKeyword>()
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FeaturedCollectionKeywordCellViewModel>?
+    private var keywordsSectionSnapShot = NSDiffableDataSourceSectionSnapshot<FeaturedCollectionKeywordCellViewModel>()
     
     private let collectionView: UICollectionView = UICollectionView(
         frame: .zero, 
@@ -48,7 +49,7 @@ final class DiscoverCollectionListViewController: UIViewController {
         }
     }
     
-    private func updateKeywords(_ newKeywords: [CollectionKeyword]) {
+    private func updateKeywords(_ newKeywords: [FeaturedCollectionKeywordCellViewModel]) {
         keywordsSectionSnapShot.append(newKeywords)
         dataSource?.apply(keywordsSectionSnapShot, to: .featuredCollections)
     }

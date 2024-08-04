@@ -11,8 +11,8 @@ final class FeaturedCollectionKeywordsListViewModel {
     
     // MARK: Property(s)
     
-    var allCollectionKeywords: [CollectionKeyword] = []
-    var receivedCollectionKeywords: (([CollectionKeyword]) -> Void)?
+    var allCollectionKeywords: [FeaturedCollectionKeywordCellViewModel] = []
+    var receivedCollectionKeywords: (([FeaturedCollectionKeywordCellViewModel]) -> Void)?
     
     // MARK: Private Property(s)
     
@@ -36,7 +36,7 @@ final class FeaturedCollectionKeywordsListViewModel {
             }
             
             let collectionKeywords = collectionResources
-                .map { CollectionKeyword(title: $0.title, totalItems: $0.mediaCount) }
+                .map { FeaturedCollectionKeywordCellViewModel(title: $0.title, totalItems: $0.mediaCount) }
             self?.receivedCollectionKeywords?(collectionKeywords)
         }
     }

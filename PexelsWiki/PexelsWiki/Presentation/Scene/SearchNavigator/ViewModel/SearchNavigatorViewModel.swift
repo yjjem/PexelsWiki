@@ -10,7 +10,6 @@ final class SearchNavigatorViewModel {
     // MARK: Property(s)
     
     private var query: String = ""
-    private let categoryItems: [RecommendedCategory] = RecommendedCategory.allCases
     
     // MARK: Function(s)
     
@@ -22,7 +21,7 @@ final class SearchNavigatorViewModel {
         return query
     }
     
-    func shuffledCategories() -> [RecommendedCategory] {
-        return categoryItems.shuffled()
+    func shuffledCategories() -> [RecommendedCategoryCellViewModel] {
+        return RecommendedCategoryCellViewModel.allCases.shuffled()
     }
 }

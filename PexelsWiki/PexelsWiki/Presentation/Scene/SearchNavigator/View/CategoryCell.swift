@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CategoryCell: UICollectionViewCell {
+final class RecommendedCategoryCell: UICollectionViewCell {
     
     // MARK: Property(s)
     
@@ -43,7 +43,7 @@ final class CategoryCell: UICollectionViewCell {
     
     // MARK: Function(s)
     
-    func configure(using category: RecommendedCategory) {
+    func configure(using category: RecommendedCategoryCellViewModel) {
         let image = UIImage(named: category.imageName)
         imageView.image = image
         categoryLabel.text = category.capitalizedName

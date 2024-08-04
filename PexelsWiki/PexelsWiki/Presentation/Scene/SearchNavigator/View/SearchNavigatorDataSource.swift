@@ -16,8 +16,8 @@ final class SearchNavigatorDataSource {
         case featuredCollections
         
         enum Item: Hashable {
-            case recommendedCategory(RecommendedCategory)
-            case featureCollection(CollectionKeyword)
+            case recommendedCategory(RecommendedCategoryCellViewModel)
+            case featureCollectionKeyword(FeaturedCollectionKeywordCellViewModel)
         }
         
         var title: String {
@@ -35,9 +35,9 @@ final class SearchNavigatorDataSource {
     // MARK: Private Function(s)
     
     private func makeCategoryCellRegistration(
-    ) -> UICollectionView.CellRegistration<CategoryCell, Section.Item> {
+    ) -> UICollectionView.CellRegistration<RecommendedCategoryCell, Section.Item> {
         
-        return UICollectionView.CellRegistration<CategoryCell, Section.Item> {
+        return UICollectionView.CellRegistration<RecommendedCategoryCell, Section.Item> {
             cell, indexPath, categoryItem in
             if case .recommendedCategory(let category) = categoryItem {
                 cell.configure(using: category)
@@ -105,7 +105,7 @@ final class SearchNavigatorDataSource {
         }
     }
     
-    func updateRecommendedCategoriesSection(with categories: [RecommendedCategory]) {
+    func updateRecommendedCategoriesSection(with categories: [RecommendedCategoryCellViewModel]) {
         guard var recommendedCategoriesSnapshot = dataSource?.snapshot(for: .recommendedCategories)
         else {
             return
@@ -117,13 +117,16 @@ final class SearchNavigatorDataSource {
         dataSource?.apply(recommendedCategoriesSnapshot, to: .recommendedCategories)
     }
     
-    func updateFeaturedCollectionKeywordSection(with keywords: [CollectionKeyword]) {
+    func updateFeaturedCollectionKeywordSection(
+        with keywords: [FeaturedCollectionKeywordCellViewModel]
+    ) {
         guard var featuredCollectionsSnapshot = dataSource?.snapshot(for: .featuredCollections)
         else {
             return
         }
         
-        let featuredCollectionsSectionItem = keywords.map { Section.Item.featureCollection($0) }
+        let featuredCollectionsSectionItem = keywords
+            .map { Section.Item.featureCollectionKeyword($0) }
         featuredCollectionsSnapshot.append(featuredCollectionsSectionItem)
         dataSource?.apply(featuredCollectionsSnapshot, to: .featuredCollections)
     }
