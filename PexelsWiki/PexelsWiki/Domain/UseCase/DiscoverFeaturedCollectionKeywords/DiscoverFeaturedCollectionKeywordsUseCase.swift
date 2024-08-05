@@ -7,6 +7,6 @@
 
 protocol DiscoverFeaturedCollectionKeywordsUseCase {
     func featuredCollectionKeywords(
-        _ completion: @escaping (Result<FeaturedCollectionKeyword, DiscoverFeaturedCollectionUseCaseError>) -> Void
+        _ completion: @escaping (Result<[FeaturedCollectionKeyword], DiscoverFeaturedCollectionKeywordsUseCaseError>) -> Void
     )
 }
