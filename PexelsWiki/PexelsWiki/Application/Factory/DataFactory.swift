@@ -67,4 +67,11 @@ struct DataFactory {
             apiFactory: apiFactory
         )
     }
+    
+    func makeFetchFeaturedCollectionsPort() -> FetchFeaturedCollectionsPort {
+        return FeaturedCollectionsWebRepository(
+            provider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
 }

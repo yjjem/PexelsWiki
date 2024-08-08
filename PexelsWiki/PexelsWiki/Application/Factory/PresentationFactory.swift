@@ -25,7 +25,9 @@ struct SceneFactory {
     }
     
     func makeSearchNavigatorViewModel() -> SearchNavigatorViewModel {
-        return SearchNavigatorViewModel()
+        return SearchNavigatorViewModel(
+            useCase: domainFactory.makeDiscoverFeaturedCollectionsUseCase()
+        )
     }
     
     func makePhotoSearchViewModel(query: String? = nil) -> PhotoListViewModel {

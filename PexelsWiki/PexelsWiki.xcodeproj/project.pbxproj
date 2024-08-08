@@ -35,6 +35,9 @@
 		DF71D0792C5BE64500BB6787 /* DiscoverCollectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D0782C5BE64500BB6787 /* DiscoverCollectionListViewController.swift */; };
 		DF71D07B2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D07A2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift */; };
 		DF71D07F2C5FC9D500BB6787 /* FeaturedCollectionKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D07E2C5FC9D500BB6787 /* FeaturedCollectionKeyword.swift */; };
+		DF71D08C2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D08B2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift */; };
+		DF71D08E2C65311400BB6787 /* FeaturedCollectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D08D2C65311400BB6787 /* FeaturedCollectionsResponse.swift */; };
+		DF71D0912C6531F300BB6787 /* FeaturedCollectionsMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF71D0902C6531F300BB6787 /* FeaturedCollectionsMapping.swift */; };
 		DF8DDDBB2B7523170044BE5B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */; };
 		DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */; };
 		DF8F83EA2B7C74D8002CA0E7 /* CoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */; };
@@ -158,6 +161,9 @@
 		DF71D0782C5BE64500BB6787 /* DiscoverCollectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverCollectionListViewController.swift; sourceTree = "<group>"; };
 		DF71D07A2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigatorDataSource.swift; sourceTree = "<group>"; };
 		DF71D07E2C5FC9D500BB6787 /* FeaturedCollectionKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionKeyword.swift; sourceTree = "<group>"; };
+		DF71D08B2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionsWebRepository.swift; sourceTree = "<group>"; };
+		DF71D08D2C65311400BB6787 /* FeaturedCollectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionsResponse.swift; sourceTree = "<group>"; };
+		DF71D0902C6531F300BB6787 /* FeaturedCollectionsMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionsMapping.swift; sourceTree = "<group>"; };
 		DF8DDDBA2B7523170044BE5B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreFactory.swift; sourceTree = "<group>"; };
@@ -340,6 +346,14 @@
 			path = FeaturedCollections;
 			sourceTree = "<group>";
 		};
+		DF71D08F2C6531E300BB6787 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				DF71D0902C6531F300BB6787 /* FeaturedCollectionsMapping.swift */,
+			);
+			path = Mapping;
+			sourceTree = "<group>";
+		};
 		DF8DDDB92B7522F60044BE5B /* SearchResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +467,7 @@
 		DFA4912A2A3A2180008BC5C4 /* NetworkPlatform */ = {
 			isa = PBXGroup;
 			children = (
+				DF71D08F2C6531E300BB6787 /* Mapping */,
 				DFF20DD72B551BAF00E01DB7 /* EndPoint */,
 				DFA4914B2A3AD551008BC5C4 /* Repository */,
 				DFA491392A3AB7A0008BC5C4 /* NetworkProvider */,
@@ -510,6 +525,7 @@
 				DF5CAE062C3571A8004642AB /* VideosWebRepository.swift */,
 				DF5CADFB2C3569F8004642AB /* SpecificPhotoWebRepository.swift */,
 				DF5CAE0A2C357A89004642AB /* SpecificVideoWebRepository.swift */,
+				DF71D08B2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -533,6 +549,7 @@
 				DFA491592A3AF2F7008BC5C4 /* Response+mapping.swift */,
 				DFA4915B2A3AF5A8008BC5C4 /* PhotoListResponse.swift */,
 				DFA491542A3AF1B2008BC5C4 /* VideoListResponse.swift */,
+				DF71D08D2C65311400BB6787 /* FeaturedCollectionsResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -922,11 +939,13 @@
 				DF5CAE092C3572CF004642AB /* SearchedVideosResult.swift in Sources */,
 				DF5CAE1C2C479A8B004642AB /* DiscoverFeaturedCollectionsService.swift in Sources */,
 				DFB285522B8C3B280024FC5B /* UIColor+Pexels.swift in Sources */,
+				DF71D0912C6531F300BB6787 /* FeaturedCollectionsMapping.swift in Sources */,
 				DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */,
 				DFD792962A44705C00729C2F /* DiscoverCuratedPhotosService.swift in Sources */,
 				DFFDC86D2B8CA6E800B0E80F /* PhotoDetailViewModel.swift in Sources */,
 				DFD792D42A48565900729C2F /* VideoListViewModel.swift in Sources */,
 				DF20089D2C1C24A6006F4943 /* SearchPhotosCommand.swift in Sources */,
+				DF71D08E2C65311400BB6787 /* FeaturedCollectionsResponse.swift in Sources */,
 				DFA491162A3A1F76008BC5C4 /* HomeViewController.swift in Sources */,
 				DFA4912E2A3A26DD008BC5C4 /* NetworkProvider.swift in Sources */,
 				DFAC87D72BE7D0F800EC8D4C /* PhotoSourceURL.swift in Sources */,
@@ -972,6 +991,7 @@
 				DFF20DE52B56F22300E01DB7 /* SearchPhotosUseCase.swift in Sources */,
 				DF8F83EE2B7E419B002CA0E7 /* PresentationFactory.swift in Sources */,
 				DFB285502B8BA3440024FC5B /* StretchableImageView.swift in Sources */,
+				DF71D08C2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
 				DFA6B0FE2C32A75B00F1DEBE /* SearchPhotosPort.swift in Sources */,
 				DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */,

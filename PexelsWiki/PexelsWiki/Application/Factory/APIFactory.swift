@@ -35,6 +35,7 @@ struct APIFactory {
         static let searchVideos = video + "/search"
         static let popularVideos = video + "/popular"
         static let videoByID = video + video
+        static let featuredCollections = "/v1/collections/featured"
         
         static func photo(id: Int) -> String {
             return imageByID + "/\(id)"
@@ -153,6 +154,18 @@ struct APIFactory {
         return EndPoint<VideoResourceResponse>(
             baseURL: baseURL,
             path: Path.video(id: id),
+            headers: [HeaderKey.authorization: secretKey],
+            method: .get
+        )
+    }
+    
+    func makeFeaturedCollectionsEndPoint(
+        page: Int, 
+        perPage: Int
+    ) -> EndPoint<FeaturedCollectionsResponse> {
+        return EndPoint<FeaturedCollectionsResponse>(
+            baseURL: baseURL,
+            path: Path.featuredCollections,
             headers: [HeaderKey.authorization: secretKey],
             method: .get
         )
