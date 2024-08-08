@@ -8,6 +8,6 @@
 protocol DiscoverFeaturedCollectionsUseCase {
     func discoverFeaturedCollections(
         _ command: DiscoverFeaturedCollectionsCommand,
-        _ completion: @escaping (Result<[CollectionResource], DiscoverFeaturedCollectionUseCaseError>) -> Void
+        _ completion: @escaping (Result<FeaturedCollections, DiscoverFeaturedCollectionUseCaseError>) -> Void
     ) -> Cancellable?
 }

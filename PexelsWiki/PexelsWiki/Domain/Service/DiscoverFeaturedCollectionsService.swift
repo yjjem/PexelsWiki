@@ -19,7 +19,7 @@ final class DiscoverFeaturedCollectionsService: DiscoverFeaturedCollectionsUseCa
     
     func discoverFeaturedCollections(
         _ command: DiscoverFeaturedCollectionsCommand,
-        _ completion: @escaping (Result<[CollectionResource], DiscoverFeaturedCollectionUseCaseError>) -> Void
+        _ completion: @escaping (Result<FeaturedCollections, DiscoverFeaturedCollectionUseCaseError>) -> Void
     ) -> Cancellable? {
         
         if command.requiresRefresh {
