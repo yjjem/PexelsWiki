@@ -24,7 +24,7 @@
 		DF5CAE092C3572CF004642AB /* SearchedVideosResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE082C3572CF004642AB /* SearchedVideosResult.swift */; };
 		DF5CAE0B2C357A89004642AB /* SpecificVideoWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0A2C357A89004642AB /* SpecificVideoWebRepository.swift */; };
 		DF5CAE0D2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0C2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift */; };
-		DF5CAE0F2C4523A7004642AB /* CollectionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0E2C4523A7004642AB /* CollectionResource.swift */; };
+		DF5CAE0F2C4523A7004642AB /* FeaturedCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE0E2C4523A7004642AB /* FeaturedCollections.swift */; };
 		DF5CAE122C464DC7004642AB /* DiscoverFeaturedCollectionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE112C464DC7004642AB /* DiscoverFeaturedCollectionsUseCase.swift */; };
 		DF5CAE142C464DD9004642AB /* DiscoverFeaturedCollectionUseCaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE132C464DD9004642AB /* DiscoverFeaturedCollectionUseCaseError.swift */; };
 		DF5CAE162C464E2F004642AB /* DiscoverFeaturedCollectionsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CAE152C464E2F004642AB /* DiscoverFeaturedCollectionsCommand.swift */; };
@@ -151,7 +151,7 @@
 		DF5CAE082C3572CF004642AB /* SearchedVideosResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedVideosResult.swift; sourceTree = "<group>"; };
 		DF5CAE0A2C357A89004642AB /* SpecificVideoWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificVideoWebRepository.swift; sourceTree = "<group>"; };
 		DF5CAE0C2C357B3D004642AB /* FetchSpecificVideoUseCaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSpecificVideoUseCaseError.swift; sourceTree = "<group>"; };
-		DF5CAE0E2C4523A7004642AB /* CollectionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionResource.swift; sourceTree = "<group>"; };
+		DF5CAE0E2C4523A7004642AB /* FeaturedCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollections.swift; sourceTree = "<group>"; };
 		DF5CAE112C464DC7004642AB /* DiscoverFeaturedCollectionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeaturedCollectionsUseCase.swift; sourceTree = "<group>"; };
 		DF5CAE132C464DD9004642AB /* DiscoverFeaturedCollectionUseCaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeaturedCollectionUseCaseError.swift; sourceTree = "<group>"; };
 		DF5CAE152C464E2F004642AB /* DiscoverFeaturedCollectionsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeaturedCollectionsCommand.swift; sourceTree = "<group>"; };
@@ -480,18 +480,18 @@
 		DFA491362A3AB76E008BC5C4 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				DFAC87E22BE8C1A600EC8D4C /* SearchedVideoFile.swift */,
 				DFC289D22B8241100044D0E2 /* User.swift */,
 				DFC289D42B8241180044D0E2 /* ContentResolution.swift */,
 				DFAC87D62BE7D0F800EC8D4C /* PhotoSourceURL.swift */,
 				DFAC87D02BE763B500EC8D4C /* CuratedPhoto.swift */,
 				DFAC87DE2BE8BF9D00EC8D4C /* SearchedPhoto.swift */,
 				DFAC87E02BE8C17F00EC8D4C /* SearchedVideo.swift */,
-				DFAC87E22BE8C1A600EC8D4C /* SearchedVideoFile.swift */,
 				DF5CADF72C356642004642AB /* SearchedPhotosResult.swift */,
 				DFAC87E62BE8C24400EC8D4C /* SpecificPhoto.swift */,
 				DFAC87E82BE8C2D900EC8D4C /* SpecificVideo.swift */,
 				DF5CAE082C3572CF004642AB /* SearchedVideosResult.swift */,
-				DF5CAE0E2C4523A7004642AB /* CollectionResource.swift */,
+				DF5CAE0E2C4523A7004642AB /* FeaturedCollections.swift */,
 				DF71D07E2C5FC9D500BB6787 /* FeaturedCollectionKeyword.swift */,
 			);
 			path = Entity;
@@ -978,7 +978,7 @@
 				DFCFF3102B998BFD00947892 /* Photo.swift in Sources */,
 				DFD792932A4468FD00729C2F /* HomeContentCellViewModel.swift in Sources */,
 				DF8F83F22B7F1E4E002CA0E7 /* DomainFactory.swift in Sources */,
-				DF5CAE0F2C4523A7004642AB /* CollectionResource.swift in Sources */,
+				DF5CAE0F2C4523A7004642AB /* FeaturedCollections.swift in Sources */,
 				DFF20DE72B56F23B00E01DB7 /* SearchVideosUseCase.swift in Sources */,
 				DFD792AD2A46818700729C2F /* CategoryCell.swift in Sources */,
 				DFA6B1022C32A77F00F1DEBE /* SearchVideosPort.swift in Sources */,

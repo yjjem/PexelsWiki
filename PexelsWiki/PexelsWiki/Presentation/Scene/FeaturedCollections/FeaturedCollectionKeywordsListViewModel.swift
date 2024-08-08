@@ -35,7 +35,7 @@ final class FeaturedCollectionKeywordsListViewModel {
                 return
             }
             
-            let collectionKeywords = collectionResources
+            let collectionKeywords = collectionResources.collections
                 .map { FeaturedCollectionKeywordCellViewModel(title: $0.title, totalItems: $0.mediaCount) }
             self?.receivedCollectionKeywords?(collectionKeywords)
         }
