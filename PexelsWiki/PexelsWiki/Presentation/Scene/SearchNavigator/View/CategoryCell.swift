@@ -15,7 +15,9 @@ final class RecommendedCategoryCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 9
-        imageView.layer.cornerCurve = .circular
+        imageView.layer.cornerCurve = .continuous
+        imageView.layer.borderWidth = 1.0
+        imageView.layer.backgroundColor = UIColor.label.cgColor
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -24,7 +26,7 @@ final class RecommendedCategoryCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
     
@@ -67,7 +69,7 @@ final class RecommendedCategoryCell: UICollectionViewCell {
         
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoryLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            categoryLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)

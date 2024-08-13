@@ -36,7 +36,7 @@ final class SectionTitleHeader: UICollectionReusableView {
     // MARK: Private Function(s)
     
     private func configureTitleStyle() {
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
     }
     
     private func configureHierarchy() {
