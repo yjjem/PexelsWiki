@@ -17,7 +17,7 @@ final class SearchNavigatorDataSource {
         
         enum Item: Hashable {
             case recommendedCategory(RecommendedCategoryCellViewModel)
-            case featureCollectionKeyword(FeaturedCollectionKeywordCellViewModel)
+            case featuredCollection(FeaturedCollectionCellViewModel)
         }
         
         var title: String {
@@ -41,6 +41,17 @@ final class SearchNavigatorDataSource {
             cell, indexPath, categoryItem in
             if case .recommendedCategory(let category) = categoryItem {
                 cell.configure(using: category)
+            }
+        }
+    }
+    
+    private func makeFeaturedCollectionCellRegistration(
+    ) -> UICollectionView.CellRegistration<FeaturedCollectionCell, Section.Item> {
+        return UICollectionView.CellRegistration<FeaturedCollectionCell, Section.Item> {
+            cell, indexPath, collectionItem in
+            
+            if case .featuredCollection(let collection) = collectionItem {
+                cell.configure(using: collection)
             }
         }
     }
@@ -76,15 +87,22 @@ final class SearchNavigatorDataSource {
     
     private func configureDataSourceCellProvider(using collectionView: UICollectionView ) {
         let categoryCellRegistration = makeCategoryCellRegistration()
+        let featuredCollectionCellRegistration = makeFeaturedCollectionCellRegistration()
         
         let dataSource = UICollectionViewDiffableDataSource<Section, Section.Item>(
             collectionView: collectionView
         ) { collectionView, indexPath, sectionItem in
             
             switch Section.allCases[indexPath.section] {
-            default:
+            case .recommendedCategories:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: categoryCellRegistration,
+                    for: indexPath,
+                    item: sectionItem
+                )
+            case .featuredCollections:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: featuredCollectionCellRegistration,
                     for: indexPath,
                     item: sectionItem
                 )
@@ -118,7 +136,7 @@ final class SearchNavigatorDataSource {
     }
     
     func updateFeaturedCollectionKeywordSection(
-        with keywords: [FeaturedCollectionKeywordCellViewModel]
+        with keywords: [FeaturedCollectionCellViewModel]
     ) {
         guard var featuredCollectionsSnapshot = dataSource?.snapshot(for: .featuredCollections)
         else {
@@ -126,7 +144,7 @@ final class SearchNavigatorDataSource {
         }
         
         let featuredCollectionsSectionItem = keywords
-            .map { Section.Item.featureCollectionKeyword($0) }
+            .map { Section.Item.featuredCollection($0) }
         featuredCollectionsSnapshot.append(featuredCollectionsSectionItem)
         dataSource?.apply(featuredCollectionsSnapshot, to: .featuredCollections)
     }

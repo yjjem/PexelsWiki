@@ -29,8 +29,8 @@ final class SearchNavigatorViewController: UIViewController {
     
     override func loadView() {
         self.view = categoryCollectionView
-        self.view.backgroundColor = .systemGray6
-        categoryCollectionView.collectionViewLayout = makeTwoColumnGridLayout()
+        self.view.backgroundColor = .secondarySystemBackground
+        categoryCollectionView.collectionViewLayout = makeUICollectionViewCompositionalLayout()
         categoryCollectionView.delegate = self
     }
     
@@ -40,6 +40,7 @@ final class SearchNavigatorViewController: UIViewController {
         configureNavigationItem()
         configureSearchController()
         configureUsingViewModel()
+        viewModel?.onViewDidLoad()
     }
     
     // MARK: Private Function(s)
@@ -47,6 +48,9 @@ final class SearchNavigatorViewController: UIViewController {
     private func configureUsingViewModel() {
         guard let viewModel else { return }
         datasource.updateRecommendedCategoriesSection(with: viewModel.shuffledCategories())
+        viewModel.loadedFeaturedCollectionKeywords = { viewModels in
+            self.datasource.updateFeaturedCollectionKeywordSection(with: viewModels)
+        }
     }
     
     private func configureNavigationItem() {
@@ -61,18 +65,18 @@ final class SearchNavigatorViewController: UIViewController {
         searchBar.delegate = self
     }
     
-    private func makeTwoColumnGridLayout() -> UICollectionViewCompositionalLayout {
+    private func makeRecommendedCategoriesSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1/3),
-                heightDimension: .estimated(1)
+                heightDimension: .fractionalHeight(1)
             )
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: item.layoutSize.heightDimension
+                heightDimension: .fractionalHeight(1/5)
             ),
             repeatingSubitem: item,
             count: 3
@@ -94,9 +98,58 @@ final class SearchNavigatorViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
         section.boundarySupplementaryItems = [sectionHeader]
         
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        return section
+    }
+    
+    private func makeFeaturedCollectionsSection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+        )
         
-        return layout
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/2),
+                heightDimension: .absolute(110)
+            ),
+            subitems: [item]
+        )
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(44)
+            ),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
+        section.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+        section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [sectionHeader]
+        
+        return section
+    }
+    
+    private func makeUICollectionViewCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let recommendedCategoriesSection = makeRecommendedCategoriesSection()
+        let featuredCollectionsSection = makeFeaturedCollectionsSection()
+        
+        return UICollectionViewCompositionalLayout { sectionIndex, environment in
+            
+            let sectionType = SearchNavigatorDataSource.Section.allCases[sectionIndex]
+            
+            switch sectionType {
+            case .recommendedCategories: 
+                return recommendedCategoriesSection
+            case .featuredCollections: 
+                return featuredCollectionsSection
+            }
+        }
     }
 }
 
@@ -116,6 +169,10 @@ extension SearchNavigatorViewController: UICollectionViewDelegate {
         didSelectItemAt indexPath: IndexPath
     ) {
         selectQuery(indexPath)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
     }
 }
 
