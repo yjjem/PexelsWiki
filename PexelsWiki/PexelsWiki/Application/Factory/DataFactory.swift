@@ -23,7 +23,6 @@ struct DataFactory {
     
     func makeDefaultSessionConfiguration() -> URLSessionConfiguration {
         let sessionConfiguration = URLSessionConfiguration.default
-        sessionConfiguration.requestCachePolicy = .returnCacheDataElseLoad
         sessionConfiguration.urlCache = cacheManager.urlCache
         sessionConfiguration.waitsForConnectivity = false
         return sessionConfiguration
