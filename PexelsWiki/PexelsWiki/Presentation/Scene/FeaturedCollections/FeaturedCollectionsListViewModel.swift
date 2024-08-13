@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class FeaturedCollectionKeywordsListViewModel {
+final class FeaturedCollectionsListViewModel {
     
     // MARK: Property(s)
     
-    var allCollectionKeywords: [FeaturedCollectionKeywordCellViewModel] = []
-    var receivedCollectionKeywords: (([FeaturedCollectionKeywordCellViewModel]) -> Void)?
+    var allCollectionKeywords: [FeaturedCollectionCellViewModel] = []
+    var receivedCollectionKeywords: (([FeaturedCollectionCellViewModel]) -> Void)?
     
     // MARK: Private Property(s)
     
@@ -36,7 +36,7 @@ final class FeaturedCollectionKeywordsListViewModel {
             }
             
             let collectionKeywords = collectionResources.collections
-                .map { FeaturedCollectionKeywordCellViewModel(title: $0.title, totalItems: $0.mediaCount) }
+                .map { FeaturedCollectionCellViewModel(title: $0.title, description: $0.description, totalItems: $0.mediaCount) }
             self?.receivedCollectionKeywords?(collectionKeywords)
         }
     }

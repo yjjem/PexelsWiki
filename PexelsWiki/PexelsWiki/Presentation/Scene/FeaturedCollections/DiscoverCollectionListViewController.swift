@@ -11,14 +11,15 @@ final class DiscoverCollectionListViewController: UIViewController {
     
     // MARK: Type(s)
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, FeaturedCollectionKeywordCellViewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, FeaturedCollectionCellViewModel>
     private enum Section { case featuredCollections }
     
     // MARK: Property(s)
     
+    var viewModel: FeaturedCollectionsListViewModel?
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, FeaturedCollectionKeywordCellViewModel>?
-    private var keywordsSectionSnapShot = NSDiffableDataSourceSectionSnapshot<FeaturedCollectionKeywordCellViewModel>()
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FeaturedCollectionCellViewModel>?
+    private var keywordsSectionSnapShot = NSDiffableDataSourceSectionSnapshot<FeaturedCollectionCellViewModel>()
     
     private let collectionView: UICollectionView = UICollectionView(
         frame: .zero, 
@@ -30,10 +31,22 @@ final class DiscoverCollectionListViewController: UIViewController {
     override func loadView() {
         self.view = collectionView
         configureCollectionView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         configureDataSource()
+        bindViewModel()
+        viewModel?.onViewDidLoad()
     }
     
     // MARK: Private Function(s)
+    
+    private func bindViewModel() {
+        viewModel?.receivedCollectionKeywords = { [weak self] collectionKeywords in
+            self?.updateKeywords(collectionKeywords)
+        }
+    }
     
     private func configureCollectionView() {
         collectionView.dataSource = dataSource
@@ -49,7 +62,7 @@ final class DiscoverCollectionListViewController: UIViewController {
         }
     }
     
-    private func updateKeywords(_ newKeywords: [FeaturedCollectionKeywordCellViewModel]) {
+    private func updateKeywords(_ newKeywords: [FeaturedCollectionCellViewModel]) {
         keywordsSectionSnapShot.append(newKeywords)
         dataSource?.apply(keywordsSectionSnapShot, to: .featuredCollections)
     }
