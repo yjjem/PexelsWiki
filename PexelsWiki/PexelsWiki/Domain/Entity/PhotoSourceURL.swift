@@ -5,7 +5,7 @@
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
 
-struct PhotoSourceURL {
+struct PhotoSourceURL: Decodable {
     let original: String
     let large: String
     let large2x: String
