@@ -61,8 +61,8 @@ extension VideoResourceResponse {
         return videoFiles.map { file in
             SearchedVideoFile(
                 id: file.id,
-                width: file.width,
-                height: file.height,
+                width: file.width ?? .zero,
+                height: file.height ?? .zero,
                 quality: file.quality,
                 fileType: file.fileType,
                 url: file.link
@@ -74,8 +74,8 @@ extension VideoResourceResponse {
         return videoFiles.map { file in
             SpecificVideoFile(
                 id: file.id,
-                width: file.width,
-                height: file.height,
+                width: file.width ?? .zero,
+                height: file.height ?? .zero,
                 quality: file.quality,
                 fileType: file.fileType,
                 url: file.link

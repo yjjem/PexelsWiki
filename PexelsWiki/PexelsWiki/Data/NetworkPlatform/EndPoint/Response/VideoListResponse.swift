@@ -53,8 +53,8 @@ struct VideoFileResponse: Decodable {
     let id: Int
     let quality: String
     let fileType: String
-    let width: Int
-    let height: Int
+    let width: Int?
+    let height: Int?
     let link: String
 }
 
