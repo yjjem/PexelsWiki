@@ -47,6 +47,7 @@
 		DF8EB6152C73201C00C90EA4 /* RetrieveCollectionMediaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EB6142C73201C00C90EA4 /* RetrieveCollectionMediaService.swift */; };
 		DF8EB6172C746DB600C90EA4 /* CollectionMediaWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EB6162C746DB600C90EA4 /* CollectionMediaWebRepository.swift */; };
 		DF8EB61A2C746EE300C90EA4 /* MediaCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EB6192C746EE300C90EA4 /* MediaCollectionViewModel.swift */; };
+		DF8EB61C2C74FF2400C90EA4 /* CollectionMediaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8EB61B2C74FF2400C90EA4 /* CollectionMediaListViewController.swift */; };
 		DF8F83E82B7C2620002CA0E7 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */; };
 		DF8F83EA2B7C74D8002CA0E7 /* CoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */; };
 		DF8F83EC2B7E3DA6002CA0E7 /* APIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8F83EB2B7E3DA6002CA0E7 /* APIFactory.swift */; };
@@ -181,6 +182,7 @@
 		DF8EB6142C73201C00C90EA4 /* RetrieveCollectionMediaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveCollectionMediaService.swift; sourceTree = "<group>"; };
 		DF8EB6162C746DB600C90EA4 /* CollectionMediaWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMediaWebRepository.swift; sourceTree = "<group>"; };
 		DF8EB6192C746EE300C90EA4 /* MediaCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewModel.swift; sourceTree = "<group>"; };
+		DF8EB61B2C74FF2400C90EA4 /* CollectionMediaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionMediaListViewController.swift; sourceTree = "<group>"; };
 		DF8F83E72B7C2620002CA0E7 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		DF8F83E92B7C74D8002CA0E7 /* CoreFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreFactory.swift; sourceTree = "<group>"; };
 		DF8F83EB2B7E3DA6002CA0E7 /* APIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFactory.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				DF8EB6192C746EE300C90EA4 /* MediaCollectionViewModel.swift */,
+				DF8EB61B2C74FF2400C90EA4 /* CollectionMediaListViewController.swift */,
 			);
 			path = CollectionMedia;
 			sourceTree = "<group>";
@@ -1065,6 +1068,7 @@
 				DFFF662B2B47BE6E00489DF0 /* Coordinator.swift in Sources */,
 				DFF4388E2B8A38CE00F70230 /* ScrollView+Pagination.swift in Sources */,
 				DFA6B10C2C3404EE00F1DEBE /* Page.swift in Sources */,
+				DF8EB61C2C74FF2400C90EA4 /* CollectionMediaListViewController.swift in Sources */,
 				DFC1DC072B985DC9002BB669 /* UIScrollView+Extension.swift in Sources */,
 				DF71D0752C5BDF1900BB6787 /* FeaturedCollectionsListViewModel.swift in Sources */,
 				DFA6B1062C32C8C900F1DEBE /* CuratedPhotosWebRepository.swift in Sources */,
