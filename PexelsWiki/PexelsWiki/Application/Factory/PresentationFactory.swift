@@ -57,6 +57,13 @@ struct SceneFactory {
         )
     }
     
+    func makeMediaCollectionViewModel(collectionIdentifier: String) -> MediaCollectionViewModel {
+        return MediaCollectionViewModel(
+            useCase: domainFactory.makeFetchCollectionMediaUseCase(),
+            collectionIdentifier: collectionIdentifier
+        )
+    }
+    
     // MARK: ViewController(s)
     
     func makeHomeViewController() -> HomeViewController {
@@ -94,6 +101,16 @@ struct SceneFactory {
         let videoDetail = VideoDetailViewController()
         videoDetail.viewModel = makeVideoDetailViewModel(id: id)
         return videoDetail
+    }
+    
+    func makeCollectionMediaListViewController(
+        collectionIdentifier: String
+    ) -> CollectionMediaListViewController {
+        let collectionMediaViewController = CollectionMediaListViewController()
+        collectionMediaViewController.viewModel = makeMediaCollectionViewModel(
+            collectionIdentifier: collectionIdentifier
+        )
+        return collectionMediaViewController
     }
     
     func makeSaveFailedAlert(errorMessage: String) -> UIAlertController {

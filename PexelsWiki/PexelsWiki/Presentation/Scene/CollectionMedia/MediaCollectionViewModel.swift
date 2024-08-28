@@ -26,10 +26,10 @@ final class MediaCollectionViewModel {
     var loadedMediaPreviews: (([MediaPreview]) -> Void)?
     var cancelToken: Cancellable?
     
-    private let useCase: RetrieveCollectionMediaService
+    private let useCase: FetchCollectionMediaUseCase
     private let collectionIdentifier: String
     
-    init(useCase: RetrieveCollectionMediaService, collectionIdentifier: String) {
+    init(useCase: FetchCollectionMediaUseCase, collectionIdentifier: String) {
         self.useCase = useCase
         self.collectionIdentifier = collectionIdentifier
     }
