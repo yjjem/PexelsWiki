@@ -73,4 +73,11 @@ struct DataFactory {
             apiFactory: apiFactory, maxItemsPerPage: 10
         )
     }
+    
+    func makeFetchCollectionMediaPort() -> FetchCollectionMediaPort {
+        return CollectionMediaWebRepository(
+            networkProvider: makeDefaultNetworkProvider(),
+            apiFactory: apiFactory
+        )
+    }
 }
