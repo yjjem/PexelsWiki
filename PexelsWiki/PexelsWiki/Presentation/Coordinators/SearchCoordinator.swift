@@ -81,6 +81,15 @@ final class SearchCoordinator: Coordinator {
         let failedAlert = sceneFactory.makeSaveFailedAlert(errorMessage: errorMessage)
         router.present(failedAlert, animated: true, nil)
     }
+    
+    func showCollectionMediaListViewController(_ featureCollectionViewModel: FeaturedCollectionCellViewModel) {
+        let collectionMediaListViewController = sceneFactory.makeCollectionMediaListViewController(
+            collectionIdentifier: featureCollectionViewModel.identifier
+        )
+        let title = featureCollectionViewModel.title + " / \(featureCollectionViewModel.totalItems) items"
+        collectionMediaListViewController.title = title
+        router.push(collectionMediaListViewController, animated: true, nil)
+    }
 }
 
 // MARK: ListSelect Delegates
@@ -102,6 +111,10 @@ extension SearchCoordinator: SearchNavigatorViewControllerDelegate {
     
     func didSelectSearchQuery(_ searchQuery: String) {
         showSearchResultsFlow(query: searchQuery)
+    }
+    
+    func didSelectFeaturedCollection(_ featuredCollectionViewModel: FeaturedCollectionCellViewModel) {
+        showCollectionMediaListViewController(featuredCollectionViewModel)
     }
 }
 
