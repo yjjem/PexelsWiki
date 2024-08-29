@@ -4,6 +4,7 @@
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
 
+import Foundation
 
 final class MediaCollectionViewModel {
     
@@ -66,7 +67,9 @@ final class MediaCollectionViewModel {
                 return MediaPreview(image: imageURL, user: userName, identifier: identifier)
             }
             
+            DispatchQueue.main.async {
             self?.loadedMediaPreviews?(previewItems)
         }
     }
+}
 }
