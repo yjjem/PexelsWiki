@@ -48,6 +48,7 @@ final class FeaturedCollectionsListViewModel {
             let featuredCollections = collectionResources.collections
                 .map {
                     return FeaturedCollectionCellViewModel(
+                        identifier: $0.id,
                         title: $0.title,
                         description: $0.description,
                         totalItems: $0.mediaCount

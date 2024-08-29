@@ -44,7 +44,12 @@ final class SearchNavigatorViewModel {
             }
             
             let mappedViewModels = featuredCollection.collections.map {
-                FeaturedCollectionCellViewModel(title: $0.title, description: $0.description,totalItems: $0.mediaCount)
+                return FeaturedCollectionCellViewModel(
+                    identifier: $0.id,
+                    title: $0.title,
+                    description: $0.description,
+                    totalItems: $0.mediaCount
+                )
             }
             
             DispatchQueue.main.async {
