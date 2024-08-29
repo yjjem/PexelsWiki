@@ -11,22 +11,32 @@ final class FeaturedCollectionsListViewModel {
     
     // MARK: Property(s)
     
-    var allCollectionKeywords: [FeaturedCollectionCellViewModel] = []
-    var receivedCollectionKeywords: (([FeaturedCollectionCellViewModel]) -> Void)?
+    var loadedFeaturedCollections: (([FeaturedCollectionCellViewModel]) -> Void)?
     
     // MARK: Private Property(s)
     
-    private let useCase: DiscoverFeaturedCollectionsUseCase
     private var cancelToken: Cancellable?
+    
+    private let useCase: DiscoverFeaturedCollectionsUseCase
     
     init(useCase: DiscoverFeaturedCollectionsUseCase) {
         self.useCase = useCase
-        retrieveInitialCollectionKeywords()
     }
     
     // MARK: Function(s)
     
-    private func retrieveInitialCollectionKeywords() {
+    func onViewDidLoad() {
+        retrieveInitialFeaturedCollections()
+    }
+    
+    func onRefresh() {
+        cancelToken?.cancel()
+        retrieveInitialFeaturedCollections()
+    }
+    
+    // MARK: Private Function(s)
+    
+    private func retrieveInitialFeaturedCollections() {
         let initialRetrievalCommand = DiscoverFeaturedCollectionsCommand(requiresRefresh: false)
         cancelToken = useCase.discoverFeaturedCollections(initialRetrievalCommand) {
             [weak self] response in
@@ -35,19 +45,15 @@ final class FeaturedCollectionsListViewModel {
                 return
             }
             
-            let collectionKeywords = collectionResources.collections
-                .map { FeaturedCollectionCellViewModel(title: $0.title, description: $0.description, totalItems: $0.mediaCount) }
-            self?.receivedCollectionKeywords?(collectionKeywords)
+            let featuredCollections = collectionResources.collections
+                .map {
+                    return FeaturedCollectionCellViewModel(
+                        title: $0.title,
+                        description: $0.description,
+                        totalItems: $0.mediaCount
+                    )
+                }
+            self?.loadedFeaturedCollections?(featuredCollections)
         }
-    }
-    
-    func onViewDidLoad() {
-        retrieveInitialCollectionKeywords()
-    }
-    
-    func onRefresh() {
-        cancelToken?.cancel()
-        allCollectionKeywords.removeAll()
-        retrieveInitialCollectionKeywords()
     }
 }

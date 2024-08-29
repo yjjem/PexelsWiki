@@ -43,7 +43,7 @@ final class DiscoverCollectionListViewController: UIViewController {
     // MARK: Private Function(s)
     
     private func bindViewModel() {
-        viewModel?.receivedCollectionKeywords = { [weak self] collectionKeywords in
+        viewModel?.loadedFeaturedCollections = { [weak self] collectionKeywords in
             self?.updateKeywords(collectionKeywords)
         }
     }
