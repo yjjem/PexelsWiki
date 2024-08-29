@@ -9,6 +9,7 @@ import UIKit
 
 protocol SearchNavigatorViewControllerDelegate: AnyObject {
     func didSelectSearchQuery(_ searchQuery: String)
+    func didSelectFeaturedCollection(_ featuredCollectionViewModel: FeaturedCollectionCellViewModel)
 }
 
 final class SearchNavigatorViewController: UIViewController {
@@ -157,22 +158,18 @@ final class SearchNavigatorViewController: UIViewController {
 
 extension SearchNavigatorViewController: UICollectionViewDelegate {
     
-    private func selectQuery(_ selectedIndexPath: IndexPath) {
-        let sectionItem = datasource.sectionItem(for: selectedIndexPath)
-        if case .recommendedCategory(let category) = sectionItem {
-            delegate?.didSelectSearchQuery(category.imageName)
-        }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        selectQuery(indexPath)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        guard let sectionItem = datasource.sectionItem(for: indexPath) else {
+            return
+        }
+        
+        switch sectionItem {
+        case .recommendedCategory(let recommendedCategoryCellViewModel):
+            delegate?.didSelectSearchQuery(recommendedCategoryCellViewModel.imageName)
+        case .featuredCollection(let featuredCollectionCellViewModel):
+            delegate?.didSelectFeaturedCollection(featuredCollectionCellViewModel)
+        }
     }
 }
 
