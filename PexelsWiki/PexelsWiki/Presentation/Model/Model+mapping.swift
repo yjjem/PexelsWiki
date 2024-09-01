@@ -91,3 +91,33 @@ extension SpecificVideo {
         )
     }
 }
+
+extension Media {
+    
+    func toMediaPreview() -> MediaCollectionViewModel.MediaPreview {
+        
+        let properties: (imageURL: String, userName: String, identifier: Int)
+        
+        switch self {
+        case .photo(let photoCollectionMedia):
+            properties = (
+                photoCollectionMedia.source.medium,
+                photoCollectionMedia.photographer,
+                photoCollectionMedia.id
+            )
+
+        case .video(let videoCollectionMedia):
+            properties = (
+                videoCollectionMedia.image,
+                videoCollectionMedia.user.name,
+                videoCollectionMedia.user.id
+            )
+        }
+        
+        return MediaCollectionViewModel.MediaPreview(
+            image: properties.imageURL,
+            user: properties.userName,
+            identifier: properties.identifier
+        )
+    }
+}
