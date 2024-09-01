@@ -131,7 +131,7 @@ final class VideoListViewController: UIViewController {
             cell.durationLabel.text = videoPreviewItem.duration
             cell.imageRequest = self?.imageUtilityManager.thumbnail(
                 for: videoPreviewItem.thumbnailImage,
-                toFit: cell.frame,
+                toFit: cell.frame.size,
                 cropStrategy: .centerPreserverRatio
             ) { [weak cell] thumbnail in
                 guard let cell else { return }

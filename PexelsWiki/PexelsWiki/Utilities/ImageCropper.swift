@@ -21,11 +21,11 @@ struct ImageCropper {
     
     private let strategy: CropStrategy
     private let sourceImage: UIImage
-    private let frameToFit: CGRect
+    private let frameToFit: CGSize
     
     // MARK: Initializer(s)
     
-    init(sourceImage: UIImage, strategy: CropStrategy, frameToFit: CGRect) {
+    init(sourceImage: UIImage, strategy: CropStrategy, frameToFit: CGSize) {
         self.sourceImage = sourceImage
         self.strategy = strategy
         self.frameToFit = frameToFit

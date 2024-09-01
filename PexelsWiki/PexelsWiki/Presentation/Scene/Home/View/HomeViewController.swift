@@ -145,7 +145,7 @@ final class HomeViewController: UIViewController {
             cell.backgroundColor = .quaternarySystemFill
             cell.imageRequest = self?.imageUtilityManager.thumbnail(
                 for: cellViewModel.imageURL,
-                toFit: currentLayoutSize?.frame ?? .zero,
+                toFit: currentLayoutSize?.size ?? .zero,
                 cropStrategy: .none
             ) { [weak cell] thumbnail in
                 guard let cell else { return }

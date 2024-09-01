@@ -72,7 +72,7 @@ struct ImageUtilityManager {
     @discardableResult
     func thumbnail(
         for urlString: String,
-        toFit frameToFit: CGRect,
+        toFit frameToFit: CGSize,
         cropStrategy: ImageCropper.CropStrategy,
         _ completion: @escaping (UIImage?) -> Void
     ) -> Cancellable? {
@@ -96,7 +96,7 @@ struct ImageUtilityManager {
                 frameToFit: frameToFit
             ).crop()
             
-            croppedImageElseOriginal?.prepareThumbnail(of: frameToFit.size) {
+            croppedImageElseOriginal?.prepareThumbnail(of: frameToFit) {
                 optionalPreparedThumbnail in
                 
                 guard let preparedThumbnail = optionalPreparedThumbnail else {
