@@ -38,10 +38,10 @@ final class StretchableImageView: UIScrollView {
     // MARK: Private Function(s)
     
     @objc private func didDoubleTap() {
-        if zoomScale == maximumZoomScale {
+        if zoomScale > minimumZoomScale {
             setZoomScale(minimumZoomScale, animated: true)
         } else if zoomScale == minimumZoomScale {
-            setZoomScale(maximumZoomScale, animated: true)
+            setZoomScale(maximumZoomScale / 2, animated: true)
         }
     }
     
@@ -57,7 +57,7 @@ final class StretchableImageView: UIScrollView {
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
         minimumZoomScale = 1
-        maximumZoomScale = 3
+        maximumZoomScale = 6
         bounces = false
         delegate = self
     }
