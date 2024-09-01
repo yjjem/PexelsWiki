@@ -42,7 +42,30 @@ final class CollectionMediaListViewController: UIViewController {
     }
     
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        return UICollectionViewCompositionalLayout.list(using: configuration)
+        let cellContentItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .fractionalWidth(1/3)
+            )
+        )
+        
+        let defaultGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: cellContentItem.layoutSize.heightDimension
+            ),
+            repeatingSubitem: cellContentItem,
+            count: 3
+        )
+        defaultGroup.interItemSpacing = NSCollectionLayoutSpacing.fixed(2)
+        
+        let section = NSCollectionLayoutSection(group: defaultGroup)
+        section.interGroupSpacing = 0.5
+        section.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+        return UICollectionViewCompositionalLayout(section: section)
+        
+    }
+}
+
     }
 }
