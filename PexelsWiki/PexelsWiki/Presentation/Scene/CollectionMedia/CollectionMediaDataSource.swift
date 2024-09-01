@@ -18,6 +18,7 @@ final class CollectionMediaDataSource {
     // MARK: Property(s)
     
     private var diffableDataSource: UICollectionViewDiffableDataSource<Section, MediaCollectionViewModel.MediaPreview>?
+    private let imageUtility: ImageUtilityManager = ImageUtilityManager()
     
     init(collectionView: UICollectionView) {
         initializeDiffableDataSource(collectionView)
@@ -49,27 +50,20 @@ final class CollectionMediaDataSource {
     }
     
     private func makePhotoMediaCellRegistration(
-    ) -> UICollectionView.CellRegistration<UICollectionViewListCell, MediaCollectionViewModel.MediaPreview> {
-        
-        let imageUtility: ImageUtilityManager = ImageUtilityManager()
-        
-        return UICollectionView.CellRegistration<UICollectionViewListCell, MediaCollectionViewModel.MediaPreview>() {
+    ) -> UICollectionView.CellRegistration<CollectionMediaPreviewCell, MediaCollectionViewModel.MediaPreview> {
+        return UICollectionView.CellRegistration<CollectionMediaPreviewCell, MediaCollectionViewModel.MediaPreview>() {
             cell, indexPath, itemIdentifier in
             
-            var cellContent = cell.defaultContentConfiguration()
-            cellContent.text = itemIdentifier.user
-            cellContent.secondaryText = itemIdentifier.identifier
-            cellContent.imageProperties.maximumSize = .init(width: 80, height: 80)
+            let size = cell.frame.size
             
-            guard cellContent.image == nil else {
-                cell.contentConfiguration = cellContent
-                return
-            }
-            
-            imageUtility.requestImage(for: itemIdentifier.image) { image in
-                cellContent.image = image
+            DispatchQueue.global(qos: .userInteractive).async { [size] in
+                self.imageUtility.thumbnail(for: itemIdentifier.image, toFit: size, cropStrategy: .centerSquare) { image in
                 DispatchQueue.main.async {
-                    cell.contentConfiguration = cellContent
+                        let animationOptions: UIView.AnimationOptions = [.transitionCrossDissolve, .allowUserInteraction]
+                        UIView.transition(with: cell, duration: 0.3, options: animationOptions) {
+                            cell.imageView.image = image
+                        }
+                    }
                 }
             }
         }
