@@ -47,29 +47,11 @@ final class MediaCollectionViewModel {
                 return
             }
             
-            let previewItems = collectionMedia.media.map { media in
-                
-                let imageURL: String
-                let userName: String
-                let identifier: Int
-                
-                switch media {
-                case .photo(let photoCollectionMedia):
-                    imageURL = photoCollectionMedia.source.medium
-                    userName = photoCollectionMedia.photographer
-                    identifier = photoCollectionMedia.id
-                case .video(let videoCollectionMedia):
-                    imageURL = videoCollectionMedia.image
-                    userName = videoCollectionMedia.user.name
-                    identifier = videoCollectionMedia.user.id
-                }
-
-                return MediaPreview(image: imageURL, user: userName, identifier: identifier)
-            }
+            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
             
             DispatchQueue.main.async {
-            self?.loadedMediaPreviews?(previewItems)
+                self?.loadedMediaPreviews?(previewItems)
+            }
         }
     }
-}
 }
