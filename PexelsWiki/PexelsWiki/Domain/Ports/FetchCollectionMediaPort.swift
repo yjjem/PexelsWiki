@@ -7,7 +7,8 @@
 
 protocol FetchCollectionMediaPort {
     func fetchCollectionMedia(
-        _ targetCollectionIdentifier: String,
+        collectionIdentifier: String,
+        paginationInformation: Pagination.PaginationInformation,
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable?
 }

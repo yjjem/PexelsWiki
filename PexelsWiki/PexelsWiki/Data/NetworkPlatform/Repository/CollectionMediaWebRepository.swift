@@ -3,7 +3,7 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
+
 
 final class CollectionMediaWebRepository: FetchCollectionMediaPort {
     
@@ -20,11 +20,14 @@ final class CollectionMediaWebRepository: FetchCollectionMediaPort {
     // MARK: Function(s)
     
     func fetchCollectionMedia(
-        _ targetCollectionIdentifier: String,
+        collectionIdentifier: String,
+        paginationInformation: Pagination.PaginationInformation,
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable? {
         let collectionMediaEndPoint = apiFactory.makeCollectionMediaEndPoint(
-            collectionIdentifier: targetCollectionIdentifier
+            page: paginationInformation.page,
+            perPage: paginationInformation.itemsPerPage,
+            collectionIdentifier: collectionIdentifier
         )
         return networkProvider.send(request: collectionMediaEndPoint.makeURLRequest()) {
             response in

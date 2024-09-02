@@ -9,6 +9,7 @@ final class RetrieveCollectionMediaService: FetchCollectionMediaUseCase {
     
     //MARK: Property(s)
     
+    private let pagination: Pagination = Pagination(itemsPerPage: 30)
     private let port: FetchCollectionMediaPort
     
     init(port: FetchCollectionMediaPort) {
@@ -22,7 +23,10 @@ final class RetrieveCollectionMediaService: FetchCollectionMediaUseCase {
         _ targetCollectionIdentifier: String,
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable? {
-        return port.fetchCollectionMedia(targetCollectionIdentifier) { response in
+        return port.fetchCollectionMedia(
+            collectionIdentifier: targetCollectionIdentifier,
+            paginationInformation: pagination.currentPaginationInformation()
+        ) { response in
             completion(response)
         }
     }

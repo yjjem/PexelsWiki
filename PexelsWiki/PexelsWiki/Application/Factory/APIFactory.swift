@@ -172,10 +172,18 @@ struct APIFactory {
         )
     }
     
-    func makeCollectionMediaEndPoint(collectionIdentifier: String) -> EndPoint<CollectionMedia> {
+    func makeCollectionMediaEndPoint(
+        collectionIdentifier: String,
+        page: Int,
+        itemsPerPage: Int
+    ) -> EndPoint<CollectionMedia> {
         return EndPoint<CollectionMedia>(
             baseURL: baseURL, 
             path: Path.collectionMedia + "/\(collectionIdentifier)",
+            queries: [
+                QueryKey.page: String(page),
+                QueryKey.perPage: String(itemsPerPage)
+            ],
             headers: [HeaderKey.authorization: secretKey],
             method: .get
         )
