@@ -25,9 +25,9 @@ final class CollectionMediaWebRepository: FetchCollectionMediaPort {
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable? {
         let collectionMediaEndPoint = apiFactory.makeCollectionMediaEndPoint(
+            collectionIdentifier: collectionIdentifier,
             page: paginationInformation.page,
-            perPage: paginationInformation.itemsPerPage,
-            collectionIdentifier: collectionIdentifier
+            itemsPerPage: paginationInformation.itemsPerPage
         )
         return networkProvider.send(request: collectionMediaEndPoint.makeURLRequest()) {
             response in
