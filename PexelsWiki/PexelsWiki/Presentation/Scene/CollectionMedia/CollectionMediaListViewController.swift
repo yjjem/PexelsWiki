@@ -23,6 +23,7 @@ final class CollectionMediaListViewController: UIViewController {
     
     override func loadView() {
         self.view = collectionView
+        collectionView.delegate = self
         collectionView.collectionViewLayout = createCompositionalLayout()
         dataSource = CollectionMediaDataSource(collectionView: collectionView)
     }
@@ -67,5 +68,21 @@ final class CollectionMediaListViewController: UIViewController {
     }
 }
 
+extension CollectionMediaListViewController: UICollectionViewDelegate {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        
+        if needFetchMore(
+            scrollView: collectionView, 
+            willDisplay: indexPath,
+            itemsCount: dataSource?.totalNumberOfItems ?? .zero,
+            edgeCountInset: 5
+        ) {
+            viewModel?.onNeedMoreItems()
+        }
     }
 }
