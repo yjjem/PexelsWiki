@@ -17,15 +17,8 @@ final class MediaCollectionViewModel {
     struct MediaPreview: Hashable {
         let image: String
         let user: String
-        let identifier: String
+        let identifier: Int
         let type: MediaType
-        
-        init(image: String, user: String, identifier: Int, mediaType: MediaType) {
-            self.image = image
-            self.user = user
-            self.identifier = String(identifier)
-            self.type = mediaType
-        }
     }
     
     // MARK: Property(s)

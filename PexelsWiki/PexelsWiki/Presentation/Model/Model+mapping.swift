@@ -125,7 +125,7 @@ extension Media {
             image: properties.imageURL,
             user: properties.userName,
             identifier: properties.identifier,
-            mediaType: properties.mediaType
+            type: properties.mediaType
         )
     }
 }
