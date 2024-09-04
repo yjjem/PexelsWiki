@@ -86,9 +86,24 @@ final class SearchCoordinator: Coordinator {
         let collectionMediaListViewController = sceneFactory.makeCollectionMediaListViewController(
             collectionIdentifier: featureCollectionViewModel.identifier
         )
+        collectionMediaListViewController.delegate = self
         let title = featureCollectionViewModel.title + " / \(featureCollectionViewModel.totalItems) items"
         collectionMediaListViewController.title = title
         router.push(collectionMediaListViewController, animated: true, nil)
+    }
+}
+
+// MARK: CollectionMediaListVieWControllerDelegate
+
+extension SearchCoordinator: CollectionMediaListViewControllerDelegate {
+    
+    func didSelectPreviewItem(_ previewItem: MediaCollectionViewModel.MediaPreview) {
+        switch previewItem.type {
+        case .photo:
+            showPhotoDetailFlow(id: previewItem.identifier)
+        case .video:
+            showVideoDetailFlow(id: previewItem.identifier)
+        }
     }
 }
 
