@@ -30,6 +30,10 @@ final class CollectionMediaDataSource {
     
     // MARK: Function(s)
     
+    func item(at indexPath: IndexPath) -> MediaCollectionViewModel.MediaPreview? {
+        return diffableDataSource?.itemIdentifier(for: indexPath)
+    }
+    
     func addMediaItems(_ mediaItems: [MediaCollectionViewModel.MediaPreview]) {
         guard let diffableDataSource else {
             return
@@ -38,6 +42,8 @@ final class CollectionMediaDataSource {
         mutatedSnapshot.append(mediaItems)
         diffableDataSource.apply(mutatedSnapshot, to: .main)
     }
+    
+    // MARK: Private Function(s)
     
     private func initializeDiffableDataSource(_ collectionView: UICollectionView) {
         let mediaCellRegistration = makePhotoMediaCellRegistration()
