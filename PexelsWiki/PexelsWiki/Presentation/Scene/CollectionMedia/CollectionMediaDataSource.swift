@@ -17,6 +17,10 @@ final class CollectionMediaDataSource {
     
     // MARK: Property(s)
     
+    var totalNumberOfItems: Int? {
+        return diffableDataSource?.snapshot().numberOfItems
+    }
+    
     private var diffableDataSource: UICollectionViewDiffableDataSource<Section, MediaCollectionViewModel.MediaPreview>?
     private let imageUtility: ImageUtilityManager = ImageUtilityManager()
     
