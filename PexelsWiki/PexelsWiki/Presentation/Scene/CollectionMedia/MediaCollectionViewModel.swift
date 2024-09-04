@@ -52,4 +52,20 @@ final class MediaCollectionViewModel {
             }
         }
     }
+    
+    func onNeedMoreItems() {
+        cancelToken = useCase.fetchNextCollectionMedia { [weak self] response in
+            
+            guard case .success(let collectionMedia) = response else {
+                return
+            }
+            
+            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
+            
+            DispatchQueue.main.async {
+                self?.loadedMediaPreviews?(previewItems)
+            }
+            
+        }
+    }
 }
