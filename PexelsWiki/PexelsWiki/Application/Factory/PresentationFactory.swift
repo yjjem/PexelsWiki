@@ -59,8 +59,7 @@ struct SceneFactory {
     
     func makeMediaCollectionViewModel(collectionIdentifier: String) -> MediaCollectionViewModel {
         return MediaCollectionViewModel(
-            useCase: domainFactory.makeFetchCollectionMediaUseCase(),
-            collectionIdentifier: collectionIdentifier
+            useCase: domainFactory.makeFetchCollectionMediaUseCase(collectionIdentifier: collectionIdentifier)
         )
     }
     

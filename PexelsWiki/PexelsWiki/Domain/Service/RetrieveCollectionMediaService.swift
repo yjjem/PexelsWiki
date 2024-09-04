@@ -11,20 +11,21 @@ final class RetrieveCollectionMediaService: FetchCollectionMediaUseCase {
     
     private let pagination: Pagination = Pagination(itemsPerPage: 30)
     private let port: FetchCollectionMediaPort
+    private let collectionIdentifier: String
     
-    init(port: FetchCollectionMediaPort) {
+    init(port: FetchCollectionMediaPort, collectionIdentifier: String) {
         self.port = port
+        self.collectionIdentifier = collectionIdentifier
     }
     
     // MARK: Function(s)
     
     @discardableResult
     func fetchCollectionMedia(
-        _ targetCollectionIdentifier: String,
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.fetchCollectionMedia(
-            collectionIdentifier: targetCollectionIdentifier,
+            collectionIdentifier: collectionIdentifier,
             paginationInformation: pagination.currentPaginationInformation()
         ) { response in
             completion(response)

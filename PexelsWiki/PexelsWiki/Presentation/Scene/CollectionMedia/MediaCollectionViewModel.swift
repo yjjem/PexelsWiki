@@ -28,11 +28,9 @@ final class MediaCollectionViewModel {
     var cancelToken: Cancellable?
     
     private let useCase: FetchCollectionMediaUseCase
-    private let collectionIdentifier: String
     
-    init(useCase: FetchCollectionMediaUseCase, collectionIdentifier: String) {
+    init(useCase: FetchCollectionMediaUseCase) {
         self.useCase = useCase
-        self.collectionIdentifier = collectionIdentifier
     }
     
     deinit {
@@ -42,7 +40,7 @@ final class MediaCollectionViewModel {
     // MARK: Function(s)
     
     func onViewDidLoad() {
-        cancelToken = useCase.fetchCollectionMedia(collectionIdentifier) { [weak self] response in
+        cancelToken = useCase.fetchCollectionMedia { [weak self] response in
             guard case .success(let collectionMedia) = response else {
                 return
             }

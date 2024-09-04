@@ -42,7 +42,10 @@ struct DomainFactory {
         return DiscoverFeaturedCollectionsService(port: dataFactory.makeFetchFeaturedCollectionsPort())
     }
     
-    func makeFetchCollectionMediaUseCase() -> FetchCollectionMediaUseCase {
-        return RetrieveCollectionMediaService(port: dataFactory.makeFetchCollectionMediaPort())
+    func makeFetchCollectionMediaUseCase(collectionIdentifier: String) -> FetchCollectionMediaUseCase {
+        return RetrieveCollectionMediaService(
+            port: dataFactory.makeFetchCollectionMediaPort(),
+            collectionIdentifier: collectionIdentifier
+        )
     }
 }
