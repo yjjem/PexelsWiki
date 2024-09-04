@@ -10,15 +10,21 @@ final class MediaCollectionViewModel {
     
     // MARK: Type(s)
     
+    enum MediaType {
+        case photo, video
+    }
+    
     struct MediaPreview: Hashable {
         let image: String
         let user: String
         let identifier: String
+        let type: MediaType
         
-        init(image: String, user: String, identifier: Int) {
+        init(image: String, user: String, identifier: Int, mediaType: MediaType) {
             self.image = image
             self.user = user
             self.identifier = String(identifier)
+            self.type = mediaType
         }
     }
     

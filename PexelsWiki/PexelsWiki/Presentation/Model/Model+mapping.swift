@@ -96,28 +96,36 @@ extension Media {
     
     func toMediaPreview() -> MediaCollectionViewModel.MediaPreview {
         
-        let properties: (imageURL: String, userName: String, identifier: Int)
+        let properties: (
+            imageURL: String,
+            userName: String,
+            identifier: Int,
+            mediaType: MediaCollectionViewModel.MediaType
+        )
         
         switch self {
         case .photo(let photoCollectionMedia):
             properties = (
                 photoCollectionMedia.source.medium,
                 photoCollectionMedia.photographer,
-                photoCollectionMedia.id
+                photoCollectionMedia.id,
+                .photo
             )
 
         case .video(let videoCollectionMedia):
             properties = (
                 videoCollectionMedia.image,
                 videoCollectionMedia.user.name,
-                videoCollectionMedia.user.id
+                videoCollectionMedia.user.id,
+                .video
             )
         }
         
         return MediaCollectionViewModel.MediaPreview(
             image: properties.imageURL,
             user: properties.userName,
-            identifier: properties.identifier
+            identifier: properties.identifier,
+            mediaType: properties.mediaType
         )
     }
 }
