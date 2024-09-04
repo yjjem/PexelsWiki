@@ -15,4 +15,5 @@ protocol FetchCollectionMediaUseCase {
         _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
     ) -> Cancellable?
     
+    func reset()
 }

@@ -43,4 +43,8 @@ final class RetrieveCollectionMediaService: FetchCollectionMediaUseCase {
             completion(response)
         }
     }
+    
+    func reset() {
+        pagination.resetPage()
+    }
 }
