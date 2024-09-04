@@ -31,4 +31,16 @@ final class RetrieveCollectionMediaService: FetchCollectionMediaUseCase {
             completion(response)
         }
     }
+    
+    func fetchNextCollectionMedia(
+        _ completion: @escaping (Result<CollectionMedia, CollectionMediaUseCaseError>) -> Void
+    ) -> Cancellable? {
+        pagination.nextPage()
+        return port.fetchCollectionMedia(
+            collectionIdentifier: collectionIdentifier,
+            paginationInformation: pagination.currentPaginationInformation()
+        ) { response in
+            completion(response)
+        }
+    }
 }
