@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol CollectionMediaListViewControllerDelegate {
+    func didSelectPreviewItem(_ previewItem: MediaCollectionViewModel.MediaPreview)
+}
+
 final class CollectionMediaListViewController: UIViewController {
     
     // MARK: Property(s)
     
     var viewModel: MediaCollectionViewModel?
+    var delegate: CollectionMediaListViewControllerDelegate?
     
     private var dataSource: CollectionMediaDataSource?
     private let collectionView: UICollectionView = UICollectionView(
@@ -75,7 +80,6 @@ extension CollectionMediaListViewController: UICollectionViewDelegate {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        
         if needFetchMore(
             scrollView: collectionView, 
             willDisplay: indexPath,
@@ -83,6 +87,12 @@ extension CollectionMediaListViewController: UICollectionViewDelegate {
             edgeCountInset: 5
         ) {
             viewModel?.onNeedMoreItems()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let selectedPreviewItem = dataSource?.item(at: indexPath) {
+            delegate?.didSelectPreviewItem(selectedPreviewItem)
         }
     }
 }
