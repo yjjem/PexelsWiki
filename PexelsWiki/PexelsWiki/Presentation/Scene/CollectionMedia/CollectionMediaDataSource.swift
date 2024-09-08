@@ -66,6 +66,10 @@ final class CollectionMediaDataSource {
             
             let size = cell.frame.size
             
+            if itemIdentifier.type == .video {
+                cell.markAsVideo()
+            }
+            
             DispatchQueue.global(qos: .userInteractive).async { [size] in
                 self.imageUtility.thumbnail(for: itemIdentifier.image, toFit: size, cropStrategy: .centerSquare) { image in
                 DispatchQueue.main.async {
