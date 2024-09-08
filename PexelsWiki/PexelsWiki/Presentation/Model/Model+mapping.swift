@@ -116,7 +116,7 @@ extension Media {
             properties = (
                 videoCollectionMedia.image,
                 videoCollectionMedia.user.name,
-                videoCollectionMedia.user.id,
+                videoCollectionMedia.id,
                 .video
             )
         }
