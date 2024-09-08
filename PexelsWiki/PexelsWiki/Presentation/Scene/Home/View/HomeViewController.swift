@@ -96,7 +96,7 @@ final class HomeViewController: UIViewController {
             ) { environment in
                 
                 let itemWidth = environment.container.effectiveContentSize.width
-                let contentInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+                let contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
                 var groupItems: [NSCollectionLayoutGroupCustomItem] = .init()
                 var previousItemOriginY: CGFloat = 0
                 
