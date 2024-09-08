@@ -19,6 +19,7 @@ final class HomeContentCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureConstraints()
+        configureStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -39,5 +40,10 @@ final class HomeContentCell: UICollectionViewCell {
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
+    }
+    
+    private func configureStyle() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
     }
 }
