@@ -44,10 +44,10 @@ final class MediaCollectionViewModel {
                 return
             }
             
-            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
+//            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
             
             DispatchQueue.main.async {
-                self?.loadedMediaPreviews?(previewItems)
+//                self?.loadedMediaPreviews?(previewItems)
             }
         }
     }
@@ -59,10 +59,10 @@ final class MediaCollectionViewModel {
                 return
             }
             
-            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
+//            let previewItems = collectionMedia.media.map { $0.toMediaPreview() }
             
             DispatchQueue.main.async {
-                self?.loadedMediaPreviews?(previewItems)
+//                self?.loadedMediaPreviews?(previewItems)
             }
             
         }

@@ -9,19 +9,19 @@ final class VideoDetailViewModel {
     
     // MARK: Binding(s)
     
-    var fetchedVideo: ((Video) -> Void)?
+//    var fetchedVideo: ((Video) -> Void)?
     var profileIsAvailable: (() -> Void)?
     
     // MARK: Property(s)
     
     var userProfileURL: String?
-    var video: Video? {
-        didSet {
-            if let video {
-                fetchedVideo?(video)
-            }
-        }
-    }
+//    var video: Video? {
+//        didSet {
+//            if let video {
+//                fetchedVideo?(video)
+//            }
+//        }
+//    }
     
     private let videoID: Int
     private var videoRequest: Cancellable?
@@ -47,13 +47,13 @@ final class VideoDetailViewModel {
                 return
             }
             
-            let video = specificVideo.toVideo()
-            self?.video = video
-            self?.userProfileURL = video.userProfileURL
-            
-            if !video.userProfileURL.isEmpty {
-                self?.profileIsAvailable?()
-            }
+//            let video = specificVideo()
+//            self?.video = video
+//            self?.userProfileURL = video.userProfileURL
+//            
+//            if !video.userProfileURL.isEmpty {
+//                self?.profileIsAvailable?()
+//            }
         }
     }
 }

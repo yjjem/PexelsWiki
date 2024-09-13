@@ -60,15 +60,15 @@ final class VideoDetailViewController: StretchHeaderViewController {
     
     private func bindViewModel() {
         
-        viewModel?.fetchedVideo = { [weak self] video in
-            guard let url = URL(string: video.url) else { return }
-            DispatchQueue.main.async {
-                let player = AVPlayer(url: url)
-                self?.playerViewController.player = player
-                self?.userNameLabel.text = video.userName
-                self?.resolutionLabel.text = video.resolution
-            }
-        }
+//        viewModel?.fetchedVideo = { [weak self] video in
+//            guard let url = URL(string: video.url) else { return }
+//            DispatchQueue.main.async {
+//                let player = AVPlayer(url: url)
+//                self?.playerViewController.player = player
+//                self?.userNameLabel.text = video.userName
+//                self?.resolutionLabel.text = video.resolution
+//            }
+//        }
         
         viewModel?.profileIsAvailable = { [weak self] in
             DispatchQueue.main.async {
