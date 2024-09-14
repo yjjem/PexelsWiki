@@ -12,7 +12,7 @@ struct PhotoResponse: Decodable {
     let url: String
     let photographer: String
     let photographerProfileURL: String
-    let photographerIdentifier: String
+    let photographerIdentifier: Int
     let source: PhotoSourceResponse
     let title: String
     
