@@ -537,7 +537,6 @@
 			children = (
 				DFAC87E22BE8C1A600EC8D4C /* SearchedVideoFile.swift */,
 				DFC289D22B8241100044D0E2 /* User.swift */,
-				DFC289D42B8241180044D0E2 /* ContentResolution.swift */,
 				DFAC87D62BE7D0F800EC8D4C /* PhotoSourceURL.swift */,
 				DFAC87D02BE763B500EC8D4C /* CuratedPhoto.swift */,
 				DFAC87DE2BE8BF9D00EC8D4C /* SearchedPhoto.swift */,
@@ -1015,7 +1014,6 @@
 				DFD266EC2C94A564003BCDF7 /* PhotoSourceResponse.swift in Sources */,
 				DFB285522B8C3B280024FC5B /* UIColor+Pexels.swift in Sources */,
 				DF71D0912C6531F300BB6787 /* FeaturedCollectionsMapping.swift in Sources */,
-				DFC289D52B8241180044D0E2 /* ContentResolution.swift in Sources */,
 				DFD792962A44705C00729C2F /* DiscoverCuratedPhotosService.swift in Sources */,
 				DFFDC86D2B8CA6E800B0E80F /* PhotoDetailViewModel.swift in Sources */,
 				DFD792D42A48565900729C2F /* VideoListViewModel.swift in Sources */,
