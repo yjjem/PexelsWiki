@@ -14,6 +14,7 @@ struct PhotoResponse: Decodable {
     let photographerProfileURL: String
     let photographerIdentifier: Int
     let source: PhotoSourceResponse
+    let averageColor: String
     let title: String
     
     enum CodingKeys: String, CodingKey {
@@ -25,6 +26,7 @@ struct PhotoResponse: Decodable {
         case photographerProfileURL = "photographerUrl"
         case photographerIdentifier = "photographerId"
         case source = "src"
+        case averageColor = "avgColor"
         case title = "alt"
     }
 }
