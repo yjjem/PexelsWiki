@@ -3,16 +3,9 @@
 //  PexelsWiki
 //
 //  Copyright (c) 2024 Jeremy All rights reserved.
-    
 
-struct CollectionsResponse: Decodable {
-    let collectionResources: [CollectionResourceResponse]
-    let page: Int
-    let nextPage: String?
-    let totalResults: Int
-}
 
-struct CollectionResourceResponse: Decodable {
+struct CollectionResponse: Decodable {
     let id: String
     let title: String
     let description: String
