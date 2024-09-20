@@ -28,9 +28,8 @@ final class CuratedPhotosWebRepository: CuratedPhotosPort {
     // MARK: Function(s)
     
     func fetchCuratedPhotos(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
-        
         let fetchCuratedPhotosRequest = apiFactory.makeCuratedPhotosEndPoint(
             page: nextPage(),
             perPage: itemsPerPage
@@ -48,7 +47,7 @@ final class CuratedPhotosWebRepository: CuratedPhotosPort {
                 .map {
                     let page = $0.toPage()
                     self.pages.append(page)
-                    return $0.toCuratedPhotos()
+                    return $0.toDomain()
                 }
                 .mapError { _ in DiscoverCuratedPhotosUseCaseError.invalidPage }
             

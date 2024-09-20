@@ -5,7 +5,7 @@
 //  Copyright (c) 2023 Jeremy All rights reserved.
 
 
-// MARK: VideoListResponse
+// MARK: - VideoListResponse
 
 extension VideoListResponse {
     
@@ -13,93 +13,20 @@ extension VideoListResponse {
         return Page(index: page, hasNext: nextPage != nil)
     }
     
-    func toSearchedVideosResult() -> SearchedVideosResult {
-        return SearchedVideosResult(
-            totalResults: totalResults,
-            videos: toSearchedVideos()
+    func toDomain() -> VideoList {
+        return VideoList(
+            videos: videoResponses.map { $0.toDomain() }
         )
-    }
-    
-    func toSearchedVideos() -> [SearchedVideo] {
-        return videos.map { $0.toSearchedVideo() }
     }
 }
 
-extension VideoResourceResponse {
-
-    private func toUser() -> User {
-        return User(
-            id: userResponse.id,
-            name: userResponse.name,
-            profileURL: userResponse.url
-        )
-    }
-    
-    func toSpecificVideo() -> SpecificVideo {
-        return SpecificVideo(
-            id: id,
-            width: width,
-            height: height,
-            user: toUser(),
-            files: toSpecificVideoFiles()
-        )
-    }
-    
-    func toSearchedVideo() -> SearchedVideo {
-        return SearchedVideo(
-            id: id,
-            user: toUser(),
-            thumbnail: image,
-            duration: duration,
-            width: width,
-            height: height,
-            files: toSearchedVideoFiles()
-        )
-    }
-    
-    func toSearchedVideoFiles() -> [SearchedVideoFile] {
-        return videoFiles.map { file in
-            SearchedVideoFile(
-                id: file.id,
-                width: file.width ?? .zero,
-                height: file.height ?? .zero,
-                quality: file.quality,
-                fileType: file.fileType,
-                url: file.link
-            )
-        }
-    }
-    
-    func toSpecificVideoFiles() -> [SpecificVideoFile] {
-        return videoFiles.map { file in
-            SpecificVideoFile(
-                id: file.id,
-                width: file.width ?? .zero,
-                height: file.height ?? .zero,
-                quality: file.quality,
-                fileType: file.fileType,
-                url: file.link
-            )
-        }
-    }
-}
-
-// MARK: PhotoListResponse
+// MARK: - PhotoListResponse
 
 extension PhotoListResponse {
     
-    func toCuratedPhotos() -> [CuratedPhoto] {
-        return photos.map { $0.toCuratedPhoto() }
-    }
-    
-    func toSearchedPhotos() -> [SearchedPhoto] {
-        return photos.map { $0.toSearchedPhoto() }
-    }
-    
-    func toSearchPhotosResult() -> SearchPhotosResult {
-        return SearchPhotosResult(
-            totalResults: totalResults,
-            photos: toSearchedPhotos()
+    func toDomain() -> PhotoList {
+        return PhotoList(
+            photos: photoResponses.map { $0.toDomain() }
         )
     }
     
@@ -108,61 +35,152 @@ extension PhotoListResponse {
     }
 }
 
-extension PhotoResourceResponse {
+// MARK: - PhotoResponse
+
+extension PhotoResponse {
     
     private func toUser() -> User {
         return User(
-            id: photographerID,
+            id: photographerIdentifier,
             name: photographer,
-            profileURL: photographerURL
+            profileURL: photographerProfileURL
         )
     }
     
     func toPhotoSourceURL() -> PhotoSourceURL {
         return PhotoSourceURL(
-            original: imageSources.original,
-            large: imageSources.large,
-            large2x: imageSources.large2x,
-            medium: imageSources.medium,
-            portrait: imageSources.portrait,
-            landscape: imageSources.landscape,
-            tiny: imageSources.tiny
+            original: source.original,
+            large: source.large,
+            large2x: source.large2x,
+            medium: source.medium,
+            portrait: source.portrait,
+            landscape: source.landscape,
+            tiny: source.tiny
+        )
+    }
+}
+
+// MARK: - UserResponse
+
+extension UserResponse {
+    func toDomain() -> User {
+        return User(id: id, name: name, profileURL: url)
+    }
+}
+
+// MARK: - VideoFileResponse
+
+extension VideoFileResponse {
+    func toDomain() -> VideoFile {
+        return VideoFile(
+            id: id,
+            quality: quality,
+            fileType: fileType,
+            width: width ?? .zero,
+            height: height ?? .zero,
+            fps: fps,
+            hostURL: link
+        )
+    }
+}
+
+// MARK: - VideoResponse
+
+extension VideoResponse {
+    func toDomain() -> Video {
+        return Video(
+            id: id,
+            width: width ?? .zero,
+            height: height ?? .zero,
+            url: sourceURL,
+            thumbnailURL: thumbnailURL,
+            duration: duration,
+            user: userResponse.toDomain(),
+            videoFiles: videoFilesResponse.map { $0.toDomain() }
+        )
+    }
+}
+
+// MARK: - PhotoResponse
+
+extension PhotoResponse {
+    func toDomain() -> Photo {
+        return Photo(
+            id: id,
+            width: width,
+            height: height,
+            url: url,
+            photographer: photographer,
+            photographerProfileURL: photographerProfileURL,
+            photographerIdentifier: photographerIdentifier,
+            title: title,
+            sources: source.toDomain()
+        )
+    }
+}
+
+// MARK: - PhotoSourceResponse
+
+extension PhotoSourceResponse {
+    func toDomain() -> PhotoSourceURL {
+        return PhotoSourceURL(
+            original: original,
+            large: large,
+            large2x: large2x,
+            medium: medium,
+            portrait: portrait,
+            landscape: landscape,
+            tiny: tiny
+        )
+    }
+}
+
+// MARK: - MediaResponse
+
+extension MediaResponse {
+    func toDomain() -> Media {
+        switch self {
+        case .photo(let photoResponse):
+            return .photo(photoResponse.toDomain())
+        case .video(let videoResponse):
+            return .video(videoResponse.toDomain())
+        }
+    }
+}
+
+// MARK: - CollectionMediaResponse
+
+extension CollectionMediaResponse {
+    func toDomain() -> CollectionMedia {
+        return CollectionMedia(
+            id: id,
+            media: mediaResponses.map { $0.toDomain() }
+        )
+    }
+}
+
+extension CollectionListResponse {
+    func toDomain() -> MediaCollectionList {
+        return MediaCollectionList(
+            collections: collections.map { $0.toDomain() }
         )
     }
     
-    func toSearchedPhoto() -> SearchedPhoto {
-        return SearchedPhoto(
-            id: id,
-            title: title,
-            width: width,
-            height: height,
-            averageColor: averageColor,
-            user: toUser(),
-            sources: toPhotoSourceURL()
-        )
+    func toPage() -> Page {
+        return Page(index: page, hasNext: nextPage != nil)
     }
-    
-    func toCuratedPhoto() -> CuratedPhoto {
-        return CuratedPhoto(
+}
+
+extension CollectionResponse {
+    func toDomain() -> MediaCollection {
+        return MediaCollection(
             id: id,
             title: title,
-            width: width,
-            height: height,
-            averageColor: averageColor,
-            user: toUser(),
-            sources: toPhotoSourceURL()
-        )
-    }
-    
-    func toSpecificPhoto() -> SpecificPhoto {
-        return SpecificPhoto(
-            id: id,
-            title: title,
-            width: width,
-            height: height,
-            averageColor: averageColor,
-            user: toUser(),
-            sources: toPhotoSourceURL()
+            description: description,
+            isPrivate: isPrivate,
+            mediaCount: mediaCount,
+            photosCount: photosCount,
+            videosCount: videosCount
         )
     }
 }

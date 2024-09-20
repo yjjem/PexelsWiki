@@ -21,7 +21,7 @@ final class SpecificVideoWebRepository: SpecificVideoPort {
     
     func fetchVideoForID(
         _ id: Int,
-        _ completion: @escaping (Result<SpecificVideo, FetchSpecificVideoUseCaseError>) -> Void
+        _ completion: @escaping (Result<Video, FetchSpecificVideoUseCaseError>) -> Void
     ) -> Cancellable? {
         let endPoint = apiFactory.makeVideoEndPoint(id: id)
         
@@ -34,7 +34,7 @@ final class SpecificVideoWebRepository: SpecificVideoPort {
             
             let finalResult = endPoint
                 .decode(data: receivedData)
-                .map { $0.toSpecificVideo() }
+                .map { $0.toDomain() }
                 .mapError { _ in FetchSpecificVideoUseCaseError.fetchFailed }
             
             completion(finalResult)

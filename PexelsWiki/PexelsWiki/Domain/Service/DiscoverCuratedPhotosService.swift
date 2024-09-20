@@ -21,7 +21,7 @@ final class DiscoverCuratedPhotosService: DiscoverCuratedPhotosUseCase {
     
     @discardableResult
     func fetchCuratedPhotos(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.fetchCuratedPhotos { response in
             completion(response)
@@ -30,7 +30,7 @@ final class DiscoverCuratedPhotosService: DiscoverCuratedPhotosUseCase {
     
     @discardableResult
     func reload(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         port.reset()
         return port.fetchCuratedPhotos { response in

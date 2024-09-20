@@ -33,6 +33,7 @@ final class CollectionMediaWebRepository: FetchCollectionMediaPort {
             response in
             let decodedResponse = response
                 .flatMap { collectionMediaEndPoint.decode(data: $0) }
+                .map  { $0.toDomain() }
                 .mapError { _ in CollectionMediaUseCaseError.unknown }
             completion(decodedResponse)
         }

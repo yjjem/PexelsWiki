@@ -25,7 +25,7 @@ final class PhotosWebRepository: SearchPhotosPort {
     
     func searchPhotos(
         _ parameters: SearchPhotosCommand,
-        _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         
         let endPoint = apiFactory.makeSearchPhotosEndPoint(
@@ -47,7 +47,7 @@ final class PhotosWebRepository: SearchPhotosPort {
                 .decode(data: receivedData)
                 .map {
                     self.pages.append($0.toPage())
-                    return $0.toSearchPhotosResult()
+                    return $0.toDomain()
                 }
                 .mapError { _ in SearchPhotosUseCaseError.searchFailed }
             

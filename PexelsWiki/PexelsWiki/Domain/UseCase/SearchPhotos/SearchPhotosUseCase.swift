@@ -9,6 +9,6 @@ protocol SearchPhotosUseCase {
     @discardableResult
     func search(
         _ command: SearchPhotosCommand,
-        _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable?
 }

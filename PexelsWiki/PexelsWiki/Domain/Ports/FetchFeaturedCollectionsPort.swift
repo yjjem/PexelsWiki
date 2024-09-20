@@ -7,7 +7,7 @@
 
 protocol FetchFeaturedCollectionsPort {
     func fetchFeaturedCollections(
-        _ completion: @escaping (Result<FeaturedCollections, DiscoverFeaturedCollectionUseCaseError>) -> Void
+        _ completion: @escaping (Result<MediaCollectionList, DiscoverFeaturedCollectionUseCaseError>) -> Void
     ) -> Cancellable?
     func resetPages()
 }

@@ -98,8 +98,8 @@ struct APIFactory {
         )
     }
     
-    func makePhotoEndPoint(id: Int) -> EndPoint<PhotoResourceResponse> {
-        return EndPoint<PhotoResourceResponse>(
+    func makePhotoEndPoint(id: Int) -> EndPoint<PhotoResponse> {
+        return EndPoint<PhotoResponse>(
             baseURL: baseURL,
             path: Path.photo(id: id),
             headers: [HeaderKey.authorization: secretKey],
@@ -151,8 +151,8 @@ struct APIFactory {
         )
     }
     
-    func makeVideoEndPoint(id: Int) -> EndPoint<VideoResourceResponse> {
-        return EndPoint<VideoResourceResponse>(
+    func makeVideoEndPoint(id: Int) -> EndPoint<VideoResponse> {
+        return EndPoint<VideoResponse>(
             baseURL: baseURL,
             path: Path.video(id: id),
             headers: [HeaderKey.authorization: secretKey],
@@ -163,8 +163,8 @@ struct APIFactory {
     func makeFeaturedCollectionsEndPoint(
         page: Int, 
         perPage: Int
-    ) -> EndPoint<FeaturedCollectionsResponse> {
-        return EndPoint<FeaturedCollectionsResponse>(
+    ) -> EndPoint<CollectionListResponse> {
+        return EndPoint<CollectionListResponse>(
             baseURL: baseURL,
             path: Path.featuredCollections,
             headers: [HeaderKey.authorization: secretKey],
@@ -176,9 +176,9 @@ struct APIFactory {
         collectionIdentifier: String,
         page: Int,
         itemsPerPage: Int
-    ) -> EndPoint<CollectionMedia> {
-        return EndPoint<CollectionMedia>(
-            baseURL: baseURL, 
+    ) -> EndPoint<CollectionMediaResponse> {
+        return EndPoint<CollectionMediaResponse>(
+            baseURL: baseURL,
             path: Path.collectionMedia + "/\(collectionIdentifier)",
             queries: [
                 QueryKey.page: String(page),

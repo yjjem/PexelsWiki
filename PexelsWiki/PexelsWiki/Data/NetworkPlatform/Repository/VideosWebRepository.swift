@@ -27,7 +27,7 @@ final class VideosWebRepository: SearchVideosPort {
         query: String,
         orientation: String,
         size: String,
-        _ completion: @escaping (Result<SearchedVideosResult, SearchVideosUseCaseError>) -> Void
+        _ completion: @escaping (Result<SearchedVideosList, SearchVideosUseCaseError>) -> Void
     ) -> Cancellable? {
         
         let endPoint = apiFactory.makeSearchVideosEndPoint(
@@ -47,11 +47,14 @@ final class VideosWebRepository: SearchVideosPort {
             
             let finalResult = endPoint.decode(data: receivedData)
                 .map {
-                    self.pages.append($0.toPage())
-                    return $0.toSearchedVideosResult()
+                    let page = $0.toPage()
+                    self.pages.append(page)
+                    return SearchedVideosList(
+                        videoList: $0.toDomain(),
+                        totalResultsFound: $0.totalResults
+                    )
                 }
                 .mapError { _ in SearchVideosUseCaseError.searchFailed }
-            
             completion(finalResult)
         }
     }

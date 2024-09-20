@@ -6,6 +6,6 @@
     
 
 struct SearchedVideosList {
-    let videos: VideoList
+    let videoList: VideoList
     let totalResultsFound: Int
 }

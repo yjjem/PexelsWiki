@@ -22,7 +22,7 @@ struct VideoFile {
     let fileType: String
     let width: Int
     let height: Int
-    let fps: Int
+    let fps: Float
     let hostURL: String
 }
 

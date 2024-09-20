@@ -22,7 +22,7 @@ final class SearchPhotosService: SearchPhotosUseCase {
     @discardableResult
     func search(
         _ command: SearchPhotosCommand,
-        _ completion: @escaping (Result<SearchPhotosResult, SearchPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, SearchPhotosUseCaseError>) -> Void
     ) -> Cancellable? {
         return port.searchPhotos(command) { response in
             completion(response)

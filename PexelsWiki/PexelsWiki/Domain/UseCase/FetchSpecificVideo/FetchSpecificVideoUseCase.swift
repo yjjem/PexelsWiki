@@ -8,6 +8,6 @@
 protocol FetchSpecificVideoUseCase {
     func fetchVideoBy(
         id: Int,
-        _ completion: @escaping (Result<SpecificVideo, FetchSpecificVideoUseCaseError>) -> Void
+        _ completion: @escaping (Result<Video, FetchSpecificVideoUseCaseError>) -> Void
     ) -> Cancellable?
 }

@@ -21,7 +21,7 @@ final class SpecificPhotoWebRepository: SpecificPhotoPort {
     
     func fetchPhotoForID(
         _ id: Int, 
-        _ completion: @escaping (Result<SpecificPhoto, FetchSpecificPhotoUseCaseError>) -> Void
+        _ completion: @escaping (Result<Photo, FetchSpecificPhotoUseCaseError>) -> Void
     ) -> Cancellable? {
         
         let specificPhotoEndPoint = apiFactory.makePhotoEndPoint(id: id)
@@ -35,7 +35,7 @@ final class SpecificPhotoWebRepository: SpecificPhotoPort {
 
             let finalResult = specificPhotoEndPoint
                 .decode(data: receivedData)
-                .map { $0.toSpecificPhoto() }
+                .map { $0.toDomain() }
                 .mapError { _ in FetchSpecificPhotoUseCaseError.fetchFailed }
             
             completion(finalResult)

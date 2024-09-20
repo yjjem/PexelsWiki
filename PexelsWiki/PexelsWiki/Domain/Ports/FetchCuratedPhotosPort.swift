@@ -8,7 +8,7 @@
 protocol CuratedPhotosPort {
     @discardableResult
     func fetchCuratedPhotos(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable?
     
     func reset()

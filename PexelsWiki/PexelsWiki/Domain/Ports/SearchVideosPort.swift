@@ -11,6 +11,6 @@ protocol SearchVideosPort {
         query: String,
         orientation: String,
         size: String,
-        _ completion: @escaping (Result<SearchedVideosResult, SearchVideosUseCaseError>) -> Void
+        _ completion: @escaping (Result<SearchedVideosList, SearchVideosUseCaseError>) -> Void
     ) -> Cancellable?
 }

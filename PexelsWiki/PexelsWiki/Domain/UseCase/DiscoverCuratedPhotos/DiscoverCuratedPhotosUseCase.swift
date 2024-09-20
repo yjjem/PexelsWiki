@@ -8,11 +8,11 @@
 protocol DiscoverCuratedPhotosUseCase {
     @discardableResult
     func fetchCuratedPhotos(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable?
     
     @discardableResult
     func reload(
-        _ completion: @escaping (Result<[CuratedPhoto], DiscoverCuratedPhotosUseCaseError>) -> Void
+        _ completion: @escaping (Result<PhotoList, DiscoverCuratedPhotosUseCaseError>) -> Void
     ) -> Cancellable?
 }
