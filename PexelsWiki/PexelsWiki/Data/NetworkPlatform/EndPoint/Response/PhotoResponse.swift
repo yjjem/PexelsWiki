@@ -30,3 +30,14 @@ struct PhotoResponse: Decodable {
         case title = "alt"
     }
 }
+
+struct PhotoSourceResponse: Decodable {
+    let original: String
+    let large: String
+    let large2x: String
+    let medium: String
+    let portrait: String
+    let landscape: String
+    let tiny: String
+}
+
