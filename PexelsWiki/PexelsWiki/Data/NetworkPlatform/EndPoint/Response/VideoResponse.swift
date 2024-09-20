@@ -22,8 +22,8 @@ struct VideoResponse: Decodable {
         case duration
         case sourceURL = "url"
         case thumbnailURL = "image"
-        case userResponse
-        case videoFilesResponse
+        case userResponse = "user"
+        case videoFilesResponse = "videoFiles"
     }
 }
 
@@ -33,7 +33,7 @@ struct VideoFileResponse: Decodable {
     let fileType: String
     let width: Int?
     let height: Int?
-    let fps: Int
+    let fps: Float
     let link: String
 }
 

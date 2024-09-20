@@ -14,7 +14,8 @@ struct VideoListResponse: Decodable {
     let totalResults: Int
     
     enum CodingKeys: String, CodingKey {
-        case page, url, videoResponses, nextPage, totalResults
+        case page, url, nextPage, totalResults
+        case videoResponses = "videos"
         case previousPage = "prevPage"
     }
 }
