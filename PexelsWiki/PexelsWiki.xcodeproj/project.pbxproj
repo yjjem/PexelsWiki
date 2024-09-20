@@ -92,6 +92,7 @@
 		DFC4E0392C9DD4E4005C296A /* MediaCollectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4E0382C9DD4E4005C296A /* MediaCollectionList.swift */; };
 		DFC4E03D2C9DD6D3005C296A /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4E03C2C9DD6D3005C296A /* PhotoList.swift */; };
 		DFC4E03F2C9DD6E6005C296A /* VIdeoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4E03E2C9DD6E6005C296A /* VIdeoList.swift */; };
+		DFC4E0412C9DE94C005C296A /* SearchedVideosList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4E0402C9DE94C005C296A /* SearchedVideosList.swift */; };
 		DFC521FF2BAEA75D0033DF7B /* ImageUtilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC521FE2BAEA75D0033DF7B /* ImageUtilityManager.swift */; };
 		DFCDD0382B7A010600C7BB7B /* VideoDurationFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */; };
 		DFD266E62C94A14F003BCDF7 /* MediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD266E52C94A14F003BCDF7 /* MediaResponse.swift */; };
@@ -230,6 +231,7 @@
 		DFC4E0382C9DD4E4005C296A /* MediaCollectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionList.swift; sourceTree = "<group>"; };
 		DFC4E03C2C9DD6D3005C296A /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
 		DFC4E03E2C9DD6E6005C296A /* VIdeoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIdeoList.swift; sourceTree = "<group>"; };
+		DFC4E0402C9DE94C005C296A /* SearchedVideosList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedVideosList.swift; sourceTree = "<group>"; };
 		DFC521FE2BAEA75D0033DF7B /* ImageUtilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilityManager.swift; sourceTree = "<group>"; };
 		DFCDD0372B7A010600C7BB7B /* VideoDurationFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDurationFormatter.swift; sourceTree = "<group>"; };
 		DFD266E52C94A14F003BCDF7 /* MediaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResponse.swift; sourceTree = "<group>"; };
@@ -446,7 +448,6 @@
 		DFA491252A3A2065008BC5C4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DFCFF30E2B998BF600947892 /* Model */,
 				DFF438952B8A467000F70230 /* Extensions */,
 				DFF438962B8A46FA00F70230 /* Coordinators */,
 				DFD2E9D02B930C34004390D4 /* Scene */,
@@ -520,6 +521,7 @@
 				DFC4E0382C9DD4E4005C296A /* MediaCollectionList.swift */,
 				DFC4E03C2C9DD6D3005C296A /* PhotoList.swift */,
 				DFC4E03E2C9DD6E6005C296A /* VIdeoList.swift */,
+				DFC4E0402C9DE94C005C296A /* SearchedVideosList.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -589,14 +591,6 @@
 				DF71D08D2C65311400BB6787 /* FeaturedCollectionsResponse.swift */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		DFCFF30E2B998BF600947892 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DF5CADF32C3555F5004642AB /* Model+mapping.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		DFD2E9D02B930C34004390D4 /* Scene */ = {
@@ -999,7 +993,6 @@
 				DFA4915A2A3AF2F7008BC5C4 /* Response+mapping.swift in Sources */,
 				DFD792BA2A46D5EA00729C2F /* PhotoListViewController.swift in Sources */,
 				DFD266E62C94A14F003BCDF7 /* MediaResponse.swift in Sources */,
-				DF5CADF42C3555F5004642AB /* Model+mapping.swift in Sources */,
 				DF5CAE142C464DD9004642AB /* DiscoverFeaturedCollectionUseCaseError.swift in Sources */,
 				DF5CAE1A2C479881004642AB /* FetchFeaturedCollectionsPort.swift in Sources */,
 				DF71D07B2C5E0EA300BB6787 /* SearchNavigatorDataSource.swift in Sources */,
@@ -1031,6 +1024,7 @@
 				DF71D08C2C64A2C300BB6787 /* FeaturedCollectionsWebRepository.swift in Sources */,
 				DFA491302A3AB6C3008BC5C4 /* HTTPMethod.swift in Sources */,
 				DFA6B0FE2C32A75B00F1DEBE /* SearchPhotosPort.swift in Sources */,
+				DFC4E0412C9DE94C005C296A /* SearchedVideosList.swift in Sources */,
 				DF3FC2BC2A3D6A25000DD223 /* CoordinatorProtocol.swift in Sources */,
 				DF20089F2C1C24B6006F4943 /* SearchVideosCommand.swift in Sources */,
 				DFD2E9D32B95B4E7004390D4 /* CacheManager.swift in Sources */,
