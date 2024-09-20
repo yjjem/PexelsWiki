@@ -14,4 +14,5 @@ struct Photo {
     let photographerProfileURL: String
     let photographerIdentifier: Int
     let title: String
+    let sources: PhotoSourceURL
 }
