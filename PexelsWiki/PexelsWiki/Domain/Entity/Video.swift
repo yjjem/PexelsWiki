@@ -24,5 +24,10 @@ struct VideoFile {
     let height: Int
     let fps: Int
     let hostURL: String
-    
+}
+
+extension Video {
+    func userProfileLinkIsAvailable() -> Bool {
+        return user.profileURL.isEmpty
+    }
 }
